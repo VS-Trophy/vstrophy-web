@@ -63,6 +63,11 @@
             <artifactId>cdi-mvp</artifactId>
             <version>0.9.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.vaadin.addon</groupId>
+            <artifactId>cdi-properties</artifactId>
+            <version>0.9.2</version>
+        </dependency>
     </dependencies>
 
     <repositories>
