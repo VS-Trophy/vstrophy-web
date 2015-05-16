@@ -10,4 +10,6 @@ import org.vaadin.addon.cdimvp.MVPView;
  * @author kobashi@burninghammer.ch
  */
 public interface MainView extends MVPView {
+
+    public void setView(final Class<? extends MVPView> viewClass);
 }
