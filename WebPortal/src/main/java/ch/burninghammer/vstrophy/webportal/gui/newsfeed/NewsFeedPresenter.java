@@ -3,6 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newsfeed;
 
+import ch.burninghammer.vstrophy.webportal.entities.news.NewsItemEntityManager;
+import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 
 /**
@@ -12,9 +14,12 @@ import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 @AbstractMVPPresenter.ViewInterface(NewsFeedView.class)
 public class NewsFeedPresenter extends AbstractMVPPresenter<NewsFeedView> {
 
+    @Inject
+    private NewsItemEntityManager newsItemEntityManager;
+
     @Override
     public void viewEntered() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        view.showNewsItems(newsItemEntityManager.getAllNewsItems());
     }
 
 }

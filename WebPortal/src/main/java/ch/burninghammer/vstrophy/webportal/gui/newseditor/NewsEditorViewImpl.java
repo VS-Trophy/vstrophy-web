@@ -4,13 +4,12 @@
 package ch.burninghammer.vstrophy.webportal.gui.newseditor;
 
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
-import com.vaadin.addon.jpacontainer.JPAContainer;
-import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.Table;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
@@ -39,8 +38,6 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
     @PostConstruct
     private void initView() {
         this.setCompositionRoot(mainLayout);
-        JPAContainer<NewsItem> container = JPAContainerFactory.make(NewsItem.class, "ch.vstrophy_WebPortal_PU");
-        newsTable.setContainerDataSource(container);
         newsTable.addValueChangeListener(new NewsListValueChangedListener());
         newsTable.setSelectable(true);
         mainLayout.addComponent(newsTable);
@@ -49,9 +46,17 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
 
     @Override
     public void showSelectedNewsItemDetails() {
-        Item selectedNewsItem = newsTable.getItem(newsTable.getValue());
-        Property property = selectedNewsItem.getItemProperty("text");
-        editor.setPropertyDataSource(property);
+        Object value = newsTable.getValue();
+        if (value != null) {
+            Item selectedNewsItem = newsTable.getItem(value);
+            Property property = selectedNewsItem.getItemProperty("text");
+            editor.setPropertyDataSource(property);
+        }
+    }
+
+    @Override
+    public void showNewsItemlist(List<NewsItem> newsItemlist) {
+
     }
 
     private class NewsListValueChangedListener implements Property.ValueChangeListener {

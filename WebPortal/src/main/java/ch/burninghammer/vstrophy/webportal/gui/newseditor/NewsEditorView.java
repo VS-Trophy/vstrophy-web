@@ -3,6 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newseditor;
 
+import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import java.util.List;
 import org.vaadin.addon.cdimvp.MVPView;
 
 /**
@@ -12,4 +14,6 @@ import org.vaadin.addon.cdimvp.MVPView;
 public interface NewsEditorView extends MVPView {
 
     public void showSelectedNewsItemDetails();
+
+    public void showNewsItemlist(List<NewsItem> newsItemList);
 }

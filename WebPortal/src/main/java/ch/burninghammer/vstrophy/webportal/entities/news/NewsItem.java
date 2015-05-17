@@ -4,12 +4,15 @@
 package ch.burninghammer.vstrophy.webportal.entities.news;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 /**
@@ -28,6 +31,7 @@ public class NewsItem implements Serializable {
     private String title;
     private String text;
     private int version;
+    private Date publicationDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +70,16 @@ public class NewsItem implements Serializable {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "newsitem_publicationDate")
+    public Date getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
 }

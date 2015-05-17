@@ -40,9 +40,6 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     @VerticalLayoutProperties(sizeFull = true)
     private VerticalLayout content;
 
-    @Inject
-    private Instance<MVPView> views;
-
     @PostConstruct
     protected void initView() {
         setSizeFull();
@@ -56,10 +53,9 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     }
 
     @Override
-    public void setView(final Class<? extends MVPView> viewClass) {
-        MVPView view = views.select(viewClass).get();
+    public void setView(MVPView mvpView) {
         content.removeAllComponents();
-        content.addComponent((Component) view);
+        content.addComponent((Component) mvpView);
     }
 
     private class CDIEventCommand implements MenuBar.Command {
