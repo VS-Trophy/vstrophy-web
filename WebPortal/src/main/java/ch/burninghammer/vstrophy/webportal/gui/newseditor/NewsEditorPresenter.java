@@ -3,6 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newseditor;
 
+import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItemEntityManager;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -22,12 +23,16 @@ public class NewsEditorPresenter extends AbstractMVPPresenter<NewsEditorView> {
 
     @Override
     public void viewEntered() {
-        view.showNewsItemlist(newsItemEntityManager.getAllNewsItems());
+        view.showSelectedNewsItemDetails(newsItemEntityManager.getAllNewsItems().get(0));
     }
 
     protected void newsItemSelected(
             @Observes @CDIEvent(NewsEditorCDIEvents.newsItemSelected) final ParameterDTO parameters) {
-        view.showSelectedNewsItemDetails();
+
     }
 
+    protected void newsItemChanged(@Observes @CDIEvent(NewsEditorCDIEvents.newsItemChanged) final ParameterDTO parameters) {
+        NewsItem newsItem = parameters.getPrimaryParameter(NewsItem.class);
+        newsItemEntityManager.saveNewsItem(newsItem);
+    }
 }

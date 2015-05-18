@@ -4,17 +4,14 @@
 package ch.burninghammer.vstrophy.webportal.gui.newseditor;
 
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
-import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.Table;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
 import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
-import org.vaadin.addon.cdiproperties.annotation.RichTextAreaProperties;
 import org.vaadin.addon.cdiproperties.annotation.TableProperties;
 
 /**
@@ -32,8 +29,7 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
     private Table newsTable;
 
     @Inject
-    @RichTextAreaProperties()
-    private RichTextArea editor;
+    private NewsItemForm form;
 
     @PostConstruct
     private void initView() {
@@ -41,17 +37,12 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
         newsTable.addValueChangeListener(new NewsListValueChangedListener());
         newsTable.setSelectable(true);
         mainLayout.addComponent(newsTable);
-        mainLayout.addComponent(editor);
+        mainLayout.addComponent(form);
     }
 
     @Override
-    public void showSelectedNewsItemDetails() {
-        Object value = newsTable.getValue();
-        if (value != null) {
-            Item selectedNewsItem = newsTable.getItem(value);
-            Property property = selectedNewsItem.getItemProperty("text");
-            editor.setPropertyDataSource(property);
-        }
+    public void showSelectedNewsItemDetails(NewsItem newsItem) {
+        form.bindNewsItem(newsItem);
     }
 
     @Override

@@ -10,5 +10,5 @@ package ch.burninghammer.vstrophy.webportal.gui.newseditor;
 public class NewsEditorCDIEvents {
 
     public static final String newsItemSelected = "news_editor_newsItem_selected";
-
+    public static final String newsItemChanged = "news_editor_newsItem_changed";
 }
