@@ -42,7 +42,7 @@ public class NewsItemForm extends ViewComponent {
     private FormLayout formLayout;
 
     @Inject
-    @ButtonProperties(enabled = false)
+    @ButtonProperties(enabled = false, caption = "Speichern")
     private Button button;
 
     private FieldGroup fieldGroup;

@@ -32,6 +32,7 @@ public class NewsItemEntityManager {
 
     public void saveNewsItem(final NewsItem newsItem) {
         em.merge(newsItem);
+
     }
 
 }

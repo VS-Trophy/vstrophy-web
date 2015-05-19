@@ -23,16 +23,17 @@ public class NewsEditorPresenter extends AbstractMVPPresenter<NewsEditorView> {
 
     @Override
     public void viewEntered() {
-        view.showSelectedNewsItemDetails(newsItemEntityManager.getAllNewsItems().get(0));
+        view.showNewsItemlist(newsItemEntityManager.getAllNewsItems());
     }
 
     protected void newsItemSelected(
             @Observes @CDIEvent(NewsEditorCDIEvents.newsItemSelected) final ParameterDTO parameters) {
-
+        view.showSelectedNewsItemDetails();
     }
 
     protected void newsItemChanged(@Observes @CDIEvent(NewsEditorCDIEvents.newsItemChanged) final ParameterDTO parameters) {
         NewsItem newsItem = parameters.getPrimaryParameter(NewsItem.class);
         newsItemEntityManager.saveNewsItem(newsItem);
+        view.showNewsItemlist(newsItemEntityManager.getAllNewsItems());
     }
 }
