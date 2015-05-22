@@ -21,6 +21,9 @@ public class NewsFeedViewImpl extends AbstractMVPView implements NewsFeedView {
     @VerticalLayoutProperties(sizeFull = true)
     private VerticalLayout mainLayout;
 
+    @Inject
+    private NewsItemComponentFactory newsItemComponentFactory;
+
     @PostConstruct
     private void initView() {
         setSizeFull();
@@ -30,6 +33,9 @@ public class NewsFeedViewImpl extends AbstractMVPView implements NewsFeedView {
     @Override
     public void showNewsItems(List<NewsItem> newsItemList) {
         mainLayout.removeAllComponents();
+        for (NewsItem newsItem : newsItemList) {
+            mainLayout.addComponent(newsItemComponentFactory.createNewsItemComponent(newsItem));
+        }
     }
 
 }

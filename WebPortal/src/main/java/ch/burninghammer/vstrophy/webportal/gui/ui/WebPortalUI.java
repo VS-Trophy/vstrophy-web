@@ -4,6 +4,7 @@
 package ch.burninghammer.vstrophy.webportal.gui.ui;
 
 import ch.burninghammer.vstrophy.webportal.gui.main.MainView;
+import com.vaadin.annotations.Theme;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Component;
@@ -18,6 +19,7 @@ import org.vaadin.addon.cdimvp.MVPView;
  * @author kobashi@burninghammer.ch
  */
 @CDIUI("")
+@Theme("valo")
 public class WebPortalUI extends UI {
 
     @Inject

@@ -5,15 +5,18 @@ package ch.burninghammer.vstrophy.webportal.gui.main;
 
 import ch.burninghammer.vstrophy.webportal.gui.newseditor.NewsEditorViewImpl;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedViewImpl;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
 import org.vaadin.addon.cdimvp.MVPView;
-import org.vaadin.addon.cdiproperties.annotation.MenuBarProperties;
+import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
 import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
 
 /**
@@ -29,12 +32,8 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     private Instance<NewsEditorViewImpl> newsEditorView;
 
     @Inject
-    @VerticalLayoutProperties(sizeFull = true)
-    private VerticalLayout mainLayout;
-
-    @Inject
-    @MenuBarProperties()
-    private MenuBar mainMenu;
+    @HorizontalLayoutProperties(sizeFull = true)
+    private HorizontalLayout mainLayout;
 
     @Inject
     @VerticalLayoutProperties(sizeFull = true)
@@ -44,12 +43,28 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     protected void initView() {
         setSizeFull();
         setCompositionRoot(mainLayout);
-        mainMenu.addItem("Newsfeed", new CDIEventCommand(MainMenuCDIEvents.SHOW_NEWSFEED));
-        mainMenu.addItem("News Editor", new CDIEventCommand(MainMenuCDIEvents.SHOW_NEWSEDITOR));
-        mainLayout.addComponent(mainMenu);
+        mainLayout.addComponent(createMainMenu());
         mainLayout.addComponent(content);
-        mainLayout.setExpandRatio(content, 1.0f);
+        mainLayout.setExpandRatio(content, 0.9f);
+    }
 
+    private Component createMainMenu() {
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeUndefined();
+        //layout.setWidth("10%");
+        Button newsFeedButton = new Button();
+        newsFeedButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_NEWSFEED));
+        newsFeedButton.setIcon(FontAwesome.FILE_TEXT_O);
+        newsFeedButton.addStyleName(ValoTheme.BUTTON_HUGE);
+
+        Button newsEditorButton = new Button();
+        newsEditorButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_NEWSEDITOR));
+        newsEditorButton.setIcon(FontAwesome.PENCIL);
+        newsEditorButton.addStyleName(ValoTheme.BUTTON_HUGE);
+
+        layout.addComponent(newsFeedButton);
+        layout.addComponent(newsEditorButton);
+        return layout;
     }
 
     @Override
@@ -58,16 +73,16 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         content.addComponent((Component) mvpView);
     }
 
-    private class CDIEventCommand implements MenuBar.Command {
+    private class CDIEventClickListener implements Button.ClickListener {
 
         private final String cdiEvent;
 
-        public CDIEventCommand(String cdiEvent) {
+        public CDIEventClickListener(String cdiEvent) {
             this.cdiEvent = cdiEvent;
         }
 
         @Override
-        public void menuSelected(MenuBar.MenuItem selectedItem) {
+        public void buttonClick(Button.ClickEvent event) {
             fireViewEvent(cdiEvent, null);
         }
 

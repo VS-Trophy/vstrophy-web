@@ -7,16 +7,18 @@ import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
-import com.vaadin.ui.HorizontalSplitPanel;
-import com.vaadin.ui.Panel;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.VerticalLayout;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
-import org.vaadin.addon.cdiproperties.annotation.HorizontalSplitPanelProperties;
-import org.vaadin.addon.cdiproperties.annotation.PanelProperties;
+import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
+import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
 import org.vaadin.addon.cdiproperties.annotation.TableProperties;
+import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
 
 /**
  *
@@ -25,16 +27,20 @@ import org.vaadin.addon.cdiproperties.annotation.TableProperties;
 public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorView {
 
     @Inject
-    @PanelProperties(sizeFull = true, heightUnits = Unit.PERCENTAGE, heightValue = 100)
-    private Panel mainPanel;
+    @HorizontalLayoutProperties(sizeFull = true)
+    private HorizontalLayout mainLayout;
 
     @Inject
-    @HorizontalSplitPanelProperties(sizeFull = true, locked = true)
-    private HorizontalSplitPanel mainLayout;
-
-    @Inject
-    @TableProperties(immediate = true, sizeFull = true)
+    @TableProperties(immediate = true, sizeUndefined = true)
     private Table newsTable;
+
+    @Inject
+    @VerticalLayoutProperties(sizeUndefined = true, height = "100%")
+    private VerticalLayout tableLayout;
+
+    @Inject
+    @ButtonProperties(caption = "Neu")
+    private Button newNewsItemButton;
 
     @Inject
     private NewsItemForm form;
@@ -42,18 +48,28 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
     @PostConstruct
     private void initView() {
         setSizeFull();
-        this.setCompositionRoot(mainPanel);
-        mainPanel.setContent(mainLayout);
+        this.setCompositionRoot(mainLayout);
         newsTable.addValueChangeListener(new NewsListValueChangedListener());
         newsTable.setSelectable(true);
-        mainLayout.setFirstComponent(newsTable);
-        mainLayout.setSecondComponent(form);
+        tableLayout.addComponent(newsTable);
+        tableLayout.addComponent(newNewsItemButton);
+        newNewsItemButton.addClickListener(new Button.ClickListener() {
+
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                event.getButton().setEnabled(false);
+                fireViewEvent(NewsEditorCDIEvents.newsItemAdd, mainLayout);
+            }
+        });
+        mainLayout.addComponent(tableLayout);
+        mainLayout.addComponent(form);
+        mainLayout.setExpandRatio(form, 1.0f);
     }
 
     @Override
-    public void showSelectedNewsItemDetails() {
-        BeanItem<NewsItem> item = (BeanItem) newsTable.getItem(newsTable.getValue());
-        form.bindNewsItem(item.getBean());
+    public void showNewsItemDetails(NewsItem newsItem) {
+        //     BeanItem<NewsItem> item = (BeanItem) newsTable.getItem(newsTable.getValue());
+        form.bindNewsItem(newsItem);
     }
 
     @Override
@@ -62,7 +78,8 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
         newsItemBeanContainer.setBeanIdProperty("id");
         newsItemBeanContainer.addAll(newsItemlist);
         newsTable.setContainerDataSource(newsItemBeanContainer);
-        newsTable.setVisibleColumns("title", "text", "publicationDate");
+        newsTable.setVisibleColumns("title", "publicationDate");
+        newNewsItemButton.setEnabled(true);
     }
 
     private class NewsListValueChangedListener implements Property.ValueChangeListener {
@@ -70,7 +87,8 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
         @Override
         public void valueChange(Property.ValueChangeEvent event) {
             if (event.getProperty().getValue() != null) {
-                fireViewEvent(NewsEditorCDIEvents.newsItemSelected, event.getProperty().getValue());
+                BeanItem<NewsItem> item = (BeanItem) newsTable.getItem(event.getProperty().getValue());
+                fireViewEvent(NewsEditorCDIEvents.newsItemSelected, item.getBean());
             }
         }
     }
