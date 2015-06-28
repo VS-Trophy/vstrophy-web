@@ -5,10 +5,13 @@ package ch.burninghammer.vstrophy.webportal.gui.main;
 
 import ch.burninghammer.vstrophy.webportal.gui.newseditor.NewsEditorViewImpl;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedViewImpl;
+import com.vaadin.server.ClassResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import javax.annotation.PostConstruct;
@@ -32,8 +35,12 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     private Instance<NewsEditorViewImpl> newsEditorView;
 
     @Inject
+    @VerticalLayoutProperties(sizeFull = true)
+    private VerticalLayout mainLayout;
+
+    @Inject
     @HorizontalLayoutProperties(sizeFull = true)
-    private HorizontalLayout mainLayout;
+    private HorizontalLayout contentLayout;
 
     @Inject
     @VerticalLayoutProperties(sizeFull = true)
@@ -43,9 +50,12 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     protected void initView() {
         setSizeFull();
         setCompositionRoot(mainLayout);
-        mainLayout.addComponent(createMainMenu());
-        mainLayout.addComponent(content);
-        mainLayout.setExpandRatio(content, 0.9f);
+        mainLayout.addComponent(createTitleBar());
+        mainLayout.addComponent(contentLayout);
+        mainLayout.setExpandRatio(contentLayout, 1.0f);
+        contentLayout.addComponent(createMainMenu());
+        contentLayout.addComponent(content);
+        contentLayout.setExpandRatio(content, 0.9f);
     }
 
     private Component createMainMenu() {
@@ -65,6 +75,19 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         layout.addComponent(newsFeedButton);
         layout.addComponent(newsEditorButton);
         return layout;
+    }
+
+    private Component createTitleBar() {
+        HorizontalLayout titleBarLayout = new HorizontalLayout();
+        titleBarLayout.setSpacing(true);
+        titleBarLayout.setSizeUndefined();
+        Image logo = new Image(null, new ClassResource("/pics/Logo.png"));
+        Label title = new Label("VS-Trophy Webportal");
+        title.addStyleName("h1");
+
+        titleBarLayout.addComponent(logo);
+        titleBarLayout.addComponent(title);
+        return titleBarLayout;
     }
 
     @Override
