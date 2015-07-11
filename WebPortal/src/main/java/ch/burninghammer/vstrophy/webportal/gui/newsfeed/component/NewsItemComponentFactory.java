@@ -5,7 +5,7 @@ package ch.burninghammer.vstrophy.webportal.gui.newsfeed.component;
 
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
 import com.vaadin.ui.Component;
-import events.VSTrophyMVPView;
+import ch.burninghammer.vstrophy.webportal.events.VSTrophyMVPView;
 import javax.ejb.Stateless;
 
 /**

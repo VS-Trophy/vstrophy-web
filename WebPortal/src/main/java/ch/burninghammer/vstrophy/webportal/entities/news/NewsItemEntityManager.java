@@ -32,12 +32,6 @@ public class NewsItemEntityManager {
         return query.getResultList();
     }
 
-    public NewsItem createNewsItem() {
-        final NewsItem newsItem = new NewsItem();
-        em.persist(newsItem);
-        return newsItem;
-    }
-
     public void saveNewsItem(final NewsItem newsItem) {
         em.merge(newsItem);
 

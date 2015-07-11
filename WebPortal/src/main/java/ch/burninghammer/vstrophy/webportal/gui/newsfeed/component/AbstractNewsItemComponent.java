@@ -10,7 +10,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-import events.VSTrophyMVPView;
+import ch.burninghammer.vstrophy.webportal.events.VSTrophyMVPView;
 import java.text.DateFormat;
 import org.vaadin.addon.cdimvp.ViewComponent;
 

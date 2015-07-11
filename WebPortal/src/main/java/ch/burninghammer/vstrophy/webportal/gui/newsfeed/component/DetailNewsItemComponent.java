@@ -10,7 +10,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.themes.ValoTheme;
-import events.VSTrophyMVPView;
+import ch.burninghammer.vstrophy.webportal.events.VSTrophyMVPView;
 
 /**
  *
