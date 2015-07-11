@@ -19,8 +19,16 @@ public class NewsItemEntityManager {
     @PersistenceContext(unitName = "ch.vstrophy_WebPortal_PU")
     private EntityManager em;
 
+    private static final String GET_ALL_QUERY = "SELECT n FROM NewsItem n order by n.publicationDate desc";
+
     public List<NewsItem> getAllNewsItems() {
-        TypedQuery<NewsItem> query = em.createQuery("SELECT n FROM NewsItem n", NewsItem.class);
+        TypedQuery<NewsItem> query = em.createQuery(GET_ALL_QUERY, NewsItem.class);
+        return query.getResultList();
+    }
+
+    public List<NewsItem> getMostRecentNewsItems(int numberOfItems) {
+        TypedQuery<NewsItem> query = em.createQuery(GET_ALL_QUERY, NewsItem.class);
+        query.setMaxResults(numberOfItems);
         return query.getResultList();
     }
 

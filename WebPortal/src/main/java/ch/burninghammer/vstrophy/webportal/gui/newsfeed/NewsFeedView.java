@@ -13,5 +13,7 @@ import org.vaadin.addon.cdimvp.MVPView;
  */
 public interface NewsFeedView extends MVPView {
 
+    public void showNewsItem(NewsItem newsItem);
+
     public void showNewsItems(List<NewsItem> newsItemList);
 }
