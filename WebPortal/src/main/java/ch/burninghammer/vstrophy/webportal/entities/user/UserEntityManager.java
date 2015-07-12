@@ -3,9 +3,11 @@
  */
 package ch.burninghammer.vstrophy.webportal.entities.user;
 
+import java.util.List;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -19,5 +21,10 @@ public class UserEntityManager {
 
     public void saveUser(final User user) {
         em.merge(user);
+    }
+
+    public List<User> getAllUsers() {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+        return query.getResultList();
     }
 }

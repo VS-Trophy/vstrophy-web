@@ -4,6 +4,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:/jboss/datasources/MySQL</jta-data-source>
         <class>ch.burninghammer.vstrophy.webportal.entities.news.NewsItem</class>
+        <class>ch.burninghammer.vstrophy.webportal.entities.user.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

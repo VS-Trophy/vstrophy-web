@@ -125,6 +125,33 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <!-- Version 2.1.0-1 works at least with Vaadin 6.5 -->
+                <version>2.7.0</version>
+                <configuration>
+                    <!-- if you don't specify any modules, the plugin will find them -->
+                    <!--modules>
+                        ..
+                    </modules-->
+                    <webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
+                    <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+                    <runTarget>clean</runTarget>
+                    <hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+                    <noServer>true</noServer>
+                    <port>8080</port>
+                    <soyc>false</soyc>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>resources</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
                 <version>7.4.5</version>
@@ -145,7 +172,7 @@
                         </configuration>
                         <goals>
                             <goal>resources</goal>
-                            <goal>update-widgetset</goal>
+                            <!--<goal>update-widgetset</goal>-->
                             <goal>compile</goal>
                         </goals>
                     </execution>

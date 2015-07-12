@@ -20,8 +20,9 @@ public class User {
 
     private int id;
     private String name;
-    private String password;
+    private byte[] password;
     private boolean isAdmin;
+    private byte[] salt;
 
     public User() {
 
@@ -38,7 +39,7 @@ public class User {
         this.id = id;
     }
 
-    @Column(name = "user_name", nullable = false)
+    @Column(name = "user_name", nullable = false, unique = true)
     public String getName() {
         return name;
     }
@@ -48,11 +49,11 @@ public class User {
     }
 
     @Column(name = "user_password", nullable = false)
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(byte[] password) {
         this.password = password;
     }
 
@@ -61,7 +62,16 @@ public class User {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
+    @Column(name = "user_salt", nullable = false)
+    public byte[] getSalt() {
+        return this.salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
+
+    public void setAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 

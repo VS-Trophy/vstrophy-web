@@ -9,6 +9,7 @@ import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
 import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
 import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
+import org.vaadin.addon.cdiproperties.annotation.PanelProperties;
 import org.vaadin.addon.cdiproperties.annotation.TableProperties;
 import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
 
@@ -27,7 +29,11 @@ import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
 public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorView {
 
     @Inject
-    @HorizontalLayoutProperties(sizeFull = true)
+    @PanelProperties(sizeFull = true)
+    private Panel mainPanel;
+
+    @Inject
+    @HorizontalLayoutProperties(sizeFull = true, margin = true)
     private HorizontalLayout mainLayout;
 
     @Inject
@@ -48,7 +54,8 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
     @PostConstruct
     private void initView() {
         setSizeFull();
-        this.setCompositionRoot(mainLayout);
+        this.setCompositionRoot(mainPanel);
+        mainPanel.setContent(mainLayout);
         newsTable.addValueChangeListener(new NewsListValueChangedListener());
         newsTable.setSelectable(true);
         tableLayout.addComponent(newsTable);
@@ -58,17 +65,17 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 event.getButton().setEnabled(false);
-                fireViewEvent(NewsEditorCDIEvents.newsItemAdd, mainLayout);
+                fireViewEvent(NewsEditorCDIEvents.NEWS_ITEM_ADD, mainLayout);
             }
         });
         mainLayout.addComponent(tableLayout);
-        mainLayout.addComponent(form);
-        mainLayout.setExpandRatio(form, 1.0f);
+
     }
 
     @Override
     public void showNewsItemDetails(NewsItem newsItem) {
-        //     BeanItem<NewsItem> item = (BeanItem) newsTable.getItem(newsTable.getValue());
+        mainLayout.addComponent(form);
+        mainLayout.setExpandRatio(form, 1.0f);
         form.bindNewsItem(newsItem);
     }
 
@@ -80,6 +87,7 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
         newsTable.setContainerDataSource(newsItemBeanContainer);
         newsTable.setVisibleColumns("title", "publicationDate");
         newNewsItemButton.setEnabled(true);
+        mainLayout.removeComponent(form);
     }
 
     private class NewsListValueChangedListener implements Property.ValueChangeListener {
@@ -88,7 +96,7 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
         public void valueChange(Property.ValueChangeEvent event) {
             if (event.getProperty().getValue() != null) {
                 BeanItem<NewsItem> item = (BeanItem) newsTable.getItem(event.getProperty().getValue());
-                fireViewEvent(NewsEditorCDIEvents.newsItemSelected, item.getBean());
+                fireViewEvent(NewsEditorCDIEvents.NEWS_ITEM_SELECTED, item.getBean());
             }
         }
     }

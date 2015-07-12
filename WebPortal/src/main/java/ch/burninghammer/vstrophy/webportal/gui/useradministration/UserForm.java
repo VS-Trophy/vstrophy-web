@@ -1,16 +1,16 @@
 /*
  * Copyright 2015 Burning Hammer. All rights reserved.
  */
-package ch.burninghammer.vstrophy.webportal.gui.newseditor;
+package ch.burninghammer.vstrophy.webportal.gui.useradministration;
 
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.webportal.entities.user.User;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.DateField;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.RichTextArea;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,31 +18,30 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.ViewComponent;
 import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
-import org.vaadin.addon.cdiproperties.annotation.DateFieldProperties;
+import org.vaadin.addon.cdiproperties.annotation.CheckBoxProperties;
 import org.vaadin.addon.cdiproperties.annotation.FormLayoutProperties;
-import org.vaadin.addon.cdiproperties.annotation.RichTextAreaProperties;
+import org.vaadin.addon.cdiproperties.annotation.PasswordFieldProperties;
 import org.vaadin.addon.cdiproperties.annotation.TextFieldProperties;
 
 /**
  *
  * @author kobashi@burninghammer.ch
  */
-public class NewsItemForm extends ViewComponent {
+public class UserForm extends ViewComponent {
 
-    @PropertyId("title")
+    @PropertyId("name")
     @Inject
     @TextFieldProperties(immediate = true, caption = "Titel")
-    private TextField titleTextField;
+    private TextField nameTextField;
 
     @Inject
-    @PropertyId("text")
-    @RichTextAreaProperties(immediate = true, sizeFull = true, caption = "Inhalt")
-    private RichTextArea textTextArea;
+    @PasswordFieldProperties(caption = "Passwort", immediate = true)
+    private PasswordField passwordField;
 
     @Inject
-    @PropertyId("publicationDate")
-    @DateFieldProperties(immediate = true, caption = "Datum")
-    private DateField dateField;
+    @PropertyId("admin")
+    @CheckBoxProperties(caption = "Administrator", immediate = true)
+    private CheckBox adminCheckbox;
 
     @Inject
     @FormLayoutProperties(sizeFull = true)
@@ -54,13 +53,13 @@ public class NewsItemForm extends ViewComponent {
 
     private FieldGroup fieldGroup;
 
-    private NewsItem newsItem;
+    private User user;
 
     @PostConstruct
     public void init() {
-        formLayout.addComponent(titleTextField);
-        formLayout.addComponent(textTextArea);
-        formLayout.addComponent(dateField);
+        formLayout.addComponent(nameTextField);
+        formLayout.addComponent(passwordField);
+        formLayout.addComponent(adminCheckbox);
         setCompositionRoot(formLayout);
         formLayout.addComponent(button);
         button.addClickListener(new Button.ClickListener() {
@@ -71,17 +70,17 @@ public class NewsItemForm extends ViewComponent {
                     fieldGroup.commit();
                     fieldGroup.clear();
                 } catch (FieldGroup.CommitException ex) {
-                    Logger.getLogger(NewsItemForm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                fireViewEvent(NewsEditorCDIEvents.NEWS_ITEM_CHANGED, newsItem);
+                fireViewEvent(UserAdministrationCDIEvents.USER_CHANGED, user, passwordField.getValue());
             }
         });
     }
 
-    public void bindNewsItem(NewsItem newsItem) {
-        fieldGroup = new FieldGroup(new BeanItem<>(newsItem));
+    public void bindUser(User user) {
+        fieldGroup = new FieldGroup(new BeanItem<>(user));
         fieldGroup.bindMemberFields(this);
-        this.newsItem = newsItem;
+        this.user = user;
         button.setEnabled(true);
     }
 

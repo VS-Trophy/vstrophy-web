@@ -28,18 +28,18 @@ public class NewsEditorPresenter extends AbstractMVPPresenter<NewsEditorView> {
     }
 
     protected void newsItemSelected(
-            @Observes @CDIEvent(NewsEditorCDIEvents.newsItemSelected) final ParameterDTO parameters) {
+            @Observes @CDIEvent(NewsEditorCDIEvents.NEWS_ITEM_SELECTED) final ParameterDTO parameters) {
         NewsItem newsItem = parameters.getPrimaryParameter(NewsItem.class);
         view.showNewsItemDetails(newsItem);
     }
 
-    protected void newsItemChanged(@Observes @CDIEvent(NewsEditorCDIEvents.newsItemChanged) final ParameterDTO parameters) {
+    protected void newsItemChanged(@Observes @CDIEvent(NewsEditorCDIEvents.NEWS_ITEM_CHANGED) final ParameterDTO parameters) {
         NewsItem newsItem = parameters.getPrimaryParameter(NewsItem.class);
         newsItemEntityManager.saveNewsItem(newsItem);
         view.showNewsItemlist(newsItemEntityManager.getAllNewsItems());
     }
 
-    protected void newsItemAdd(@Observes @CDIEvent(NewsEditorCDIEvents.newsItemAdd) final ParameterDTO parameters) {
+    protected void newsItemAdd(@Observes @CDIEvent(NewsEditorCDIEvents.NEWS_ITEM_ADD) final ParameterDTO parameters) {
         NewsItem newsItem = new NewsItem();
         newsItem.setTitle("Titel");
         newsItem.setText("Text");

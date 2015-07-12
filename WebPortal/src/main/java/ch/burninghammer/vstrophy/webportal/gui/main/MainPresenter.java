@@ -5,6 +5,7 @@ package ch.burninghammer.vstrophy.webportal.gui.main;
 
 import ch.burninghammer.vstrophy.webportal.gui.newseditor.NewsEditorView;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedView;
+import ch.burninghammer.vstrophy.webportal.gui.useradministration.UserAdministrationView;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -32,6 +33,11 @@ public class MainPresenter extends AbstractMVPPresenter<MainView> {
     protected void navigateToNewsEditor(
             @Observes @CDIEvent(MainMenuCDIEvents.SHOW_NEWSEDITOR) final ParameterDTO parameters) {
         navigateToView(NewsEditorView.class);
+    }
+
+    protected void navigateToUserAdministration(
+            @Observes @CDIEvent(MainMenuCDIEvents.SHOW_USER_ADMINISTRATION) final ParameterDTO parameters) {
+        navigateToView(UserAdministrationView.class);
     }
 
     private void navigateToView(final Class<? extends MVPView> viewClass) {

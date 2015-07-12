@@ -4,8 +4,8 @@
 package ch.burninghammer.vstrophy.webportal.gui.newsfeed.component;
 
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
-import com.vaadin.ui.Component;
 import ch.burninghammer.vstrophy.webportal.events.VSTrophyMVPView;
+import com.vaadin.ui.Component;
 import javax.ejb.Stateless;
 
 /**
@@ -17,13 +17,13 @@ public class NewsItemComponentFactory {
 
     public Component createCompactNewsItemComponent(NewsItem newsItem, VSTrophyMVPView view) {
         Component component = new FeedNewsItemComponent(newsItem, view);
-        component.setWidth("80%");
+        component.setWidth("90%");
         return component;
     }
 
     public Component createFullNewsItemComponent(NewsItem newsItem, VSTrophyMVPView view) {
         Component component = new DetailNewsItemComponent(newsItem, view);
-        component.setWidth("80%");
+        component.setWidth("90%");
         return component;
     }
 }

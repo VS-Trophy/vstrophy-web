@@ -9,7 +9,7 @@ package ch.burninghammer.vstrophy.webportal.gui.newseditor;
  */
 public class NewsEditorCDIEvents {
 
-    public static final String newsItemSelected = "news_editor_newsItem_selected";
-    public static final String newsItemChanged = "news_editor_newsItem_changed";
-    public static final String newsItemAdd = "news_editor_newsItem_add";
+    public static final String NEWS_ITEM_SELECTED = "news_editor_newsItem_selected";
+    public static final String NEWS_ITEM_CHANGED = "news_editor_newsItem_changed";
+    public static final String NEWS_ITEM_ADD = "news_editor_newsItem_add";
 }
