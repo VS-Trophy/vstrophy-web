@@ -6,6 +6,7 @@ package ch.burninghammer.vstrophy.webportal.entities.user;
 import java.util.List;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -26,5 +27,15 @@ public class UserEntityManager {
     public List<User> getAllUsers() {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();
+    }
+
+    public User getUser(String username) {
+        try {
+            TypedQuery<User> query = em.createQuery("SELECT u from User u WHERE u.name=:username", User.class);
+            query.setParameter("username", username);
+            return query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

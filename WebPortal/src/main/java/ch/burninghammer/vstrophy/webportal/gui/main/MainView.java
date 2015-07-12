@@ -12,4 +12,5 @@ import org.vaadin.addon.cdimvp.MVPView;
 public interface MainView extends MVPView {
 
     public void setView(MVPView view);
+
 }

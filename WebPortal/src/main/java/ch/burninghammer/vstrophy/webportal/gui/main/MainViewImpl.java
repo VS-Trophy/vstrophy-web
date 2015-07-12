@@ -3,6 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main;
 
+import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginForm;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.MarginInfo;
@@ -12,6 +13,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.PopupView;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import javax.annotation.PostConstruct;
@@ -40,6 +42,9 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     @Inject
     @VerticalLayoutProperties(sizeFull = true)
     private VerticalLayout content;
+
+    @Inject
+    private LoginForm loginForm;
 
     @PostConstruct
     protected void initView() {
@@ -89,8 +94,9 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     private Component createTitleBar() {
         HorizontalLayout titleBarLayout = new HorizontalLayout();
         titleBarLayout.setSpacing(true);
+        titleBarLayout.setMargin(new MarginInfo(false, true, false, false));
         titleBarLayout.setSizeUndefined();
-
+        titleBarLayout.setWidth("100%");
         VerticalLayout logoLayout = new VerticalLayout();
 
         Image logo = new Image(null, new ClassResource("/pics/Logo.png"));
@@ -100,8 +106,13 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         Label title = new Label("VS-Trophy Webportal");
         title.addStyleName("h1");
 
+        PopupView loginPopup = new PopupView("Einloggen", loginForm);
+        loginPopup.setHideOnMouseOut(false);
+
         titleBarLayout.addComponent(logoLayout);
         titleBarLayout.addComponent(title);
+        titleBarLayout.addComponent(loginPopup);
+        titleBarLayout.setComponentAlignment(loginPopup, Alignment.BOTTOM_RIGHT);
         return titleBarLayout;
     }
 
