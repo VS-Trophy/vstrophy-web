@@ -1,9 +1,10 @@
 /*
  * Copyright 2015 Burning Hammer. All rights reserved.
  */
-package ch.burninghammer.vstrophy.webportal.gui.newseditor;
+package ch.burninghammer.vstrophy.webportal.gui.main.teameditor;
 
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
@@ -26,19 +27,17 @@ import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
  *
  * @author kobashi@burninghammer.ch
  */
-public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorView {
+public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorView {
 
     @Inject
     @PanelProperties(sizeFull = true)
     private Panel mainPanel;
-
     @Inject
     @HorizontalLayoutProperties(sizeFull = true, margin = true)
     private HorizontalLayout mainLayout;
-
     @Inject
     @TableProperties(immediate = true, sizeUndefined = true)
-    private Table newsTable;
+    private Table teamTable;
 
     @Inject
     @VerticalLayoutProperties(sizeUndefined = true, height = "100%")
@@ -46,26 +45,37 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
 
     @Inject
     @ButtonProperties(caption = "Neu")
-    private Button newNewsItemButton;
+    private Button newTeamButton;
 
     @Inject
-    private NewsItemForm form;
+    private TeamForm form;
+
+    @Override
+    public void showTeamList(List<Team> teams) {
+        BeanContainer<Integer, Team> TeamBeanContainer = new BeanContainer<>(Team.class);
+        TeamBeanContainer.setBeanIdProperty("id");
+        TeamBeanContainer.addAll(teams);
+        teamTable.setContainerDataSource(TeamBeanContainer);
+        teamTable.setVisibleColumns("name");
+        newTeamButton.setEnabled(true);
+        mainLayout.removeComponent(form);
+    }
 
     @PostConstruct
     private void initView() {
         setSizeFull();
         this.setCompositionRoot(mainPanel);
         mainPanel.setContent(mainLayout);
-        newsTable.addValueChangeListener(new NewsListValueChangedListener());
-        newsTable.setSelectable(true);
-        tableLayout.addComponent(newsTable);
-        tableLayout.addComponent(newNewsItemButton);
-        newNewsItemButton.addClickListener(new Button.ClickListener() {
+        teamTable.addValueChangeListener(new TeamListValueChangedListener());
+        teamTable.setSelectable(true);
+        tableLayout.addComponent(teamTable);
+        tableLayout.addComponent(newTeamButton);
+        newTeamButton.addClickListener(new Button.ClickListener() {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 event.getButton().setEnabled(false);
-                fireViewEvent(NewsEditorCDIEvents.NEWS_ITEM_ADD, null);
+                fireViewEvent(TeamEditorCDIEvents.TEAM_ADD, null);
             }
         });
         mainLayout.addComponent(tableLayout);
@@ -73,30 +83,18 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
     }
 
     @Override
-    public void showNewsItemDetails(NewsItem newsItem) {
+    public void showTeam(Team team) {
         mainLayout.addComponent(form);
-        mainLayout.setExpandRatio(form, 1.0f);
-        form.bindNewsItem(newsItem);
+        form.bindTeam(team);
     }
 
-    @Override
-    public void showNewsItemlist(List<NewsItem> newsItemlist) {
-        BeanContainer<Integer, NewsItem> newsItemBeanContainer = new BeanContainer<>(NewsItem.class);
-        newsItemBeanContainer.setBeanIdProperty("id");
-        newsItemBeanContainer.addAll(newsItemlist);
-        newsTable.setContainerDataSource(newsItemBeanContainer);
-        newsTable.setVisibleColumns("title", "publicationDate");
-        newNewsItemButton.setEnabled(true);
-        mainLayout.removeComponent(form);
-    }
-
-    private class NewsListValueChangedListener implements Property.ValueChangeListener {
+    private class TeamListValueChangedListener implements Property.ValueChangeListener {
 
         @Override
         public void valueChange(Property.ValueChangeEvent event) {
             if (event.getProperty().getValue() != null) {
-                BeanItem<NewsItem> item = (BeanItem) newsTable.getItem(event.getProperty().getValue());
-                fireViewEvent(NewsEditorCDIEvents.NEWS_ITEM_SELECTED, item.getBean());
+                BeanItem<NewsItem> item = (BeanItem) teamTable.getItem(event.getProperty().getValue());
+                fireViewEvent(TeamEditorCDIEvents.TEAM_SELECTED, item.getBean());
             }
         }
     }

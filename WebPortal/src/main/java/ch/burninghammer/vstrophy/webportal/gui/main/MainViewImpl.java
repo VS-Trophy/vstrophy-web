@@ -15,6 +15,8 @@ import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
@@ -29,7 +31,7 @@ import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
  */
 public class MainViewImpl extends AbstractMVPView implements MainView {
 
-    private static final String MENU_WIDTH = "150px";
+    private static final String MENU_WIDTH = "120px";
 
     @Inject
     @VerticalLayoutProperties(sizeFull = true)
@@ -55,6 +57,12 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     @Inject
     @ButtonProperties(caption = "Teams")
     private Button teamsButton;
+    @Inject
+    @ButtonProperties(caption = "Team Editor")
+    private Button teamEditorButton;
+
+    private List<Button> publicButtons;
+    private List<Button> allButtons;
 
     @Inject
     @VerticalLayoutProperties()
@@ -101,6 +109,23 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         teamsButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
         teamsButton.setSizeFull();
 
+        teamEditorButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_TEAM_EDITOR));
+        teamEditorButton.setIcon(FontAwesome.PENCIL);
+        teamEditorButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
+        teamEditorButton.setSizeFull();
+
+        publicButtons = new ArrayList<>();
+        allButtons = new ArrayList<>();
+
+        allButtons.add(newsFeedButton);
+        allButtons.add(teamsButton);
+        allButtons.add(newsEditorButton);
+        allButtons.add(teamEditorButton);
+        allButtons.add(userAdministrationButton);
+
+        publicButtons.add(newsFeedButton);
+        publicButtons.add(teamsButton);
+
         return mainMenuLayout;
     }
 
@@ -135,18 +160,18 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     @Override
     public void showAllButtons() {
         mainMenuLayout.removeAllComponents();
-        mainMenuLayout.addComponent(newsFeedButton);
-        mainMenuLayout.addComponent(teamsButton);
-        mainMenuLayout.addComponent(newsEditorButton);
-        mainMenuLayout.addComponent(userAdministrationButton);
+        for (Button button : allButtons) {
+            mainMenuLayout.addComponent(button);
+        }
 
     }
 
     @Override
     public void showPublicButtons() {
         mainMenuLayout.removeAllComponents();
-        mainMenuLayout.addComponent(newsFeedButton);
-        mainMenuLayout.addComponent(teamsButton);
+        for (Button button : publicButtons) {
+            mainMenuLayout.addComponent(button);
+        }
 
     }
 

@@ -6,6 +6,8 @@ package ch.burninghammer.vstrophy.webportal.gui.main;
 import ch.burninghammer.vstrophy.webportal.entities.user.User;
 import ch.burninghammer.vstrophy.webportal.entities.user.UserEntityManager;
 import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginProvider;
+import ch.burninghammer.vstrophy.webportal.gui.main.teameditor.TeamEditorView;
+import ch.burninghammer.vstrophy.webportal.gui.main.teams.TeamsView;
 import ch.burninghammer.vstrophy.webportal.gui.newseditor.NewsEditorView;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedView;
 import ch.burninghammer.vstrophy.webportal.gui.useradministration.UserAdministrationView;
@@ -57,6 +59,16 @@ public class MainPresenter extends AbstractMVPPresenter<MainView> implements Log
     protected void navigateToUserAdministration(
             @Observes @CDIEvent(MainMenuCDIEvents.SHOW_USER_ADMINISTRATION) final ParameterDTO parameters) {
         navigateToView(UserAdministrationView.class);
+    }
+
+    protected void navigateToTeamEditor(
+            @Observes @CDIEvent(MainMenuCDIEvents.SHOW_TEAM_EDITOR) final ParameterDTO parameters) {
+        navigateToView(TeamEditorView.class);
+    }
+
+    protected void navigateToTeams(
+            @Observes @CDIEvent(MainMenuCDIEvents.SHOW_TEAMS) final ParameterDTO parameters) {
+        navigateToView(TeamsView.class);
     }
 
     protected void loginClicked(@Observes @CDIEvent(MainMenuCDIEvents.LOGIN_CLICKED) final ParameterDTO parameters) {
