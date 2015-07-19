@@ -19,7 +19,7 @@ import org.vaadin.addon.cdimvp.MVPView;
  * @author kobashi@burninghammer.ch
  */
 @CDIUI("")
-@Theme("valo")
+@Theme("VSTrophyWebPortalTheme")
 public class WebPortalUI extends UI {
 
     @Inject
