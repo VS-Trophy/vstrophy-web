@@ -3,11 +3,14 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main;
 
+import ch.burninghammer.vstrophy.webportal.entities.user.User;
+import ch.burninghammer.vstrophy.webportal.entities.user.UserEntityManager;
+import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginProvider;
 import ch.burninghammer.vstrophy.webportal.gui.newseditor.NewsEditorView;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedView;
 import ch.burninghammer.vstrophy.webportal.gui.useradministration.UserAdministrationView;
 import ch.burninghammer.vstrophy.webportal.security.PasswordUtils;
-import com.vaadin.ui.Notification;
+import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -22,7 +25,7 @@ import org.vaadin.addon.cdimvp.ParameterDTO;
  * @author kobashi@burninghammer.ch
  */
 @AbstractMVPPresenter.ViewInterface(MainView.class)
-public class MainPresenter extends AbstractMVPPresenter<MainView> {
+public class MainPresenter extends AbstractMVPPresenter<MainView> implements LoginProvider.LoginChangeListener {
 
     @Inject
     private Instance<MVPView> views;
@@ -30,9 +33,20 @@ public class MainPresenter extends AbstractMVPPresenter<MainView> {
     @Inject
     private PasswordUtils passwordUtils;
 
+    @Inject
+    private LoginProvider loginProvider;
+
+    @Inject
+    private UserEntityManager userEntityManager;
+
     protected void navigateToNewsFeed(
             @Observes @CDIEvent(MainMenuCDIEvents.SHOW_NEWSFEED) final ParameterDTO parameters) {
         navigateToView(NewsFeedView.class);
+    }
+
+    @PostConstruct
+    private void init() {
+        loginProvider.addLoginChangeListener(this);
     }
 
     protected void navigateToNewsEditor(
@@ -48,7 +62,13 @@ public class MainPresenter extends AbstractMVPPresenter<MainView> {
     protected void loginClicked(@Observes @CDIEvent(MainMenuCDIEvents.LOGIN_CLICKED) final ParameterDTO parameters) {
         String username = parameters.getPrimaryParameter(String.class);
         String password = parameters.getSecondaryParameter(0, String.class);
-        Notification.show(passwordUtils.checkCredentials(username, password) + "");
+        if (passwordUtils.checkCredentials(username, password)) {
+            loginProvider.setUser(userEntityManager.getUser(username));
+        }
+    }
+
+    protected void logoutClicked(@Observes @CDIEvent(MainMenuCDIEvents.LOGOUT_CLICKED) final ParameterDTO parameters) {
+        loginProvider.setUser(null);
     }
 
     private void navigateToView(final Class<? extends MVPView> viewClass) {
@@ -60,6 +80,16 @@ public class MainPresenter extends AbstractMVPPresenter<MainView> {
     @Override
     public void viewEntered() {
         navigateToNewsFeed(null);
+        loginChanged(loginProvider.getUser());
+    }
+
+    @Override
+    public void loginChanged(User newUser) {
+        if (newUser == null || !newUser.isAdmin()) {
+            view.showPublicButtons();
+        } else {
+            view.showAllButtons();
+        }
     }
 
 }

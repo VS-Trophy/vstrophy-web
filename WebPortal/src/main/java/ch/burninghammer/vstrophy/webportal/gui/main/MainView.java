@@ -13,4 +13,8 @@ public interface MainView extends MVPView {
 
     public void setView(MVPView view);
 
+    public void showAllButtons();
+
+    public void showPublicButtons();
+
 }

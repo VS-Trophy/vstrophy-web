@@ -11,14 +11,14 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author kobashi@burninghammer.ch
  */
-@Singleton
+@Stateless
 public class PasswordUtils {
 
     private static final int BYTE_LENGTH = 32;

@@ -4,7 +4,7 @@
 package ch.burninghammer.vstrophy.webportal.gui.main.login;
 
 import ch.burninghammer.vstrophy.webportal.gui.main.MainMenuCDIEvents;
-import com.vaadin.cdi.UIScoped;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.PasswordField;
@@ -21,7 +21,6 @@ import org.vaadin.addon.cdiproperties.annotation.TextFieldProperties;
  *
  * @author kobashi@burninghammer.ch
  */
-@UIScoped
 public class LoginForm extends ViewComponent {
 
     @Inject
@@ -47,6 +46,7 @@ public class LoginForm extends ViewComponent {
         formLayout.addComponent(passwordField);
         formLayout.addComponent(button);
         button.addClickListener(new LoginClickListener());
+        button.setClickShortcut(KeyCode.ENTER);
 
     }
 
@@ -56,6 +56,6 @@ public class LoginForm extends ViewComponent {
         public void buttonClick(Button.ClickEvent event) {
             fireViewEvent(MainMenuCDIEvents.LOGIN_CLICKED, userTextField.getValue(), passwordField.getValue());
         }
-
     }
+
 }

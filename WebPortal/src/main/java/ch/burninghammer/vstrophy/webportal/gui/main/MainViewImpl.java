@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main;
 
-import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginForm;
+import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginButtonComponent;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.MarginInfo;
@@ -13,13 +13,13 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.PopupView;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
 import org.vaadin.addon.cdimvp.MVPView;
+import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
 import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
 import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
 
@@ -44,7 +44,23 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     private VerticalLayout content;
 
     @Inject
-    private LoginForm loginForm;
+    @ButtonProperties(caption = "news")
+    private Button newsFeedButton;
+    @Inject
+    @ButtonProperties(caption = "News Editor")
+    private Button newsEditorButton;
+    @Inject
+    @ButtonProperties(caption = "User")
+    private Button userAdministrationButton;
+    @Inject
+    @ButtonProperties(caption = "Teams")
+    private Button teamsButton;
+
+    @Inject
+    @VerticalLayoutProperties()
+    private VerticalLayout mainMenuLayout;
+    @Inject
+    private LoginButtonComponent loginButton;
 
     @PostConstruct
     protected void initView() {
@@ -56,39 +72,36 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         contentLayout.addComponent(createMainMenu());
         contentLayout.addComponent(content);
         contentLayout.setExpandRatio(content, 0.9f);
+
     }
 
     private Component createMainMenu() {
-        VerticalLayout layout = new VerticalLayout();
-        layout.setMargin(new MarginInfo(true, false, false, false));
-        layout.setSizeUndefined();
-        layout.setWidth(MENU_WIDTH);
-        Button newsFeedButton = new Button();
+        mainMenuLayout.setMargin(new MarginInfo(true, false, false, false));
+        mainMenuLayout.setSizeUndefined();
+        mainMenuLayout.setWidth(MENU_WIDTH);
+
         newsFeedButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_NEWSFEED));
         newsFeedButton.setIcon(FontAwesome.FILE_TEXT_O);
         newsFeedButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
         newsFeedButton.setCaption("News");
         newsFeedButton.setSizeFull();
 
-        Button newsEditorButton = new Button();
         newsEditorButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_NEWSEDITOR));
         newsEditorButton.setIcon(FontAwesome.PENCIL);
-        newsEditorButton.setCaption("News Editor");
         newsEditorButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
         newsEditorButton.setSizeFull();
 
-        Button userAdministrationButton = new Button();
         userAdministrationButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_USER_ADMINISTRATION));
         userAdministrationButton.setIcon(FontAwesome.USERS);
-        userAdministrationButton.setCaption("User");
         userAdministrationButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
         userAdministrationButton.setSizeFull();
 
-        layout.addComponent(newsFeedButton);
-        layout.addComponent(newsEditorButton);
-        layout.addComponent(userAdministrationButton);
+        teamsButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_TEAMS));
+        teamsButton.setIcon(FontAwesome.SITEMAP);
+        teamsButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
+        teamsButton.setSizeFull();
 
-        return layout;
+        return mainMenuLayout;
     }
 
     private Component createTitleBar() {
@@ -106,13 +119,10 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         Label title = new Label("VS-Trophy Webportal");
         title.addStyleName("h1");
 
-        PopupView loginPopup = new PopupView("Einloggen", loginForm);
-        loginPopup.setHideOnMouseOut(false);
-
         titleBarLayout.addComponent(logoLayout);
         titleBarLayout.addComponent(title);
-        titleBarLayout.addComponent(loginPopup);
-        titleBarLayout.setComponentAlignment(loginPopup, Alignment.BOTTOM_RIGHT);
+        titleBarLayout.addComponent(loginButton);
+        titleBarLayout.setComponentAlignment(loginButton, Alignment.BOTTOM_RIGHT);
         return titleBarLayout;
     }
 
@@ -120,6 +130,24 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     public void setView(MVPView mvpView) {
         content.removeAllComponents();
         content.addComponent((Component) mvpView);
+    }
+
+    @Override
+    public void showAllButtons() {
+        mainMenuLayout.removeAllComponents();
+        mainMenuLayout.addComponent(newsFeedButton);
+        mainMenuLayout.addComponent(teamsButton);
+        mainMenuLayout.addComponent(newsEditorButton);
+        mainMenuLayout.addComponent(userAdministrationButton);
+
+    }
+
+    @Override
+    public void showPublicButtons() {
+        mainMenuLayout.removeAllComponents();
+        mainMenuLayout.addComponent(newsFeedButton);
+        mainMenuLayout.addComponent(teamsButton);
+
     }
 
     private class CDIEventClickListener implements Button.ClickListener {
