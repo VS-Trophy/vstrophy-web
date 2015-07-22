@@ -9,7 +9,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
-import ch.burninghammer.vstrophy.webportal.events.VSTrophyMVPView;
+import ch.burninghammer.vstrophy.webportal.gui.events.VSTrophyMVPView;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;

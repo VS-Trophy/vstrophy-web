@@ -11,7 +11,7 @@ import ch.burninghammer.vstrophy.webportal.gui.main.teams.TeamsView;
 import ch.burninghammer.vstrophy.webportal.gui.newseditor.NewsEditorView;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedView;
 import ch.burninghammer.vstrophy.webportal.gui.useradministration.UserAdministrationView;
-import ch.burninghammer.vstrophy.webportal.security.PasswordUtils;
+import ch.burninghammer.vstrophy.webportal.gui.security.PasswordUtils;
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;

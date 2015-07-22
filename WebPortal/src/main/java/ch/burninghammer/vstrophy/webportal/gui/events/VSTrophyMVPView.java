@@ -1,7 +1,7 @@
 /*
  * Copyright 2015 Burning Hammer. All rights reserved.
  */
-package ch.burninghammer.vstrophy.webportal.events;
+package ch.burninghammer.vstrophy.webportal.gui.events;
 
 import org.vaadin.addon.cdimvp.AbstractMVPView;
 

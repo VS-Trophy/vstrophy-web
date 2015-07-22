@@ -6,7 +6,7 @@ package ch.burninghammer.vstrophy.webportal.gui.useradministration;
 import ch.burninghammer.vstrophy.webportal.entities.user.User;
 import ch.burninghammer.vstrophy.webportal.entities.user.UserEntityManager;
 import ch.burninghammer.vstrophy.webportal.error.WebPortalException;
-import ch.burninghammer.vstrophy.webportal.security.PasswordUtils;
+import ch.burninghammer.vstrophy.webportal.gui.security.PasswordUtils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.event.Observes;

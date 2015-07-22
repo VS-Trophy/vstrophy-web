@@ -4,12 +4,14 @@
 package ch.burninghammer.vstrophy.webportal.entities.teams;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +36,7 @@ public class Team implements Serializable {
     @Column(name = "team_name", nullable = false)
     private String name;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "team_official",
             joinColumns = @JoinColumn(name = "team_ID")
@@ -80,6 +82,9 @@ public class Team implements Serializable {
     }
 
     public List<TeamOfficial> getOfficials() {
+        if (officials == null) {
+            return new ArrayList<>();
+        }
         return officials;
     }
 

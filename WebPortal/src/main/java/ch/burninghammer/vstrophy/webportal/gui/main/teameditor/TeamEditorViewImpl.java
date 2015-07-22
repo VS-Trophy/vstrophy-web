@@ -6,14 +6,15 @@ package ch.burninghammer.vstrophy.webportal.gui.main.teameditor;
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
 import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
 import com.vaadin.data.Property;
-import com.vaadin.data.util.BeanContainer;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import java.util.List;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
@@ -33,14 +34,14 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
     @PanelProperties(sizeFull = true)
     private Panel mainPanel;
     @Inject
-    @HorizontalLayoutProperties(sizeFull = true, margin = true)
+    @HorizontalLayoutProperties(width = "50%", margin = true)
     private HorizontalLayout mainLayout;
     @Inject
     @TableProperties(immediate = true, sizeUndefined = true)
     private Table teamTable;
 
     @Inject
-    @VerticalLayoutProperties(sizeUndefined = true, height = "100%")
+    @VerticalLayoutProperties(sizeUndefined = true, height = "80%")
     private VerticalLayout tableLayout;
 
     @Inject
@@ -52,10 +53,13 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
 
     @Override
     public void showTeamList(List<Team> teams) {
-        BeanContainer<Integer, Team> TeamBeanContainer = new BeanContainer<>(Team.class);
-        TeamBeanContainer.setBeanIdProperty("id");
-        TeamBeanContainer.addAll(teams);
-        teamTable.setContainerDataSource(TeamBeanContainer);
+        BeanItemContainer<Team> teamBeanContainer = new BeanItemContainer<>(Team.class);
+        teamBeanContainer.addAll(teams);
+        try {
+            teamTable.setContainerDataSource(teamBeanContainer);
+        } catch (Table.CacheUpdateException ex) {
+            logger.log(Level.WARNING, "Error during team table cache update. Ignoring as this might happen with incomplete teams.");
+        }
         teamTable.setVisibleColumns("name");
         newTeamButton.setEnabled(true);
         mainLayout.removeComponent(form);

@@ -1,7 +1,7 @@
 /*
  * Copyright 2015 Burning Hammer. All rights reserved.
  */
-package ch.burninghammer.vstrophy.webportal.security;
+package ch.burninghammer.vstrophy.webportal.gui.security;
 
 import ch.burninghammer.vstrophy.webportal.entities.user.User;
 import ch.burninghammer.vstrophy.webportal.entities.user.UserEntityManager;
