@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -63,10 +64,12 @@ public class Team implements Serializable {
     @Column(name = "team_fans")
     private String fans;
 
-    @Column(name = "team_uniform_pic")
+    @Column(name = "team_uniform_pic", length = 102400)
+    @Lob
     private byte[] uniformPicture;
 
-    @Column(name = "team_logo")
+    @Column(name = "team_logo", length = 102400)
+    @Lob
     private byte[] logo;
 
     public int getId() {

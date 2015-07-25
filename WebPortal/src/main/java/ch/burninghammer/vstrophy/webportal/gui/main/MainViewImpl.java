@@ -143,7 +143,6 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         logoLayout.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
         Label title = new Label("VS-Trophy Webportal");
         title.addStyleName("h1");
-
         titleBarLayout.addComponent(logoLayout);
         titleBarLayout.addComponent(title);
         titleBarLayout.addComponent(loginButton);

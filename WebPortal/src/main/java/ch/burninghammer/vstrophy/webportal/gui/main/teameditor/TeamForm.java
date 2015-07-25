@@ -10,12 +10,20 @@ import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.server.StreamResource;
+import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.Upload;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -25,8 +33,10 @@ import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
 import org.vaadin.addon.cdiproperties.annotation.DateFieldProperties;
 import org.vaadin.addon.cdiproperties.annotation.FormLayoutProperties;
 import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
+import org.vaadin.addon.cdiproperties.annotation.ImageProperties;
 import org.vaadin.addon.cdiproperties.annotation.TableProperties;
 import org.vaadin.addon.cdiproperties.annotation.TextFieldProperties;
+import org.vaadin.addon.cdiproperties.annotation.UploadProperties;
 
 /**
  *
@@ -60,8 +70,34 @@ public class TeamForm extends ViewComponent {
     private DateField joinedInDateField;
 
     @Inject
+    @PropertyId("colors")
+    @TextFieldProperties(immediate = true, caption = "Farben")
+    private TextField colorsTextField;
+
+    @Inject
+    @PropertyId("fans")
+    @TextFieldProperties(immediate = true, caption = "Fans")
+    private TextField fansTextField;
+
+    @Inject
     @TableProperties(selectable = true, editable = true, pageLength = 5)
     private Table officialsTable;
+
+    @Inject
+    @UploadProperties(caption = "Uniform", immediate = true, styleName = "v-upload-immediate")
+    private Upload uniformUpload;
+
+    @Inject
+    @ImageProperties(alternateText = "Uniform")
+    private Image uniformImage;
+
+    @Inject
+    @UploadProperties(caption = "Logo", immediate = true, styleName = "v-upload-immediate")
+    private Upload logoUpload;
+
+    @Inject
+    @ImageProperties(alternateText = "Logo")
+    private Image logoImage;
 
     @Inject
     @HorizontalLayoutProperties
@@ -76,8 +112,15 @@ public class TeamForm extends ViewComponent {
     private Button removeOfficialButton;
 
     @Inject
+    @HorizontalLayoutProperties(width = "100%")
+    private HorizontalLayout mainLayout;
+
+    @Inject
     @FormLayoutProperties(sizeFull = true)
-    private FormLayout formLayout;
+    private FormLayout leftFormLayout;
+    @Inject
+    @FormLayoutProperties(sizeFull = true)
+    private FormLayout rightFormLayout;
 
     @Inject
     @ButtonProperties(enabled = false, caption = "Speichern")
@@ -91,16 +134,21 @@ public class TeamForm extends ViewComponent {
 
     @PostConstruct
     public void init() {
-        formLayout.addComponent(nameTextField);
-        formLayout.addComponent(cityTextField);
-        formLayout.addComponent(stadiumTextField);
-        formLayout.addComponent(foundedInDateField);
-        formLayout.addComponent(joinedInDateField);
-        formLayout.addComponent(officialsTable);
-        formLayout.addComponent(tableButtonLayout);
+        mainLayout.addComponent(leftFormLayout);
+        mainLayout.addComponent(rightFormLayout);
+
+        leftFormLayout.addComponent(nameTextField);
+        leftFormLayout.addComponent(cityTextField);
+        leftFormLayout.addComponent(stadiumTextField);
+        leftFormLayout.addComponent(foundedInDateField);
+        leftFormLayout.addComponent(joinedInDateField);
+        leftFormLayout.addComponent(colorsTextField);
+        leftFormLayout.addComponent(fansTextField);
+        leftFormLayout.addComponent(officialsTable);
+        leftFormLayout.addComponent(tableButtonLayout);
         tableButtonLayout.addComponent(addOfficialButton);
         tableButtonLayout.addComponent(removeOfficialButton);
-        formLayout.addComponent(saveButton);
+        leftFormLayout.addComponent(saveButton);
 
         saveButton.addClickListener(new Button.ClickListener() {
 
@@ -108,6 +156,8 @@ public class TeamForm extends ViewComponent {
             public void buttonClick(Button.ClickEvent event) {
                 try {
                     team.setOfficials(officialsContainer.getItemIds());
+                    team.setLogo(extractDataFromImage(logoImage));
+                    team.setUniformPicture(extractDataFromImage(uniformImage));
                     fieldGroup.commit();
                     fieldGroup.clear();
                 } catch (FieldGroup.CommitException ex) {
@@ -146,7 +196,20 @@ public class TeamForm extends ViewComponent {
                 }
             }
         });
-        setCompositionRoot(formLayout);
+
+        rightFormLayout.addComponent(logoImage);
+        rightFormLayout.addComponent(logoUpload);
+        ImageUploadReceiver logoReceiver = new ImageUploadReceiver(logoImage);
+        logoUpload.setReceiver(logoReceiver);
+        logoUpload.addSucceededListener(logoReceiver);
+        rightFormLayout.addComponent(uniformImage);
+        rightFormLayout.addComponent(uniformUpload);
+        ImageUploadReceiver uniformReceiver = new ImageUploadReceiver(uniformImage);
+        uniformUpload.setReceiver(uniformReceiver);
+        uniformUpload.addSucceededListener(uniformReceiver);
+
+        setCompositionRoot(mainLayout);
+
     }
 
     public void bindTeam(Team team) {
@@ -157,6 +220,64 @@ public class TeamForm extends ViewComponent {
         officialsContainer.addAll(team.getOfficials());
         officialsTable.setContainerDataSource(officialsContainer);
         saveButton.setEnabled(true);
+    }
+
+    private byte[] extractDataFromImage(final Image image) {
+        Object imageData = image.getData();
+        if (imageData != null) {
+            byte[] bytes;
+            try {
+                bytes = ((ByteArrayStreamSource) imageData).getData();
+                return bytes;
+            } catch (ClassCastException ex) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private class ImageUploadReceiver implements Upload.Receiver, Upload.SucceededListener {
+
+        private Image image;
+
+        private ByteArrayOutputStream stream;
+
+        public ImageUploadReceiver(Image image) {
+            this.image = image;
+            stream = new ByteArrayOutputStream();
+        }
+
+        @Override
+        public OutputStream receiveUpload(String filename, String mimeType) {
+            return stream;
+        }
+
+        @Override
+        public void uploadSucceeded(Upload.SucceededEvent event) {
+            ByteArrayStreamSource source = new ByteArrayStreamSource(stream.toByteArray());
+            image.setSource(new StreamResource(source, image.getAlternateText()));
+            image.setData(source);
+        }
+
+    }
+
+    private class ByteArrayStreamSource implements StreamSource {
+
+        public byte[] data;
+
+        public ByteArrayStreamSource(final byte[] data) {
+            this.data = data;
+        }
+
+        public byte[] getData() {
+            return data;
+        }
+
+        @Override
+        public InputStream getStream() {
+            return new ByteArrayInputStream(data);
+        }
+
     }
 
 }

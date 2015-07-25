@@ -34,7 +34,7 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
     @PanelProperties(sizeFull = true)
     private Panel mainPanel;
     @Inject
-    @HorizontalLayoutProperties(width = "50%", margin = true)
+    @HorizontalLayoutProperties(width = "100%", margin = true)
     private HorizontalLayout mainLayout;
     @Inject
     @TableProperties(immediate = true, sizeUndefined = true)
@@ -89,6 +89,7 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
     @Override
     public void showTeam(Team team) {
         mainLayout.addComponent(form);
+        mainLayout.setExpandRatio(form, 0.8f);
         form.bindTeam(team);
     }
 
