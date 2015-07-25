@@ -3,6 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main.teams;
 
+import ch.burninghammer.vstrophy.webportal.entities.teams.TeamEntityManager;
+import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 
 /**
@@ -12,9 +14,12 @@ import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 @AbstractMVPPresenter.ViewInterface(TeamsView.class)
 public class TeamsViewPresenter extends AbstractMVPPresenter<TeamsView> {
 
+    @Inject
+    private TeamEntityManager teamEntityManager;
+
     @Override
     public void viewEntered() {
-
+        view.setTeamList(teamEntityManager.getAllTeams());
     }
 
 }

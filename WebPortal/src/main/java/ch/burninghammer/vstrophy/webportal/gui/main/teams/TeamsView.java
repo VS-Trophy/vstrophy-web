@@ -3,6 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main.teams;
 
+import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
+import java.util.List;
 import org.vaadin.addon.cdimvp.MVPView;
 
 /**
@@ -11,4 +13,5 @@ import org.vaadin.addon.cdimvp.MVPView;
  */
 public interface TeamsView extends MVPView {
 
+    void setTeamList(List<Team> teams);
 }
