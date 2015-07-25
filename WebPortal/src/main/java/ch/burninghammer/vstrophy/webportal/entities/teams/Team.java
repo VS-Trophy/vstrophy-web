@@ -144,6 +144,9 @@ public class Team implements Serializable {
     }
 
     public byte[] getUniformPicture() {
+        if (uniformPicture == null) {
+            uniformPicture = new byte[0];
+        }
         return uniformPicture;
     }
 
@@ -152,6 +155,9 @@ public class Team implements Serializable {
     }
 
     public byte[] getLogo() {
+        if (logo == null) {
+            logo = new byte[0];
+        }
         return logo;
     }
 

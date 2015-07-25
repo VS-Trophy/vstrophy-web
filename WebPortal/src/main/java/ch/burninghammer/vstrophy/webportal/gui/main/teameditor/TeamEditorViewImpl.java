@@ -37,7 +37,7 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
     @HorizontalLayoutProperties(width = "100%", margin = true)
     private HorizontalLayout mainLayout;
     @Inject
-    @TableProperties(immediate = true, sizeUndefined = true)
+    @TableProperties(immediate = true, sizeUndefined = true, pageLength = 10)
     private Table teamTable;
 
     @Inject

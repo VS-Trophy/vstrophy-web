@@ -80,7 +80,7 @@ public class TeamForm extends ViewComponent {
     private TextField fansTextField;
 
     @Inject
-    @TableProperties(selectable = true, editable = true, pageLength = 5)
+    @TableProperties(selectable = true, editable = true, pageLength = 5, immediate = true)
     private Table officialsTable;
 
     @Inject
@@ -88,7 +88,7 @@ public class TeamForm extends ViewComponent {
     private Upload uniformUpload;
 
     @Inject
-    @ImageProperties(alternateText = "Uniform")
+    @ImageProperties(alternateText = "Uniform", immediate = true)
     private Image uniformImage;
 
     @Inject
@@ -96,7 +96,7 @@ public class TeamForm extends ViewComponent {
     private Upload logoUpload;
 
     @Inject
-    @ImageProperties(alternateText = "Logo")
+    @ImageProperties(alternateText = "Logo", immediate = true)
     private Image logoImage;
 
     @Inject
@@ -132,6 +132,11 @@ public class TeamForm extends ViewComponent {
 
     private Team team;
 
+    private static enum ImageType {
+
+        LOGO, UNIFORM
+    };
+
     @PostConstruct
     public void init() {
         mainLayout.addComponent(leftFormLayout);
@@ -154,16 +159,7 @@ public class TeamForm extends ViewComponent {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                try {
-                    team.setOfficials(officialsContainer.getItemIds());
-                    team.setLogo(extractDataFromImage(logoImage));
-                    team.setUniformPicture(extractDataFromImage(uniformImage));
-                    fieldGroup.commit();
-                    fieldGroup.clear();
-                } catch (FieldGroup.CommitException ex) {
-                    Logger.getLogger(TeamForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                fireViewEvent(TeamEditorCDIEvents.TEAM_CHANGED, team);
+                save();
             }
         });
 
@@ -199,17 +195,27 @@ public class TeamForm extends ViewComponent {
 
         rightFormLayout.addComponent(logoImage);
         rightFormLayout.addComponent(logoUpload);
-        ImageUploadReceiver logoReceiver = new ImageUploadReceiver(logoImage);
+        ImageUploadReceiver logoReceiver = new ImageUploadReceiver(ImageType.LOGO);
         logoUpload.setReceiver(logoReceiver);
         logoUpload.addSucceededListener(logoReceiver);
         rightFormLayout.addComponent(uniformImage);
         rightFormLayout.addComponent(uniformUpload);
-        ImageUploadReceiver uniformReceiver = new ImageUploadReceiver(uniformImage);
+        ImageUploadReceiver uniformReceiver = new ImageUploadReceiver(ImageType.UNIFORM);
         uniformUpload.setReceiver(uniformReceiver);
         uniformUpload.addSucceededListener(uniformReceiver);
 
         setCompositionRoot(mainLayout);
 
+    }
+
+    private void save() {
+        try {
+            team.setOfficials(officialsContainer.getItemIds());
+            fieldGroup.commit();
+        } catch (FieldGroup.CommitException ex) {
+            Logger.getLogger(TeamForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        fireViewEvent(TeamEditorCDIEvents.TEAM_CHANGED, team);
     }
 
     public void bindTeam(Team team) {
@@ -219,31 +225,29 @@ public class TeamForm extends ViewComponent {
         officialsContainer = new BeanItemContainer(TeamOfficial.class);
         officialsContainer.addAll(team.getOfficials());
         officialsTable.setContainerDataSource(officialsContainer);
+        refreshImages();
         saveButton.setEnabled(true);
     }
 
-    private byte[] extractDataFromImage(final Image image) {
-        Object imageData = image.getData();
-        if (imageData != null) {
-            byte[] bytes;
-            try {
-                bytes = ((ByteArrayStreamSource) imageData).getData();
-                return bytes;
-            } catch (ClassCastException ex) {
-                return null;
-            }
-        }
-        return null;
+    private StreamResource createStreamResource(final byte[] data, String fileName) {
+        return new ByteArrayStreamResource(new ByteArrayStreamSource(data), fileName + data.length);
+    }
+
+    private void refreshImages() {
+
+        logoImage.setSource(createStreamResource(team.getLogo(), team.getName() + "logo" + System.currentTimeMillis()));
+        logoImage.markAsDirty();
+        uniformImage.setSource(createStreamResource(team.getUniformPicture(), team.getName() + "uniform" + System.currentTimeMillis()));
+        uniformImage.markAsDirty();
     }
 
     private class ImageUploadReceiver implements Upload.Receiver, Upload.SucceededListener {
 
-        private Image image;
+        private final ByteArrayOutputStream stream;
+        private final ImageType imageType;
 
-        private ByteArrayOutputStream stream;
-
-        public ImageUploadReceiver(Image image) {
-            this.image = image;
+        public ImageUploadReceiver(ImageType imageType) {
+            this.imageType = imageType;
             stream = new ByteArrayOutputStream();
         }
 
@@ -254,9 +258,24 @@ public class TeamForm extends ViewComponent {
 
         @Override
         public void uploadSucceeded(Upload.SucceededEvent event) {
-            ByteArrayStreamSource source = new ByteArrayStreamSource(stream.toByteArray());
-            image.setSource(new StreamResource(source, image.getAlternateText()));
-            image.setData(source);
+            switch (imageType) {
+                case LOGO:
+                    team.setLogo(stream.toByteArray());
+                    break;
+                case UNIFORM:
+                    team.setUniformPicture(stream.toByteArray());
+                    break;
+            }
+            refreshImages();
+        }
+
+    }
+
+    private class ByteArrayStreamResource extends StreamResource {
+
+        public ByteArrayStreamResource(StreamSource streamSource, String filename) {
+            super(streamSource, filename);
+            this.setCacheTime(-1);
         }
 
     }
@@ -267,10 +286,7 @@ public class TeamForm extends ViewComponent {
 
         public ByteArrayStreamSource(final byte[] data) {
             this.data = data;
-        }
 
-        public byte[] getData() {
-            return data;
         }
 
         @Override

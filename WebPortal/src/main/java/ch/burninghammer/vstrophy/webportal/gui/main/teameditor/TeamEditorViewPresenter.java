@@ -44,6 +44,7 @@ public class TeamEditorViewPresenter extends AbstractMVPPresenter<TeamEditorView
         } catch (ClassCastException ex) {
             Logger.getGlobal().log(Level.WARNING, "Could not cast selected team");
         }
+        view.showTeamList(entityManager.getAllTeams());
     }
 
     protected void addTeam(@Observes @CDIEvent(TeamEditorCDIEvents.TEAM_ADD) final ParameterDTO parameters) {
