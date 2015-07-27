@@ -63,6 +63,7 @@ public class NewsItemForm extends ViewComponent {
         formLayout.addComponent(dateField);
         setCompositionRoot(formLayout);
         formLayout.addComponent(button);
+
         button.addClickListener(new Button.ClickListener() {
 
             @Override

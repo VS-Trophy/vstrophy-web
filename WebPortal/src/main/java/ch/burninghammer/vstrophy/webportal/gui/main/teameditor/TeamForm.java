@@ -5,13 +5,13 @@ package ch.burninghammer.vstrophy.webportal.gui.main.teameditor;
 
 import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
 import ch.burninghammer.vstrophy.webportal.entities.teams.TeamOfficial;
+import ch.burninghammer.vstrophy.webportal.gui.main.teams.component.ByteArrayStreamResource;
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.StreamResource;
-import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
@@ -20,9 +20,7 @@ import com.vaadin.ui.Image;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Upload;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -230,7 +228,7 @@ public class TeamForm extends ViewComponent {
     }
 
     private StreamResource createStreamResource(final byte[] data, String fileName) {
-        return new ByteArrayStreamResource(new ByteArrayStreamSource(data), fileName + data.length);
+        return new ByteArrayStreamResource(data, fileName + data.length);
     }
 
     private void refreshImages() {
@@ -267,31 +265,6 @@ public class TeamForm extends ViewComponent {
                     break;
             }
             refreshImages();
-        }
-
-    }
-
-    private class ByteArrayStreamResource extends StreamResource {
-
-        public ByteArrayStreamResource(StreamSource streamSource, String filename) {
-            super(streamSource, filename);
-            this.setCacheTime(-1);
-        }
-
-    }
-
-    private class ByteArrayStreamSource implements StreamSource {
-
-        public byte[] data;
-
-        public ByteArrayStreamSource(final byte[] data) {
-            this.data = data;
-
-        }
-
-        @Override
-        public InputStream getStream() {
-            return new ByteArrayInputStream(data);
         }
 
     }

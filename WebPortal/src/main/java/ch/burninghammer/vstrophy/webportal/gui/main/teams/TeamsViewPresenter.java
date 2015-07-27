@@ -3,7 +3,11 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main.teams;
 
+import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
 import ch.burninghammer.vstrophy.webportal.entities.teams.TeamEntityManager;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 
@@ -19,7 +23,15 @@ public class TeamsViewPresenter extends AbstractMVPPresenter<TeamsView> {
 
     @Override
     public void viewEntered() {
-        view.setTeamList(teamEntityManager.getAllTeams());
+        List<Team> teamList = teamEntityManager.getAllTeams();
+        Collections.sort(teamList, new Comparator<Team>() {
+
+            @Override
+            public int compare(Team o1, Team o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        view.setTeamList(teamList);
     }
 
 }
