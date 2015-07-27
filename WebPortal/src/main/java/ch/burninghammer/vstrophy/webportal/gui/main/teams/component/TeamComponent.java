@@ -150,6 +150,8 @@ public class TeamComponent extends ViewComponent {
             super();
             SimpleDateFormat format = new SimpleDateFormat("yyyy");
             setValue(caption + " " + format.format(date));
+            addStyleName(ValoTheme.LABEL_LIGHT);
+            addStyleName(ValoTheme.LABEL_SMALL);
             setSizeUndefined();
         }
     }

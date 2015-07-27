@@ -19,12 +19,16 @@ $v-component-group-spacing: 6px;
 @import "addons.scss";
 // Import valo after setting the parameters
 @import "../valo/valo";
-
+@include v-font(SaucerBB, '../../../../../themes/VSTrophyWebPortalTheme/fonts/SaucerBB');
 
 /* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
 /* The actual styles should be defined in mytheme.scss */
 .VSTrophyWebPortalTheme {
     @include addons;
     @include valo;
+    .v-label-title{
+        font-family: SaucerBB;
+        font-size: 50px;
+    }
 
 }

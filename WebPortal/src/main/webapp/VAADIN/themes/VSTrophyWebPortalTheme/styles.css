@@ -1479,6 +1479,24 @@ div.v-layout.v-horizontal.v-widget {
 	vertical-align: top;
 }
 
+@font-face {
+	font-family: SaucerBB;
+	font-weight: normal;
+	font-style: normal;
+	src: url(../valo/util/bourbon/css3/../../../../../themes/VSTrophyWebPortalTheme/fonts/SaucerBB.eot);
+	src: url(../valo/util/bourbon/css3/../../../../../themes/VSTrophyWebPortalTheme/fonts/SaucerBB.eot?#iefix) format("embedded-opentype"), url(../valo/util/bourbon/css3/../../../../../themes/VSTrophyWebPortalTheme/fonts/SaucerBB.woff) format("woff"), url(../valo/util/bourbon/css3/../../../../../themes/VSTrophyWebPortalTheme/fonts/SaucerBB.ttf) format("truetype"), url(../valo/util/bourbon/css3/../../../../../themes/VSTrophyWebPortalTheme/fonts/SaucerBB.svg#SaucerBB) format("svg");
+}
+
+.SaucerBB {
+	font-family: SaucerBB;
+	font-style: normal;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: inline-block;
+	text-align: center;
+}
+
 .VSTrophyWebPortalTheme.v-app, .VSTrophyWebPortalTheme.v-app-loading {
 	font: 400 16px/1.55 Roboto, sans-serif;
 	color: #cacecf;
@@ -12366,4 +12384,9 @@ div.v-layout.v-horizontal.v-widget {
 	display: inline-block;
 	width: 20px;
 	overflow: hidden;
+}
+
+.VSTrophyWebPortalTheme .v-label-title {
+	font-family: SaucerBB;
+	font-size: 50px;
 }
