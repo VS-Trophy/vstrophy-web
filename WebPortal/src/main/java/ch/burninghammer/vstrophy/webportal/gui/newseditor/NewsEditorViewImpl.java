@@ -37,7 +37,7 @@ public class NewsEditorViewImpl extends AbstractMVPView implements NewsEditorVie
     private HorizontalLayout mainLayout;
 
     @Inject
-    @TableProperties(immediate = true, sizeUndefined = true)
+    @TableProperties(immediate = true, sizeUndefined = true, pageLength = 10)
     private Table newsTable;
 
     @Inject

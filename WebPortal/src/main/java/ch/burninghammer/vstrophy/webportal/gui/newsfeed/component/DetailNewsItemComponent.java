@@ -4,13 +4,13 @@
 package ch.burninghammer.vstrophy.webportal.gui.newsfeed.component;
 
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.webportal.gui.events.VSTrophyMVPView;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedCDIEvents;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.themes.ValoTheme;
-import ch.burninghammer.vstrophy.webportal.gui.events.VSTrophyMVPView;
 
 /**
  *
@@ -27,6 +27,7 @@ public class DetailNewsItemComponent extends AbstractNewsItemComponent {
 
         textLabel = new Label();
         contentLayout.addComponent(textLabel);
+        contentLayout.setMargin(true);
         this.textLabel.setValue(newsItem.getText());
         textLabel.setContentMode(ContentMode.HTML);
         Button moreButton = new Button("Zurück");

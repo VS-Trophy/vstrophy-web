@@ -11,6 +11,7 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ import org.vaadin.addon.cdimvp.ViewComponent;
  */
 public class TeamComponent extends ViewComponent {
 
+    private final Panel mainPanel;
     private final VerticalLayout mainLayout;
     private final HorizontalLayout masterContentLayout;
     private final FormLayout leftContentLayout;
@@ -40,10 +42,13 @@ public class TeamComponent extends ViewComponent {
 
     public TeamComponent(final Team team) {
         this.team = team;
+        mainPanel = new Panel();
+
         mainLayout = new VerticalLayout();
         mainLayout.setSizeFull();
-        setSizeFull();
-        setCompositionRoot(mainLayout);
+        mainPanel.setContent(mainLayout);
+        mainPanel.setStyleName(ValoTheme.PANEL_BORDERLESS);
+        setCompositionRoot(mainPanel);
         masterContentLayout = new HorizontalLayout();
         masterContentLayout.setSizeFull();
         leftContentLayout = new FormLayout();
