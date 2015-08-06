@@ -1,9 +1,11 @@
 /*
  * Copyright 2015 Burning Hammer. All rights reserved.
  */
-package ch.burninghammer.vstrophy.webportal.gui.main.teameditor;
+package ch.burninghammer.vstrophy.webportal.gui.main.divisioneditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
+import ch.burninghammer.vstrophy.webportal.entities.divisions.Division;
+import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.webportal.gui.main.teameditor.TeamEditorCDIEvents;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
@@ -27,7 +29,7 @@ import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
  *
  * @author kobashi@burninghammer.ch
  */
-public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorView {
+public class DivisionEditorViewImpl extends AbstractMVPView implements DivisionEditorView {
 
     @Inject
     @PanelProperties(sizeFull = true)
@@ -37,7 +39,7 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
     private HorizontalLayout mainLayout;
     @Inject
     @TableProperties(immediate = true, sizeUndefined = true, pageLength = 10)
-    private Table teamTable;
+    private Table divisionTable;
 
     @Inject
     @VerticalLayoutProperties(sizeUndefined = true, height = "80%")
@@ -45,22 +47,22 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
 
     @Inject
     @ButtonProperties(caption = "Neu")
-    private Button newTeamButton;
+    private Button newDivisionButton;
 
     @Inject
-    private TeamForm form;
+    private DivisionForm form;
 
     @Override
-    public void showTeamList(List<Team> teams) {
-        BeanItemContainer<Team> teamBeanContainer = new BeanItemContainer<>(Team.class);
-        teamBeanContainer.addAll(teams);
+    public void showDivisionList(List<Division> divisions) {
+        BeanItemContainer<Division> divisionBeanContainer = new BeanItemContainer<>(Division.class);
+        divisionBeanContainer.addAll(divisions);
         try {
-            teamTable.setContainerDataSource(teamBeanContainer);
+            divisionTable.setContainerDataSource(divisionBeanContainer);
         } catch (Table.CacheUpdateException ex) {
-            logger.log(Level.WARNING, "Error during team table cache update. Ignoring as this might happen with incomplete teams.");
+            logger.log(Level.WARNING, "Error during division table cache update. Ignoring as this might happen with incomplete teams.");
         }
-        teamTable.setVisibleColumns("name");
-        newTeamButton.setEnabled(true);
+        divisionTable.setVisibleColumns("name");
+        newDivisionButton.setEnabled(true);
         mainLayout.removeComponent(form);
     }
 
@@ -69,16 +71,16 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
         setSizeFull();
         this.setCompositionRoot(mainPanel);
         mainPanel.setContent(mainLayout);
-        teamTable.addValueChangeListener(new TeamListValueChangedListener());
-        teamTable.setSelectable(true);
-        tableLayout.addComponent(teamTable);
-        tableLayout.addComponent(newTeamButton);
-        newTeamButton.addClickListener(new Button.ClickListener() {
+        divisionTable.addValueChangeListener(new DivisionValueChangedListener());
+        divisionTable.setSelectable(true);
+        tableLayout.addComponent(divisionTable);
+        tableLayout.addComponent(newDivisionButton);
+        newDivisionButton.addClickListener(new Button.ClickListener() {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 event.getButton().setEnabled(false);
-                fireViewEvent(TeamEditorCDIEvents.TEAM_ADD, null);
+                fireViewEvent(DivisionEditorCDIEvents.DIVISION_ADD, null);
             }
         });
         mainLayout.addComponent(tableLayout);
@@ -86,18 +88,18 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
     }
 
     @Override
-    public void showTeam(Team team) {
+    public void showDivision(Division division) {
         mainLayout.addComponent(form);
         mainLayout.setExpandRatio(form, 0.8f);
-        form.bindTeam(team);
+        form.bindDivision(division);
     }
 
-    private class TeamListValueChangedListener implements Property.ValueChangeListener {
+    private class DivisionValueChangedListener implements Property.ValueChangeListener {
 
         @Override
         public void valueChange(Property.ValueChangeEvent event) {
             if (event.getProperty().getValue() != null) {
-                BeanItem<Team> item = (BeanItem) teamTable.getItem(event.getProperty().getValue());
+                BeanItem<NewsItem> item = (BeanItem) divisionTable.getItem(event.getProperty().getValue());
                 fireViewEvent(TeamEditorCDIEvents.TEAM_SELECTED, item.getBean());
             }
         }

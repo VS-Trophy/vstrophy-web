@@ -4,7 +4,7 @@
 package ch.burninghammer.vstrophy.webportal.entities.news;
 
 import java.util.List;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
  *
  * @author kobashi@burninghammer.ch
  */
-@Stateful
+@Stateless
 public class NewsItemEntityManager {
 
     @PersistenceContext(unitName = "ch.vstrophy_WebPortal_PU")

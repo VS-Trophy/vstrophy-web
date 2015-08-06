@@ -1,7 +1,7 @@
 /*
  * Copyright 2015 Burning Hammer. All rights reserved.
  */
-package ch.burninghammer.vstrophy.webportal.entities.teams;
+package ch.burninghammer.vstrophy.webportal.entities.divisions;
 
 import java.util.List;
 import javax.ejb.Stateless;
@@ -14,20 +14,20 @@ import javax.persistence.TypedQuery;
  * @author kobashi@burninghammer.ch
  */
 @Stateless
-public class TeamEntityManager {
+public class DivisionEntityManager {
 
     @PersistenceContext(unitName = "ch.vstrophy_WebPortal_PU")
     private EntityManager em;
 
-    private static final String GET_ALL_QUERY = "SELECT t FROM Team t";
+    private static final String GET_ALL_QUERY = "SELECT d FROM Division d";
 
-    public void saveTeam(final Team team) {
-        em.merge(team);
-    }
-
-    public List<Team> getAllTeams() {
-        TypedQuery<Team> query = em.createQuery(GET_ALL_QUERY, Team.class);
+    public List<Division> getAllDivisions() {
+        TypedQuery<Division> query = em.createQuery(GET_ALL_QUERY, Division.class);
         return query.getResultList();
     }
 
+    public void saveDivision(final Division division) {
+        em.merge(division);
+
+    }
 }

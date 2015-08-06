@@ -6,7 +6,8 @@
         <class>ch.burninghammer.vstrophy.webportal.entities.news.NewsItem</class>
         <class>ch.burninghammer.vstrophy.webportal.entities.user.User</class>
         <class>ch.burninghammer.vstrophy.webportal.entities.teams.Team</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <class>ch.burninghammer.vstrophy.webportal.entities.divisions.Division</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
