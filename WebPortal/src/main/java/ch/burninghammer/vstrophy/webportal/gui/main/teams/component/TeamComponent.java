@@ -5,6 +5,7 @@ package ch.burninghammer.vstrophy.webportal.gui.main.teams.component;
 
 import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
 import ch.burninghammer.vstrophy.webportal.entities.teams.TeamOfficial;
+import com.vaadin.server.StreamResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
@@ -133,9 +134,9 @@ public class TeamComponent extends ViewComponent {
     }
 
     private void createImages() {
-        logoImage = new Image("Logo: ", new ByteArrayStreamResource(team.getLogo(), team.getName() + "teamview" + team.getLogo().length));
+        logoImage = new Image("Logo: ", new StreamResource(new ByteArrayStreamSource(team.getLogo()), team.getName() + "teamview" + System.currentTimeMillis()));
         rightContentLayout.addComponent(logoImage);
-        uniformImage = new Image("Uniform: ", new ByteArrayStreamResource(team.getUniformPicture(), team.getName() + "uniform" + team.getLogo().length));
+        uniformImage = new Image("Uniform: ", new StreamResource(new ByteArrayStreamSource(team.getUniformPicture()), team.getName() + "uniform" + System.currentTimeMillis()));
         rightContentLayout.addComponent(uniformImage);
     }
 

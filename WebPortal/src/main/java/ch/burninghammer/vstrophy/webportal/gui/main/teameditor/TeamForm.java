@@ -5,7 +5,7 @@ package ch.burninghammer.vstrophy.webportal.gui.main.teameditor;
 
 import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
 import ch.burninghammer.vstrophy.webportal.entities.teams.TeamOfficial;
-import ch.burninghammer.vstrophy.webportal.gui.main.teams.component.ByteArrayStreamResource;
+import ch.burninghammer.vstrophy.webportal.gui.main.teams.component.ByteArrayStreamSource;
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
@@ -228,7 +228,7 @@ public class TeamForm extends ViewComponent {
     }
 
     private StreamResource createStreamResource(final byte[] data, String fileName) {
-        return new ByteArrayStreamResource(data, fileName + data.length);
+        return new StreamResource(new ByteArrayStreamSource(data), fileName);
     }
 
     private void refreshImages() {
@@ -241,7 +241,7 @@ public class TeamForm extends ViewComponent {
 
     private class ImageUploadReceiver implements Upload.Receiver, Upload.SucceededListener {
 
-        private final ByteArrayOutputStream stream;
+        private ByteArrayOutputStream stream;
         private final ImageType imageType;
 
         public ImageUploadReceiver(ImageType imageType) {
@@ -251,6 +251,7 @@ public class TeamForm extends ViewComponent {
 
         @Override
         public OutputStream receiveUpload(String filename, String mimeType) {
+            stream = new ByteArrayOutputStream();
             return stream;
         }
 
