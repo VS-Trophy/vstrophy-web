@@ -37,7 +37,7 @@ public class UserAdministrationViewImpl extends AbstractMVPView implements UserA
     private HorizontalLayout mainLayout;
 
     @Inject
-    @TableProperties(immediate = true, sizeUndefined = true)
+    @TableProperties(immediate = true, sizeUndefined = true, pageLength = 10)
     private Table userTable;
 
     @Inject
