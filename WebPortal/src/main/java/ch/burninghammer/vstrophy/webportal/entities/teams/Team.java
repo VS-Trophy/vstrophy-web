@@ -3,6 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.entities.teams;
 
+import ch.burninghammer.vstrophy.webportal.entities.divisions.Division;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -72,6 +74,9 @@ public class Team implements Serializable {
     @Lob
     private byte[] logo;
 
+    @ManyToOne
+    private Division division;
+
     public int getId() {
         return id;
     }
@@ -82,6 +87,14 @@ public class Team implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
     }
 
     public List<TeamOfficial> getOfficials() {

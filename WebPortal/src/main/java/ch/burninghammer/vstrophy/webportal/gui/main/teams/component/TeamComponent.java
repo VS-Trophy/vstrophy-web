@@ -38,6 +38,7 @@ public class TeamComponent extends ViewComponent {
     private Label fansLabel;
     private Label foundedInLabel;
     private Label joinedInLabel;
+    private Label divisionLabel;
     private Image logoImage;
     private Image uniformImage;
 
@@ -105,8 +106,13 @@ public class TeamComponent extends ViewComponent {
         teamNameTitle = new Label(team.getName());
         teamNameTitle.addStyleName(ValoTheme.LABEL_H1);
         teamNameTitle.setSizeUndefined();
+        divisionLabel = new Label((team.getDivision() == null ? "Keine" : team.getDivision().getName()) + " Division");
+        divisionLabel.addStyleName(ValoTheme.LABEL_H3);
+        divisionLabel.setSizeUndefined();
         titleLayout.addComponent(teamNameTitle);
         titleLayout.setComponentAlignment(teamNameTitle, Alignment.MIDDLE_CENTER);
+        titleLayout.addComponent(divisionLabel);
+        titleLayout.setComponentAlignment(divisionLabel, Alignment.MIDDLE_CENTER);
         return titleLayout;
     }
 

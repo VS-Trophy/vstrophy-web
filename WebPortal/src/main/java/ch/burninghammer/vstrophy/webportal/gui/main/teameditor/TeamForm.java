@@ -3,6 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main.teameditor;
 
+import ch.burninghammer.vstrophy.webportal.entities.divisions.Division;
+import ch.burninghammer.vstrophy.webportal.entities.divisions.DivisionEntityManager;
 import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
 import ch.burninghammer.vstrophy.webportal.entities.teams.TeamOfficial;
 import ch.burninghammer.vstrophy.webportal.gui.main.teams.component.ByteArrayStreamSource;
@@ -13,6 +15,7 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.StreamResource;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -28,6 +31,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.ViewComponent;
 import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
+import org.vaadin.addon.cdiproperties.annotation.ComboBoxProperties;
 import org.vaadin.addon.cdiproperties.annotation.DateFieldProperties;
 import org.vaadin.addon.cdiproperties.annotation.FormLayoutProperties;
 import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
@@ -41,6 +45,9 @@ import org.vaadin.addon.cdiproperties.annotation.UploadProperties;
  * @author kobashi@burninghammer.ch
  */
 public class TeamForm extends ViewComponent {
+
+    @Inject
+    private DivisionEntityManager divisionEntityManager;
 
     @PropertyId("name")
     @Inject
@@ -121,6 +128,10 @@ public class TeamForm extends ViewComponent {
     private FormLayout rightFormLayout;
 
     @Inject
+    @ComboBoxProperties(immediate = true, textInputAllowed = false, nullSelectionAllowed = false)
+    private ComboBox divisionComboBox;
+
+    @Inject
     @ButtonProperties(enabled = false, caption = "Speichern")
     private Button saveButton;
 
@@ -147,6 +158,12 @@ public class TeamForm extends ViewComponent {
         leftFormLayout.addComponent(joinedInDateField);
         leftFormLayout.addComponent(colorsTextField);
         leftFormLayout.addComponent(fansTextField);
+        BeanItemContainer<Division> divisionContainer = new BeanItemContainer<>(Division.class);
+        divisionContainer.addAll(divisionEntityManager.getAllDivisions());
+        divisionComboBox.setContainerDataSource(divisionContainer);
+        divisionComboBox.setItemCaptionPropertyId("name");
+        leftFormLayout.addComponent(divisionComboBox);
+
         leftFormLayout.addComponent(officialsTable);
         leftFormLayout.addComponent(tableButtonLayout);
         tableButtonLayout.addComponent(addOfficialButton);
@@ -209,6 +226,7 @@ public class TeamForm extends ViewComponent {
     private void save() {
         try {
             team.setOfficials(officialsContainer.getItemIds());
+            team.setDivision((Division) divisionComboBox.getValue());
             fieldGroup.commit();
         } catch (FieldGroup.CommitException ex) {
             Logger.getLogger(TeamForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -223,6 +241,7 @@ public class TeamForm extends ViewComponent {
         officialsContainer = new BeanItemContainer(TeamOfficial.class);
         officialsContainer.addAll(team.getOfficials());
         officialsTable.setContainerDataSource(officialsContainer);
+        divisionComboBox.setValue(team.getDivision());
         refreshImages();
         saveButton.setEnabled(true);
     }
