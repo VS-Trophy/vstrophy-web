@@ -5,7 +5,6 @@ package ch.burninghammer.vstrophy.webportal.gui.main.divisioneditor;
 
 import ch.burninghammer.vstrophy.webportal.entities.divisions.Division;
 import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
-import ch.burninghammer.vstrophy.webportal.gui.main.teameditor.TeamEditorCDIEvents;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
@@ -100,7 +99,7 @@ public class DivisionEditorViewImpl extends AbstractMVPView implements DivisionE
         public void valueChange(Property.ValueChangeEvent event) {
             if (event.getProperty().getValue() != null) {
                 BeanItem<NewsItem> item = (BeanItem) divisionTable.getItem(event.getProperty().getValue());
-                fireViewEvent(TeamEditorCDIEvents.TEAM_SELECTED, item.getBean());
+                fireViewEvent(DivisionEditorCDIEvents.DIVISION_SELECTED, item.getBean());
             }
         }
     }
