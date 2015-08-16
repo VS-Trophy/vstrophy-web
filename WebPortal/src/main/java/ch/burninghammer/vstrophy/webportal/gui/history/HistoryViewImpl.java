@@ -4,6 +4,7 @@
 package ch.burninghammer.vstrophy.webportal.gui.history;
 
 import com.vaadin.server.FontAwesome;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
@@ -29,11 +30,11 @@ public class HistoryViewImpl extends AbstractMVPView implements HistoryView {
     private Panel mainPanel;
 
     @Inject
-    @VerticalLayoutProperties(sizeFull = true, margin = true)
+    @VerticalLayoutProperties(margin = true)
     private VerticalLayout mainLayout;
 
     @Inject
-    @LabelProperties(sizeFull = true, readOnly = true)
+    @LabelProperties(sizeFull = true, readOnly = true, contentMode = ContentMode.HTML)
     private Label historyLabel;
     @Inject
     @RichTextAreaProperties(sizeFull = true)
@@ -47,6 +48,7 @@ public class HistoryViewImpl extends AbstractMVPView implements HistoryView {
 
     @PostConstruct
     private void init() {
+        setSizeFull();
         mainPanel.setContent(mainLayout);
         setCompositionRoot(mainPanel);
         mainLayout.addComponent(historyLabel);
