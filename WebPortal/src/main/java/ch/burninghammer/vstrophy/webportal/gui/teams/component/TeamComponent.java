@@ -1,7 +1,7 @@
 /*
  * Copyright 2015 Burning Hammer. All rights reserved.
  */
-package ch.burninghammer.vstrophy.webportal.gui.main.teams.component;
+package ch.burninghammer.vstrophy.webportal.gui.teams.component;
 
 import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
 import ch.burninghammer.vstrophy.webportal.entities.teams.TeamOfficial;

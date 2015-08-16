@@ -5,13 +5,14 @@ package ch.burninghammer.vstrophy.webportal.gui.main;
 
 import ch.burninghammer.vstrophy.webportal.entities.user.User;
 import ch.burninghammer.vstrophy.webportal.entities.user.UserEntityManager;
-import ch.burninghammer.vstrophy.webportal.gui.main.divisioneditor.DivisionEditorView;
+import ch.burninghammer.vstrophy.webportal.gui.divisioneditor.DivisionEditorView;
+import ch.burninghammer.vstrophy.webportal.gui.history.HistoryView;
 import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginProvider;
-import ch.burninghammer.vstrophy.webportal.gui.main.teameditor.TeamEditorView;
-import ch.burninghammer.vstrophy.webportal.gui.main.teams.TeamsView;
 import ch.burninghammer.vstrophy.webportal.gui.newseditor.NewsEditorView;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedView;
 import ch.burninghammer.vstrophy.webportal.gui.security.PasswordUtils;
+import ch.burninghammer.vstrophy.webportal.gui.teameditor.TeamEditorView;
+import ch.burninghammer.vstrophy.webportal.gui.teams.TeamsView;
 import ch.burninghammer.vstrophy.webportal.gui.useradministration.UserAdministrationView;
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
@@ -75,6 +76,11 @@ public class MainPresenter extends AbstractMVPPresenter<MainView> implements Log
     protected void navigateToTeams(
             @Observes @CDIEvent(MainMenuCDIEvents.SHOW_TEAMS) final ParameterDTO parameters) {
         navigateToView(TeamsView.class);
+    }
+
+    protected void navigateToHistory(
+            @Observes @CDIEvent(MainMenuCDIEvents.SHOW_HISTORY) final ParameterDTO parameters) {
+        navigateToView(HistoryView.class);
     }
 
     protected void loginClicked(@Observes @CDIEvent(MainMenuCDIEvents.LOGIN_CLICKED) final ParameterDTO parameters) {

@@ -1,10 +1,10 @@
 /*
  * Copyright 2015 Burning Hammer. All rights reserved.
  */
-package ch.burninghammer.vstrophy.webportal.gui.main.teams;
+package ch.burninghammer.vstrophy.webportal.gui.teams;
 
 import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
-import ch.burninghammer.vstrophy.webportal.gui.main.teams.component.TeamComponent;
+import ch.burninghammer.vstrophy.webportal.gui.teams.component.TeamComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
