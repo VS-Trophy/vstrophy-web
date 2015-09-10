@@ -33,6 +33,7 @@ public class NewsItem implements Serializable {
     private String text;
     private int version;
     private Date publicationDate;
+    private String author;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,6 +83,15 @@ public class NewsItem implements Serializable {
 
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    @Column(name = "newsitem_author")
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
 }

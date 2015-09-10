@@ -31,4 +31,8 @@ $v-component-group-spacing: 6px;
         font-size: 50px;
     }
 
+    .v-label.dark{
+        color: darken($v-font-color,30%);
+    }
+
 }

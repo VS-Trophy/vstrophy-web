@@ -23,8 +23,7 @@ public class DetailNewsItemComponent extends AbstractNewsItemComponent {
 
     public DetailNewsItemComponent(NewsItem newsItem, VSTrophyMVPView view) {
         super(newsItem, view);
-        addDateLabel();
-
+        addInfoLine();
         textLabel = new Label();
         contentLayout.addComponent(textLabel);
         contentLayout.setMargin(true);

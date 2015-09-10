@@ -23,9 +23,7 @@ public class FeedNewsItemComponent extends AbstractNewsItemComponent {
 
     public FeedNewsItemComponent(NewsItem newsItem, VSTrophyMVPView view) {
         super(newsItem, view);
-
-        addDateLabel();
-
+        addInfoLine();
         textLabel = new Label();
         textLabel.setContentMode(ContentMode.HTML);
         contentLayout.addComponent(textLabel);

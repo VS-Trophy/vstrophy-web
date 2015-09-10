@@ -45,6 +45,11 @@ public class NewsItemForm extends ViewComponent {
     private DateField dateField;
 
     @Inject
+    @PropertyId("author")
+    @TextFieldProperties(immediate = true, caption = "Autor")
+    private TextField authorTextField;
+
+    @Inject
     @FormLayoutProperties(sizeFull = true)
     private FormLayout formLayout;
 
@@ -61,6 +66,7 @@ public class NewsItemForm extends ViewComponent {
         formLayout.addComponent(titleTextField);
         formLayout.addComponent(textTextArea);
         formLayout.addComponent(dateField);
+        formLayout.addComponent(authorTextField);
         setCompositionRoot(formLayout);
         formLayout.addComponent(button);
 
