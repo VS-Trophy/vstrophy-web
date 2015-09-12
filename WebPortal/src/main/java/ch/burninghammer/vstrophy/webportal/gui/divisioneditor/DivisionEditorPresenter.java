@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.divisioneditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.divisions.Division;
-import ch.burninghammer.vstrophy.webportal.entities.divisions.DivisionEntityManager;
+import ch.burninghammer.vstrophy.entities.divisions.Division;
+import ch.burninghammer.vstrophy.entities.divisions.DivisionEntityManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.event.Observes;

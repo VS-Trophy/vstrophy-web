@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.useradministration;
 
-import ch.burninghammer.vstrophy.webportal.entities.user.User;
+import ch.burninghammer.vstrophy.entities.user.User;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.BeanItem;

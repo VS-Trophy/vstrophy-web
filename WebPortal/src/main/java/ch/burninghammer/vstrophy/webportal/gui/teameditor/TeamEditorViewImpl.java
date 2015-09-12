@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.teameditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
+import ch.burninghammer.vstrophy.entities.teams.Team;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;

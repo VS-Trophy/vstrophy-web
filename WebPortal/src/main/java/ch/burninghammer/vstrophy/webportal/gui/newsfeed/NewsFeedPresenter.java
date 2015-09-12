@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newsfeed;
 
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItemEntityManager;
+import ch.burninghammer.vstrophy.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.entities.news.NewsItemEntityManager;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;

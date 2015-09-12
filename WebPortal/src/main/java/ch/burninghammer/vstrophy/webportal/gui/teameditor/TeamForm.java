@@ -3,10 +3,10 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.teameditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.divisions.Division;
-import ch.burninghammer.vstrophy.webportal.entities.divisions.DivisionEntityManager;
-import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
-import ch.burninghammer.vstrophy.webportal.entities.teams.TeamOfficial;
+import ch.burninghammer.vstrophy.entities.divisions.Division;
+import ch.burninghammer.vstrophy.entities.divisions.DivisionEntityManager;
+import ch.burninghammer.vstrophy.entities.teams.Team;
+import ch.burninghammer.vstrophy.entities.teams.TeamOfficial;
 import ch.burninghammer.vstrophy.webportal.gui.teams.component.ByteArrayStreamSource;
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;

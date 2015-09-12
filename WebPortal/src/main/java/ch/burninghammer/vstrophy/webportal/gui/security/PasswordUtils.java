@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.security;
 
-import ch.burninghammer.vstrophy.webportal.entities.user.User;
-import ch.burninghammer.vstrophy.webportal.entities.user.UserEntityManager;
+import ch.burninghammer.vstrophy.entities.user.User;
+import ch.burninghammer.vstrophy.entities.user.UserEntityManager;
 import ch.burninghammer.vstrophy.webportal.error.WebPortalException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

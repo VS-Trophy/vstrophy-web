@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newsfeed.component;
 
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.entities.news.NewsItem;
 import ch.burninghammer.vstrophy.webportal.gui.events.VSTrophyMVPView;
 import com.vaadin.ui.Component;
 import javax.ejb.Stateless;

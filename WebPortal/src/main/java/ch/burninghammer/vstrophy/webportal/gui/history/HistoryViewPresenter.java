@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.history;
 
-import ch.burninghammer.vstrophy.webportal.entities.persistenttexts.PersistentText;
-import ch.burninghammer.vstrophy.webportal.entities.persistenttexts.PersistentTextEntityManager;
+import ch.burninghammer.vstrophy.entities.persistenttexts.PersistentText;
+import ch.burninghammer.vstrophy.entities.persistenttexts.PersistentTextEntityManager;
 import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginProvider;
 import java.util.logging.Level;
 import java.util.logging.Logger;

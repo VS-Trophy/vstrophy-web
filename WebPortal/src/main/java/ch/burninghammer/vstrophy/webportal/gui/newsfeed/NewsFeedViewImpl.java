@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newsfeed;
 
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.entities.news.NewsItem;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.component.NewsItemComponentFactory;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;

@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.divisioneditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.divisions.Division;
+import ch.burninghammer.vstrophy.entities.divisions.Division;
 import com.vaadin.shared.ui.colorpicker.Color;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ColorPicker;

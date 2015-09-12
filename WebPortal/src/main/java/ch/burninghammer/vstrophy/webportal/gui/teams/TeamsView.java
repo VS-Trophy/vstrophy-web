@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.teams;
 
-import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
+import ch.burninghammer.vstrophy.entities.teams.Team;
 import java.util.List;
 import org.vaadin.addon.cdimvp.MVPView;
 

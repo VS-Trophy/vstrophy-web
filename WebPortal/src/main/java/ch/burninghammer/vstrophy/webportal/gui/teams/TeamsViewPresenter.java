@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.teams;
 
-import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
-import ch.burninghammer.vstrophy.webportal.entities.teams.TeamEntityManager;
+import ch.burninghammer.vstrophy.entities.teams.Team;
+import ch.burninghammer.vstrophy.entities.teams.TeamEntityManager;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main.login;
 
-import ch.burninghammer.vstrophy.webportal.entities.user.User;
+import ch.burninghammer.vstrophy.entities.user.User;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.PopupView;
 import javax.annotation.PostConstruct;

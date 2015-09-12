@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.useradministration;
 
-import ch.burninghammer.vstrophy.webportal.entities.user.User;
+import ch.burninghammer.vstrophy.entities.user.User;
 import java.util.List;
 import org.vaadin.addon.cdimvp.MVPView;
 

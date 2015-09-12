@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.useradministration;
 
-import ch.burninghammer.vstrophy.webportal.entities.user.User;
-import ch.burninghammer.vstrophy.webportal.entities.user.UserEntityManager;
+import ch.burninghammer.vstrophy.entities.user.User;
+import ch.burninghammer.vstrophy.entities.user.UserEntityManager;
 import ch.burninghammer.vstrophy.webportal.error.WebPortalException;
 import ch.burninghammer.vstrophy.webportal.gui.security.PasswordUtils;
 import java.util.logging.Level;

@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newseditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.entities.news.NewsItem;
 import java.util.List;
 import org.vaadin.addon.cdimvp.MVPView;
 

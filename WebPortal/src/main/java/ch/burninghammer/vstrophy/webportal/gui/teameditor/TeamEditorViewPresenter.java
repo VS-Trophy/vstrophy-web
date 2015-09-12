@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.teameditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
-import ch.burninghammer.vstrophy.webportal.entities.teams.TeamEntityManager;
+import ch.burninghammer.vstrophy.entities.teams.Team;
+import ch.burninghammer.vstrophy.entities.teams.TeamEntityManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.event.Observes;

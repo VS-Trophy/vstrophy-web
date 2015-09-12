@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newseditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.entities.news.NewsItem;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.BeanItem;

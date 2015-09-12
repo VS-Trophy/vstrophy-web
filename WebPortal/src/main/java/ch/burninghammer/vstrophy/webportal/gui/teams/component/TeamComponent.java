@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.teams.component;
 
-import ch.burninghammer.vstrophy.webportal.entities.teams.Team;
-import ch.burninghammer.vstrophy.webportal.entities.teams.TeamOfficial;
+import ch.burninghammer.vstrophy.entities.teams.Team;
+import ch.burninghammer.vstrophy.entities.teams.TeamOfficial;
 import com.vaadin.server.StreamResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;

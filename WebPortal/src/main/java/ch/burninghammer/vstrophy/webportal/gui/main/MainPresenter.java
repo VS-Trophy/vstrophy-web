@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main;
 
-import ch.burninghammer.vstrophy.webportal.entities.user.User;
-import ch.burninghammer.vstrophy.webportal.entities.user.UserEntityManager;
+import ch.burninghammer.vstrophy.entities.user.User;
+import ch.burninghammer.vstrophy.entities.user.UserEntityManager;
 import ch.burninghammer.vstrophy.webportal.gui.divisioneditor.DivisionEditorView;
 import ch.burninghammer.vstrophy.webportal.gui.history.HistoryView;
 import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginProvider;

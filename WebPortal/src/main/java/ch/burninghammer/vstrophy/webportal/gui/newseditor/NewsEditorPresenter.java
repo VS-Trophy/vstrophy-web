@@ -3,8 +3,8 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.newseditor;
 
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItem;
-import ch.burninghammer.vstrophy.webportal.entities.news.NewsItemEntityManager;
+import ch.burninghammer.vstrophy.entities.news.NewsItem;
+import ch.burninghammer.vstrophy.entities.news.NewsItemEntityManager;
 import java.util.Date;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;

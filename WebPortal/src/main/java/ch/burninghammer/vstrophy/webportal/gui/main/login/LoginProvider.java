@@ -3,7 +3,7 @@
  */
 package ch.burninghammer.vstrophy.webportal.gui.main.login;
 
-import ch.burninghammer.vstrophy.webportal.entities.user.User;
+import ch.burninghammer.vstrophy.entities.user.User;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
