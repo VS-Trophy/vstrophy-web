@@ -5,6 +5,7 @@ package ch.burninghammer.vstrophy.webportal.gui.results;
 
 import ch.burninghammer.vstrophy.entities.weeks.Week;
 import ch.burninghammer.vstrophy.webportal.data.WeekHandler;
+import ch.vstrophy.common.WeekInfoProvider;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,6 +29,8 @@ public class ResultsPresenter extends AbstractMVPPresenter<ResultsView> {
     @Inject
     private WeekHandler weekHandler;
     private List<String> seasonList;
+    @Inject
+    private WeekInfoProvider weekInfoProvider;
 
     @PostConstruct
     private void init() {
@@ -40,10 +43,15 @@ public class ResultsPresenter extends AbstractMVPPresenter<ResultsView> {
     protected void seasonSelected(
             @Observes @CDIEvent(ResultsViewCDIEvents.SEASON_SELECTED) final ParameterDTO parameters) {
         try {
+            int currentSeason = weekInfoProvider.getCurrentSeasonNumber();
+            int currentWeek = weekInfoProvider.getCurrentWeekNumber();
             int season = Integer.parseInt(parameters.getPrimaryParameter(String.class));
             List<String> weekList = new ArrayList<>();
             for (Week week : weekHandler.getWeeksOfSeason(season)) {
-                weekList.add(String.valueOf(week.getNumber()));
+                if (season != currentSeason || week.getNumber() <= currentWeek) {
+                    weekList.add(String.valueOf(week.getNumber()));
+                }
+
             }
             view.setWeekList(weekList);
         } catch (NumberFormatException ex) {
