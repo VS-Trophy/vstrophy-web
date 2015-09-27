@@ -10,14 +10,13 @@ import ch.burninghammer.vstrophy.golem.exception.GolemException;
 import ch.burninghammer.vstrophy.golem.exception.GolemParserException;
 import ch.burninghammer.vstrophy.golem.parsers.HistoryViewParser;
 import ch.burninghammer.vstrophy.golem.persistence.PersistenceHandler;
+import ch.vstrophy.common.WeekInfoProvider;
 import java.io.IOException;
 import java.util.Map;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
-import org.joda.time.DateTime;
-import org.joda.time.Weeks;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
@@ -42,7 +41,9 @@ public class VSTrophyGolem {
     private static final String PASSWORD = "g04l3m080815";
 
     private static final int CURRENT_SEASON = 2015;
-    private static final DateTime FANTASY_SEAON_WEEK_1_2015 = new DateTime(2015, 9, 8, 5, 0);
+
+    @Inject
+    private WeekInfoProvider weekInfoProvider;
 
     @Inject
     private HistoryViewParser historyViewParser;
@@ -51,7 +52,7 @@ public class VSTrophyGolem {
     private PersistenceHandler persistenceHandler;
 
     public void updateCurrentWeek() throws IOException {
-        int week = getCurrentWeekNumber();
+        int week = weekInfoProvider.getCurrentWeekNumber();
         Map<String, String> cookies = login();
         try {
             updateWeek(CURRENT_SEASON, week, cookies, persistenceHandler.getTeamMap());
@@ -88,16 +89,6 @@ public class VSTrophyGolem {
                 .method(Method.POST)
                 .execute();
         return res.cookies();
-    }
-
-    private int getCurrentWeekNumber() {
-        int week = 0;
-        DateTime dateTime = FANTASY_SEAON_WEEK_1_2015;
-        while (dateTime.isBefore(DateTime.now()) && week < 18) {
-            dateTime = dateTime.plus(Weeks.ONE);
-            ++week;
-        }
-        return week;
     }
 
     private void updateWeek(int season, int weekNumber, Map<String, String> cookies, Map<Integer, Team> teamMap) throws IOException, GolemException {
