@@ -16,6 +16,7 @@ public class MainMenuCDIEvents {
     public static final String SHOW_TEAM_EDITOR = "main_menu_show_teameditor";
     public static final String SHOW_DIVISION_EDITOR = "main_menu_show_divisioneditor";
     public static final String SHOW_HISTORY = "main_menu_show_history";
+    public static final String SHOW_RESULTS = "main_menu_show_results";
 
     public static final String LOGIN_CLICKED = "main_menu_login";
     public static final String LOGOUT_CLICKED = "main_menu_logout";

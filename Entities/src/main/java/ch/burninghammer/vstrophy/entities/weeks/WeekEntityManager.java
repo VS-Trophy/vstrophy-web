@@ -3,6 +3,7 @@
  */
 package ch.burninghammer.vstrophy.entities.weeks;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -26,6 +27,16 @@ public class WeekEntityManager {
         } catch (NoResultException ex) {
             return null;
         }
+    }
+
+    public List<Week> getAllWeeks() {
+        CriteriaQuery<Week> query = WeekQueries.getAllWeeksQuery(em.getCriteriaBuilder());
+        return em.createQuery(query).getResultList();
+    }
+
+    public List<Week> getWeeksOfSeason(int season) {
+        CriteriaQuery<Week> query = WeekQueries.getWeeksOfSeasonQuery(em.getCriteriaBuilder(), season);
+        return em.createQuery(query).getResultList();
     }
 
     public void saveWeek(final Week week) {

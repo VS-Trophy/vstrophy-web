@@ -26,4 +26,18 @@ public class WeekQueries {
         q.select(root).where(predicates.toArray(new Predicate[]{}));
         return q;
     }
+
+    public static CriteriaQuery<Week> getAllWeeksQuery(CriteriaBuilder cb) {
+        CriteriaQuery<Week> q = cb.createQuery(Week.class);
+        Root<Week> root = q.from(Week.class);
+        q.select(root);
+        return q;
+    }
+
+    public static CriteriaQuery<Week> getWeeksOfSeasonQuery(CriteriaBuilder cb, int season) {
+        CriteriaQuery<Week> q = cb.createQuery(Week.class);
+        Root<Week> root = q.from(Week.class);
+        q.select(root).where(cb.equal(root.get("season"), season));
+        return q;
+    }
 }

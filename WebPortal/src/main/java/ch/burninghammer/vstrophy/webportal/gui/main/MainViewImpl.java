@@ -66,6 +66,9 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
     @Inject
     @ButtonProperties(caption = "Division Editor")
     private Button divisionEditorButton;
+    @Inject
+    @ButtonProperties(caption = "Resultate")
+    private Button resultButton;
 
     private List<Button> publicButtons;
     private List<Button> allButtons;
@@ -110,6 +113,11 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         userAdministrationButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
         userAdministrationButton.setSizeFull();
 
+        resultButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_RESULTS));
+        resultButton.setIcon(FontAwesome.CALENDAR);
+        resultButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
+        resultButton.setSizeFull();
+
         teamsButton.addClickListener(new CDIEventClickListener(MainMenuCDIEvents.SHOW_TEAMS));
         teamsButton.setIcon(FontAwesome.SITEMAP);
         teamsButton.addStyleName(ValoTheme.BUTTON_ICON_ALIGN_TOP);
@@ -134,6 +142,7 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         allButtons = new ArrayList<>();
 
         allButtons.add(newsFeedButton);
+        allButtons.add(resultButton);
         allButtons.add(teamsButton);
         allButtons.add(historyButton);
         allButtons.add(newsEditorButton);
@@ -142,6 +151,7 @@ public class MainViewImpl extends AbstractMVPView implements MainView {
         allButtons.add(userAdministrationButton);
 
         publicButtons.add(newsFeedButton);
+        publicButtons.add(resultButton);
         publicButtons.add(teamsButton);
         publicButtons.add(historyButton);
 

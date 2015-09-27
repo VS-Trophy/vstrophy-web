@@ -7,7 +7,7 @@ import ch.burninghammer.vstrophy.entities.divisions.Division;
 import ch.burninghammer.vstrophy.entities.divisions.DivisionEntityManager;
 import ch.burninghammer.vstrophy.entities.teams.Team;
 import ch.burninghammer.vstrophy.entities.teams.TeamOfficial;
-import ch.burninghammer.vstrophy.webportal.gui.teams.component.ByteArrayStreamSource;
+import ch.burninghammer.vstrophy.webportal.util.LogoHelper;
 import com.vaadin.data.Property;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
@@ -247,7 +247,7 @@ public class TeamForm extends ViewComponent {
     }
 
     private StreamResource createStreamResource(final byte[] data, String fileName) {
-        return new StreamResource(new ByteArrayStreamSource(data), fileName);
+        return LogoHelper.createLogoResource(data, fileName);
     }
 
     private void refreshImages() {

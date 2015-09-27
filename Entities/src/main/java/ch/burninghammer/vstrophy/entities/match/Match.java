@@ -27,10 +27,10 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "first_team_id")
     private Team firstTeam;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "second_team_id")
     private Team secondTeam;
     @Column(name = "first_team_points")

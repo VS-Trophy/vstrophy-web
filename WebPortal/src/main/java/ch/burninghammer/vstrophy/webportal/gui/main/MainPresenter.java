@@ -10,6 +10,7 @@ import ch.burninghammer.vstrophy.webportal.gui.history.HistoryView;
 import ch.burninghammer.vstrophy.webportal.gui.main.login.LoginProvider;
 import ch.burninghammer.vstrophy.webportal.gui.newseditor.NewsEditorView;
 import ch.burninghammer.vstrophy.webportal.gui.newsfeed.NewsFeedView;
+import ch.burninghammer.vstrophy.webportal.gui.results.ResultsView;
 import ch.burninghammer.vstrophy.webportal.gui.security.PasswordUtils;
 import ch.burninghammer.vstrophy.webportal.gui.teameditor.TeamEditorView;
 import ch.burninghammer.vstrophy.webportal.gui.teams.TeamsView;
@@ -81,6 +82,11 @@ public class MainPresenter extends AbstractMVPPresenter<MainView> implements Log
     protected void navigateToHistory(
             @Observes @CDIEvent(MainMenuCDIEvents.SHOW_HISTORY) final ParameterDTO parameters) {
         navigateToView(HistoryView.class);
+    }
+
+    protected void navigateToResults(
+            @Observes @CDIEvent(MainMenuCDIEvents.SHOW_RESULTS) final ParameterDTO parameters) {
+        navigateToView(ResultsView.class);
     }
 
     protected void loginClicked(@Observes @CDIEvent(MainMenuCDIEvents.LOGIN_CLICKED) final ParameterDTO parameters) {

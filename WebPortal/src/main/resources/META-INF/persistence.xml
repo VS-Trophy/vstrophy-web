@@ -7,6 +7,9 @@
         <class>ch.burninghammer.vstrophy.entities.user.User</class>
         <class>ch.burninghammer.vstrophy.entities.teams.Team</class>
         <class>ch.burninghammer.vstrophy.entities.divisions.Division</class>
+        <class>ch.burninghammer.vstrophy.entities.match.Match</class>
+        <class>ch.burninghammer.vstrophy.entities.weeks.Week</class>
+
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
