@@ -8,11 +8,10 @@ import ch.burninghammer.vstrophy.webportal.data.WeekHandler;
 import ch.vstrophy.common.WeekInfoProvider;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 import org.vaadin.addon.cdimvp.CDIEvent;
 import org.vaadin.addon.cdimvp.ParameterDTO;
@@ -24,6 +23,7 @@ import org.vaadin.addon.cdimvp.ParameterDTO;
 @AbstractMVPPresenter.ViewInterface(ResultsView.class)
 public class ResultsPresenter extends AbstractMVPPresenter<ResultsView> {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ResultsPresenter.class);
     private static final int FIRST_SEASON = 2012;
     private static final int LAST_SEASON = 2015;
     @Inject
@@ -55,7 +55,7 @@ public class ResultsPresenter extends AbstractMVPPresenter<ResultsView> {
             }
             view.setWeekList(weekList);
         } catch (NumberFormatException ex) {
-            Logger.getGlobal().log(Level.SEVERE, "Could not cast season {0}", parameters.getPrimaryParameter(String.class));
+            LOGGER.error("Could not cast season {0}", parameters.getPrimaryParameter(String.class));
         }
     }
 
@@ -66,7 +66,7 @@ public class ResultsPresenter extends AbstractMVPPresenter<ResultsView> {
             int seasonNumber = Integer.parseInt(parameters.getSecondaryParameter(0, String.class));
             view.setMatchList(weekHandler.getMatchesOfWeek(seasonNumber, weekNumber));
         } catch (NumberFormatException ex) {
-            Logger.getGlobal().log(Level.SEVERE, "Could not cast season {0}", parameters.getPrimaryParameter(String.class));
+            LOGGER.error("Could not cast season {0}", parameters.getPrimaryParameter(String.class));
         }
     }
 

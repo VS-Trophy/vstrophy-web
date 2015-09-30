@@ -12,10 +12,9 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextField;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdimvp.ViewComponent;
 import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
 import org.vaadin.addon.cdiproperties.annotation.DateFieldProperties;
@@ -29,6 +28,7 @@ import org.vaadin.addon.cdiproperties.annotation.TextFieldProperties;
  */
 public class NewsItemForm extends ViewComponent {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(NewsItemForm.class);
     @PropertyId("title")
     @Inject
     @TextFieldProperties(immediate = true, caption = "Titel")
@@ -78,7 +78,7 @@ public class NewsItemForm extends ViewComponent {
                     fieldGroup.commit();
                     fieldGroup.clear();
                 } catch (FieldGroup.CommitException ex) {
-                    Logger.getLogger(NewsItemForm.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error("Could not commit field group", ex);
                 }
                 fireViewEvent(NewsEditorCDIEvents.NEWS_ITEM_CHANGED, newsItem);
             }

@@ -7,10 +7,9 @@ import ch.burninghammer.vstrophy.entities.user.User;
 import ch.burninghammer.vstrophy.entities.user.UserEntityManager;
 import ch.burninghammer.vstrophy.webportal.error.WebPortalException;
 import ch.burninghammer.vstrophy.webportal.gui.security.PasswordUtils;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 import org.vaadin.addon.cdimvp.CDIEvent;
 import org.vaadin.addon.cdimvp.ParameterDTO;
@@ -22,6 +21,7 @@ import org.vaadin.addon.cdimvp.ParameterDTO;
 @AbstractMVPPresenter.ViewInterface(UserAdministrationView.class)
 public class UserAdministrationPresenter extends AbstractMVPPresenter<UserAdministrationView> {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(UserAdministrationPresenter.class);
     @Inject
     UserEntityManager userEntityManager;
 
@@ -49,7 +49,7 @@ public class UserAdministrationPresenter extends AbstractMVPPresenter<UserAdmini
             userEntityManager.saveUser(user);
             view.showUserList(userEntityManager.getAllUsers());
         } catch (WebPortalException ex) {
-            Logger.getLogger(UserAdministrationPresenter.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error("Error updating user", ex);
         }
 
     }

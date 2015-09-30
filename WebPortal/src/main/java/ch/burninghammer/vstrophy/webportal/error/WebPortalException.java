@@ -3,11 +3,13 @@
  */
 package ch.burninghammer.vstrophy.webportal.error;
 
+import ch.vstrophy.exception.VSTrophyException;
+
 /**
  *
  * @author kobashi@burninghammer.ch
  */
-public class WebPortalException extends Exception {
+public class WebPortalException extends VSTrophyException {
 
     public WebPortalException(String message, Throwable ex) {
         super(message, ex);

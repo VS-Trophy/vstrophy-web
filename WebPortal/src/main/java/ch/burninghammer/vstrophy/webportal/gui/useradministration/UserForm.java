@@ -12,10 +12,9 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdimvp.ViewComponent;
 import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
 import org.vaadin.addon.cdiproperties.annotation.CheckBoxProperties;
@@ -29,6 +28,7 @@ import org.vaadin.addon.cdiproperties.annotation.TextFieldProperties;
  */
 public class UserForm extends ViewComponent {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(UserForm.class);
     @PropertyId("name")
     @Inject
     @TextFieldProperties(immediate = true, caption = "Titel")
@@ -70,7 +70,7 @@ public class UserForm extends ViewComponent {
                     fieldGroup.commit();
                     fieldGroup.clear();
                 } catch (FieldGroup.CommitException ex) {
-                    Logger.getLogger(UserForm.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.error("Could not commit fieldgroup", ex);
                 }
                 fireViewEvent(UserAdministrationCDIEvents.USER_CHANGED, user, passwordField.getValue());
             }

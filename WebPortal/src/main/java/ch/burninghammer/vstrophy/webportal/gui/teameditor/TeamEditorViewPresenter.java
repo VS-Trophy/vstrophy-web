@@ -5,10 +5,9 @@ package ch.burninghammer.vstrophy.webportal.gui.teameditor;
 
 import ch.burninghammer.vstrophy.entities.teams.Team;
 import ch.burninghammer.vstrophy.entities.teams.TeamEntityManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 import org.vaadin.addon.cdimvp.CDIEvent;
 import org.vaadin.addon.cdimvp.ParameterDTO;
@@ -20,6 +19,7 @@ import org.vaadin.addon.cdimvp.ParameterDTO;
 @AbstractMVPPresenter.ViewInterface(TeamEditorView.class)
 public class TeamEditorViewPresenter extends AbstractMVPPresenter<TeamEditorView> {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TeamEditorViewPresenter.class);
     @Inject
     private TeamEntityManager entityManager;
 
@@ -33,7 +33,7 @@ public class TeamEditorViewPresenter extends AbstractMVPPresenter<TeamEditorView
             Team team = parameters.getPrimaryParameter(Team.class);
             view.showTeam(team);
         } catch (ClassCastException ex) {
-            Logger.getGlobal().log(Level.WARNING, "Could not cast selected team");
+            LOGGER.warn("Could not cast selected team");
         }
     }
 
@@ -42,7 +42,7 @@ public class TeamEditorViewPresenter extends AbstractMVPPresenter<TeamEditorView
             Team team = parameters.getPrimaryParameter(Team.class);
             entityManager.saveTeam(team);
         } catch (ClassCastException ex) {
-            Logger.getGlobal().log(Level.WARNING, "Could not cast selected team");
+            LOGGER.warn("Could not cast selected team");
         }
         view.showTeamList(entityManager.getAllTeams());
     }

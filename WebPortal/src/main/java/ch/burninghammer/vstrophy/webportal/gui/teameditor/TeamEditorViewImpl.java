@@ -13,9 +13,9 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import java.util.List;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
 import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
 import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
@@ -29,6 +29,7 @@ import org.vaadin.addon.cdiproperties.annotation.VerticalLayoutProperties;
  */
 public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorView {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TeamEditorViewImpl.class);
     @Inject
     @PanelProperties(sizeFull = true)
     private Panel mainPanel;
@@ -57,7 +58,7 @@ public class TeamEditorViewImpl extends AbstractMVPView implements TeamEditorVie
         try {
             teamTable.setContainerDataSource(teamBeanContainer);
         } catch (Table.CacheUpdateException ex) {
-            logger.log(Level.WARNING, "Error during team table cache update. Ignoring as this might happen with incomplete teams.");
+            LOGGER.warn("Error during team table cache update. Ignoring as this might happen with incomplete teams.");
         }
         teamTable.setVisibleColumns("name");
         newTeamButton.setEnabled(true);

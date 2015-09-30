@@ -5,10 +5,9 @@ package ch.burninghammer.vstrophy.webportal.gui.divisioneditor;
 
 import ch.burninghammer.vstrophy.entities.divisions.Division;
 import ch.burninghammer.vstrophy.entities.divisions.DivisionEntityManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 import org.vaadin.addon.cdimvp.CDIEvent;
 import org.vaadin.addon.cdimvp.ParameterDTO;
@@ -20,6 +19,7 @@ import org.vaadin.addon.cdimvp.ParameterDTO;
 @AbstractMVPPresenter.ViewInterface(DivisionEditorView.class)
 public class DivisionEditorPresenter extends AbstractMVPPresenter<DivisionEditorView> {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(DivisionEditorPresenter.class);
     @Inject
     private DivisionEntityManager divisionEntityManager;
 
@@ -33,7 +33,7 @@ public class DivisionEditorPresenter extends AbstractMVPPresenter<DivisionEditor
             Division division = parameters.getPrimaryParameter(Division.class);
             view.showDivision(division);
         } catch (ClassCastException ex) {
-            Logger.getGlobal().log(Level.WARNING, "Could not cast selected division");
+            LOGGER.warn("Could not cast selected division");
         }
     }
 
@@ -42,7 +42,7 @@ public class DivisionEditorPresenter extends AbstractMVPPresenter<DivisionEditor
             Division division = parameters.getPrimaryParameter(Division.class);
             divisionEntityManager.saveDivision(division);
         } catch (ClassCastException ex) {
-            Logger.getGlobal().log(Level.WARNING, "Could not cast selected division");
+            LOGGER.warn("Could not cast selected division");
         }
         view.showDivisionList(divisionEntityManager.getAllDivisions());
     }
