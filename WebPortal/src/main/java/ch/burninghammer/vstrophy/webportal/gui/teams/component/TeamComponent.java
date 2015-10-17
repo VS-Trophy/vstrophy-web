@@ -6,6 +6,7 @@ package ch.burninghammer.vstrophy.webportal.gui.teams.component;
 import ch.burninghammer.vstrophy.entities.teams.Team;
 import ch.burninghammer.vstrophy.entities.teams.TeamOfficial;
 import ch.burninghammer.vstrophy.webportal.util.LogoHelper;
+import ch.vstrophy.statistic.TeamRecord;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
@@ -39,10 +40,11 @@ public class TeamComponent extends ViewComponent {
     private Label foundedInLabel;
     private Label joinedInLabel;
     private Label divisionLabel;
+    private Label recordLabel;
     private Image logoImage;
     private Image uniformImage;
 
-    public TeamComponent(final Team team) {
+    public TeamComponent(final Team team, TeamRecord record) {
         this.team = team;
         mainPanel = new Panel();
 
@@ -63,7 +65,7 @@ public class TeamComponent extends ViewComponent {
         createFacts();
         createOfficials();
         createImages();
-        mainLayout.addComponent(createTitle());
+        mainLayout.addComponent(createTitle(record));
         mainLayout.addComponent(masterContentLayout);
         mainLayout.addComponent(createFooter());
         mainLayout.setExpandRatio(masterContentLayout, 0.7f);
@@ -101,7 +103,7 @@ public class TeamComponent extends ViewComponent {
         }
     }
 
-    private Component createTitle() {
+    private Component createTitle(TeamRecord record) {
         VerticalLayout titleLayout = new VerticalLayout();
         teamNameTitle = new Label(team.getName());
         teamNameTitle.addStyleName(ValoTheme.LABEL_H1);
@@ -109,10 +111,14 @@ public class TeamComponent extends ViewComponent {
         divisionLabel = new Label((team.getDivision() == null ? "Keine" : team.getDivision().getName()) + " Division");
         divisionLabel.addStyleName(ValoTheme.LABEL_H3);
         divisionLabel.setSizeUndefined();
+        recordLabel = new Label("Record: " + record.toOutput());
+        recordLabel.setSizeUndefined();
         titleLayout.addComponent(teamNameTitle);
         titleLayout.setComponentAlignment(teamNameTitle, Alignment.MIDDLE_CENTER);
         titleLayout.addComponent(divisionLabel);
+        titleLayout.addComponent(recordLabel);
         titleLayout.setComponentAlignment(divisionLabel, Alignment.MIDDLE_CENTER);
+        titleLayout.setComponentAlignment(recordLabel, Alignment.MIDDLE_CENTER);
         return titleLayout;
     }
 

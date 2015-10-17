@@ -5,10 +5,12 @@ package ch.burninghammer.vstrophy.webportal.gui.teams;
 
 import ch.burninghammer.vstrophy.entities.teams.Team;
 import ch.burninghammer.vstrophy.webportal.gui.teams.component.TeamComponent;
+import ch.vstrophy.statistic.TeamRecord;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
@@ -43,10 +45,11 @@ public class TeamsViewImpl extends AbstractMVPView implements TeamsView {
     }
 
     @Override
-    public void setTeamList(final List<Team> teams) {
+    public void setTeamInfo(final List<Team> teams, final Map<String, TeamRecord> records) {
         tabs.removeAllComponents();
         for (Team team : teams) {
-            tabs.addTab(new TeamComponent(team), team.getName());
+            tabs.addTab(new TeamComponent(team, records.get(team.getName())), team.getName());
         }
     }
+
 }

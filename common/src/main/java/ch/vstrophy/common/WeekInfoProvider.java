@@ -4,8 +4,10 @@
  */
 package ch.vstrophy.common;
 
+import ch.burninghammer.vstrophy.entities.weeks.WeekEntityManager;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.joda.time.DateTime;
 import org.joda.time.Weeks;
 
@@ -16,6 +18,9 @@ import org.joda.time.Weeks;
 @Stateless
 @LocalBean
 public class WeekInfoProvider {
+
+    @Inject
+    private WeekEntityManager weekEntityManager;
 
     private static final DateTime FANTASY_SEAON_WEEK_1_2015 = new DateTime(2015, 9, 8, 5, 0);
     private static final int CURRENT_SEASON = 2015;
@@ -34,4 +39,5 @@ public class WeekInfoProvider {
 
         return CURRENT_SEASON;
     }
+
 }

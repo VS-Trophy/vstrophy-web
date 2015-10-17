@@ -5,6 +5,7 @@ package ch.burninghammer.vstrophy.entities.match;
 
 import ch.burninghammer.vstrophy.entities.teams.Team;
 import ch.burninghammer.vstrophy.entities.weeks.Week;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -48,4 +49,36 @@ public class MatchEntityManager {
             return null;
         }
     }
+
+    /**
+     * Gets all matches of a team
+     *
+     * @param team
+     * @return
+     */
+    public List<Match> getAllMatches(Team team) {
+        CriteriaQuery<Match> query = MatchQueries.getAllTeamMatches(em.getCriteriaBuilder(), team);
+        try {
+            return em.createQuery(query).getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Gets all matches of a season for a team
+     *
+     * @param team
+     * @param season
+     * @return
+     */
+    public List<Match> getMatchesForSeason(Team team, int season) {
+        CriteriaQuery<Match> query = MatchQueries.getAllTeamMatchesForSeason(em.getCriteriaBuilder(), team, season);
+        try {
+            return em.createQuery(query).getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
 }

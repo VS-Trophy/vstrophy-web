@@ -189,4 +189,31 @@ public class Team implements Serializable {
         this.nflId = nflId;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + this.nflId;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Team other = (Team) obj;
+        if (this.nflId != other.nflId) {
+            return false;
+        }
+        return true;
+    }
+
 }
