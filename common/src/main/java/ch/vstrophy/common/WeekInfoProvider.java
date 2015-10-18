@@ -4,7 +4,7 @@
  */
 package ch.vstrophy.common;
 
-import ch.burninghammer.vstrophy.entities.weeks.WeekEntityManager;
+import ch.vstrophy.entities.weeks.WeekEntityManager;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

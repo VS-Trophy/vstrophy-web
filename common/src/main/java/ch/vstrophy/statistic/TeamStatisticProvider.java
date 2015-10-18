@@ -3,9 +3,9 @@
  */
 package ch.vstrophy.statistic;
 
-import ch.burninghammer.vstrophy.entities.match.Match;
-import ch.burninghammer.vstrophy.entities.match.MatchEntityManager;
-import ch.burninghammer.vstrophy.entities.teams.Team;
+import ch.vstrophy.entities.match.Match;
+import ch.vstrophy.entities.match.MatchEntityManager;
+import ch.vstrophy.entities.teams.Team;
 import ch.vstrophy.common.WeekInfoProvider;
 import ch.vstrophy.exception.VSTrophyException;
 import java.util.ArrayList;
