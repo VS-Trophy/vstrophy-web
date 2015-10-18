@@ -26,13 +26,13 @@ public class MatchComponent extends CustomComponent {
         GridLayout mainLayout = new GridLayout(7, 1);
         mainLayout.setSpacing(true);
         mainLayout.setMargin(true);
-        mainLayout.setColumnExpandRatio(0, 2);
-        mainLayout.setColumnExpandRatio(1, 1);
-        mainLayout.setColumnExpandRatio(2, 1);
+        mainLayout.setColumnExpandRatio(0, 4);
+        mainLayout.setColumnExpandRatio(1, 4);
+        mainLayout.setColumnExpandRatio(2, 2);
         mainLayout.setColumnExpandRatio(3, 1);
-        mainLayout.setColumnExpandRatio(4, 1);
-        mainLayout.setColumnExpandRatio(5, 1);
-        mainLayout.setColumnExpandRatio(6, 2);
+        mainLayout.setColumnExpandRatio(4, 2);
+        mainLayout.setColumnExpandRatio(5, 4);
+        mainLayout.setColumnExpandRatio(6, 4);
 
         mainLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         mainLayout.setSpacing(true);
@@ -72,11 +72,16 @@ public class MatchComponent extends CustomComponent {
         mainLayout.addComponent(secondTeamLogo, 5, 0);
         mainLayout.addComponent(secondTeamLabel, 6, 0);
 
+        firstTeamPoints.setSizeUndefined();
+        secondTeamPoints.setSizeUndefined();
+
         mainLayout.setComponentAlignment(firstTeamLogo, Alignment.MIDDLE_RIGHT);
         mainLayout.setComponentAlignment(vsLabel, Alignment.MIDDLE_CENTER);
         mainLayout.setComponentAlignment(secondTeamLogo, Alignment.MIDDLE_LEFT);
         mainLayout.setComponentAlignment(firstTeamLabel, Alignment.MIDDLE_RIGHT);
         mainLayout.setComponentAlignment(secondTeamLabel, Alignment.MIDDLE_LEFT);
+        mainLayout.setComponentAlignment(secondTeamPoints, Alignment.MIDDLE_RIGHT);
+        mainLayout.setComponentAlignment(firstTeamPoints, Alignment.MIDDLE_LEFT);
     }
 
 }
