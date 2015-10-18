@@ -7,11 +7,13 @@ package ch.vstrophy.statistic;
  *
  * @author kobashi@burninghammer.ch
  */
-public class TeamRecord {
+public class TeamRecord implements StatisticPoint {
 
     private int wins;
     private int losses;
     private int draws;
+
+    private String name = "";
 
     private static final char DELIMITER = '-';
 
@@ -25,6 +27,17 @@ public class TeamRecord {
         this.wins = wins;
         this.losses = losses;
         this.draws = draws;
+    }
+
+    public TeamRecord(int wins, int losses, int draws, String name) {
+        this.wins = wins;
+        this.losses = losses;
+        this.draws = draws;
+        this.name = name;
+    }
+
+    public TeamRecord(String name) {
+        this.name = name;
     }
 
     public int getWins() {
@@ -63,6 +76,7 @@ public class TeamRecord {
         ++this.draws;
     }
 
+    @Override
     public String toOutput() {
         StringBuilder builder = new StringBuilder();
         builder.append(wins).append(DELIMITER).append(losses);
@@ -70,6 +84,15 @@ public class TeamRecord {
             builder.append(DELIMITER).append(draws);
         }
         return builder.toString();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
 }

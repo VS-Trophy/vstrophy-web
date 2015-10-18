@@ -4,7 +4,7 @@
 package ch.vstrophy.webportal.gui.teams;
 
 import ch.vstrophy.entities.teams.Team;
-import ch.vstrophy.statistic.TeamRecord;
+import ch.vstrophy.statistic.StatisticCategory;
 import java.util.List;
 import java.util.Map;
 import org.vaadin.addon.cdimvp.MVPView;
@@ -15,6 +15,6 @@ import org.vaadin.addon.cdimvp.MVPView;
  */
 public interface TeamsView extends MVPView {
 
-    void setTeamInfo(List<Team> teams, Map<String, TeamRecord> records);
+    void setTeamInfo(List<Team> teams, Map<String, List<StatisticCategory>> records);
 
 }

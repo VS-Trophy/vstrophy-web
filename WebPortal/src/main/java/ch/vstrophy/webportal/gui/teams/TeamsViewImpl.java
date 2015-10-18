@@ -4,8 +4,8 @@
 package ch.vstrophy.webportal.gui.teams;
 
 import ch.vstrophy.entities.teams.Team;
+import ch.vstrophy.statistic.StatisticCategory;
 import ch.vstrophy.webportal.gui.teams.component.TeamComponent;
-import ch.vstrophy.statistic.TeamRecord;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
@@ -45,7 +45,7 @@ public class TeamsViewImpl extends AbstractMVPView implements TeamsView {
     }
 
     @Override
-    public void setTeamInfo(final List<Team> teams, final Map<String, TeamRecord> records) {
+    public void setTeamInfo(final List<Team> teams, final Map<String, List<StatisticCategory>> records) {
         tabs.removeAllComponents();
         for (Team team : teams) {
             tabs.addTab(new TeamComponent(team, records.get(team.getName())), team.getName());

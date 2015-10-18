@@ -3,10 +3,10 @@
  */
 package ch.vstrophy.statistic;
 
+import ch.vstrophy.common.WeekInfoProvider;
 import ch.vstrophy.entities.match.Match;
 import ch.vstrophy.entities.match.MatchEntityManager;
 import ch.vstrophy.entities.teams.Team;
-import ch.vstrophy.common.WeekInfoProvider;
 import ch.vstrophy.exception.VSTrophyException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,7 @@ public class TeamStatisticProvider {
             throw new NullPointerException("Team must not be null!");
         }
         List<Match> matches = matchEntityManager.getAllMatches(team);
+        matches = removeCurrentAndFutureMatches(matches);
         return getRecordForTeam(team, matches);
     }
 

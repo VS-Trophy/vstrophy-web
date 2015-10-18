@@ -5,9 +5,10 @@ package ch.vstrophy.webportal.gui.teams.component;
 
 import ch.vstrophy.entities.teams.Team;
 import ch.vstrophy.entities.teams.TeamOfficial;
+import ch.vstrophy.statistic.StatisticCategory;
+import ch.vstrophy.webportal.gui.statistics.TeamStatisticComponent;
+import ch.vstrophy.webportal.gui.theme.VSTrophyTheme;
 import ch.vstrophy.webportal.util.LogoHelper;
-import ch.vstrophy.statistic.TeamRecord;
-import com.vaadin.ui.Accordion;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
@@ -19,6 +20,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import org.vaadin.addon.cdimvp.ViewComponent;
 
 /**
@@ -45,7 +47,7 @@ public class TeamComponent extends ViewComponent {
     private Image logoImage;
     private Image uniformImage;
 
-    public TeamComponent(final Team team, TeamRecord record) {
+    public TeamComponent(final Team team, List<StatisticCategory> statistics) {
         this.team = team;
         mainPanel = new Panel();
 
@@ -63,11 +65,18 @@ public class TeamComponent extends ViewComponent {
 
         masterContentLayout.addComponent(leftContentLayout);
         masterContentLayout.addComponent(rightContentLayout);
-        masterContentLayout.addComponent(new Accordion(new Label("HAHA")));
+        TeamStatisticComponent statisticComponent = new TeamStatisticComponent(statistics);
+        statisticComponent.setSizeUndefined();
+        Panel statisticPanel = new Panel("Statistik");
+        statisticPanel.addStyleName(VSTrophyTheme.PANEL_WELL);
+        statisticPanel.setContent(statisticComponent);
+        statisticPanel.setSizeUndefined();
+        statisticPanel.setHeight("100%");
+        masterContentLayout.addComponent(statisticPanel);
         createFacts();
         createOfficials();
         createImages();
-        mainLayout.addComponent(createTitle(record));
+        mainLayout.addComponent(createTitle());
         mainLayout.addComponent(masterContentLayout);
         mainLayout.addComponent(createFooter());
         mainLayout.setExpandRatio(masterContentLayout, 0.7f);
@@ -105,7 +114,7 @@ public class TeamComponent extends ViewComponent {
         }
     }
 
-    private Component createTitle(TeamRecord record) {
+    private Component createTitle() {
         VerticalLayout titleLayout = new VerticalLayout();
         teamNameTitle = new Label(team.getName());
         teamNameTitle.addStyleName(ValoTheme.LABEL_H1);
@@ -113,14 +122,13 @@ public class TeamComponent extends ViewComponent {
         divisionLabel = new Label((team.getDivision() == null ? "Keine" : team.getDivision().getName()) + " Division");
         divisionLabel.addStyleName(ValoTheme.LABEL_H3);
         divisionLabel.setSizeUndefined();
-        recordLabel = new Label("Record: " + record.toOutput());
-        recordLabel.setSizeUndefined();
+
         titleLayout.addComponent(teamNameTitle);
         titleLayout.setComponentAlignment(teamNameTitle, Alignment.MIDDLE_CENTER);
         titleLayout.addComponent(divisionLabel);
-        titleLayout.addComponent(recordLabel);
+
         titleLayout.setComponentAlignment(divisionLabel, Alignment.MIDDLE_CENTER);
-        titleLayout.setComponentAlignment(recordLabel, Alignment.MIDDLE_CENTER);
+
         return titleLayout;
     }
 
