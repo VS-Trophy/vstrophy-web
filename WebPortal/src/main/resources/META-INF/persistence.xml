@@ -9,6 +9,7 @@
         <class>ch.burninghammer.vstrophy.entities.divisions.Division</class>
         <class>ch.burninghammer.vstrophy.entities.match.Match</class>
         <class>ch.burninghammer.vstrophy.entities.weeks.Week</class>
+        <class>ch.burninghammer.vstrophy.entities.persistenttexts.PersistentText</class>
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>

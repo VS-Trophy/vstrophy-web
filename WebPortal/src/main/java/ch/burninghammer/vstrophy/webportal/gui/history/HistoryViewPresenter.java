@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdimvp.AbstractMVPPresenter;
 import org.vaadin.addon.cdimvp.CDIEvent;
 import org.vaadin.addon.cdimvp.ParameterDTO;
@@ -21,6 +22,7 @@ import org.vaadin.addon.cdimvp.ParameterDTO;
 @AbstractMVPPresenter.ViewInterface(HistoryView.class)
 public class HistoryViewPresenter extends AbstractMVPPresenter<HistoryView> {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(HistoryViewPresenter.class);
     @Inject
     private PersistentTextEntityManager textEntityManager;
 
@@ -36,6 +38,7 @@ public class HistoryViewPresenter extends AbstractMVPPresenter<HistoryView> {
             PersistentText text = textEntityManager.getPersistentText(HISTORY_TEXT_ID);
             content = text.getContent();
         } catch (Exception ex) {
+            LOGGER.error("Could not load history text", ex);
             content = "History";
         }
         view.showHistory(content, loginProvider.getUser() == null ? false : loginProvider.getUser().isAdmin());
