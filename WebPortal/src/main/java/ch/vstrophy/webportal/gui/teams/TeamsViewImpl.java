@@ -12,6 +12,7 @@ import com.vaadin.ui.TabSheet;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import org.vaadin.addon.cdimvp.AbstractMVPView;
 import org.vaadin.addon.cdiproperties.annotation.HorizontalLayoutProperties;
@@ -36,6 +37,9 @@ public class TeamsViewImpl extends AbstractMVPView implements TeamsView {
     @TabSheetProperties(sizeFull = true)
     private TabSheet tabs;
 
+    @Inject
+    private Instance<TeamComponent> teamComponentInstance;
+
     @PostConstruct
     private void init() {
         setCompositionRoot(mainPanel);
@@ -48,7 +52,10 @@ public class TeamsViewImpl extends AbstractMVPView implements TeamsView {
     public void setTeamInfo(final List<Team> teams, final Map<String, List<StatisticCategory>> records) {
         tabs.removeAllComponents();
         for (Team team : teams) {
-            tabs.addTab(new TeamComponent(team, records.get(team.getName())), team.getName());
+            TeamComponent comp = teamComponentInstance.get();
+            comp.setTeam(team);
+            comp.setSizeFull();
+            tabs.addTab(comp, team.getName());
         }
     }
 
