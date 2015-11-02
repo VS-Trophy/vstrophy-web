@@ -30,7 +30,7 @@ public class TeamsViewImpl extends AbstractMVPView implements TeamsView {
     private Panel mainPanel;
 
     @Inject
-    @HorizontalLayoutProperties(sizeFull = true, margin = true)
+    @HorizontalLayoutProperties(width = "100%", margin = true)
     private HorizontalLayout mainLayout;
 
     @Inject
@@ -54,6 +54,7 @@ public class TeamsViewImpl extends AbstractMVPView implements TeamsView {
         for (Team team : teams) {
             TeamComponent comp = teamComponentInstance.get();
             comp.setTeam(team);
+            comp.setStatistic(records.get(team.getName()));
             comp.setSizeFull();
             tabs.addTab(comp, team.getName());
         }

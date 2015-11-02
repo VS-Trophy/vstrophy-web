@@ -72,6 +72,7 @@
             <groupId>org.vaadin.addon</groupId>
             <artifactId>cdi-mvp</artifactId>
             <version>0.9.5</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.vaadin.addon</groupId>
