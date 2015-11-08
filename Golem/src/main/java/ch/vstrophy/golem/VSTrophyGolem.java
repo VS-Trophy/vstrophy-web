@@ -3,6 +3,7 @@
  */
 package ch.vstrophy.golem;
 
+import ch.vstrophy.common.WeekInfoProvider;
 import ch.vstrophy.entities.match.Match;
 import ch.vstrophy.entities.teams.Team;
 import ch.vstrophy.entities.weeks.Week;
@@ -10,7 +11,6 @@ import ch.vstrophy.golem.exception.GolemException;
 import ch.vstrophy.golem.exception.GolemParserException;
 import ch.vstrophy.golem.parsers.HistoryViewParser;
 import ch.vstrophy.golem.persistence.PersistenceHandler;
-import ch.vstrophy.common.WeekInfoProvider;
 import java.io.IOException;
 import java.util.Map;
 import javax.ejb.LocalBean;
@@ -56,6 +56,9 @@ public class VSTrophyGolem {
         Map<String, String> cookies = login();
         try {
             updateWeek(CURRENT_SEASON, week, cookies, persistenceHandler.getTeamMap());
+            if (week > 1) {
+                updateWeek(CURRENT_SEASON, week - 1, cookies, persistenceHandler.getTeamMap());
+            }
         } catch (GolemException ex) {
             LOGGER.error("Could not update current week", ex);
         }
