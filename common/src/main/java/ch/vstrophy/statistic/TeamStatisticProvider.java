@@ -9,6 +9,7 @@ import ch.vstrophy.entities.match.MatchEntityManager;
 import ch.vstrophy.entities.teams.Team;
 import ch.vstrophy.exception.VSTrophyException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -50,6 +51,27 @@ public class TeamStatisticProvider {
         }
         //We remove the current week as the results are not yet final
         matches = removeCurrentAndFutureMatches(matches);
+        return getRecordForTeam(team, matches);
+    }
+
+    public TeamRecord getCurrentDivisionRecord(Team team) throws VSTrophyException {
+        if (team == null) {
+            throw new NullPointerException("Team must not be null!");
+        }
+        LOGGER.info("Getting current division record for " + team);
+        List<Match> matches = matchEntityManager.getMatchesForSeason(team, weekInfo.getCurrentSeasonNumber());
+        for (Match match : matches) {
+            LOGGER.info(match.getFirstTeam() + " vs " + match.getSecondTeam() + " in Week " + match.getWeek().getNumber() + " " + match.getWeek().getSeason());
+        }
+        //We remove the current week as the results are not yet final
+        matches = removeCurrentAndFutureMatches(matches);
+        Iterator<Match> itr = matches.iterator();
+        while (itr.hasNext()) {
+            Match match = itr.next();
+            if (!match.getFirstTeam().getDivision().equals(match.getSecondTeam().getDivision())) {
+                itr.remove();
+            }
+        }
         return getRecordForTeam(team, matches);
     }
 

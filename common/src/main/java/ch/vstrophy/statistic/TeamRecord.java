@@ -3,6 +3,8 @@
  */
 package ch.vstrophy.statistic;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author kobashi@burninghammer.ch
@@ -16,6 +18,9 @@ public class TeamRecord implements StatisticPoint {
     private String name = "";
 
     private static final char DELIMITER = '-';
+    private boolean showPercentage = false;
+    private static final DecimalFormat normalFormat = new DecimalFormat("#.###");
+    private static final DecimalFormat usFormat = new DecimalFormat(".###");
 
     public TeamRecord() {
         wins = 0;
@@ -76,6 +81,14 @@ public class TeamRecord implements StatisticPoint {
         ++this.draws;
     }
 
+    public int getNumberOfMatches() {
+        return wins + draws + losses;
+    }
+
+    public void setShowPercentage(boolean showPercentage) {
+        this.showPercentage = showPercentage;
+    }
+
     @Override
     public String toOutput() {
         StringBuilder builder = new StringBuilder();
@@ -83,9 +96,28 @@ public class TeamRecord implements StatisticPoint {
         if (draws > 0) {
             builder.append(DELIMITER).append(draws);
         }
+        if (showPercentage) {
+            builder.append(" (").append(getPercentage(wins, getNumberOfMatches())).append(")");
+        }
         return builder.toString();
     }
 
+    private String getPercentage(double part, double total) {
+        double percentage = part / total;
+
+        if (percentage == Double.NaN) {
+            return "-";
+        }
+
+        if (percentage >= 1.0) {
+            return normalFormat.format(percentage);
+        } else {
+            return usFormat.format(percentage);
+        }
+
+    }
+
+    @Override
     public void setName(String name) {
         this.name = name;
     }

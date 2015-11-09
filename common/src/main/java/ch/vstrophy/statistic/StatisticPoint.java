@@ -9,6 +9,8 @@ package ch.vstrophy.statistic;
  */
 public interface StatisticPoint {
 
+    public void setName(String name);
+
     public String getName();
 
     public String toOutput();

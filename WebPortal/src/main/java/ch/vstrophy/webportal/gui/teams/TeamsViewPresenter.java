@@ -50,7 +50,13 @@ public class TeamsViewPresenter extends AbstractMVPPresenter<TeamsView> {
                 StatisticCategory currentCategory = new StatisticCategory("Aktuelle Saison");
                 TeamRecord currentRecord = teamStatisticProvider.getCurrentRecord(team);
                 currentRecord.setName("Overall");
+                currentRecord.setShowPercentage(true);
                 currentCategory.addStatisticPoint(currentRecord);
+
+                TeamRecord currentDivisionRecord = teamStatisticProvider.getCurrentDivisionRecord(team);
+                currentDivisionRecord.setName("Divison");
+                currentDivisionRecord.setShowPercentage(true);
+                currentCategory.addStatisticPoint(currentDivisionRecord);
 
                 categories.add(currentCategory);
                 records.put(team.getName(), categories);
@@ -59,6 +65,7 @@ public class TeamsViewPresenter extends AbstractMVPPresenter<TeamsView> {
                 TeamRecord historicRecord = teamStatisticProvider.getTotalRecord(team);
                 historicRecord.setName("Total");
                 historicCategory.addStatisticPoint(historicRecord);
+                historicRecord.setShowPercentage(true);
                 categories.add(historicCategory);
                 records.put(team.getName(), categories);
             } catch (VSTrophyException ex) {
