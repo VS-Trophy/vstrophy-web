@@ -41,6 +41,10 @@ public class TeamComponent extends ViewComponent {
     private Label teamNameLabel;
 
     @Inject
+    @LabelProperties(sizeUndefined = true, styleName = VSTrophyTheme.LABEL_SMALL)
+    private Label divisionLabel;
+
+    @Inject
     @LabelProperties(caption = "Ort:", styleName = VSTrophyTheme.LABEL_BOLD)
     private Label cityLabel;
 
@@ -124,6 +128,7 @@ public class TeamComponent extends ViewComponent {
 
     private void bindTeam(Team team) {
         teamNameLabel.setValue(team.getName());
+        divisionLabel.setValue(team.getDivision().getName() + " Division");
         cityLabel.setValue(team.getCity());
         stadiumLabel.setValue(team.getStadium());
         colorsLabel.setValue(team.getColors());
@@ -146,6 +151,7 @@ public class TeamComponent extends ViewComponent {
         setCompositionRoot(mainLayout);
 
         mainLayout.addComponent(titleLayout);
+        mainLayout.addComponent(divisionLabel);
         mainLayout.addComponent(factsLayout);
         mainLayout.addComponent(new Label("<hr/>", ContentMode.HTML));
         mainLayout.addComponent(detailsLayout);
