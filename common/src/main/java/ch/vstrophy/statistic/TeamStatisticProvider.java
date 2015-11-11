@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.inject.Inject;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author kobashi@burninghammer.ch
  */
-@Stateless
+@Stateful
 @LocalBean
 public class TeamStatisticProvider {
 
@@ -31,40 +31,39 @@ public class TeamStatisticProvider {
     @Inject
     private MatchEntityManager matchEntityManager;
 
-    public TeamRecord getTotalRecord(Team team) throws VSTrophyException {
+    private Team team;
+
+    private List<Match> allMatches;
+    private List<Match> currentMatches;
+
+    public void setTeam(Team team) {
+        this.team = team;
+        allMatches = matchEntityManager.getAllMatches(team);
+        allMatches = removeCurrentAndFutureMatches(allMatches);
+        currentMatches = removeMatchesFromOtherSeasonsAndFuture(allMatches);
+    }
+
+    public TeamRecord getTotalRecord() throws VSTrophyException {
         if (team == null) {
             throw new NullPointerException("Team must not be null!");
         }
-        List<Match> matches = matchEntityManager.getAllMatches(team);
-        matches = removeCurrentAndFutureMatches(matches);
-        return getRecordForTeam(team, matches);
+        return getRecordForTeam(allMatches);
     }
 
-    public TeamRecord getCurrentRecord(Team team) throws VSTrophyException {
+    public TeamRecord getCurrentRecord() throws VSTrophyException {
         if (team == null) {
             throw new NullPointerException("Team must not be null!");
         }
-        LOGGER.info("Getting current record for " + team);
-        List<Match> matches = matchEntityManager.getMatchesForSeason(team, weekInfo.getCurrentSeasonNumber());
-        for (Match match : matches) {
-            LOGGER.info(match.getFirstTeam() + " vs " + match.getSecondTeam() + " in Week " + match.getWeek().getNumber() + " " + match.getWeek().getSeason());
-        }
-        //We remove the current week as the results are not yet final
-        matches = removeCurrentAndFutureMatches(matches);
-        return getRecordForTeam(team, matches);
+        LOGGER.info("Getting current record for " + team.getName());
+        return getRecordForTeam(currentMatches);
     }
 
-    public TeamRecord getCurrentDivisionRecord(Team team) throws VSTrophyException {
+    public TeamRecord getCurrentDivisionRecord() throws VSTrophyException {
         if (team == null) {
             throw new NullPointerException("Team must not be null!");
         }
         LOGGER.info("Getting current division record for " + team);
-        List<Match> matches = matchEntityManager.getMatchesForSeason(team, weekInfo.getCurrentSeasonNumber());
-        for (Match match : matches) {
-            LOGGER.info(match.getFirstTeam() + " vs " + match.getSecondTeam() + " in Week " + match.getWeek().getNumber() + " " + match.getWeek().getSeason());
-        }
-        //We remove the current week as the results are not yet final
-        matches = removeCurrentAndFutureMatches(matches);
+        List<Match> matches = new ArrayList<>(currentMatches);
         Iterator<Match> itr = matches.iterator();
         while (itr.hasNext()) {
             Match match = itr.next();
@@ -72,10 +71,10 @@ public class TeamStatisticProvider {
                 itr.remove();
             }
         }
-        return getRecordForTeam(team, matches);
+        return getRecordForTeam(matches);
     }
 
-    private TeamRecord getRecordForTeam(Team team, List<Match> matches) throws VSTrophyException {
+    private TeamRecord getRecordForTeam(List<Match> matches) throws VSTrophyException {
         TeamRecord record = new TeamRecord();
         for (Match match : matches) {
 
@@ -108,6 +107,39 @@ public class TeamStatisticProvider {
         return record;
     }
 
+    public NumericStatisticPoint getCurrentSeasonPointsForTeam() throws VSTrophyException {
+        double totalPoints = 0.0;
+        for (Match match : currentMatches) {
+            if (match.getFirstTeam().equals(team)) {
+                totalPoints += match.getFirstTeamPoints();
+                continue;
+            }
+            if (match.getSecondTeam().equals(team)) {
+                totalPoints += match.getSecondTeamPoints();
+                continue;
+            }
+            throw new VSTrophyException("Team " + team.getName() + " did not participate in match " + match.getId());
+        }
+        return new NumericStatisticPoint(totalPoints);
+    }
+
+    public NumericStatisticPoint getPointsForTeam(Team team) throws VSTrophyException {
+        double totalPoints = 0.0;
+        for (Match match : allMatches) {
+            if (match.getFirstTeam().equals(team)) {
+                totalPoints += match.getFirstTeamPoints();
+                continue;
+            }
+            if (match.getSecondTeam().equals(team)) {
+                totalPoints += match.getSecondTeamPoints();
+                continue;
+            }
+            throw new VSTrophyException("Team " + team.getName() + " did not participate in match " + match.getId());
+        }
+
+        return new NumericStatisticPoint(totalPoints);
+    }
+
     private List<Match> removeCurrentAndFutureMatches(List<Match> matches) {
         List<Match> modifiedMatches = new ArrayList<>(matches);
         for (Match match : matches) {
@@ -120,8 +152,18 @@ public class TeamStatisticProvider {
             }
             if (match.getWeek().getNumber() >= weekInfo.getCurrentWeekNumber()) {
                 modifiedMatches.remove(match);
+            }
+        }
+        return modifiedMatches;
+    }
+
+    private List<Match> removeMatchesFromOtherSeasonsAndFuture(List<Match> matches) {
+        List<Match> modifiedMatches = new ArrayList<>(matches);
+        for (Match match : matches) {
+            if (match.getWeek().getSeason() == weekInfo.getCurrentSeasonNumber() && match.getWeek().getNumber() < weekInfo.getCurrentWeekNumber()) {
                 continue;
             }
+            modifiedMatches.remove(match);
         }
         return modifiedMatches;
     }

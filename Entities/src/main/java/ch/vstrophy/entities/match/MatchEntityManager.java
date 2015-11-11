@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -21,6 +22,7 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class MatchEntityManager {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MatchEntityManager.class);
     @PersistenceContext(unitName = "ch.vstrophy_WebPortal_PU")
     private EntityManager em;
 
@@ -57,9 +59,12 @@ public class MatchEntityManager {
      * @return
      */
     public List<Match> getAllMatches(Team team) {
+        LOGGER.info("Starting to get all matches...");
         CriteriaQuery<Match> query = MatchQueries.getAllTeamMatches(em.getCriteriaBuilder(), team);
         try {
-            return em.createQuery(query).getResultList();
+            List<Match> matches = em.createQuery(query).getResultList();
+            LOGGER.info("...done");
+            return matches;
         } catch (NoResultException ex) {
             return null;
         }

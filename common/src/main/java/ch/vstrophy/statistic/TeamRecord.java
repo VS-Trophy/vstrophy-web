@@ -3,24 +3,18 @@
  */
 package ch.vstrophy.statistic;
 
-import java.text.DecimalFormat;
-
 /**
  *
  * @author kobashi@burninghammer.ch
  */
-public class TeamRecord implements StatisticPoint {
+public class TeamRecord extends AbstractStatisticPoint {
 
     private int wins;
     private int losses;
     private int draws;
 
-    private String name = "";
-
     private static final char DELIMITER = '-';
     private boolean showPercentage = false;
-    private static final DecimalFormat normalFormat = new DecimalFormat("#.###");
-    private static final DecimalFormat usFormat = new DecimalFormat(".###");
 
     public TeamRecord() {
         wins = 0;
@@ -38,10 +32,6 @@ public class TeamRecord implements StatisticPoint {
         this.wins = wins;
         this.losses = losses;
         this.draws = draws;
-        this.name = name;
-    }
-
-    public TeamRecord(String name) {
         this.name = name;
     }
 
@@ -110,21 +100,11 @@ public class TeamRecord implements StatisticPoint {
         }
 
         if (percentage >= 1.0) {
-            return normalFormat.format(percentage);
+            return NORMAL_FORMAT.format(percentage);
         } else {
-            return usFormat.format(percentage);
+            return US_FORMAT.format(percentage);
         }
 
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
 }

@@ -19,7 +19,7 @@ public class TeamEntityManager {
     @PersistenceContext(unitName = "ch.vstrophy_WebPortal_PU")
     private EntityManager em;
 
-    private static final String GET_ALL_QUERY = "SELECT t FROM Team t";
+    private static final String GET_ALL_QUERY = "SELECT DISTINCT t FROM Team t JOIN FETCH t.officials JOIN FETCH t.division";
 
     public void saveTeam(final Team team) {
         em.merge(team);
