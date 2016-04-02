@@ -1,4 +1,4 @@
-System.register(['angular2/core', './navigation/navigation.component', './news/news.component'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,35 +10,28 @@ System.register(['angular2/core', './navigation/navigation.component', './news/n
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, navigation_component_1, news_component_1;
-    var AppComponent;
+    var core_1;
+    var NewsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (navigation_component_1_1) {
-                navigation_component_1 = navigation_component_1_1;
-            },
-            function (news_component_1_1) {
-                news_component_1 = news_component_1_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
+            NewsComponent = (function () {
+                function NewsComponent() {
                 }
-                AppComponent = __decorate([
+                NewsComponent = __decorate([
                     core_1.Component({
-                        selector: 'my-app',
-                        directives: [navigation_component_1.NavigationComponent, news_component_1.NewsComponent],
-                        template: '<div><vst-navigation></vst-navigation></div><div><vst-news></vst-news></div>'
+                        selector: 'vst-news',
+                        template: '<h1>News</h1>'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
+                ], NewsComponent);
+                return NewsComponent;
             }());
-            exports_1("AppComponent", AppComponent);
+            exports_1("NewsComponent", NewsComponent);
         }
     }
 });
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=news.component.js.map
