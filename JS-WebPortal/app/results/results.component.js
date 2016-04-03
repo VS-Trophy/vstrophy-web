@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,32 +10,28 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
-    var NavigationComponent;
+    var core_1;
+    var ResultsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (router_1_1) {
-                router_1 = router_1_1;
             }],
         execute: function() {
-            NavigationComponent = (function () {
-                function NavigationComponent() {
+            ResultsComponent = (function () {
+                function ResultsComponent() {
                 }
-                NavigationComponent = __decorate([
+                ResultsComponent = __decorate([
                     core_1.Component({
-                        selector: 'vst-navigation',
-                        templateUrl: 'app/navigation/navigation.html',
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        selector: 'vst-results',
+                        templateUrl: 'app/results/results.component.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], NavigationComponent);
-                return NavigationComponent;
+                ], ResultsComponent);
+                return ResultsComponent;
             }());
-            exports_1("NavigationComponent", NavigationComponent);
+            exports_1("ResultsComponent", ResultsComponent);
         }
     }
 });
-//# sourceMappingURL=navigation.component.js.map
+//# sourceMappingURL=results.component.js.map

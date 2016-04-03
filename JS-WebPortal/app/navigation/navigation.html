@@ -1,1 +1,12 @@
-<a class="navbar-brand" href="#">VS-Trophy</a> <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+<nav class="navbar navbar-default">
+    <a class="navbar-brand" href="#">VS-Trophy</a>
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li><a [routerLink]="['News']">News</a></li>
+            <li><a [routerLink]="['Teams']">Teams</a></li>
+            <li><a [routerLink]="['Results']">Results</a></li>
+            <li><a [routerLink]="['History']">Geschichte</a></li>
+            <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+        </ul>
+    </div>
+</nav>
