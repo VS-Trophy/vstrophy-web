@@ -35,7 +35,7 @@ System.register(['angular2/core', './navigation/navigation.component', './news/n
                         selector: 'my-app',
                         directives: [navigation_component_1.NavigationComponent, news_component_1.NewsComponent],
                         providers: [news_service_1.NewsService],
-                        template: '<div><vst-navigation></vst-navigation></div><div><vst-news></vst-news></div>'
+                        templateUrl: 'app/app.component.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

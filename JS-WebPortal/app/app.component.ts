@@ -7,6 +7,6 @@ import {NewsService} from './news/news.service';
     selector: 'my-app',
     directives: [NavigationComponent, NewsComponent],
     providers: [NewsService],
-    template:  '<div><vst-navigation></vst-navigation></div><div><vst-news></vst-news></div>'
+    templateUrl: 'app/app.component.html'
 })
 export class AppComponent { }

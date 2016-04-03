@@ -21,7 +21,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             NewsService = (function () {
                 function NewsService() {
                     this._newsItems = [
-                        { id: 1, title: "First", author: "Fabi", text: "Hie steit der text", timestamp: new Date(2016, 2, 14, 12, 34) }
+                        { id: 1, title: "First", author: "Fabi", text: "Hie steit der text", timestamp: new Date(2016, 2, 14, 12, 34) },
+                        { id: 2, title: "Second", author: "Chris", text: "Hie steit der aner text", timestamp: new Date(2016, 2, 15, 12, 34) },
                     ];
                 }
                 NewsService.prototype.getNewsItems = function () {
