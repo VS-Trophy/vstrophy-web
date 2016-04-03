@@ -1,0 +1,9 @@
+<h1>News</h1>
+<div *ngFor="#newsItem of _newsItems" class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{newsItem.title}}</h3>
+  </div>
+  <div class="panel-body">
+    {{newsItem.text}}
+  </div>
+</div>

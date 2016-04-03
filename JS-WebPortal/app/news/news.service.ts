@@ -9,7 +9,7 @@ export class NewsService {
         {id:1,title:"First",author:"Fabi",text:"Hie steit der text",timestamp: new Date(2016,2,14,12,34)}
     ];
     
-   getNewsItems() : NewsItem[]{
-       return this._newsItems;
+   getNewsItems() : Promise<NewsItem[]>{
+       return Promise.resolve(this._newsItems);
    }
 }

@@ -25,7 +25,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     ];
                 }
                 NewsService.prototype.getNewsItems = function () {
-                    return this._newsItems;
+                    return Promise.resolve(this._newsItems);
                 };
                 NewsService = __decorate([
                     core_1.Injectable(), 

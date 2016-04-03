@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', './news.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,23 +10,31 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, news_service_1;
     var NewsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (news_service_1_1) {
+                news_service_1 = news_service_1_1;
             }],
         execute: function() {
             NewsComponent = (function () {
-                function NewsComponent() {
+                function NewsComponent(_newsService) {
+                    this._newsService = _newsService;
                 }
+                NewsComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this._newsService.getNewsItems().then(function (newsItems) { return _this._newsItems = newsItems; });
+                };
                 NewsComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-news',
-                        template: '<h1>News</h1>'
+                        templateUrl: 'app/news/news.component.html'
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [news_service_1.NewsService])
                 ], NewsComponent);
                 return NewsComponent;
             }());
