@@ -3,6 +3,6 @@
   <div class="panel-heading">
     <h2>{{newsItem.title}}</h2>
   </div>
-  <div class="panel-body" [innerHTML]=newsItem.text>
+  <div class="panel-body" [innerHTML] = "newsItem.text | slice:0:1000">
   </div>
 </div>

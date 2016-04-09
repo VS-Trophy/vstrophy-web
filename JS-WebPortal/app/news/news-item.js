@@ -8,6 +8,9 @@ System.register([], function(exports_1, context_1) {
             NewsItem = (function () {
                 function NewsItem() {
                 }
+                NewsItem.prototype.getShortText = function () {
+                    return this.text.slice(0, 100);
+                };
                 return NewsItem;
             }());
             exports_1("NewsItem", NewsItem);
