@@ -10,8 +10,8 @@
         <module>common</module>
         <module>Entities</module>
         <module>Golem</module>
-        <module>REST-API</module>
-    </modules>
+    <module>REST-API</module>
+  </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
