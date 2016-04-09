@@ -13,6 +13,6 @@ import javax.ws.rs.core.Application;
  * @author kobashi@burninghammer.ch
  */
 @ApplicationPath("/")
-public class RestApiApplication extends Application{
-    
+public class RestApiApplication extends Application {
+
 }
