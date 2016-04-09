@@ -5,9 +5,9 @@ package ch.vstrophy.entities.news;
 
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -19,17 +19,26 @@ public class NewsItemEntityManager {
     @PersistenceContext(unitName = "ch.vstrophy_WebPortal_PU")
     private EntityManager em;
 
-    private static final String GET_ALL_QUERY = "SELECT n FROM NewsItem n order by n.publicationDate desc";
-
+    @Inject
+    private NewsItemQueries queries;
+    
     public List<NewsItem> getAllNewsItems() {
-        TypedQuery<NewsItem> query = em.createQuery(GET_ALL_QUERY, NewsItem.class);
-        return query.getResultList();
+        return em.createQuery(
+                queries.getAllNewsItems(em.getCriteriaBuilder())).
+                getResultList();
     }
 
     public List<NewsItem> getMostRecentNewsItems(int numberOfItems) {
-        TypedQuery<NewsItem> query = em.createQuery(GET_ALL_QUERY, NewsItem.class);
-        query.setMaxResults(numberOfItems);
-        return query.getResultList();
+        return em.createQuery(
+                queries.getAllNewsItems(em.getCriteriaBuilder())).
+                setMaxResults(numberOfItems).
+                getResultList();
+    }
+
+    public NewsItem getNewsItem(int id) {
+       return em.createQuery(
+               queries.getNewsItemById(em.getCriteriaBuilder(), id)).
+                getSingleResult();
     }
 
     public void saveNewsItem(final NewsItem newsItem) {
