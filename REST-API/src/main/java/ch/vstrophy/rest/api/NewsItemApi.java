@@ -8,6 +8,9 @@ package ch.vstrophy.rest.api;
 import javax.ws.rs.GET;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 /**
@@ -16,7 +19,17 @@ import javax.ws.rs.core.Response;
  */
 @Path("/newsitem")
 public interface NewsItemApi {
+
+    @GET
+    @Path("/{id}")
+    @Produces("application/json")
+    public Response getNewsItem(@PathParam("id") int id);
+    
     @GET
     @Path("/")
-    public Response getAllNewsItems();
+    @Produces("application/json")
+    public Response getNewsItems(@QueryParam("limit") int limit);
+    
+    
+    
 }

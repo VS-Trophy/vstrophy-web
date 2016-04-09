@@ -5,7 +5,14 @@
  */
 package ch.vstrophy.rest.api.impl;
 
+import ch.vstrophy.entities.news.NewsItem;
+import ch.vstrophy.entities.news.NewsItemEntityManager;
 import ch.vstrophy.rest.api.NewsItemApi;
+import ch.vstrophy.rest.api.json.JsonResponseFactory;
+import java.util.List;
+import javax.inject.Inject;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -14,9 +21,26 @@ import javax.ws.rs.core.Response;
  */
 public class NewsItemApiImpl implements NewsItemApi{
 
+    @Inject
+    private NewsItemEntityManager entityManager;
+    
+    @Inject
+    private JsonResponseFactory responseFactory;
+    
+    
     @Override
-    public Response getAllNewsItems() {
-       return Response.ok().entity("salä").build();
+    public Response getNewsItems(int limit) {
+        
+        List<NewsItem> newsItems = entityManager.getMostRecentNewsItems(limit);
+       return responseFactory.createJsonResponse(newsItems);
     }
+
+    @Override
+    public Response getNewsItem(int id) {
+        NewsItem newsItem = entityManager.getNewsItem(id);
+        return responseFactory.createJsonResponse(newsItem);
+    }
+    
+    
     
 }
