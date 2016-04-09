@@ -5,12 +5,14 @@ import {NewsService} from './news/news.service';
 import {ResultsComponent} from './results/results.component'
 import {HistoryComponent} from './history/history.component'
 import {TeamsComponent} from './teams/teams.component'
+import {Configuration} from './configuration/configuration'
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+import {HTTP_PROVIDERS}    from 'angular2/http';
 
 @Component({
     selector: 'my-app',
     directives: [NavigationComponent, NewsComponent, ROUTER_DIRECTIVES],
-    providers: [NewsService, ROUTER_PROVIDERS],
+    providers: [NewsService, Configuration, ROUTER_PROVIDERS,HTTP_PROVIDERS],
     templateUrl: 'app/app.component.html'
 })
 

@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../configuration/configuration', 'rxjs/Rx'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,27 +10,43 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, http_1, Observable_1, configuration_1;
     var NewsService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            }],
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
+            function (Observable_1_1) {
+                Observable_1 = Observable_1_1;
+            },
+            function (configuration_1_1) {
+                configuration_1 = configuration_1_1;
+            },
+            function (_1) {}],
         execute: function() {
             NewsService = (function () {
-                function NewsService() {
-                    this._newsItems = [
-                        { id: 1, title: "First", author: "Fabi", text: "Hie steit der text", timestamp: new Date(2016, 2, 14, 12, 34) },
-                        { id: 2, title: "Second", author: "Chris", text: "Hie steit der aner text", timestamp: new Date(2016, 2, 15, 12, 34) },
-                    ];
+                function NewsService(http, conf) {
+                    this.http = http;
+                    this.conf = conf;
                 }
                 NewsService.prototype.getNewsItems = function () {
-                    return Promise.resolve(this._newsItems);
+                    return this.http.get(this.conf.newsItemUrl + '?limit=2')
+                        .map(function (res) { return res.json(); })
+                        .catch(this.handleError);
+                };
+                NewsService.prototype.handleError = function (error) {
+                    // in a real world app, we may send the error to some remote logging infrastructure
+                    // instead of just logging it to the console
+                    console.error(error);
+                    return Observable_1.Observable.throw(error.json().error || 'Server error');
                 };
                 NewsService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [http_1.Http, configuration_1.Configuration])
                 ], NewsService);
                 return NewsService;
             }());

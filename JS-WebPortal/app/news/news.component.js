@@ -27,7 +27,8 @@ System.register(['angular2/core', './news.service'], function(exports_1, context
                 }
                 NewsComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._newsService.getNewsItems().then(function (newsItems) { return _this._newsItems = newsItems; });
+                    this._newsService.getNewsItems()
+                        .subscribe(function (newsItems) { return _this._newsItems = newsItems; });
                 };
                 NewsComponent = __decorate([
                     core_1.Component({

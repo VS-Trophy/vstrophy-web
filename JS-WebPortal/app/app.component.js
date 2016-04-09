@@ -1,4 +1,4 @@
-System.register(['angular2/core', './navigation/navigation.component', './news/news.component', './news/news.service', './results/results.component', './history/history.component', './teams/teams.component', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', './navigation/navigation.component', './news/news.component', './news/news.service', './results/results.component', './history/history.component', './teams/teams.component', './configuration/configuration', 'angular2/router', 'angular2/http'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './navigation/navigation.component', './news/n
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, navigation_component_1, news_component_1, news_service_1, results_component_1, history_component_1, teams_component_1, router_1;
+    var core_1, navigation_component_1, news_component_1, news_service_1, results_component_1, history_component_1, teams_component_1, configuration_1, router_1, http_1;
     var AppComponent;
     return {
         setters:[
@@ -35,8 +35,14 @@ System.register(['angular2/core', './navigation/navigation.component', './news/n
             function (teams_component_1_1) {
                 teams_component_1 = teams_component_1_1;
             },
+            function (configuration_1_1) {
+                configuration_1 = configuration_1_1;
+            },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -46,7 +52,7 @@ System.register(['angular2/core', './navigation/navigation.component', './news/n
                     core_1.Component({
                         selector: 'my-app',
                         directives: [navigation_component_1.NavigationComponent, news_component_1.NewsComponent, router_1.ROUTER_DIRECTIVES],
-                        providers: [news_service_1.NewsService, router_1.ROUTER_PROVIDERS],
+                        providers: [news_service_1.NewsService, configuration_1.Configuration, router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS],
                         templateUrl: 'app/app.component.html'
                     }),
                     router_1.RouteConfig([
