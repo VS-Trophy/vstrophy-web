@@ -1,9 +1,9 @@
 export class NewsItem {
-  id: Number;
-  title: String;
-  author: String;
+  id: number;
+  title: string;
+  author: string;
   timestamp: Date;
-  text: String;
+  text: string;
   public getShortText(){
       return this.text.slice(0,100);
   }

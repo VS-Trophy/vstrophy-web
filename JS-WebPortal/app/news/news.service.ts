@@ -10,7 +10,7 @@ export class NewsService {
      constructor (private http: Http, private conf: Configuration) {}
 
     getNewsItems() {
-        return this.http.get(this.conf.newsItemUrl + '?limit=2')
+        return this.http.get(this.conf.newsItemUrl)
             .map(res => <NewsItem[]>res.json())
             .catch(this.handleError);
     }

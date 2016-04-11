@@ -1,0 +1,30 @@
+<div class="container-fluid news-editor-container">
+    <div class="row">
+        <div class="col-md-2 list-group news-list">
+            <a *ngFor="#newsItem of _newsItems" (click)="newsItemSelected(newsItem)" class="list-group-item">{{newsItem.title}}</a>
+        </div>
+        <div class="col-md-10">
+            <div class="panel panel-default news-editor">
+
+                <div id="toolbar" class="toolbar panel-heading">
+                    <!-- Add font size dropdown -->
+                    <select class="ql-size">
+                        <option value="10px">Small</option>
+                        <option value="13px" selected>Normal</option>
+                        <option value="18px">Large</option>
+                        <option value="32px">Huge</option>
+                    </select>
+                    <!-- Add buttons -->
+                    <span class="ql-format-button ql-bold"></span>
+                    <span class="ql-format-button ql-italic"></span>
+                    <span class="ql-format-button ql-strike"></span>
+                    <span class="ql-format-button ql-underline"></span>
+                    <span class="ql-format-button ql-link"></span>
+                </div>
+                <div class="panel-body news-editor-content">
+                    <div id="editor"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

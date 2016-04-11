@@ -3,6 +3,25 @@
   color: #555 !important; 
   background-color: #e7e7e7 !important; 
 }
+
+.news-editor-container{
+    height: 90%;
+}
+
+.news-list{
+    height: 90%;
+    overflow-y: scroll
+}
+
+.news-editor{
+    height: 90%;
+}
+
+.news-editor-content{
+    height:90%;
+    border: 1px;
+}
+
 /* 
  * See https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css
  * for the full set of master styles used by the documentation samples

@@ -34,7 +34,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../config
                     this.conf = conf;
                 }
                 NewsService.prototype.getNewsItems = function () {
-                    return this.http.get(this.conf.newsItemUrl + '?limit=2')
+                    return this.http.get(this.conf.newsItemUrl)
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };

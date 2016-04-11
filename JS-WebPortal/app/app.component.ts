@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {NavigationComponent} from './navigation/navigation.component';
 import {NewsComponent} from './news/news.component';
+import {NewsEditorComponent} from './news_editor/news_editor.component';
 import {NewsService} from './news/news.service';
 import {ResultsComponent} from './results/results.component'
 import {HistoryComponent} from './history/history.component'
@@ -11,7 +12,7 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 
 @Component({
     selector: 'my-app',
-    directives: [NavigationComponent, NewsComponent, ROUTER_DIRECTIVES],
+    directives: [NavigationComponent, ROUTER_DIRECTIVES],
     providers: [NewsService, Configuration, ROUTER_PROVIDERS,HTTP_PROVIDERS],
     templateUrl: 'app/app.component.html'
 })
@@ -23,6 +24,11 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
             name: 'News',
             component: NewsComponent,
             useAsDefault: true
+        },
+        {
+            path: '/newsEditor',
+            name: 'News Editor',
+            component: NewsEditorComponent,
         },
         {
             path: '/teams',
