@@ -10,37 +10,53 @@ import ch.vstrophy.entities.news.NewsItemEntityManager;
 import ch.vstrophy.rest.api.NewsItemApi;
 import ch.vstrophy.rest.api.json.JsonResponseFactory;
 import java.util.List;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import static javax.ejb.TransactionAttributeType.REQUIRES_NEW;
 import javax.inject.Inject;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author kobashi@burninghammer.ch
  */
-public class NewsItemApiImpl implements NewsItemApi{
-
+@Stateless
+public class NewsItemApiImpl implements NewsItemApi {
+private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(NewsItemApiImpl.class);
     @Inject
     private NewsItemEntityManager entityManager;
-    
+
     @Inject
     private JsonResponseFactory responseFactory;
-    
-    
+
     @Override
+    @TransactionAttribute(REQUIRES_NEW)
     public Response getNewsItems(int limit) {
-        
+
         List<NewsItem> newsItems = entityManager.getMostRecentNewsItems(limit);
-       return responseFactory.createJsonResponse(newsItems);
+        return responseFactory.createJsonResponse(newsItems);
     }
 
     @Override
+    @TransactionAttribute(REQUIRES_NEW)
     public Response getNewsItem(int id) {
         NewsItem newsItem = entityManager.getNewsItem(id);
         return responseFactory.createJsonResponse(newsItem);
     }
-    
-    
-    
+
+    @Override
+    @TransactionAttribute(REQUIRES_NEW)
+    public Response setNewsItem(NewsItem newsItem) {
+        try {
+            LOGGER.info("Version {}",newsItem.getVersion());
+            entityManager.saveNewsItem(newsItem);
+            return responseFactory.createIntegerResponse(newsItem.getId());
+        } catch (Exception ex) {
+            LOGGER.error("Could not save news item", ex);
+            return Response.serverError().entity(ex.getMessage()).build();
+        }
+
+    }
+
 }

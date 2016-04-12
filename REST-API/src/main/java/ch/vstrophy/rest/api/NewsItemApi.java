@@ -5,7 +5,11 @@
  */
 package ch.vstrophy.rest.api;
 
+import ch.vstrophy.entities.news.NewsItem;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+
 
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -30,6 +34,9 @@ public interface NewsItemApi {
     @Produces("application/json")
     public Response getNewsItems(@QueryParam("limit") int limit);
     
+    @POST
+    @Path("/") 
+    @Consumes("application/json")
+    public Response setNewsItem(NewsItem newsItem);
+}   
     
-    
-}
