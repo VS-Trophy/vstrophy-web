@@ -28,7 +28,7 @@ public class NewsItem implements Serializable {
 
     }
 
-    private int id;
+    private Integer id;
     private String title;
     private String text;
     private int version;
@@ -38,11 +38,11 @@ public class NewsItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "newsitem_id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

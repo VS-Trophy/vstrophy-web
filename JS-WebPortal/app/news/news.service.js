@@ -38,6 +38,18 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../config
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };
+                NewsService.prototype.getNewsItem = function (id) {
+                    return this.http.get(this.conf.newsItemUrl + "/" + id)
+                        .map(function (res) { return res.json(); })
+                        .catch(this.handleError);
+                };
+                NewsService.prototype.saveNewsItem = function (newsItem) {
+                    var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                    var options = new http_1.RequestOptions({ headers: headers });
+                    return this.http.post(this.conf.newsItemUrl, JSON.stringify(newsItem), options)
+                        .map(function (res) { return parseInt(res.text()); })
+                        .catch(this.handleError);
+                };
                 NewsService.prototype.handleError = function (error) {
                     // in a real world app, we may send the error to some remote logging infrastructure
                     // instead of just logging it to the console

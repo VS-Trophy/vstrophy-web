@@ -1,9 +1,16 @@
 <div class="container-fluid news-editor-container">
     <div class="row">
         <div class="col-md-2 list-group news-list">
-            <a *ngFor="#newsItem of _newsItems" (click)="newsItemSelected(newsItem)" class="list-group-item">{{newsItem.title}}</a>
+            <a *ngFor="#newsItem of _newsItems" (click)="onSelectNewsItem(newsItem)" class="list-group-item">{{newsItem.title}}</a>
         </div>
         <div class="col-md-10">
+            <div class="form-inline">
+                <div *ngIf="selectedItem" class="form-group form-group-lg">
+                    <label for="title">Titel:</label>
+                    <input id="title" [(ngModel)]="selectedItem.title" placeholder="title" class="form-control" />
+                </div>
+                <button class="btn btn-default" (click)="onSaveNewsItem()">Speichern</button>
+            </div>
             <div class="panel panel-default news-editor">
 
                 <div id="toolbar" class="toolbar panel-heading">

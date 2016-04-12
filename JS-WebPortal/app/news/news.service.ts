@@ -1,6 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {NewsItem} from './news-item';
-import {Http, Response} from 'angular2/http';
+import {Http, Response,Headers, RequestOptions} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
 import {Configuration} from '../configuration/configuration';
 import 'rxjs/Rx';
@@ -14,6 +14,21 @@ export class NewsService {
             .map(res => <NewsItem[]>res.json())
             .catch(this.handleError);
     }
+    
+    getNewsItem(id:number){
+        return this.http.get(this.conf.newsItemUrl + "/" + id)
+        .map(res => <NewsItem>res.json())
+        .catch(this.handleError);
+    }
+    
+    saveNewsItem(newsItem : NewsItem){
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.conf.newsItemUrl,JSON.stringify(newsItem),options)
+        .map(res => <number>parseInt(res.text()))
+        .catch(this.handleError);
+    }
+    
     private handleError(error: Response) {
         // in a real world app, we may send the error to some remote logging infrastructure
         // instead of just logging it to the console
