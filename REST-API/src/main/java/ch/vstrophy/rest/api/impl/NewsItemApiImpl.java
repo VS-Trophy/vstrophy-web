@@ -50,8 +50,8 @@ private final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(NewsItemApiImpl.
     public Response setNewsItem(NewsItem newsItem) {
         try {
             LOGGER.info("Version {}",newsItem.getVersion());
-            entityManager.saveNewsItem(newsItem);
-            return responseFactory.createIntegerResponse(newsItem.getId());
+            newsItem = entityManager.saveNewsItem(newsItem);
+            return responseFactory.createJsonResponse(newsItem);
         } catch (Exception ex) {
             LOGGER.error("Could not save news item", ex);
             return Response.serverError().entity(ex.getMessage()).build();

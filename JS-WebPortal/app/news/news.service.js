@@ -47,7 +47,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../config
                     var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
                     var options = new http_1.RequestOptions({ headers: headers });
                     return this.http.post(this.conf.newsItemUrl, JSON.stringify(newsItem), options)
-                        .map(function (res) { return parseInt(res.text()); })
+                        .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };
                 NewsService.prototype.handleError = function (error) {

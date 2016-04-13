@@ -41,13 +41,18 @@ System.register(['angular2/core', '../news/news.service', '../news/news-item'], 
                         .subscribe(function (newsItem) { return _this.updateSelectedNewsItem(newsItem); });
                 };
                 NewsEditorComponent.prototype.updateSelectedNewsItem = function (newsItem) {
+                    var _this = this;
                     this.selectedItem = newsItem;
+                    if (this._newsItems.find(function (newsItem) { return newsItem.id == _this.selectedItem.id; }) == undefined) {
+                        this._newsItems.push(this.selectedItem);
+                    }
                     this._editor.setHTML(""); //necessary because otherwhise quill is taking forever to load!
                     this._editor.setHTML(newsItem.text);
                 };
                 NewsEditorComponent.prototype.onSaveNewsItem = function () {
+                    var _this = this;
                     this.selectedItem.text = this._editor.getHTML();
-                    this._newsService.saveNewsItem(this.selectedItem).subscribe(function (value) { return console.log(value); });
+                    this._newsService.saveNewsItem(this.selectedItem).subscribe(function (newsItem) { return _this.updateSelectedNewsItem(newsItem); });
                 };
                 NewsEditorComponent.prototype.initializeQuillEditor = function () {
                     var configs = {

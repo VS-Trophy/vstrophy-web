@@ -9,23 +9,23 @@ import 'rxjs/Rx';
 export class NewsService {
      constructor (private http: Http, private conf: Configuration) {}
 
-    getNewsItems() {
+    getNewsItems():Observable<NewsItem[]>{
         return this.http.get(this.conf.newsItemUrl)
             .map(res => <NewsItem[]>res.json())
             .catch(this.handleError);
     }
     
-    getNewsItem(id:number){
+    getNewsItem(id:number):Observable<NewsItem>{
         return this.http.get(this.conf.newsItemUrl + "/" + id)
         .map(res => <NewsItem>res.json())
         .catch(this.handleError);
     }
     
-    saveNewsItem(newsItem : NewsItem){
+    saveNewsItem(newsItem : NewsItem):Observable<NewsItem>{
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.conf.newsItemUrl,JSON.stringify(newsItem),options)
-        .map(res => <number>parseInt(res.text()))
+        .map(res => <NewsItem>res.json())
         .catch(this.handleError);
     }
     

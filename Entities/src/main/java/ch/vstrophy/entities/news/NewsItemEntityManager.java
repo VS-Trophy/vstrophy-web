@@ -41,8 +41,8 @@ public class NewsItemEntityManager {
                 getSingleResult();
     }
 
-    public void saveNewsItem(final NewsItem newsItem) {
-        em.merge(newsItem);
+    public NewsItem saveNewsItem(final NewsItem newsItem) {
+       return em.merge(newsItem);
 
     }
 
