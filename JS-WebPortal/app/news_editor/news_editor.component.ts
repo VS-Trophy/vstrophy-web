@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
 import {NewsService} from '../news/news.service';
 import {NewsItem} from '../news/news-item';
+import {NgClass} from 'angular2/common';
 import * as quill from 'Quill';
 
 
@@ -14,26 +15,26 @@ export class NewsEditorComponent {
 
     private _newsItems: NewsItem[];
     private _editor: QuillStatic;
-
+    
     selectedItem: NewsItem;
 
     constructor(private _newsService: NewsService) { }
 
     ngOnInit() {
-        this.initializeQuillEditor();
+        
         this._newsService.getNewsItems()
             .subscribe(newsItems => this._newsItems = newsItems);
-        this.selectedItem = new NewsItem();
     }
 
     onSelectNewsItem(newsItem: NewsItem) {
         this._newsService.getNewsItem(newsItem.id)
             .subscribe(newsItem => this.updateSelectedNewsItem(newsItem));
+            this.initializeQuillEditor();
     }
 
     updateSelectedNewsItem(newsItem: NewsItem) {
         this.selectedItem = newsItem;
-        if(this._newsItems.find(newsItem => newsItem.id == this.selectedItem.id)==undefined){
+        if (this._newsItems.find(newsItem => newsItem.id == this.selectedItem.id) == undefined) {
             this._newsItems.push(this.selectedItem);
         }
         this._editor.setHTML(""); //necessary because otherwhise quill is taking forever to load!

@@ -1,1 +1,1 @@
-{"version":3,"file":"news-item.js","sourceRoot":"","sources":["news-item.ts"],"names":[],"mappings":";;;;;;;YAAA;gBAAA;gBASA,CAAC;gBAHQ,+BAAY,GAAnB;oBACI,MAAM,CAAC,IAAI,CAAC,IAAI,CAAC,KAAK,CAAC,CAAC,EAAC,GAAG,CAAC,CAAC;gBAClC,CAAC;gBACH,eAAC;YAAD,CAAC,AATD,IASC;YATD,+BASC,CAAA"}
+{"version":3,"file":"news-item.js","sourceRoot":"","sources":["news-item.ts"],"names":[],"mappings":";;;;;;;YAAA;gBAAA;gBAUA,CAAC;gBAHQ,+BAAY,GAAnB;oBACI,MAAM,CAAC,IAAI,CAAC,IAAI,CAAC,KAAK,CAAC,CAAC,EAAC,GAAG,CAAC,CAAC;gBAClC,CAAC;gBACH,eAAC;YAAD,CAAC,AAVD,IAUC;YAVD,+BAUC,CAAA"}

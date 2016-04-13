@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../news/news.service', '../news/news-item'], function(exports_1, context_1) {
+System.register(['angular2/core', '../news/news.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../news/news.service', '../news/news-item'], 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, news_service_1, news_item_1;
+    var core_1, news_service_1;
     var NewsEditorComponent;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(['angular2/core', '../news/news.service', '../news/news-item'], 
             },
             function (news_service_1_1) {
                 news_service_1 = news_service_1_1;
-            },
-            function (news_item_1_1) {
-                news_item_1 = news_item_1_1;
             }],
         execute: function() {
             NewsEditorComponent = (function () {
@@ -30,15 +27,14 @@ System.register(['angular2/core', '../news/news.service', '../news/news-item'], 
                 }
                 NewsEditorComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.initializeQuillEditor();
                     this._newsService.getNewsItems()
                         .subscribe(function (newsItems) { return _this._newsItems = newsItems; });
-                    this.selectedItem = new news_item_1.NewsItem();
                 };
                 NewsEditorComponent.prototype.onSelectNewsItem = function (newsItem) {
                     var _this = this;
                     this._newsService.getNewsItem(newsItem.id)
                         .subscribe(function (newsItem) { return _this.updateSelectedNewsItem(newsItem); });
+                    this.initializeQuillEditor();
                 };
                 NewsEditorComponent.prototype.updateSelectedNewsItem = function (newsItem) {
                     var _this = this;
