@@ -15,21 +15,45 @@ export class NewsEditorComponent {
 
     private _newsItems: NewsItem[];
     private _editor: QuillStatic;
-    
+
     selectedItem: NewsItem;
+    message: String;
 
     constructor(private _newsService: NewsService) { }
 
     ngOnInit() {
-        
         this._newsService.getNewsItems()
-            .subscribe(newsItems => this._newsItems = newsItems);
+            .subscribe(newsItems => { this.setupNewsItemList(newsItems) });
+    }
+
+    setupNewsItemList(databaseList: NewsItem[]) {
+        var newItem = this.createNewsItem();
+        this._newsItems = [];
+        this._newsItems.push(newItem);
+        this.selectedItem = newItem;
+        this._newsItems = this._newsItems.concat(databaseList);
+
+    }
+
+    createNewsItem(): NewsItem {
+        var item = new NewsItem();
+        item.author = "Autor";
+        item.publicationDate = new Date();
+        item.title = "Neuer Eintrag";
+        item.text = "Neuer Text";
+        return item;
     }
 
     onSelectNewsItem(newsItem: NewsItem) {
-        this._newsService.getNewsItem(newsItem.id)
-            .subscribe(newsItem => this.updateSelectedNewsItem(newsItem));
-            this.initializeQuillEditor();
+        if (newsItem.id) {
+            //update the selected news item from 
+            //the database in case something has changed
+            this._newsService.getNewsItem(newsItem.id)
+                .subscribe(newsItem => this.updateSelectedNewsItem(newsItem));
+        } else {
+            this.updateSelectedNewsItem(newsItem);
+        }
+        this.initializeQuillEditor();
     }
 
     updateSelectedNewsItem(newsItem: NewsItem) {
@@ -44,7 +68,8 @@ export class NewsEditorComponent {
     onSaveNewsItem() {
         this.selectedItem.text = this._editor.getHTML();
         this._newsService.saveNewsItem(this.selectedItem).subscribe(
-            newsItem => this.updateSelectedNewsItem(newsItem));
+            newsItem => {this.updateSelectedNewsItem(newsItem);this.message = "Gespeichert!"});
+            
     }
 
     private initializeQuillEditor() {
