@@ -1,0 +1,28 @@
+<form class="form-inline">
+    <label for="Titel">Titel:</label>
+    <input id="title" [(ngModel)]="newsItem.title" placeholder="title" class="form-control" />
+    <label for="author">Autor:</label>
+    <input id="author" [(ngModel)]="newsItem.author" placeholder="autor" class="form-control" />
+    <button class="btn btn-default" (click)="onSaveNewsItem()">Speichern</button>
+</form>
+<div class="panel panel-default news-editor">
+
+    <div id="toolbar" class="toolbar panel-heading">
+        <!-- Add font size dropdown -->
+        <select class="ql-size">
+                        <option value="10px">Small</option>
+                        <option value="13px" selected>Normal</option>
+                        <option value="18px">Large</option>
+                        <option value="32px">Huge</option>
+                    </select>
+        <!-- Add buttons -->
+        <span class="ql-format-button ql-bold"></span>
+        <span class="ql-format-button ql-italic"></span>
+        <span class="ql-format-button ql-strike"></span>
+        <span class="ql-format-button ql-underline"></span>
+        <span class="ql-format-button ql-link"></span>
+    </div>
+    <div class="panel-body news-editor-content">
+        <div id="editor"></div>
+    </div>
+</div>

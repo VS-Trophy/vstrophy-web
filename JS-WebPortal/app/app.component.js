@@ -1,4 +1,4 @@
-System.register(['angular2/core', './navigation/navigation.component', './news/news.component', './news_editor/news_editor.component', './news/news.service', './results/results.component', './history/history.component', './teams/teams.component', './configuration/configuration', 'angular2/router', 'angular2/http'], function(exports_1, context_1) {
+System.register(['angular2/core', './navigation/navigation.component', './news/news.component', './news/news-manager/news-manager.component', './news/news.service', './results/results.component', './history/history.component', './teams/teams.component', './configuration/configuration', 'angular2/router', 'angular2/http'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './navigation/navigation.component', './news/n
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, navigation_component_1, news_component_1, news_editor_component_1, news_service_1, results_component_1, history_component_1, teams_component_1, configuration_1, router_1, http_1;
+    var core_1, navigation_component_1, news_component_1, news_manager_component_1, news_service_1, results_component_1, history_component_1, teams_component_1, configuration_1, router_1, http_1;
     var AppComponent;
     return {
         setters:[
@@ -23,8 +23,8 @@ System.register(['angular2/core', './navigation/navigation.component', './news/n
             function (news_component_1_1) {
                 news_component_1 = news_component_1_1;
             },
-            function (news_editor_component_1_1) {
-                news_editor_component_1 = news_editor_component_1_1;
+            function (news_manager_component_1_1) {
+                news_manager_component_1 = news_manager_component_1_1;
             },
             function (news_service_1_1) {
                 news_service_1 = news_service_1_1;
@@ -68,7 +68,7 @@ System.register(['angular2/core', './navigation/navigation.component', './news/n
                         {
                             path: '/newsEditor',
                             name: 'News Editor',
-                            component: news_editor_component_1.NewsEditorComponent,
+                            component: news_manager_component_1.NewsManagerComponent,
                         },
                         {
                             path: '/teams',

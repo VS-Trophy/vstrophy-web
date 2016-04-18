@@ -1,23 +1,22 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
-import {NewsService} from '../news/news.service';
-import {NewsItem} from '../news/news-item';
+import {NewsService} from '../news.service';
+import {NewsItem} from '../news-item';
+import {NewsEditorComponent} from './news-editor/news-editor.component';
 import {NgClass} from 'angular2/common';
-import * as quill from 'Quill';
 
 
 @Component({
-    selector: 'vst-news-editor',
-    styles: ['fullHeight'],
-    templateUrl: 'app/news_editor/news_editor.component.html'
+    selector: 'vst-news-manager',
+    directives: [NewsEditorComponent],
+    templateUrl: 'app/news/news-manager/news-manager.component.html'
 })
-export class NewsEditorComponent {
+export class NewsManagerComponent {
 
     private _newsItems: NewsItem[];
-    private _editor: QuillStatic;
+
 
     selectedItem: NewsItem;
-    message: String;
 
     constructor(private _newsService: NewsService) { }
 
@@ -53,7 +52,6 @@ export class NewsEditorComponent {
         } else {
             this.updateSelectedNewsItem(newsItem);
         }
-        this.initializeQuillEditor();
     }
 
     updateSelectedNewsItem(newsItem: NewsItem) {
@@ -61,25 +59,10 @@ export class NewsEditorComponent {
         if (this._newsItems.find(newsItem => newsItem.id == this.selectedItem.id) == undefined) {
             this._newsItems.push(this.selectedItem);
         }
-        this._editor.setHTML(""); //necessary because otherwhise quill is taking forever to load!
-        this._editor.setHTML(newsItem.text);
     }
 
-    onSaveNewsItem() {
-        this.selectedItem.text = this._editor.getHTML();
-        this._newsService.saveNewsItem(this.selectedItem).subscribe(
-            newsItem => {this.updateSelectedNewsItem(newsItem);this.message = "Gespeichert!"});
-            
-    }
 
-    private initializeQuillEditor() {
-        var configs = {
-            theme: 'snow'
-        };
-        this._editor = new Quill('#editor', configs);
-        this._editor.addModule('toolbar', {
-            container: '#toolbar'
-        });
-    }
+
+
 
 }
