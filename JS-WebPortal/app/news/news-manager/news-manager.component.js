@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../news.service', '../news-item', './news-editor/news-editor.component'], function(exports_1, context_1) {
+System.register(['angular2/core', '../news.service', '../news-item', './news-editor/news-editor.component', './news-list/news-list.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../news.service', '../news-item', './news-edi
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, news_service_1, news_item_1, news_editor_component_1;
+    var core_1, news_service_1, news_item_1, news_editor_component_1, news_list_component_1;
     var NewsManagerComponent;
     return {
         setters:[
@@ -25,6 +25,9 @@ System.register(['angular2/core', '../news.service', '../news-item', './news-edi
             },
             function (news_editor_component_1_1) {
                 news_editor_component_1 = news_editor_component_1_1;
+            },
+            function (news_list_component_1_1) {
+                news_list_component_1 = news_list_component_1_1;
             }],
         execute: function() {
             NewsManagerComponent = (function () {
@@ -73,7 +76,7 @@ System.register(['angular2/core', '../news.service', '../news-item', './news-edi
                 NewsManagerComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-news-manager',
-                        directives: [news_editor_component_1.NewsEditorComponent],
+                        directives: [news_editor_component_1.NewsEditorComponent, news_list_component_1.NewsListComponent],
                         templateUrl: 'app/news/news-manager/news-manager.component.html'
                     }), 
                     __metadata('design:paramtypes', [news_service_1.NewsService])

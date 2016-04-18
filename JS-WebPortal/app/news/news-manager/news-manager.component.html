@@ -3,9 +3,8 @@
         {{message}}
     </div>
     <div class="row">
-        <div class="col-md-2 list-group news-list">
-            <a *ngFor="#newsItem of _newsItems" [ngClass]="{active: selectedItem && selectedItem.id == newsItem.id}" (click)="onSelectNewsItem(newsItem)"
-                class="list-group-item">{{newsItem.title}}</a>
+        <div class="col-md-2">
+            <vst-news-list [newsItems]="_newsItems" [(selectedItem)]="selectedItem"></vst-news-list>
         </div>
         <div class="col-md-10">
             <vst-news-editor *ngIf="selectedItem" [newsItem]="selectedItem"></vst-news-editor>

@@ -1,9 +1,8 @@
 <form class="form-inline">
     <label for="Titel">Titel:</label>
-    <input id="title" [(ngModel)]="newsItem.title" placeholder="title" class="form-control" />
+    <input id="title" [(ngModel)]="newsItem.title" placeholder="title" class="form-control title" />
     <label for="author">Autor:</label>
     <input id="author" [(ngModel)]="newsItem.author" placeholder="autor" class="form-control" />
-    <button class="btn btn-default" (click)="onSaveNewsItem()">Speichern</button>
 </form>
 <div class="panel panel-default news-editor">
 
@@ -21,6 +20,8 @@
         <span class="ql-format-button ql-strike"></span>
         <span class="ql-format-button ql-underline"></span>
         <span class="ql-format-button ql-link"></span>
+            <button class="btn btn-primary" (click)="onSaveNewsItem()">Speichern</button>
+            <button class="close pull-right btn btn-lg" (click)="onAbort()">&times;</button>
     </div>
     <div class="panel-body news-editor-content">
         <div id="editor"></div>
