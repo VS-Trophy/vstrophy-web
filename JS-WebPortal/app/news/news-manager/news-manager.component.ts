@@ -53,6 +53,12 @@ export class NewsManagerComponent {
             this.updateSelectedNewsItem(newsItem);
         }
     }
+    
+    onSaveNewsItem(newsItem:NewsItem){
+        console.log("Saving " + newsItem);
+        this._newsService.saveNewsItem(newsItem).subscribe(value => console.log(value));
+
+    }
 
     updateSelectedNewsItem(newsItem: NewsItem) {
         this.selectedItem = newsItem;

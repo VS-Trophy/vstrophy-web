@@ -7,7 +7,7 @@
             <vst-news-list [newsItems]="_newsItems" [(selectedItem)]="selectedItem"></vst-news-list>
         </div>
         <div class="col-md-10">
-            <vst-news-editor *ngIf="selectedItem" [newsItem]="selectedItem"></vst-news-editor>
+            <vst-news-editor *ngIf="selectedItem" [(newsItem)]="selectedItem" (saveNewsItem)="onSaveNewsItem($event)"></vst-news-editor>
         </div>
     </div>
 </div>

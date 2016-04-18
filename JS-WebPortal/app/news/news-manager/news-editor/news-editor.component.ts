@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input,Output,EventEmitter} from 'angular2/core';
 import {NewsItem} from '../../news-item';
 
 @Component({
@@ -10,7 +10,9 @@ export class NewsEditorComponent {
     private _newsItem: NewsItem;
     private _editor: QuillStatic;
 
-
+    @Output()
+    saveNewsItem = new EventEmitter<NewsItem>();
+    
     @Input()
     set newsItem(newsItem: NewsItem) {
         if (!this._editor) {
@@ -34,6 +36,8 @@ export class NewsEditorComponent {
     }
 
     onSaveNewsItem() {
-
+        console.log("Emiting " + this._newsItem);
+        this._newsItem.text = this._editor.getHTML();
+        this.saveNewsItem.emit(this._newsItem);
     }
 }

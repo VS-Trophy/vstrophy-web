@@ -66,6 +66,10 @@ System.register(['angular2/core', '../news.service', '../news-item', './news-edi
                         this.updateSelectedNewsItem(newsItem);
                     }
                 };
+                NewsManagerComponent.prototype.onSaveNewsItem = function (newsItem) {
+                    console.log("Saving " + newsItem);
+                    this._newsService.saveNewsItem(newsItem).subscribe(function (value) { return console.log(value); });
+                };
                 NewsManagerComponent.prototype.updateSelectedNewsItem = function (newsItem) {
                     var _this = this;
                     this.selectedItem = newsItem;

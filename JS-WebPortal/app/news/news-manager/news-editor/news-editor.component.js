@@ -23,6 +23,7 @@ System.register(['angular2/core', '../../news-item'], function(exports_1, contex
         execute: function() {
             NewsEditorComponent = (function () {
                 function NewsEditorComponent() {
+                    this.saveNewsItem = new core_1.EventEmitter();
                 }
                 Object.defineProperty(NewsEditorComponent.prototype, "newsItem", {
                     get: function () {
@@ -46,7 +47,14 @@ System.register(['angular2/core', '../../news-item'], function(exports_1, contex
                     configurable: true
                 });
                 NewsEditorComponent.prototype.onSaveNewsItem = function () {
+                    console.log("Emiting " + this._newsItem);
+                    this._newsItem.text = this._editor.getHTML();
+                    this.saveNewsItem.emit(this._newsItem);
                 };
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], NewsEditorComponent.prototype, "saveNewsItem", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', news_item_1.NewsItem), 
