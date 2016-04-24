@@ -1,4 +1,4 @@
-System.register(['angular2/core', './news.service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/news.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -11,7 +11,7 @@ System.register(['angular2/core', './news.service'], function(exports_1, context
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, news_service_1;
-    var NewsComponent;
+    var NewsViewComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -21,26 +21,26 @@ System.register(['angular2/core', './news.service'], function(exports_1, context
                 news_service_1 = news_service_1_1;
             }],
         execute: function() {
-            NewsComponent = (function () {
-                function NewsComponent(_newsService) {
+            NewsViewComponent = (function () {
+                function NewsViewComponent(_newsService) {
                     this._newsService = _newsService;
                 }
-                NewsComponent.prototype.ngOnInit = function () {
+                NewsViewComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._newsService.getNewsItems()
                         .subscribe(function (newsItems) { return _this._newsItems = newsItems; });
                 };
-                NewsComponent = __decorate([
+                NewsViewComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-news',
-                        templateUrl: 'app/news/news.component.html'
+                        templateUrl: 'app/news/component/news-view/news-view.component.html'
                     }), 
                     __metadata('design:paramtypes', [news_service_1.NewsService])
-                ], NewsComponent);
-                return NewsComponent;
+                ], NewsViewComponent);
+                return NewsViewComponent;
             }());
-            exports_1("NewsComponent", NewsComponent);
+            exports_1("NewsViewComponent", NewsViewComponent);
         }
     }
 });
-//# sourceMappingURL=news.component.js.map
+//# sourceMappingURL=news-view.component.js.map

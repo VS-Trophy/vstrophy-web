@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../news.service', '../news-item', './news-editor/news-editor.component', './news-list/news-list.component'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/news.service', '../../model/news-item', './news-editor/news-editor.component', './news-list/news-list.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -81,7 +81,7 @@ System.register(['angular2/core', '../news.service', '../news-item', './news-edi
                     core_1.Component({
                         selector: 'vst-news-manager',
                         directives: [news_editor_component_1.NewsEditorComponent, news_list_component_1.NewsListComponent],
-                        templateUrl: 'app/news/news-manager/news-manager.component.html'
+                        templateUrl: 'app/news/component/news-manager/news-manager.component.html'
                     }), 
                     __metadata('design:paramtypes', [news_service_1.NewsService])
                 ], NewsManagerComponent);

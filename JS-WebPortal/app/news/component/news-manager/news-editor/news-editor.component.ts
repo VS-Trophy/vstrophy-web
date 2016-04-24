@@ -1,9 +1,9 @@
 import {Component, Input,Output,EventEmitter} from 'angular2/core';
-import {NewsItem} from '../../news-item';
+import {NewsItem} from '../../../model/news-item';
 
 @Component({
     selector: 'vst-news-editor',
-    templateUrl: 'app/news/news-manager/news-editor/news-editor.component.html'
+    templateUrl: 'app/news/component/news-manager/news-editor/news-editor.component.html'
 })
 
 export class NewsEditorComponent {

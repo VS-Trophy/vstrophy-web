@@ -1,8 +1,8 @@
 import {Injectable} from 'angular2/core';
-import {NewsItem} from './news-item';
+import {NewsItem} from '../model/news-item';
 import {Http, Response,Headers, RequestOptions} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
-import {Configuration} from '../configuration/configuration';
+import {Configuration} from '../../configuration/configuration';
 import 'rxjs/Rx';
 
 @Injectable()

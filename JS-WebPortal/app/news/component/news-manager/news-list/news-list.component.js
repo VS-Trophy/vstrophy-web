@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../news-item'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../../model/news-item'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -48,7 +48,7 @@ System.register(['angular2/core', '../../news-item'], function(exports_1, contex
                 NewsListComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-news-list',
-                        templateUrl: 'app/news/news-manager/news-list/news-list.component.html'
+                        templateUrl: 'app/news/component/news-manager/news-list/news-list.component.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], NewsListComponent);

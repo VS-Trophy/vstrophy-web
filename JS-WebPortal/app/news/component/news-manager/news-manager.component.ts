@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {OnInit} from 'angular2/core';
-import {NewsService} from '../news.service';
-import {NewsItem} from '../news-item';
+import {NewsService} from '../../service/news.service';
+import {NewsItem} from '../../model/news-item';
 import {NewsEditorComponent} from './news-editor/news-editor.component';
 import {NewsListComponent} from './news-list/news-list.component';
 import {NgClass} from 'angular2/common';
@@ -10,7 +10,7 @@ import {NgClass} from 'angular2/common';
 @Component({
     selector: 'vst-news-manager',
     directives: [NewsEditorComponent, NewsListComponent],
-    templateUrl: 'app/news/news-manager/news-manager.component.html'
+    templateUrl: 'app/news/component/news-manager/news-manager.component.html'
 })
 export class NewsManagerComponent {
 
