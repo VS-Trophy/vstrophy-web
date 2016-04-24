@@ -36,7 +36,6 @@ export class NewsEditorComponent {
     }
 
     onSaveNewsItem() {
-        console.log("Emiting " + this._newsItem);
         this._newsItem.text = this._editor.getHTML();
         this.saveNewsItem.emit(this._newsItem);
     }
