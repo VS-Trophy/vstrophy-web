@@ -4,9 +4,11 @@ import {Injectable} from 'angular2/core';
 export class Configuration{
    baseURL: string;
    newsItemUrl: string;
+   teamUrl: string;
    constructor(){
        var host: string = "vstrophy.ch";
        this.baseURL="http://" + host + "/rest-api/";
        this.newsItemUrl = this.baseURL + "newsitem";
+       this.teamUrl = this.baseURL + "team";
    } 
 }

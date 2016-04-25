@@ -3,9 +3,10 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {NewsViewComponent} from './news/component/news-view/news-view.component';
 import {NewsManagerComponent} from './news/component/news-manager/news-manager.component';
 import {NewsService} from './news/service/news.service';
+import {TeamsService} from './teams/service/teams.service';
 import {ResultsComponent} from './results/results.component'
 import {HistoryComponent} from './history/history.component'
-import {TeamsComponent} from './teams/teams.component'
+import {TeamsViewComponent} from './teams/component/teams-view/teams-view.component'
 import {Configuration} from './configuration/configuration'
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import {HTTP_PROVIDERS}    from 'angular2/http';
@@ -13,7 +14,7 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 @Component({
     selector: 'my-app',
     directives: [NavigationComponent, ROUTER_DIRECTIVES],
-    providers: [NewsService, Configuration, ROUTER_PROVIDERS,HTTP_PROVIDERS],
+    providers: [NewsService,TeamsService, Configuration, ROUTER_PROVIDERS,HTTP_PROVIDERS],
     templateUrl: 'app/app.component.html'
 })
 
@@ -33,7 +34,7 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
         {
             path: '/teams',
             name: 'Teams',
-            component: TeamsComponent,
+            component: TeamsViewComponent,
         },
         {
             path: '/results',

@@ -23,6 +23,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     var host = "vstrophy.ch";
                     this.baseURL = "http://" + host + "/rest-api/";
                     this.newsItemUrl = this.baseURL + "newsitem";
+                    this.teamUrl = this.baseURL + "team";
                 }
                 Configuration = __decorate([
                     core_1.Injectable(), 

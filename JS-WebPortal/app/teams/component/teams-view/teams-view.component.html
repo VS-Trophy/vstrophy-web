@@ -1,0 +1,6 @@
+<div *ngFor="#team of _teams" class="col-md-6 team-thumb">
+    <a class="thumbnail img-responsive" href="/team/{{team.id}}">
+        <h2 class="text-center">{{team.name}}</h2>
+        <img src="{{team.getLogoUri()}}" alt="{{team.name}}" class="team-logo" />
+    </a>
+</div>

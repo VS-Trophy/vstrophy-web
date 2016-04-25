@@ -30,6 +30,24 @@
     border: 1px;
 }
 
+.team-logo{
+    max-height: 50px;
+    max-width: 125px;
+}
+
+.team-thumb{
+    height: 200px;
+    width: 50%;
+}
+
+.team-thumb .thumbnail{
+    height: 80%;
+}
+
+.team-thumb .thumbnail h2{
+    color: #555;
+}
+
 /* 
  * See https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css
  * for the full set of master styles used by the documentation samples
