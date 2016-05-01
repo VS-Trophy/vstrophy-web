@@ -13,6 +13,14 @@
     height: 80%;
 }
 
+.team-thumb a{
+    color: #555;
+}
+
+.team-thumb a:hover {
+    text-decoration: none;
+}
+
 .team-thumb .thumbnail h2{
     color: #555;
 }
