@@ -1,49 +1,7 @@
 
-.router-link-active{
-  color: #555 !important; 
-  background-color: #e7e7e7 !important; 
-}
 
-.news-editor-container{
-    height: 90%;
-}
 
-.news-list{
-    height: 90%;
-    overflow-y: scroll
-}
 
-.form-inline .form-control.title{
-    width: 65%;
-}
 
-.news-editor{
-    height: 90%;
-}
 
-.form-group.editor-buttons{
-    margin-top: 10px;
-}
 
-.news-editor-content{
-    height:90%;
-    border: 1px;
-}
-
-.team-logo{
-    max-height: 50px;
-    max-width: 125px;
-}
-
-.team-thumb{
-    height: 200px;
-    width: 50%;
-}
-
-.team-thumb .thumbnail{
-    height: 80%;
-}
-
-.team-thumb .thumbnail h2{
-    color: #555;
-}
