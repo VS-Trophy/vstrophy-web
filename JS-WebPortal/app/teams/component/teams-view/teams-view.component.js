@@ -37,7 +37,8 @@ System.register(['angular2/core', '../../service/teams.service', '../../model/Te
                 TeamsViewComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-teams',
-                        templateUrl: 'app/teams/component/teams-view/teams-view.component.html'
+                        templateUrl: 'app/teams/component/teams-view/teams-view.component.html',
+                        styleUrls: ['app/teams/component/teams-view/teams-view.component.css']
                     }), 
                     __metadata('design:paramtypes', [teams_service_1.TeamsService])
                 ], TeamsViewComponent);

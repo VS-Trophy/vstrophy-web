@@ -48,7 +48,8 @@ System.register(['angular2/core', '../../../model/news-item'], function(exports_
                 NewsListComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-news-list',
-                        templateUrl: 'app/news/component/news-manager/news-list/news-list.component.html'
+                        templateUrl: 'app/news/component/news-manager/news-list/news-list.component.html',
+                        styles: ['app/news/component/news-manager/news-list/news-list.component.css']
                     }), 
                     __metadata('design:paramtypes', [])
                 ], NewsListComponent);

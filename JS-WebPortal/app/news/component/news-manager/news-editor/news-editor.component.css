@@ -1,0 +1,16 @@
+
+.form-inline .form-control.title{
+    width: 65%;
+}
+.news-editor{
+    height: 90%;
+}
+
+.form-group.editor-buttons{
+    margin-top: 10px;
+}
+
+.news-editor-content{
+    height:90%;
+    border: 1px;
+}

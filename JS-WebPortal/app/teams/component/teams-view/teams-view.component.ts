@@ -4,7 +4,8 @@ import {TeamsService} from '../../service/teams.service';
 import {Team} from '../../model/Team';
 @Component({
     selector: 'vst-teams',
-    templateUrl: 'app/teams/component/teams-view/teams-view.component.html'
+    templateUrl: 'app/teams/component/teams-view/teams-view.component.html',
+    styleUrls: ['app/teams/component/teams-view/teams-view.component.css']
 })
 export class TeamsViewComponent {
 private _teams : Team[];

@@ -28,6 +28,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                     core_1.Component({
                         selector: 'vst-navigation',
                         templateUrl: 'app/navigation/navigation.html',
+                        styleUrls: ['app/navigation/navigation.css'],
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [])

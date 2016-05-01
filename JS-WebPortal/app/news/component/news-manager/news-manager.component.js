@@ -81,7 +81,8 @@ System.register(['angular2/core', '../../service/news.service', '../../model/new
                     core_1.Component({
                         selector: 'vst-news-manager',
                         directives: [news_editor_component_1.NewsEditorComponent, news_list_component_1.NewsListComponent],
-                        templateUrl: 'app/news/component/news-manager/news-manager.component.html'
+                        templateUrl: 'app/news/component/news-manager/news-manager.component.html',
+                        styleUrls: ['app/news/component/news-manager/news-manager.component.css']
                     }), 
                     __metadata('design:paramtypes', [news_service_1.NewsService])
                 ], NewsManagerComponent);

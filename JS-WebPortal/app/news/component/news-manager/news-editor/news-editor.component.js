@@ -62,7 +62,8 @@ System.register(['angular2/core', '../../../model/news-item'], function(exports_
                 NewsEditorComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-news-editor',
-                        templateUrl: 'app/news/component/news-manager/news-editor/news-editor.component.html'
+                        templateUrl: 'app/news/component/news-manager/news-editor/news-editor.component.html',
+                        styleUrls: ['app/news/component/news-manager/news-editor/news-editor.component.css']
                     }), 
                     __metadata('design:paramtypes', [])
                 ], NewsEditorComponent);

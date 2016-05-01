@@ -10,7 +10,8 @@ import {NgClass} from 'angular2/common';
 @Component({
     selector: 'vst-news-manager',
     directives: [NewsEditorComponent, NewsListComponent],
-    templateUrl: 'app/news/component/news-manager/news-manager.component.html'
+    templateUrl: 'app/news/component/news-manager/news-manager.component.html',
+    styleUrls: ['app/news/component/news-manager/news-manager.component.css']
 })
 export class NewsManagerComponent {
 

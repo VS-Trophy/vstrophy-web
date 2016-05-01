@@ -1,0 +1,18 @@
+
+.team-logo{
+    max-height: 50px;
+    max-width: 125px;
+}
+
+.team-thumb{
+    height: 200px;
+    width: 50%;
+}
+
+.team-thumb .thumbnail{
+    height: 80%;
+}
+
+.team-thumb .thumbnail h2{
+    color: #555;
+}

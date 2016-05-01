@@ -3,7 +3,8 @@ import {NewsItem} from '../../../model/news-item';
 
 @Component({
     selector: 'vst-news-editor',
-    templateUrl: 'app/news/component/news-manager/news-editor/news-editor.component.html'
+    templateUrl: 'app/news/component/news-manager/news-editor/news-editor.component.html',
+    styleUrls: ['app/news/component/news-manager/news-editor/news-editor.component.css']
 })
 
 export class NewsEditorComponent {
