@@ -1,13 +1,21 @@
 <div class="container-fluid news-editor-container">
-    <div *ngIf="message" class="row alert alert-success">
-        {{message}}
+
+    <div *ngIf="_showMenu" class="row">
+        <div class="col-md-8 col-md-push-2">
+        <a class="thumbnail center-block text-center" (click)="openNewItemInEditor()">
+        <h2>Neuer Eintrag</h2>
+        </a>
+        <a class="thumbnail center-block text-center" (click)="showExistingItems()">
+        <h2>Bestehenden Eintrag bearbeiten</h2>
+        </a>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-md-2">
+    <div *ngIf="!_showMenu" class="row">
+        <div class="col-md-2" *ngIf="_showList">
             <vst-news-list [newsItems]="_newsItems" [(selectedItem)]="selectedItem"></vst-news-list>
         </div>
         <div class="col-md-10">
-            <vst-news-editor *ngIf="selectedItem" [(newsItem)]="selectedItem" (saveNewsItem)="onSaveNewsItem($event)"></vst-news-editor>
+            <vst-news-editor *ngIf="selectedItem" [(newsItem)]="selectedItem" (saveNewsItem)="onSaveNewsItem($event)" (cancel)="onCancel()"></vst-news-editor>
         </div>
     </div>
 </div>

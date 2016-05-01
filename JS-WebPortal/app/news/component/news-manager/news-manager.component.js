@@ -33,18 +33,34 @@ System.register(['angular2/core', '../../service/news.service', '../../model/new
             NewsManagerComponent = (function () {
                 function NewsManagerComponent(_newsService) {
                     this._newsService = _newsService;
+                    this._showMenu = true;
+                    this._showList = false;
                 }
                 NewsManagerComponent.prototype.ngOnInit = function () {
+                    this.updateNewsItems();
+                };
+                NewsManagerComponent.prototype.openNewItemInEditor = function () {
+                    this._showMenu = false;
+                    var newsItem = this.createNewsItem();
+                    this.selectedItem = newsItem;
+                };
+                NewsManagerComponent.prototype.updateNewsItems = function () {
                     var _this = this;
                     this._newsService.getNewsItems()
-                        .subscribe(function (newsItems) { _this.setupNewsItemList(newsItems); });
+                        .subscribe(function (newsItems) { _this.setupNewsItemList(newsItems); _this.selectedItem = _this._newsItems[0]; });
+                };
+                NewsManagerComponent.prototype.onCancel = function () {
+                    this._showList = false;
+                    this._showMenu = true;
+                };
+                NewsManagerComponent.prototype.showExistingItems = function () {
+                    this._showMenu = false;
+                    this._showList = true;
+                    this.selectedItem = this._newsItems[0];
                 };
                 NewsManagerComponent.prototype.setupNewsItemList = function (databaseList) {
-                    var newItem = this.createNewsItem();
-                    this._newsItems = [];
-                    this._newsItems.push(newItem);
-                    this.selectedItem = newItem;
-                    this._newsItems = this._newsItems.concat(databaseList);
+                    this._newsItems = databaseList;
+                    console.log(this._newsItems.length);
                 };
                 NewsManagerComponent.prototype.createNewsItem = function () {
                     var item = new news_item_1.NewsItem();
@@ -67,8 +83,12 @@ System.register(['angular2/core', '../../service/news.service', '../../model/new
                     }
                 };
                 NewsManagerComponent.prototype.onSaveNewsItem = function (newsItem) {
+                    var _this = this;
                     console.log("Saving " + newsItem);
-                    this._newsService.saveNewsItem(newsItem).subscribe(function (value) { return console.log(value); });
+                    this._newsService.saveNewsItem(newsItem).subscribe(function (o) {
+                        _this.updateNewsItems();
+                        _this.showExistingItems();
+                    });
                 };
                 NewsManagerComponent.prototype.updateSelectedNewsItem = function (newsItem) {
                     var _this = this;

@@ -19,20 +19,41 @@ export class NewsManagerComponent {
 
     selectedItem: NewsItem;
 
-    constructor(private _newsService: NewsService) { }
+    private _showMenu: boolean;
+
+    private _showList: boolean;
+
+    constructor(private _newsService: NewsService) { this._showMenu = true; this._showList = false; }
 
     ngOnInit() {
+        this.updateNewsItems();
+    }
+
+    openNewItemInEditor() {
+        this._showMenu = false;
+        var newsItem: NewsItem = this.createNewsItem();
+        this.selectedItem = newsItem;
+    }
+
+    updateNewsItems() {
         this._newsService.getNewsItems()
-            .subscribe(newsItems => { this.setupNewsItemList(newsItems) });
+            .subscribe(newsItems => { this.setupNewsItemList(newsItems);this.selectedItem = this._newsItems[0]; });
+    }
+
+    onCancel() {
+        this._showList = false;
+        this._showMenu = true;
+    }
+
+    showExistingItems() {
+        this._showMenu = false;
+        this._showList = true;
+        this.selectedItem = this._newsItems[0];
     }
 
     setupNewsItemList(databaseList: NewsItem[]) {
-        var newItem = this.createNewsItem();
-        this._newsItems = [];
-        this._newsItems.push(newItem);
-        this.selectedItem = newItem;
-        this._newsItems = this._newsItems.concat(databaseList);
-
+        this._newsItems = databaseList;
+        console.log(this._newsItems.length);
     }
 
     createNewsItem(): NewsItem {
@@ -54,10 +75,13 @@ export class NewsManagerComponent {
             this.updateSelectedNewsItem(newsItem);
         }
     }
-    
-    onSaveNewsItem(newsItem:NewsItem){
+
+    onSaveNewsItem(newsItem: NewsItem) {
         console.log("Saving " + newsItem);
-        this._newsService.saveNewsItem(newsItem).subscribe(value => console.log(value));
+        this._newsService.saveNewsItem(newsItem).subscribe(o => {
+            this.updateNewsItems();
+            this.showExistingItems()
+        });
 
     }
 

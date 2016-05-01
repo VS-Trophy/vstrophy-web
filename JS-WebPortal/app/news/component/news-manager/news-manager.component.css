@@ -2,3 +2,7 @@
 .news-editor-container{
     height: 90%;
 }
+
+.thumbnail h2{
+    cursor: pointer;
+}

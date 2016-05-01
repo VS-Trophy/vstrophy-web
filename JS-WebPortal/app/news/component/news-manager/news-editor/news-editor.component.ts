@@ -14,6 +14,9 @@ export class NewsEditorComponent {
     @Output()
     saveNewsItem = new EventEmitter<NewsItem>();
     
+    @Output()
+    cancel = new EventEmitter<void>();
+    
     @Input()
     set newsItem(newsItem: NewsItem) {
         if (!this._editor) {
@@ -39,5 +42,9 @@ export class NewsEditorComponent {
     onSaveNewsItem() {
         this._newsItem.text = this._editor.getHTML();
         this.saveNewsItem.emit(this._newsItem);
+    }
+    
+    onCancel(){
+        this.cancel.emit(null);
     }
 }

@@ -24,6 +24,7 @@ System.register(['angular2/core', '../../../model/news-item'], function(exports_
             NewsEditorComponent = (function () {
                 function NewsEditorComponent() {
                     this.saveNewsItem = new core_1.EventEmitter();
+                    this.cancel = new core_1.EventEmitter();
                 }
                 Object.defineProperty(NewsEditorComponent.prototype, "newsItem", {
                     get: function () {
@@ -50,10 +51,17 @@ System.register(['angular2/core', '../../../model/news-item'], function(exports_
                     this._newsItem.text = this._editor.getHTML();
                     this.saveNewsItem.emit(this._newsItem);
                 };
+                NewsEditorComponent.prototype.onCancel = function () {
+                    this.cancel.emit(null);
+                };
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
                 ], NewsEditorComponent.prototype, "saveNewsItem", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], NewsEditorComponent.prototype, "cancel", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', news_item_1.NewsItem), 
