@@ -3,6 +3,8 @@
   <div class="panel-heading">
     <h2>{{newsItem.title}}</h2>
   </div>
-  <div class="panel-body" [innerHTML] = "newsItem.text | slice:0:1000">
+  <div class="panel-body">
+    <div class="news-body" [innerHTML]="newsItem.text"></div>
+    <a href="/news/{{newsItem.id}}"class="pull-right">Alles lesen</a>
   </div>
 </div>

@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../service/news.service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/news.service', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,8 +10,8 @@ System.register(['angular2/core', '../../service/news.service'], function(export
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, news_service_1;
-    var NewsViewComponent;
+    var core_1, news_service_1, router_1;
+    var NewsItemComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -19,29 +19,33 @@ System.register(['angular2/core', '../../service/news.service'], function(export
             },
             function (news_service_1_1) {
                 news_service_1 = news_service_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
-            NewsViewComponent = (function () {
-                function NewsViewComponent(_newsService) {
+            NewsItemComponent = (function () {
+                function NewsItemComponent(_newsService, _routeParams) {
                     this._newsService = _newsService;
+                    this._routeParams = _routeParams;
                 }
-                NewsViewComponent.prototype.ngOnInit = function () {
+                NewsItemComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._newsService.getNewsItems()
-                        .subscribe(function (newsItems) { return _this._newsItems = newsItems; });
+                    console.log(+this._routeParams.get('id'));
+                    this._newsService.getNewsItem(+this._routeParams.get('id'))
+                        .subscribe(function (newsItem) { return _this._newsItem = newsItem; });
                 };
-                NewsViewComponent = __decorate([
+                NewsItemComponent = __decorate([
                     core_1.Component({
-                        selector: 'vst-news',
-                        templateUrl: 'app/news/component/news-view/news-view.component.html',
-                        styleUrls: ['app/news/component/news-view/news-view.component.css']
+                        selector: 'vst-news-item',
+                        templateUrl: 'app/news/component/news-item/news-item.component.html'
                     }), 
-                    __metadata('design:paramtypes', [news_service_1.NewsService])
-                ], NewsViewComponent);
-                return NewsViewComponent;
+                    __metadata('design:paramtypes', [news_service_1.NewsService, router_1.RouteParams])
+                ], NewsItemComponent);
+                return NewsItemComponent;
             }());
-            exports_1("NewsViewComponent", NewsViewComponent);
+            exports_1("NewsItemComponent", NewsItemComponent);
         }
     }
 });
-//# sourceMappingURL=news-view.component.js.map
+//# sourceMappingURL=news-item.component.js.map

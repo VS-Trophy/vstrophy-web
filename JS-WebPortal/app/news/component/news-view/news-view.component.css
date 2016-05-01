@@ -1,0 +1,8 @@
+.news-body{
+    height: 40%;
+    overflow: hidden
+}
+
+a{
+    cursor:pointer;
+}

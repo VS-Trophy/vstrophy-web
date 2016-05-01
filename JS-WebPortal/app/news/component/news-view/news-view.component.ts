@@ -5,7 +5,8 @@ import {NewsItem} from '../../model/news-item';
 
 @Component({
     selector: 'vst-news',
-    templateUrl: 'app/news/component/news-view/news-view.component.html'
+    templateUrl: 'app/news/component/news-view/news-view.component.html',
+    styleUrls: ['app/news/component/news-view/news-view.component.css']
 })
 export class NewsViewComponent implements OnInit {
     private _newsItems: NewsItem[];

@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {NavigationComponent} from './navigation/navigation.component';
 import {NewsViewComponent} from './news/component/news-view/news-view.component';
+import {NewsItemComponent} from './news/component/news-item/news-item.component';
 import {NewsManagerComponent} from './news/component/news-manager/news-manager.component';
 import {NewsService} from './news/service/news.service';
 import {TeamsService} from './teams/service/teams.service';
@@ -25,6 +26,11 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
             name: 'News',
             component: NewsViewComponent,
             useAsDefault: true
+        },
+        {
+            path: '/news/:id',
+            name: 'NewsItem',
+            component: NewsItemComponent,
         },
         {
             path: '/newsEditor',
