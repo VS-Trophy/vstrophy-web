@@ -1,0 +1,21 @@
+<div *ngIf="_team">
+    <h1 class="h1"><img src="{{_team.getLogoUri()}}" alt="{{_team.name}}" class="img-rounded"/> {{_team.name}}</h1>
+    <div class="list-group">
+        <span class="list-group-item">
+            <h4 class="list-group-item-heading">Ort</h4>
+            <p class="list-group-item-text">{{_team.city}}</p>
+        </span>
+        <span class="list-group-item">
+            <h4 class="list-group-item-heading">Stadion</h4>
+            <p class="list-group-item-text">{{_team.stadium}}</p>
+        </span>
+        <span class="list-group-item">
+            <h4 class="list-group-item-heading">Farben</h4>
+            <p class="list-group-item-text">{{_team.colors}}</p>
+        </span>
+        <span class="list-group-item">
+            <h4 class="list-group-item-heading">Fans</h4>
+            <p class="list-group-item-text">{{_team.fans}}</p>
+        </span>
+    </div>
+</div>

@@ -8,13 +8,19 @@ import 'rxjs/Rx';
 @Injectable()
 export class TeamsService {
     constructor(private http: Http, private conf: Configuration) { }
-    
-        getTeams():Observable<Team[]>{
+
+    getTeams(): Observable<Team[]> {
         return this.http.get(this.conf.teamUrl)
             .map(res => <Team[]>res.json())
             .catch(this.handleError);
     }
     
+    getTeam(id:number): Observable<Team>{
+        return this.http.get(this.conf.teamUrl + "/" + id)
+        .map(res => <Team>res.json())
+        .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

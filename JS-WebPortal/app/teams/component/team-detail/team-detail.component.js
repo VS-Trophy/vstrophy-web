@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../service/teams.service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/teams.service', '../../model/Team', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../service/teams.service'], function(expor
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, teams_service_1;
+    var core_1, teams_service_1, Team_1, router_1;
     var TeamDetailComponent;
     return {
         setters:[
@@ -19,21 +19,32 @@ System.register(['angular2/core', '../../service/teams.service'], function(expor
             },
             function (teams_service_1_1) {
                 teams_service_1 = teams_service_1_1;
+            },
+            function (Team_1_1) {
+                Team_1 = Team_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
             TeamDetailComponent = (function () {
-                function TeamDetailComponent(_teamsService) {
+                function TeamDetailComponent(_teamsService, _routeParams) {
                     this._teamsService = _teamsService;
+                    this._routeParams = _routeParams;
                 }
                 TeamDetailComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this._teamsService.getTeam(+this._routeParams.get('id'))
+                        .subscribe(function (t) { _this._team = new Team_1.Team(t); });
                 };
                 TeamDetailComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-team-detail',
                         templateUrl: 'app/teams/component/team-detail/team-detail.component.html',
-                        styleUrls: ['app/teams/component/team-detail/team-detail.component.css']
+                        styleUrls: ['app/teams/component/team-detail/team-detail.component.css'],
+                        directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [teams_service_1.TeamsService])
+                    __metadata('design:paramtypes', [teams_service_1.TeamsService, router_1.RouteParams])
                 ], TeamDetailComponent);
                 return TeamDetailComponent;
             }());

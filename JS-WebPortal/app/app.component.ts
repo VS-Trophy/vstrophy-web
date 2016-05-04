@@ -8,6 +8,7 @@ import {TeamsService} from './teams/service/teams.service';
 import {ResultsComponent} from './results/results.component'
 import {HistoryComponent} from './history/history.component'
 import {TeamsViewComponent} from './teams/component/teams-view/teams-view.component'
+import {TeamDetailComponent} from './teams/component/team-detail/team-detail.component'
 import {Configuration} from './configuration/configuration'
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import {HTTP_PROVIDERS}    from 'angular2/http';
@@ -31,6 +32,11 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
             path: '/news/:id',
             name: 'NewsItem',
             component: NewsItemComponent,
+        },
+        {
+            path: '/teams/:id',
+            name: 'TeamDetail',
+            component: TeamDetailComponent,
         },
         {
             path: '/newsEditor',

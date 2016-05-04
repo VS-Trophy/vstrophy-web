@@ -38,6 +38,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../../con
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };
+                TeamsService.prototype.getTeam = function (id) {
+                    return this.http.get(this.conf.teamUrl + "/" + id)
+                        .map(function (res) { return res.json(); })
+                        .catch(this.handleError);
+                };
                 TeamsService.prototype.handleError = function (error) {
                     console.error(error);
                     return Observable_1.Observable.throw(error.json().error || 'Server error');
