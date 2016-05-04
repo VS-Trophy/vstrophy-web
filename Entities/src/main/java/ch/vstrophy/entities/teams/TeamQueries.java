@@ -19,18 +19,18 @@ public class TeamQueries {
       public CriteriaQuery<Team> getAllTeams(CriteriaBuilder cb){
         CriteriaQuery<Team> q = cb.createQuery(Team.class);
         Root<Team> root = q.from(Team.class);
-        root.join(Team_.division);
-        root.join(Team_.officials);
-        q.select(root);
+        root.fetch(Team_.division);
+        root.fetch(Team_.officials);
+        q.select(root).distinct(true);
         return q;
     }
       
       public CriteriaQuery<Team> getTeam(CriteriaBuilder cb,int id){
         CriteriaQuery<Team> q = cb.createQuery(Team.class);
         Root<Team> root = q.from(Team.class);
-        root.join(Team_.division);
-        root.join(Team_.officials);
-        q.select(root).where(cb.equal(root.get(Team_.id), id));
+        root.fetch(Team_.division);
+        root.fetch(Team_.officials);
+        q.select(root).where(cb.equal(root.get(Team_.id), id)).distinct(true);
         return q;
     }
 
