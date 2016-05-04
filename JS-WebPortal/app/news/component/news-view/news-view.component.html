@@ -5,6 +5,6 @@
   </div>
   <div class="panel-body">
     <div class="news-body" [innerHTML]="newsItem.text"></div>
-    <a href="/news/{{newsItem.id}}"class="pull-right">Alles lesen</a>
+    <a [routerLink]="['NewsItem',{id: newsItem.id}]" class="pull-right">Alles lesen</a>
   </div>
 </div>

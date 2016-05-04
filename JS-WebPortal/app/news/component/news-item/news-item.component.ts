@@ -14,7 +14,7 @@ export class NewsItemComponent implements OnInit {
     private _newsItem: NewsItem;
     constructor(private _newsService: NewsService, private _routeParams:RouteParams) { }
     ngOnInit() {
-        console.log(+this._routeParams.get('id'));
+        console.log(this._routeParams.get('id'));
         this._newsService.getNewsItem(+this._routeParams.get('id'))
     .subscribe(newsItem => this._newsItem = newsItem);    
     }
