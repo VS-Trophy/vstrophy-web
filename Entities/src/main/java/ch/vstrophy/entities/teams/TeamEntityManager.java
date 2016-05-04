@@ -5,9 +5,11 @@ package ch.vstrophy.entities.teams;
 
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -18,16 +20,27 @@ public class TeamEntityManager {
 
     @PersistenceContext(unitName = "ch.vstrophy_WebPortal_PU")
     private EntityManager em;
-
-    private static final String GET_ALL_QUERY = "SELECT DISTINCT t FROM Team t JOIN FETCH t.officials JOIN FETCH t.division";
+    
+    @Inject
+    private TeamQueries teamQueries;
 
     public void saveTeam(final Team team) {
         em.merge(team);
     }
 
     public List<Team> getAllTeams() {
-        TypedQuery<Team> query = em.createQuery(GET_ALL_QUERY, Team.class);
+        CriteriaQuery<Team> critQ = 
+                teamQueries.getAllTeams(em.getCriteriaBuilder());
+        TypedQuery<Team> query = em.createQuery(critQ);
         return query.getResultList();
     }
+    
+    public Team getTeam(int id){
+        CriteriaQuery<Team> critQ = 
+                teamQueries.getAllTeam(em.getCriteriaBuilder(), id);
+        TypedQuery<Team> query = em.createQuery(critQ);
+        return query.getSingleResult();
+    }
+    
 
 }

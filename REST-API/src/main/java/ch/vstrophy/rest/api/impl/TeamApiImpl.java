@@ -32,5 +32,13 @@ public class TeamApiImpl implements TeamApi {
         List<Team> teamList = teamEntityManager.getAllTeams();
         return responseFactory.createJsonResponse(teamList);
     }
+
+    @Override
+    public Response getTeam(int id) {
+        Team team = teamEntityManager.getTeam(id);
+        return responseFactory.createJsonResponse(team);
+    }
+
+
     
 }

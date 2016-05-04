@@ -29,5 +29,10 @@ public interface TeamApi {
     @Produces("application/json")
     public Response getTeams();
 
+    @GET
+    @Path("/{id}")
+    @Produces("application/json")
+    public Response getTeam(@PathParam("id") int id);
+
 }   
     
