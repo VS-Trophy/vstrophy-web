@@ -31,7 +31,6 @@ System.register(['angular2/core', '../../service/news.service', 'angular2/router
                 }
                 NewsItemComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    console.log(this._routeParams.get('id'));
                     this._newsService.getNewsItem(+this._routeParams.get('id'))
                         .subscribe(function (newsItem) { return _this._newsItem = newsItem; });
                 };
