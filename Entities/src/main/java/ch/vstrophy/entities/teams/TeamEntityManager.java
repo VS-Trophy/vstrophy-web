@@ -37,7 +37,7 @@ public class TeamEntityManager {
     
     public Team getTeam(int id){
         CriteriaQuery<Team> critQ = 
-                teamQueries.getAllTeam(em.getCriteriaBuilder(), id);
+                teamQueries.getTeam(em.getCriteriaBuilder(), id);
         TypedQuery<Team> query = em.createQuery(critQ);
         return query.getSingleResult();
     }

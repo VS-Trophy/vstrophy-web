@@ -25,7 +25,7 @@ public class TeamQueries {
         return q;
     }
       
-      public CriteriaQuery<Team> getAllTeam(CriteriaBuilder cb,int id){
+      public CriteriaQuery<Team> getTeam(CriteriaBuilder cb,int id){
         CriteriaQuery<Team> q = cb.createQuery(Team.class);
         Root<Team> root = q.from(Team.class);
         root.join(Team_.division);
