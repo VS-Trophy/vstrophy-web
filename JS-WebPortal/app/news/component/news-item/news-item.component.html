@@ -1,2 +1,10 @@
-<h1>{{_newsItem?.title}}</h1>
+<div>
+    <a [routerLink]="['News']" class="btn btn-default">Zurück</a>
+</div>
+<div class="page-header">
+    <h1>{{_newsItem?.title}} <small>von {{_newsItem?.author}}</small></h1>
+</div>
 <div [innerHtml]="_newsItem?.text"></div>
+<div >
+    <a [routerLink]="['News']" class="btn btn-default">Zurück</a>
+</div>

@@ -38,7 +38,9 @@ System.register(['angular2/core', '../../service/news.service', 'angular2/router
                 NewsItemComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-news-item',
-                        templateUrl: 'app/news/component/news-item/news-item.component.html'
+                        templateUrl: 'app/news/component/news-item/news-item.component.html',
+                        styleUrls: ['app/news/component/news-item/news-item.component.css'],
+                        directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [news_service_1.NewsService, router_1.RouteParams])
                 ], NewsItemComponent);
