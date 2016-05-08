@@ -1,21 +1,49 @@
-<div *ngIf="_team">
-    <h1 class="h1"><img src="{{_team.getLogoUri()}}" alt="{{_team.name}}" class="img-rounded"/> {{_team.name}}</h1>
-    <div class="list-group">
-        <span class="list-group-item">
-            <h4 class="list-group-item-heading">Ort</h4>
-            <p class="list-group-item-text">{{_team.city}}</p>
+<div>
+    <a [routerLink]="['Teams']" class="btn btn-default">Zurück</a>
+</div>
+<div class="container" *ngIf="_team">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="h1"><img src="{{_team.getLogoUri()}}" alt="{{_team.name}}" class="img-rounded"/> {{_team.name}}</h1>
+            <h5>{{_team.division}} Division</h5>
+        </div>
+        <div class="col-md-4">
+            <img src="{{_team.getUniformUri()}}" class="img-rounded" />
+        </div>
+    </div>
+    <div class="row team">
+        <h2>Info</h2>
+        <span class="list-group-item team col-md-5">
+            <p class="list-group-item-heading">Ort</p>
+            <h4 class="list-group-item-text">{{_team.city}}</h4>
         </span>
-        <span class="list-group-item">
-            <h4 class="list-group-item-heading">Stadion</h4>
-            <p class="list-group-item-text">{{_team.stadium}}</p>
+        <span class="list-group-item team col-md-5">
+            <p class="list-group-item-heading">Gegründet</p>
+            <h4 class="list-group-item-text">{{_team.getFoundedInYear()}}</h4>
         </span>
-        <span class="list-group-item">
-            <h4 class="list-group-item-heading">Farben</h4>
-            <p class="list-group-item-text">{{_team.colors}}</p>
+        <span class="list-group-item team col-md-5">
+            <p class="list-group-item-heading">VS-Trophy Mitglied seit</p>
+            <h4 class="list-group-item-text">{{_team.getJoinedInYear()}}</h4>
         </span>
-        <span class="list-group-item">
-            <h4 class="list-group-item-heading">Fans</h4>
-            <p class="list-group-item-text">{{_team.fans}}</p>
+        <span class="list-group-item team col-md-5">
+            <p class="list-group-item-heading">Stadion</p>
+            <h4 class="list-group-item-text">{{_team.stadium}}</h4>
+        </span>
+        <span class="list-group-item team col-md-5">
+            <p class="list-group-item-heading">Farben</p>
+            <h4 class="list-group-item-text">{{_team.colors}}</h4>
+        </span>
+        <span class="list-group-item team col-md-5">
+            <p class="list-group-item-heading">Fans</p>
+            <h4 class="list-group-item-text">{{_team.fans}}</h4>
+        </span>
+    </div>
+    <div class="row team">
+        <h2>Funktionäre</h2>
+
+        <span *ngFor="#official of _team.officials" class="list-group-item team col-md-5">
+            <p class="list-group-item-heading">{{official.function}}</p>
+            <h4 class="list-group-item-text">{{official.name}}</h4>
         </span>
     </div>
 </div>
