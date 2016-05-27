@@ -39,6 +39,22 @@ public class MatchQueries {
         return q;
     }
 
+    public static CriteriaQuery<Match> getMatchesQuery(CriteriaBuilder cb, Week week) {
+        CriteriaQuery<Match> q = cb.createQuery(Match.class);
+        Root<Match> root = q.from(Match.class);
+        root.fetch(Match_.week);
+        Predicate seasonPred
+                = cb.equal(
+                        root.get(Match_.week).get(Week_.season), week.getSeason());
+        Predicate weekPred
+                = cb.equal(
+                        root.get(Match_.week).get(Week_.number), week.getNumber());
+        
+
+        q.select(root).where(cb.and(weekPred,seasonPred)).distinct(true);
+        return q;
+    }
+
     public static CriteriaQuery<Match> getAllTeamMatches(CriteriaBuilder cb, Team team) {
         CriteriaQuery<Match> q = cb.createQuery(Match.class);
         Root<Match> root = q.from(Match.class);

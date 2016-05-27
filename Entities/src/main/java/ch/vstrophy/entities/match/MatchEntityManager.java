@@ -5,6 +5,7 @@ package ch.vstrophy.entities.match;
 
 import ch.vstrophy.entities.teams.Team;
 import ch.vstrophy.entities.weeks.Week;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -83,6 +84,17 @@ public class MatchEntityManager {
             return em.createQuery(query).getResultList();
         } catch (NoResultException ex) {
             return null;
+        }
+    }
+
+    public List<Match> getMatches(Week seasonWeek) {
+        CriteriaQuery<Match> query
+                = MatchQueries.
+                getMatchesQuery(em.getCriteriaBuilder(), seasonWeek);
+        try{
+            return em.createQuery(query).getResultList();
+        }catch(NoResultException ex){
+            return new ArrayList<>();
         }
     }
 
