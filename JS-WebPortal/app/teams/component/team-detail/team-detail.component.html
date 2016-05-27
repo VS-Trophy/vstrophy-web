@@ -33,7 +33,7 @@
             <p class="list-group-item-heading">Farben</p>
             <h4 class="list-group-item-text">{{_team.colors}}</h4>
         </span>
-        <span class="list-group-item team col-md-5">
+        <span *ngIf="_team.fans" class="list-group-item team col-md-5">
             <p class="list-group-item-heading">Fans</p>
             <h4 class="list-group-item-text">{{_team.fans}}</h4>
         </span>
