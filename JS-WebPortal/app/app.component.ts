@@ -5,7 +5,7 @@ import {NewsItemComponent} from './news/component/news-item/news-item.component'
 import {NewsManagerComponent} from './news/component/news-manager/news-manager.component';
 import {NewsService} from './news/service/news.service';
 import {TeamsService} from './teams/service/teams.service';
-import {ResultsComponent} from './results/results.component'
+import {ResultsViewComponent} from './results/component/results-view/results-view.component'
 import {HistoryComponent} from './history/history.component'
 import {TeamsViewComponent} from './teams/component/teams-view/teams-view.component'
 import {TeamDetailComponent} from './teams/component/team-detail/team-detail.component'
@@ -51,7 +51,7 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
         {
             path: '/results',
             name: 'Results',
-            component: ResultsComponent,
+            component: ResultsViewComponent,
         },
         {
             path: '/history',

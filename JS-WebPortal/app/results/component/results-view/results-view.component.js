@@ -11,27 +11,27 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var ResultsComponent;
+    var ResultsViewComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            ResultsComponent = (function () {
-                function ResultsComponent() {
+            ResultsViewComponent = (function () {
+                function ResultsViewComponent() {
                 }
-                ResultsComponent = __decorate([
+                ResultsViewComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-results',
-                        templateUrl: 'app/results/results.component.html'
+                        templateUrl: 'app/results/component/results-view/results-view.component.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], ResultsComponent);
-                return ResultsComponent;
+                ], ResultsViewComponent);
+                return ResultsViewComponent;
             }());
-            exports_1("ResultsComponent", ResultsComponent);
+            exports_1("ResultsViewComponent", ResultsViewComponent);
         }
     }
 });
-//# sourceMappingURL=results.component.js.map
+//# sourceMappingURL=results-view.component.js.map
