@@ -1,4 +1,4 @@
-System.register(['angular2/core', './navigation/navigation.component', './news/component/news-view/news-view.component', './news/component/news-item/news-item.component', './news/component/news-manager/news-manager.component', './news/service/news.service', './teams/service/teams.service', './results/component/results-view/results-view.component', './history/history.component', './teams/component/teams-view/teams-view.component', './teams/component/team-detail/team-detail.component', './configuration/configuration', 'angular2/router', 'angular2/http'], function(exports_1, context_1) {
+System.register(['angular2/core', './components/navigation/navigation.component', './components/news-view/news-view.component', './components/news-item/news-item.component', './components/news-manager/news-manager.component', './services/news/news.service', './services/teams/teams.service', './components/results-view/results-view.component', './components/history-view/history-view.component', './components/teams-view/teams-view.component', './components/team-detail/team-detail.component', './configuration/configuration', 'angular2/router', 'angular2/http'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './navigation/navigation.component', './news/c
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, navigation_component_1, news_view_component_1, news_item_component_1, news_manager_component_1, news_service_1, teams_service_1, results_view_component_1, history_component_1, teams_view_component_1, team_detail_component_1, configuration_1, router_1, http_1;
+    var core_1, navigation_component_1, news_view_component_1, news_item_component_1, news_manager_component_1, news_service_1, teams_service_1, results_view_component_1, history_view_component_1, teams_view_component_1, team_detail_component_1, configuration_1, router_1, http_1;
     var AppComponent;
     return {
         setters:[
@@ -38,8 +38,8 @@ System.register(['angular2/core', './navigation/navigation.component', './news/c
             function (results_view_component_1_1) {
                 results_view_component_1 = results_view_component_1_1;
             },
-            function (history_component_1_1) {
-                history_component_1 = history_component_1_1;
+            function (history_view_component_1_1) {
+                history_view_component_1 = history_view_component_1_1;
             },
             function (teams_view_component_1_1) {
                 teams_view_component_1 = teams_view_component_1_1;
@@ -102,7 +102,7 @@ System.register(['angular2/core', './navigation/navigation.component', './news/c
                         {
                             path: '/history',
                             name: 'History',
-                            component: history_component_1.HistoryComponent,
+                            component: history_view_component_1.HistoryViewComponent,
                         },
                     ]), 
                     __metadata('design:paramtypes', [])

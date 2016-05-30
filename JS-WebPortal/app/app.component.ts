@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
-import {NavigationComponent} from './navigation/navigation.component';
-import {NewsViewComponent} from './news/component/news-view/news-view.component';
-import {NewsItemComponent} from './news/component/news-item/news-item.component';
-import {NewsManagerComponent} from './news/component/news-manager/news-manager.component';
-import {NewsService} from './news/service/news.service';
-import {TeamsService} from './teams/service/teams.service';
-import {ResultsViewComponent} from './results/component/results-view/results-view.component'
-import {HistoryComponent} from './history/history.component'
-import {TeamsViewComponent} from './teams/component/teams-view/teams-view.component'
-import {TeamDetailComponent} from './teams/component/team-detail/team-detail.component'
+import {NavigationComponent} from './components/navigation/navigation.component';
+import {NewsViewComponent} from './components/news-view/news-view.component';
+import {NewsItemComponent} from './components/news-item/news-item.component';
+import {NewsManagerComponent} from './components/news-manager/news-manager.component';
+import {NewsService} from './services/news/news.service';
+import {TeamsService} from './services/teams/teams.service';
+import {ResultsViewComponent} from './components/results-view/results-view.component'
+import {HistoryViewComponent} from './components/history-view/history-view.component'
+import {TeamsViewComponent} from './components/teams-view/teams-view.component'
+import {TeamDetailComponent} from './components/team-detail/team-detail.component'
 import {Configuration} from './configuration/configuration'
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import {HTTP_PROVIDERS}    from 'angular2/http';
@@ -56,7 +56,7 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
         {
             path: '/history',
             name: 'History',
-            component: HistoryComponent,
+            component: HistoryViewComponent,
         },
     ]
 )
