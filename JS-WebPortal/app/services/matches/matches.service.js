@@ -40,4 +40,4 @@ System.register(['angular2/core', 'angular2/http', '../../configuration/configur
         }
     }
 });
-//# sourceMappingURL=results.service.js.map
+//# sourceMappingURL=matches.service.js.map
