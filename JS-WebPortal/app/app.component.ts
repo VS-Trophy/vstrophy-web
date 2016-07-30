@@ -5,6 +5,7 @@ import {NewsItemComponent} from './components/news-item/news-item.component';
 import {NewsManagerComponent} from './components/news-manager/news-manager.component';
 import {NewsService} from './services/news/news.service';
 import {TeamsService} from './services/teams/teams.service';
+import {MatchesService} from './services/matches/matches.service';
 import {ResultsViewComponent} from './components/results-view/results-view.component'
 import {HistoryViewComponent} from './components/history-view/history-view.component'
 import {TeamsViewComponent} from './components/teams-view/teams-view.component'
@@ -16,7 +17,7 @@ import {HTTP_PROVIDERS}    from 'angular2/http';
 @Component({
     selector: 'my-app',
     directives: [NavigationComponent, ROUTER_DIRECTIVES],
-    providers: [NewsService,TeamsService, Configuration, ROUTER_PROVIDERS,HTTP_PROVIDERS],
+    providers: [NewsService,TeamsService,MatchesService, Configuration, ROUTER_PROVIDERS,HTTP_PROVIDERS],
     templateUrl: 'app/app.component.html'
 })
 

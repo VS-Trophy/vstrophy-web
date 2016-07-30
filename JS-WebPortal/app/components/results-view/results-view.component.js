@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../services/matches/matches.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,23 +10,32 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, matches_service_1;
     var ResultsViewComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (matches_service_1_1) {
+                matches_service_1 = matches_service_1_1;
             }],
         execute: function() {
             ResultsViewComponent = (function () {
-                function ResultsViewComponent() {
+                function ResultsViewComponent(_matchesService) {
+                    this._matchesService = _matchesService;
                 }
+                ResultsViewComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this._matchesService.getMatches(2015, 1)
+                        .subscribe(function (matches) { return _this._matches = matches; });
+                };
                 ResultsViewComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-results',
                         templateUrl: 'app/components/results-view/results-view.component.html'
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [matches_service_1.MatchesService])
                 ], ResultsViewComponent);
                 return ResultsViewComponent;
             }());

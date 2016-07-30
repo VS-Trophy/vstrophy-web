@@ -1,6 +1,6 @@
-<div>
-    <div class="jumbotron">
-        <h1>Resultate</h1>
-        <span>In Arbeit!</span>
-    </div>
+<div *ngFor="#match of _matches" class="panel panel-default">
+ <h2>{{match.firstTeamId}}</h2>
+ <p>{{match.firstTeamPoints}}</p>
+ <h2>{{match.secondTeamId}}</h2>
+ <p>{{match.secondTeamPoints}}</p>
 </div>

@@ -24,6 +24,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.baseURL = "http://" + host + "/rest-api/";
                     this.newsItemUrl = this.baseURL + "newsitem";
                     this.teamUrl = this.baseURL + "team";
+                    this.matchUrl = this.baseURL + "match";
                 }
                 Configuration = __decorate([
                     core_1.Injectable(), 

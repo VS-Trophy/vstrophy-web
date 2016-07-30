@@ -87,6 +87,17 @@ public class MatchEntityManager {
         }
     }
 
+    public List<MatchLite> getMatchLites(Week seasonWeek){
+        CriteriaQuery<MatchLite> query = 
+                MatchQueries.getMatchLitesQuery(
+                        em.getCriteriaBuilder(), seasonWeek);
+        try{
+            return em.createQuery(query).getResultList();
+        } catch(NoResultException ex){
+            return null;
+        }
+    }
+    
     public List<Match> getMatches(Week seasonWeek) {
         CriteriaQuery<Match> query
                 = MatchQueries.
