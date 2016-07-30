@@ -1,6 +1,3 @@
-<div *ngFor="#match of _matches" class="panel panel-default">
- <h2>{{match.firstTeamId}}</h2>
- <p>{{match.firstTeamPoints}}</p>
- <h2>{{match.secondTeamId}}</h2>
- <p>{{match.secondTeamPoints}}</p>
+<div *ngFor="#match of _matches">
+ <vst-match [match]="match"></vst-match>
 </div>

@@ -1,10 +1,12 @@
 import {Component,OnInit} from 'angular2/core';
 import {MatchesService} from '../../services/matches/matches.service';
+import {MatchComponent} from '../match/match.component';
 import {Match} from '../../model/match/match';
 
 @Component({
     selector: 'vst-results',
-    templateUrl: 'app/components/results-view/results-view.component.html'
+    templateUrl: 'app/components/results-view/results-view.component.html',
+    directives: [MatchComponent]
 })
 export class ResultsViewComponent implements OnInit{
     constructor(private _matchesService: MatchesService) { }

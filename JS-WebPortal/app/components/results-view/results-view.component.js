@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../services/matches/matches.service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../services/matches/matches.service', '../match/match.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../../services/matches/matches.service'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, matches_service_1;
+    var core_1, matches_service_1, match_component_1;
     var ResultsViewComponent;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(['angular2/core', '../../services/matches/matches.service'], fun
             },
             function (matches_service_1_1) {
                 matches_service_1 = matches_service_1_1;
+            },
+            function (match_component_1_1) {
+                match_component_1 = match_component_1_1;
             }],
         execute: function() {
             ResultsViewComponent = (function () {
@@ -33,7 +36,8 @@ System.register(['angular2/core', '../../services/matches/matches.service'], fun
                 ResultsViewComponent = __decorate([
                     core_1.Component({
                         selector: 'vst-results',
-                        templateUrl: 'app/components/results-view/results-view.component.html'
+                        templateUrl: 'app/components/results-view/results-view.component.html',
+                        directives: [match_component_1.MatchComponent]
                     }), 
                     __metadata('design:paramtypes', [matches_service_1.MatchesService])
                 ], ResultsViewComponent);
