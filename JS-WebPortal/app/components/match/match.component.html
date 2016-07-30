@@ -1,7 +1,16 @@
-<div class="panel panel-default">
-    <h1>MATCH</h1>
-    <h2>{{match.firstTeamId}}</h2>
-    <p>{{match.firstTeamPoints}}</p>
-    <h2>{{match.secondTeamId}}</h2>
-    <p>{{match.secondTeamPoints}}</p>
+<div class="panel panel-default container">
+    <div class="row">
+        <div class="col-md-5">
+            <h3><img src="{{_firstTeam?.getLogoUri()}}" alt="{{_firstTeam?.name}}" class="team-logo img-rounded" /> {{_firstTeam?.name}}</h3>
+            <p class="text-center">{{match.firstTeamPoints}}</p>
+        </div>
+        <div class="col-md-2">
+            <h2>VS</h2>
+        </div>
+        <div class="col-md-5 text-right">
+            <h3>{{_secondTeam?.name}} <img src="{{_secondTeam?.getLogoUri()}} " alt="{{_secondTeam?.name}} " class="team-logo
+            img-rounded " /></h3>
+            <p>{{match.secondTeamPoints}}</p>
+        </div>
+    </div>
 </div>
