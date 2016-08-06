@@ -11,7 +11,7 @@ import {HTTP_PROVIDERS}    from '@angular/http';
 
 @Component({
     selector: 'my-app',
-    directives: [NavigationComponent],
+    directives: [NavigationComponent,ROUTER_DIRECTIVES],
     providers: [NewsService,TeamsService,MatchesService, Configuration,HTTP_PROVIDERS],
     templateUrl: 'app/app.component.html'
 })

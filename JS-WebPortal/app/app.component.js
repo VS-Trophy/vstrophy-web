@@ -14,6 +14,7 @@ var teams_service_1 = require('./services/teams/teams.service');
 var matches_service_1 = require('./services/matches/matches.service');
 var navigation_component_1 = require('./components/navigation/navigation.component');
 var configuration_1 = require('./configuration/configuration');
+var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var AppComponent = (function () {
     function AppComponent() {
@@ -21,7 +22,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            directives: [navigation_component_1.NavigationComponent],
+            directives: [navigation_component_1.NavigationComponent, router_1.ROUTER_DIRECTIVES],
             providers: [news_service_1.NewsService, teams_service_1.TeamsService, matches_service_1.MatchesService, configuration_1.Configuration, http_1.HTTP_PROVIDERS],
             templateUrl: 'app/app.component.html'
         }), 

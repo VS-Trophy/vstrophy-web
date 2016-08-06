@@ -10,10 +10,6 @@ var news_item_component_1 = require('./components/news-item/news-item.component'
 var news_manager_component_1 = require('./components/news-manager/news-manager.component');
 var routes = [
     {
-        path: '**',
-        component: news_view_component_1.NewsViewComponent
-    },
-    {
         path: 'news',
         component: news_view_component_1.NewsViewComponent
     },
@@ -40,7 +36,11 @@ var routes = [
     {
         path: 'history',
         component: history_view_component_1.HistoryViewComponent
-    }
+    },
+    {
+        path: '**',
+        component: news_view_component_1.NewsViewComponent
+    },
 ];
 exports.appRouterProviders = [
     router_1.provideRouter(routes)
