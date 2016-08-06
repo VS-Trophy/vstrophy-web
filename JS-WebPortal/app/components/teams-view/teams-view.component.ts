@@ -1,8 +1,8 @@
-import {Component} from 'angular2/core';
-import {OnInit} from 'angular2/core';
+import {Component} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {TeamsService} from '../../services/teams/teams.service';
 import {Team} from '../../model/team/team';
-import {ROUTER_DIRECTIVES } from 'angular2/router';
+import {ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
     selector: 'vst-teams',

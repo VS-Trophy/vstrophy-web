@@ -1,4 +1,4 @@
-import {Component,OnInit} from 'angular2/core';
+import {Component,OnInit} from '@angular/core';
 import {MatchesService} from '../../services/matches/matches.service';
 import {MatchComponent} from '../match/match.component';
 import {Match} from '../../model/match/match';

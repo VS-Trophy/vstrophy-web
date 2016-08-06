@@ -1,10 +1,10 @@
-import {Component} from 'angular2/core';
-import {OnInit} from 'angular2/core';
+import {Component} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {NewsService} from '../../services/news/news.service';
 import {NewsItem} from '../../model/news-item/news-item';
 import {NewsEditorComponent} from '../news-editor/news-editor.component';
 import {NewsListComponent} from '../news-list/news-list.component';
-import {NgClass} from 'angular2/common';
+import {NgClass} from '@angular/common';
 
 
 @Component({

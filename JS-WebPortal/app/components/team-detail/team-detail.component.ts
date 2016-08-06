@@ -1,8 +1,8 @@
-import {Component} from 'angular2/core';
-import {OnInit} from 'angular2/core';
+import {Component} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {TeamsService} from '../../services/teams/teams.service';
 import {Team} from '../../model/team/team';
-import {RouteParams,ROUTER_DIRECTIVES } from 'angular2/router';
+import {ActivatedRoute,ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
     selector: 'vst-team-detail',
@@ -13,11 +13,11 @@ import {RouteParams,ROUTER_DIRECTIVES } from 'angular2/router';
 export class TeamDetailComponent {
     private _team: Team;
 
-    constructor(private _teamsService: TeamsService, private _routeParams:RouteParams) { }
+    constructor(private _teamsService: TeamsService, private _route:ActivatedRoute) { }
 
     ngOnInit() {
-        this._teamsService.getTeam(+this._routeParams.get('id'))
-            .subscribe(t => {this._team = new Team(t)});
+        this._route.params.subscribe(params =>  this._teamsService.getTeam(+params['id'])
+            .subscribe(t => {this._team = new Team(t)}))
     }
 
 }

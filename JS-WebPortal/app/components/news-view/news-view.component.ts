@@ -1,8 +1,8 @@
-import {Component} from 'angular2/core';
-import {OnInit} from 'angular2/core';
+import {Component} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {NewsService} from '../../services/news/news.service';
 import {NewsItem} from '../../model/news-item/news-item';
-import {ROUTER_DIRECTIVES } from 'angular2/router';
+import {ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
     selector: 'vst-news',

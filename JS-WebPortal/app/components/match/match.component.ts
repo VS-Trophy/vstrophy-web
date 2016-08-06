@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from 'angular2/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Match} from '../../model/match/match';
 import {Team} from '../../model/team/team';
 import {TeamsService} from '../../services/teams/teams.service';

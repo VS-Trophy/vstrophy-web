@@ -1,9 +1,9 @@
-import {Component, Input,Output, OnInit,EventEmitter} from 'angular2/core';
+import {Component, Input,Output, OnInit,EventEmitter} from '@angular/core';
 import {NewsItem} from '../../model/news-item/news-item';
 @Component({
     selector: 'vst-news-list',
-    templateUrl: 'app/components/news-list/news-list.component.html',
-    styles: ['app/components/news-list/news-list.component.css']
+    templateUrl: 'news-list.component.html',
+    styles: ['news-list.component.css']
 })
 
 export class NewsListComponent implements OnInit {
