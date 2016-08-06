@@ -41,7 +41,7 @@
     <div class="row team">
         <h2>Funktionäre</h2>
 
-        <span *ngFor="#official of _team.officials" class="list-group-item team col-md-5">
+        <span *ngFor="let official of _team.officials" class="list-group-item team col-md-5">
             <p class="list-group-item-heading">{{official.function}}</p>
             <h4 class="list-group-item-text">{{official.name}}</h4>
         </span>

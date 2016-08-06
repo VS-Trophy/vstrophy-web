@@ -1,4 +1,4 @@
 <div class="list-group news-list">
-    <a *ngFor="#newsItem of newsItems" [ngClass]="{active: selectedItem?.id == newsItem.id}" (click)="onSelectNewsItem(newsItem)"
+    <a *ngFor="let newsItem of newsItems" [ngClass]="{active: selectedItem?.id == newsItem.id}" (click)="onSelectNewsItem(newsItem)"
         class="list-group-item">{{newsItem.title}}</a>
 </div>
