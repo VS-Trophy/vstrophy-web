@@ -32,13 +32,49 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../../con
                 function TeamsService(http, conf) {
                     this.http = http;
                     this.conf = conf;
+                    this._teamCache = new Map();
+                    this.getTeams().subscribe(this.fillCache);
                 }
                 TeamsService.prototype.getTeams = function () {
+                    var _this = this;
+                    if (this._teamCache.size != 0) {
+                        return Observable_1.Observable.create(function (subscriber) {
+                            subscriber.next(_this.getTeamsFromCache());
+                            subscriber.complete();
+                        });
+                    }
                     return this.http.get(this.conf.teamUrl)
-                        .map(function (res) { return res.json(); })
+                        .map(function (res) {
+                        var teams = res.json();
+                        _this.fillCache(teams);
+                        return teams;
+                    })
                         .catch(this.handleError);
                 };
+                TeamsService.prototype.getTeamsFromCache = function () {
+                    var teams = new Array();
+                    this._teamCache.forEach(function (value) { return teams.push(value); });
+                    return teams;
+                };
+                TeamsService.prototype.getTeamFromCache = function (id) {
+                    return this._teamCache.get(id);
+                };
+                TeamsService.prototype.fillCache = function (teams) {
+                    var _this = this;
+                    this._teamCache.clear();
+                    teams.forEach(function (t) { return _this._teamCache.set(t.id, t); });
+                };
+                TeamsService.prototype.putInCache = function (team) {
+                    this._teamCache.set(team.id, team);
+                };
                 TeamsService.prototype.getTeam = function (id) {
+                    var _this = this;
+                    if (this._teamCache.has(id)) {
+                        return Observable_1.Observable.create(function (subscriber) {
+                            subscriber.next(_this.getTeamFromCache(id));
+                            subscriber.complete();
+                        });
+                    }
                     return this.http.get(this.conf.teamUrl + "/" + id)
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);

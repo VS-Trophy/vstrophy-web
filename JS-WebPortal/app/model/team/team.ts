@@ -12,7 +12,6 @@ export class Team{
  uniform:string;
  officials:Object[];
  constructor(jsonObject){
-     console.log(jsonObject)
      this.id = jsonObject.id;
      this.name = jsonObject.name;
      this.colors = jsonObject.colors;

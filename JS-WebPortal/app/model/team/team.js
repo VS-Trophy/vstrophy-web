@@ -7,7 +7,6 @@ System.register([], function(exports_1, context_1) {
         execute: function() {
             Team = (function () {
                 function Team(jsonObject) {
-                    console.log(jsonObject);
                     this.id = jsonObject.id;
                     this.name = jsonObject.name;
                     this.colors = jsonObject.colors;

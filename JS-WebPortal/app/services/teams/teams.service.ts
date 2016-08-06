@@ -7,18 +7,60 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class TeamsService {
-    constructor(private http: Http, private conf: Configuration) { }
+    private _teamCache: Map<number, Team>
+    constructor(private http: Http, private conf: Configuration) {
+        this._teamCache = new Map<number, Team>();
+        this.getTeams().subscribe(this.fillCache);
+    }
+
+
+
 
     getTeams(): Observable<Team[]> {
+        if (this._teamCache.size != 0) {
+            return Observable.create((subscriber) => {
+                subscriber.next(this.getTeamsFromCache());
+                subscriber.complete();
+            });
+        }
         return this.http.get(this.conf.teamUrl)
-            .map(res => <Team[]>res.json())
+            .map(res => {
+                let teams = <Team[]>res.json();
+                this.fillCache(teams);
+                return teams;
+            })
             .catch(this.handleError);
     }
-    
-    getTeam(id:number): Observable<Team>{
+
+    private getTeamsFromCache(): Team[] {
+        let teams: Team[] = new Array<Team>();
+        this._teamCache.forEach(value => teams.push(value));
+        return teams;
+    }
+
+    private getTeamFromCache(id: number) {
+        return this._teamCache.get(id);
+    }
+
+    private fillCache(teams: Team[]) {
+        this._teamCache.clear();
+        teams.forEach(t => this._teamCache.set(t.id, t));
+    }
+
+    private putInCache(team: Team) {
+        this._teamCache.set(team.id, team);
+    }
+
+    getTeam(id: number): Observable<Team> {
+        if (this._teamCache.has(id)) {
+            return Observable.create((subscriber) => {
+                subscriber.next(this.getTeamFromCache(id));
+                subscriber.complete();
+            });
+        }
         return this.http.get(this.conf.teamUrl + "/" + id)
-        .map(res => <Team>res.json())
-        .catch(this.handleError);
+            .map(res => <Team>res.json())
+            .catch(this.handleError);
     }
 
     private handleError(error: Response) {
