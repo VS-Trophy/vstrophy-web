@@ -32,11 +32,12 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../../con
                 function TeamsService(http, conf) {
                     this.http = http;
                     this.conf = conf;
+                    console.log("Constructor called");
                     this._teamCache = new Map();
-                    this.getTeams().subscribe(this.fillCache);
                 }
                 TeamsService.prototype.getTeams = function () {
                     var _this = this;
+                    console.log("Get teams called");
                     if (this._teamCache.size != 0) {
                         return Observable_1.Observable.create(function (subscriber) {
                             subscriber.next(_this.getTeamsFromCache());

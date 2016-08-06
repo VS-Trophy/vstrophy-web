@@ -9,14 +9,15 @@ import 'rxjs/Rx';
 export class TeamsService {
     private _teamCache: Map<number, Team>
     constructor(private http: Http, private conf: Configuration) {
+        console.log("Constructor called")
         this._teamCache = new Map<number, Team>();
-        this.getTeams().subscribe(this.fillCache);
     }
 
 
 
 
     getTeams(): Observable<Team[]> {
+        console.log("Get teams called")
         if (this._teamCache.size != 0) {
             return Observable.create((subscriber) => {
                 subscriber.next(this.getTeamsFromCache());
