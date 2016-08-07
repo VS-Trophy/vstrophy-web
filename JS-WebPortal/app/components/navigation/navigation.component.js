@@ -15,9 +15,10 @@ var NavigationComponent = (function () {
     }
     NavigationComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-navigation',
-            templateUrl: 'app/components/navigation/navigation.html',
-            styleUrls: ['app/components/navigation/navigation.css'],
+            templateUrl: 'navigation.html',
+            styleUrls: ['navigation.css'],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])

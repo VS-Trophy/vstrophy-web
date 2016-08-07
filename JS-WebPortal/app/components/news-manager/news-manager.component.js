@@ -82,10 +82,11 @@ var NewsManagerComponent = (function () {
     };
     NewsManagerComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-news-manager',
             directives: [news_editor_component_1.NewsEditorComponent, news_list_component_1.NewsListComponent],
-            templateUrl: 'app/components/news-manager/news-manager.component.html',
-            styleUrls: ['app/components/news-manager/news-manager.component.css']
+            templateUrl: 'news-manager.component.html',
+            styleUrls: ['news-manager.component.css']
         }), 
         __metadata('design:paramtypes', [news_service_1.NewsService])
     ], NewsManagerComponent);

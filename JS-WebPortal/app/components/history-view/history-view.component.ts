@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 
 @Component({
+    moduleId: module.id,
     selector: 'vst-history',
-    templateUrl: 'app/components/history-view/history-view.component.html'
+    templateUrl: 'history-view.component.html'
 })
 export class HistoryViewComponent {}

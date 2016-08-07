@@ -4,9 +4,10 @@ import {ROUTER_DIRECTIVES } from '@angular/router';
 
 
 @Component({
+    moduleId: module.id,
     selector: 'vst-navigation',
-    templateUrl: 'app/components/navigation/navigation.html',
-    styleUrls: ['app/components/navigation/navigation.css'],
+    templateUrl: 'navigation.html',
+    styleUrls: ['navigation.css'],
     directives: [ROUTER_DIRECTIVES]
 })
 export class NavigationComponent {

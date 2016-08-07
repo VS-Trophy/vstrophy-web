@@ -14,8 +14,9 @@ var HistoryViewComponent = (function () {
     }
     HistoryViewComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-history',
-            templateUrl: 'app/components/history-view/history-view.component.html'
+            templateUrl: 'history-view.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], HistoryViewComponent);

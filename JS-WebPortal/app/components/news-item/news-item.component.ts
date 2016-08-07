@@ -5,9 +5,10 @@ import {NewsItem} from '../../model/news-item/news-item';
 import {ActivatedRoute,ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
+    moduleId: module.id,
     selector: 'vst-news-item',
-    templateUrl: 'app/component/news-item/news-item.component.html',
-    styleUrls: ['app/component/news-item/news-item.component.css'],
+    templateUrl: 'news-item.component.html',
+    styleUrls: ['news-item.component.css'],
     directives: [ROUTER_DIRECTIVES]
 })
 export class NewsItemComponent implements OnInit {

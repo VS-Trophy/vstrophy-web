@@ -2,9 +2,10 @@ import {Component, Input,Output,EventEmitter} from '@angular/core';
 import {NewsItem} from '../../model/news-item/news-item';
 
 @Component({
+    moduleId: module.id,
     selector: 'vst-news-editor',
-    templateUrl: 'app/components/news-editor/news-editor.component.html',
-    styleUrls: ['app/components/news-editor/news-editor.component.css']
+    templateUrl: 'news-editor.component.html',
+    styleUrls: ['news-editor.component.css']
 })
 
 export class NewsEditorComponent {

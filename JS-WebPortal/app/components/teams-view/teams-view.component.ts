@@ -5,9 +5,10 @@ import {Team} from '../../model/team/team';
 import {ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
+    moduleId: module.id,
     selector: 'vst-teams',
-    templateUrl: 'app/components/teams-view/teams-view.component.html',
-    styleUrls: ['app/components/teams-view/teams-view.component.css'],
+    templateUrl: 'teams-view.component.html',
+    styleUrls: ['teams-view.component.css'],
     directives: [ROUTER_DIRECTIVES]
 })
 

@@ -24,9 +24,10 @@ var TeamsViewComponent = (function () {
     };
     TeamsViewComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-teams',
-            templateUrl: 'app/components/teams-view/teams-view.component.html',
-            styleUrls: ['app/components/teams-view/teams-view.component.css'],
+            templateUrl: 'teams-view.component.html',
+            styleUrls: ['teams-view.component.css'],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [teams_service_1.TeamsService])

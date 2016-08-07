@@ -29,9 +29,10 @@ var MatchComponent = (function () {
     ], MatchComponent.prototype, "match", void 0);
     MatchComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-match',
-            templateUrl: 'app/components/match/match.component.html',
-            styleUrls: ['app/components/match/match.component.css']
+            templateUrl: 'match.component.html',
+            styleUrls: ['match.component.css']
         }), 
         __metadata('design:paramtypes', [teams_service_1.TeamsService])
     ], MatchComponent);

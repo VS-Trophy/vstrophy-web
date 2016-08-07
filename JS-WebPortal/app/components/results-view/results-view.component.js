@@ -22,8 +22,9 @@ var ResultsViewComponent = (function () {
     };
     ResultsViewComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-results',
-            templateUrl: 'app/components/results-view/results-view.component.html',
+            templateUrl: 'results-view.component.html',
             directives: [match_component_1.MatchComponent]
         }), 
         __metadata('design:paramtypes', [matches_service_1.MatchesService])

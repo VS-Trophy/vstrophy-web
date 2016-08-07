@@ -3,9 +3,10 @@ import {Match} from '../../model/match/match';
 import {Team} from '../../model/team/team';
 import {TeamsService} from '../../services/teams/teams.service';
 @Component({
+    moduleId: module.id,
     selector: 'vst-match',
-    templateUrl: 'app/components/match/match.component.html',
-    styleUrls: ['app/components/match/match.component.css']
+    templateUrl: 'match.component.html',
+    styleUrls: ['match.component.css']
 })
 
 export class MatchComponent implements OnInit {

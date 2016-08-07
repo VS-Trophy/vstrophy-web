@@ -22,9 +22,10 @@ var NewsViewComponent = (function () {
     };
     NewsViewComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-news',
-            templateUrl: 'app/components/news-view/news-view.component.html',
-            styleUrls: ['app/components/news-view/news-view.component.css'],
+            templateUrl: 'news-view.component.html',
+            styleUrls: ['news-view.component.css'],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [news_service_1.NewsService])

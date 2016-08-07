@@ -5,9 +5,10 @@ import {NewsItem} from '../../model/news-item/news-item';
 import {ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
+    moduleId: module.id,
     selector: 'vst-news',
-    templateUrl: 'app/components/news-view/news-view.component.html',
-    styleUrls: ['app/components/news-view/news-view.component.css'],
+    templateUrl: 'news-view.component.html',
+    styleUrls: ['news-view.component.css'],
     directives: [ROUTER_DIRECTIVES]
 })
 export class NewsViewComponent implements OnInit {

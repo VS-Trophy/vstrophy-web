@@ -36,6 +36,7 @@ var NewsListComponent = (function () {
     ], NewsListComponent.prototype, "selectedItemChange", void 0);
     NewsListComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-news-list',
             templateUrl: 'news-list.component.html',
             styles: ['news-list.component.css']

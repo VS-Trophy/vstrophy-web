@@ -1,6 +1,7 @@
 import {Component, Input,Output, OnInit,EventEmitter} from '@angular/core';
 import {NewsItem} from '../../model/news-item/news-item';
 @Component({
+    moduleId: module.id,
     selector: 'vst-news-list',
     templateUrl: 'news-list.component.html',
     styles: ['news-list.component.css']

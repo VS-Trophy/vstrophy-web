@@ -4,8 +4,9 @@ import {MatchComponent} from '../match/match.component';
 import {Match} from '../../model/match/match';
 
 @Component({
+    moduleId: module.id,
     selector: 'vst-results',
-    templateUrl: 'app/components/results-view/results-view.component.html',
+    templateUrl: 'results-view.component.html',
     directives: [MatchComponent]
 })
 export class ResultsViewComponent implements OnInit{

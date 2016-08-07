@@ -58,9 +58,10 @@ var NewsEditorComponent = (function () {
     ], NewsEditorComponent.prototype, "newsItem", null);
     NewsEditorComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'vst-news-editor',
-            templateUrl: 'app/components/news-editor/news-editor.component.html',
-            styleUrls: ['app/components/news-editor/news-editor.component.css']
+            templateUrl: 'news-editor.component.html',
+            styleUrls: ['news-editor.component.css']
         }), 
         __metadata('design:paramtypes', [])
     ], NewsEditorComponent);
