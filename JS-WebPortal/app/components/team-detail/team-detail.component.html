@@ -4,11 +4,11 @@
 <div class="container" *ngIf="_team">
     <div class="row">
         <div class="col-md-8">
-            <h1 class="h1"><img src="{{_team.getLogoUri()}}" alt="{{_team.name}}" class="img-rounded"/> {{_team.name}}</h1>
+            <h1 class="h1"><img [src]="_team.getLogoUri()" alt="{{_team.name}}" class="img-rounded"/> {{_team.name}}</h1>
             <h5>{{_team.division}} Division</h5>
         </div>
         <div class="col-md-4">
-            <img src="{{_team.getUniformUri()}}" class="img-rounded" />
+            <img [src]="_team.getUniformUri()" class="img-rounded" />
         </div>
     </div>
     <div class="row team">

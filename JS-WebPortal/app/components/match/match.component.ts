@@ -16,9 +16,9 @@ export class MatchComponent implements OnInit {
     constructor(private _teamsService: TeamsService) { }
     ngOnInit() {
         this._teamsService.getTeam(this.match.firstTeamId)
-            .subscribe(t => { this._firstTeam = new Team(t) });
+            .then(t => this._firstTeam = t);
 
         this._teamsService.getTeam(this.match.secondTeamId)
-            .subscribe(t => { this._secondTeam = new Team(t) });
+            .then(t => this._secondTeam = t);
     }
 }

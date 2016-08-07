@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var match_1 = require('../../model/match/match');
-var team_1 = require('../../model/team/team');
 var teams_service_1 = require('../../services/teams/teams.service');
 var MatchComponent = (function () {
     function MatchComponent(_teamsService) {
@@ -19,9 +18,9 @@ var MatchComponent = (function () {
     MatchComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._teamsService.getTeam(this.match.firstTeamId)
-            .subscribe(function (t) { _this._firstTeam = new team_1.Team(t); });
+            .then(function (t) { return _this._firstTeam = t; });
         this._teamsService.getTeam(this.match.secondTeamId)
-            .subscribe(function (t) { _this._secondTeam = new team_1.Team(t); });
+            .then(function (t) { return _this._secondTeam = t; });
     };
     __decorate([
         core_1.Input(), 

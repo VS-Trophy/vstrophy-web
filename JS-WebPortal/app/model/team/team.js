@@ -1,8 +1,6 @@
 "use strict";
 var Team = (function () {
     function Team(jsonObject) {
-        console.info("consturctor");
-        console.info(jsonObject);
         this.id = jsonObject.id;
         this.name = jsonObject.name;
         this.colors = jsonObject.colors;
@@ -15,7 +13,6 @@ var Team = (function () {
         this.division = jsonObject.division.name;
         this.uniform = jsonObject.uniformPicture;
         this.officials = jsonObject.officials;
-        console.info(this);
     }
     Team.prototype.getFoundedInYear = function () {
         return this.foundedIn.getFullYear();

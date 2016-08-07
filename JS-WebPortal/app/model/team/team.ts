@@ -12,8 +12,6 @@ export class Team{
  uniform:string;
  officials:Object[];
  constructor(jsonObject){
-     console.info("consturctor")
-     console.info(jsonObject);
      this.id = jsonObject.id;
      this.name = jsonObject.name;
      this.colors = jsonObject.colors;
@@ -26,7 +24,6 @@ export class Team{
      this.division = jsonObject.division.name;
      this.uniform = jsonObject.uniformPicture;
      this.officials = jsonObject.officials;
-     console.info(this)
  }
 
  getFoundedInYear():number{
