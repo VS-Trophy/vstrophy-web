@@ -18,7 +18,7 @@ var NewsViewComponent = (function () {
     NewsViewComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._newsService.getNewsItems()
-            .subscribe(function (newsItems) { return _this._newsItems = newsItems; });
+            .then(function (newsItems) { return _this._newsItems = newsItems; });
     };
     NewsViewComponent = __decorate([
         core_1.Component({

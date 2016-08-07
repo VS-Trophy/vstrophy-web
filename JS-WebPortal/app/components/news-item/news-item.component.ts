@@ -17,7 +17,7 @@ export class NewsItemComponent implements OnInit {
     ngOnInit() {
                 this.route.params.subscribe(params =>
                 this._newsService.getNewsItem(+params['id'])
-                .subscribe(newsItem => this._newsItem = newsItem) 
+                .then(newsItem => this._newsItem = newsItem) 
                 )
     }
 

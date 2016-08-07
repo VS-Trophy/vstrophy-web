@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var teams_service_1 = require('../../services/teams/teams.service');
-var team_1 = require('../../model/team/team');
 var router_1 = require('@angular/router');
 var TeamDetailComponent = (function () {
     function TeamDetailComponent(_teamsService, _route) {
@@ -20,7 +19,7 @@ var TeamDetailComponent = (function () {
     TeamDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._route.params.subscribe(function (params) { return _this._teamsService.getTeam(+params['id'])
-            .subscribe(function (t) { _this._team = new team_1.Team(t); }); });
+            .then(function (t) { _this._team = t; }); });
     };
     TeamDetailComponent = __decorate([
         core_1.Component({

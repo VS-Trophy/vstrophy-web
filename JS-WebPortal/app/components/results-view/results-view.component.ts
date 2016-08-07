@@ -14,7 +14,7 @@ export class ResultsViewComponent implements OnInit{
      private _matches: Match[];
      ngOnInit() {
         this._matchesService.getMatches(2015,1)
-    .subscribe(matches => this._matches = matches);    
+    .then(matches => this._matches = matches);    
     }
     
 }

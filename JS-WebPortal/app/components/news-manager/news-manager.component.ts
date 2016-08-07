@@ -38,7 +38,7 @@ export class NewsManagerComponent {
 
     updateNewsItems() {
         this._newsService.getNewsItems()
-            .subscribe(newsItems => { this.setupNewsItemList(newsItems);this.selectedItem = this._newsItems[0]; });
+            .then(newsItems => { this.setupNewsItemList(newsItems); this.selectedItem = this._newsItems[0]; });
     }
 
     onCancel() {

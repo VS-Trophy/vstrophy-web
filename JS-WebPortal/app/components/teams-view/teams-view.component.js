@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var teams_service_1 = require('../../services/teams/teams.service');
-var team_1 = require('../../model/team/team');
 var router_1 = require('@angular/router');
 var TeamsViewComponent = (function () {
     function TeamsViewComponent(_teamsService) {
@@ -19,8 +18,9 @@ var TeamsViewComponent = (function () {
     TeamsViewComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._teamsService.getTeams()
-            .map(function (array) { return array.map(function (t) { return new team_1.Team(t); }); })
-            .subscribe(function (teams) { _this._teams = teams; });
+            .then(function (teams) {
+            _this._teams = teams;
+        });
     };
     TeamsViewComponent = __decorate([
         core_1.Component({

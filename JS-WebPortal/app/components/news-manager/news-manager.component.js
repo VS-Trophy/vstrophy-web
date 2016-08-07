@@ -30,7 +30,7 @@ var NewsManagerComponent = (function () {
     NewsManagerComponent.prototype.updateNewsItems = function () {
         var _this = this;
         this._newsService.getNewsItems()
-            .subscribe(function (newsItems) { _this.setupNewsItemList(newsItems); _this.selectedItem = _this._newsItems[0]; });
+            .then(function (newsItems) { _this.setupNewsItemList(newsItems); _this.selectedItem = _this._newsItems[0]; });
     };
     NewsManagerComponent.prototype.onCancel = function () {
         this._showList = false;

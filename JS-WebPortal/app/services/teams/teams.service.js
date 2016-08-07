@@ -11,8 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var Observable_1 = require('rxjs/Observable');
+var team_1 = require('../../model/team/team');
 var configuration_1 = require('../../configuration/configuration');
 require('rxjs/Rx');
+require('rxjs/add/operator/toPromise');
 var TeamsService = (function () {
     function TeamsService(http, conf) {
         this.http = http;
@@ -22,16 +24,15 @@ var TeamsService = (function () {
     TeamsService.prototype.getTeams = function () {
         var _this = this;
         if (this._teamCache.size != 0) {
-            return Observable_1.Observable.create(function (subscriber) {
-                subscriber.next(_this.getTeamsFromCache());
-                subscriber.complete();
-            });
+            return Promise.resolve(this.getTeamsFromCache());
         }
         return this.http.get(this.conf.teamUrl)
-            .map(function (res) {
-            var teams = res.json();
-            _this.fillCache(teams);
-            return teams;
+            .toPromise()
+            .then(function (res) {
+            var array = res.json();
+            _this._teamCache.clear();
+            array.forEach(function (obj) { return _this.putInCache(obj); });
+            return _this.getTeamsFromCache();
         })
             .catch(this.handleError);
     };
@@ -48,19 +49,17 @@ var TeamsService = (function () {
         this._teamCache.clear();
         teams.forEach(function (t) { return _this._teamCache.set(t.id, t); });
     };
-    TeamsService.prototype.putInCache = function (team) {
+    TeamsService.prototype.putInCache = function (teamObj) {
+        var team = new team_1.Team(teamObj);
         this._teamCache.set(team.id, team);
     };
     TeamsService.prototype.getTeam = function (id) {
-        var _this = this;
-        if (this._teamCache.has(id)) {
-            return Observable_1.Observable.create(function (subscriber) {
-                subscriber.next(_this.getTeamFromCache(id));
-                subscriber.complete();
-            });
-        }
+        /*    if (this._teamCache.has(id)) {
+               return Promise.resolve(this.getTeamFromCache(id));
+            }*/
         return this.http.get(this.conf.teamUrl + "/" + id)
-            .map(function (res) { return res.json(); })
+            .toPromise()
+            .then(function (res) { return new team_1.Team(res.json()); })
             .catch(this.handleError);
     };
     TeamsService.prototype.handleError = function (error) {

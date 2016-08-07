@@ -18,7 +18,7 @@ export class TeamDetailComponent {
 
     ngOnInit() {
         this._route.params.subscribe(params =>  this._teamsService.getTeam(+params['id'])
-            .subscribe(t => {this._team = new Team(t)}))
+            .then(t => {this._team = t}))
     }
 
 }

@@ -20,19 +20,22 @@ var NewsService = (function () {
     }
     NewsService.prototype.getNewsItems = function () {
         return this.http.get(this.conf.newsItemUrl)
-            .map(function (res) { return res.json(); })
+            .toPromise()
+            .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     NewsService.prototype.getNewsItem = function (id) {
         return this.http.get(this.conf.newsItemUrl + "/" + id)
-            .map(function (res) { return res.json(); })
+            .toPromise()
+            .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     NewsService.prototype.saveNewsItem = function (newsItem) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
         return this.http.post(this.conf.newsItemUrl, JSON.stringify(newsItem), options)
-            .map(function (res) { return res.json(); })
+            .toPromise()
+            .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     NewsService.prototype.handleError = function (error) {

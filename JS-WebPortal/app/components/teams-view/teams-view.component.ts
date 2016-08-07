@@ -13,13 +13,14 @@ import {ROUTER_DIRECTIVES } from '@angular/router';
 })
 
 export class TeamsViewComponent {
-private _teams : Team[];
+    private _teams: Team[];
 
     constructor(private _teamsService: TeamsService) { }
     ngOnInit() {
         this._teamsService.getTeams()
-            .map(array => array.map(t => new Team(t)))
-            .subscribe(teams => {this._teams = teams});
+            .then(teams => {
+                this._teams = teams;
+            })
     }
-    
+
 }

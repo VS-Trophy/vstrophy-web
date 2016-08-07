@@ -20,7 +20,7 @@ var NewsItemComponent = (function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             return _this._newsService.getNewsItem(+params['id'])
-                .subscribe(function (newsItem) { return _this._newsItem = newsItem; });
+                .then(function (newsItem) { return _this._newsItem = newsItem; });
         });
     };
     NewsItemComponent = __decorate([

@@ -18,7 +18,7 @@ var ResultsViewComponent = (function () {
     ResultsViewComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._matchesService.getMatches(2015, 1)
-            .subscribe(function (matches) { return _this._matches = matches; });
+            .then(function (matches) { return _this._matches = matches; });
     };
     ResultsViewComponent = __decorate([
         core_1.Component({

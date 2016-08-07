@@ -4,6 +4,7 @@ import {Observable}     from 'rxjs/Observable';
 import {Team} from '../../model/team/team';
 import {Configuration} from '../../configuration/configuration';
 import 'rxjs/Rx';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TeamsService {
@@ -12,22 +13,19 @@ export class TeamsService {
         this._teamCache = new Map<number, Team>();
     }
 
-
-
-
-    getTeams(): Observable<Team[]> {
+    getTeams(): Promise<Team[]> {
         if (this._teamCache.size != 0) {
-            return Observable.create((subscriber) => {
-                subscriber.next(this.getTeamsFromCache());
-                subscriber.complete();
-            });
+            return Promise.resolve(this.getTeamsFromCache());
         }
         return this.http.get(this.conf.teamUrl)
-            .map(res => {
-                let teams = <Team[]>res.json();
-                this.fillCache(teams);
-                return teams;
-            })
+            .toPromise()
+            .then(res => {
+                let array: any[] = res.json();
+                this._teamCache.clear();
+                array.forEach(obj => this.putInCache(obj));
+                return this.getTeamsFromCache();
+            }
+            )
             .catch(this.handleError);
     }
 
@@ -46,19 +44,18 @@ export class TeamsService {
         teams.forEach(t => this._teamCache.set(t.id, t));
     }
 
-    private putInCache(team: Team) {
+    private putInCache(teamObj: any) {
+        let team: Team = new Team(teamObj);
         this._teamCache.set(team.id, team);
     }
 
-    getTeam(id: number): Observable<Team> {
-        if (this._teamCache.has(id)) {
-            return Observable.create((subscriber) => {
-                subscriber.next(this.getTeamFromCache(id));
-                subscriber.complete();
-            });
-        }
+    getTeam(id: number): Promise<Team> {
+    /*    if (this._teamCache.has(id)) {
+           return Promise.resolve(this.getTeamFromCache(id));
+        }*/
         return this.http.get(this.conf.teamUrl + "/" + id)
-            .map(res => <Team>res.json())
+            .toPromise()
+            .then(res => new Team(<Team>res.json()))
             .catch(this.handleError);
     }
 

@@ -20,7 +20,8 @@ var MatchesService = (function () {
     }
     MatchesService.prototype.getMatches = function (season, week) {
         return this.http.get(this.conf.matchUrl + "?year=" + season + "&week=" + week)
-            .map(function (res) { return res.json(); })
+            .toPromise()
+            .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     MatchesService.prototype.handleError = function (error) {
