@@ -1,3 +1,21 @@
-<div *ngFor="let match of _matches">
+<div class="btn-group" dropdown>
+    <button type="button" class="btn" dropdownToggle>
+      Season <span class="caret"></span>
+    </button>
+    <ul dropdownMenu role="menu" aria-labelledby="single-button">
+      <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+      <li class="divider dropdown-divider"></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>
+  </div>
+<button type="button" class="btn btn-primary"
+        [(ngModel)]="singleModel" btnCheckbox
+        btnCheckboxTrue="1" btnCheckboxFalse="0">
+  Single Toggle
+</button>
+{{singleModel}}
+<!--<div *ngFor="let match of _matches">
  <vst-match [match]="match"></vst-match>
-</div>
+</div>-->

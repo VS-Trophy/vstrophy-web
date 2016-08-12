@@ -71,7 +71,7 @@ export class NewsManagerComponent {
             //update the selected news item from 
             //the database in case something has changed
             this._newsService.getNewsItem(newsItem.id)
-                .subscribe(newsItem => this.updateSelectedNewsItem(newsItem));
+                .then(newsItem => this.updateSelectedNewsItem(newsItem));
         } else {
             this.updateSelectedNewsItem(newsItem);
         }
@@ -79,7 +79,7 @@ export class NewsManagerComponent {
 
     onSaveNewsItem(newsItem: NewsItem) {
         console.log("Saving " + newsItem);
-        this._newsService.saveNewsItem(newsItem).subscribe(o => {
+        this._newsService.saveNewsItem(newsItem).then(o => {
             this.updateNewsItems();
             this.showExistingItems()
         });
