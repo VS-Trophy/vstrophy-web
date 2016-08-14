@@ -11,12 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Configuration = (function () {
     function Configuration() {
+        this.firstSeason = 2012;
+        this.lastSeason = 2016;
         var host = "vstrophy.ch";
         this.baseURL = "http://" + host + "/rest-api/";
         this.newsItemUrl = this.baseURL + "newsitem";
         this.teamUrl = this.baseURL + "team";
         this.matchUrl = this.baseURL + "match";
+        this.weekUrl = this.baseURL + "week";
     }
+    //We could get this out of the database. But this works as well ;)
+    Configuration.prototype.getSeasons = function () {
+        var seasons = [];
+        for (var i = this.firstSeason; i <= this.lastSeason; i++) {
+            seasons.push(i);
+        }
+        return seasons;
+    };
     Configuration = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

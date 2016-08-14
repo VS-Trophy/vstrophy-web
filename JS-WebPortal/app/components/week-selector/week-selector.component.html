@@ -1,0 +1,5 @@
+<div class="btn-group">
+  <label *ngFor="let week of weekList" class="btn btn-primary" [(ngModel)]="_weekModel"
+         btnRadio="{{week.id}}">{{week.number}}</label>
+</div>
+{{weekModel}}

@@ -9,9 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+//Services
 var news_service_1 = require('./services/news/news.service');
 var teams_service_1 = require('./services/teams/teams.service');
 var matches_service_1 = require('./services/matches/matches.service');
+var weeks_service_1 = require('./services/weeks/weeks.service');
+//Other
 var navigation_component_1 = require('./components/navigation/navigation.component');
 var configuration_1 = require('./configuration/configuration');
 var router_1 = require('@angular/router');
@@ -31,7 +34,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'my-app',
             directives: [navigation_component_1.NavigationComponent, router_1.ROUTER_DIRECTIVES],
-            providers: [news_service_1.NewsService, teams_service_1.TeamsService, matches_service_1.MatchesService, configuration_1.Configuration, http_1.HTTP_PROVIDERS],
+            providers: [weeks_service_1.WeeksService, news_service_1.NewsService, teams_service_1.TeamsService, matches_service_1.MatchesService, configuration_1.Configuration, http_1.HTTP_PROVIDERS],
             templateUrl: 'app/app.component.html',
             precompile: [results_view_component_1.ResultsViewComponent, history_view_component_1.HistoryViewComponent, teams_view_component_1.TeamsViewComponent, team_detail_component_1.TeamDetailComponent, news_view_component_1.NewsViewComponent, news_item_component_1.NewsItemComponent, news_manager_component_1.NewsManagerComponent]
         }), 

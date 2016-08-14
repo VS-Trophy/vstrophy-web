@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {NewsItem} from '../../model/news-item/news-item';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable}     from 'rxjs/Observable';
 import {Configuration} from '../../configuration/configuration';
-import 'rxjs/Rx';
 
 @Injectable()
 export class NewsService {
@@ -36,7 +34,6 @@ export class NewsService {
         // in a real world app, we may send the error to some remote logging infrastructure
         // instead of just logging it to the console
         console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
     }
 
 }

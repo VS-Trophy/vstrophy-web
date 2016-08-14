@@ -11,41 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var configuration_1 = require('../../configuration/configuration');
-var NewsService = (function () {
-    function NewsService(http, conf) {
+var WeeksService = (function () {
+    function WeeksService(http, conf) {
         this.http = http;
         this.conf = conf;
     }
-    NewsService.prototype.getNewsItems = function () {
+    WeeksService.prototype.getWeeks = function (season) {
         return this.http.get(this.conf.newsItemUrl)
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    NewsService.prototype.getNewsItem = function (id) {
-        return this.http.get(this.conf.newsItemUrl + "/" + id)
-            .toPromise()
-            .then(function (res) { return res.json(); })
-            .catch(this.handleError);
+    WeeksService.prototype.getSeasons = function () {
+        return this.conf.getSeasons();
     };
-    NewsService.prototype.saveNewsItem = function (newsItem) {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var options = new http_1.RequestOptions({ headers: headers });
-        return this.http.post(this.conf.newsItemUrl, JSON.stringify(newsItem), options)
-            .toPromise()
-            .then(function (res) { return res.json(); })
-            .catch(this.handleError);
-    };
-    NewsService.prototype.handleError = function (error) {
+    WeeksService.prototype.handleError = function (error) {
         // in a real world app, we may send the error to some remote logging infrastructure
         // instead of just logging it to the console
         console.error(error);
     };
-    NewsService = __decorate([
+    WeeksService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http, configuration_1.Configuration])
-    ], NewsService);
-    return NewsService;
+    ], WeeksService);
+    return WeeksService;
 }());
-exports.NewsService = NewsService;
-//# sourceMappingURL=news.service.js.map
+exports.WeeksService = WeeksService;
+//# sourceMappingURL=weeks.service.js.map

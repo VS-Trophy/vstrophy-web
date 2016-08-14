@@ -59,7 +59,7 @@ var NewsManagerComponent = (function () {
             //update the selected news item from 
             //the database in case something has changed
             this._newsService.getNewsItem(newsItem.id)
-                .subscribe(function (newsItem) { return _this.updateSelectedNewsItem(newsItem); });
+                .then(function (newsItem) { return _this.updateSelectedNewsItem(newsItem); });
         }
         else {
             this.updateSelectedNewsItem(newsItem);
@@ -68,7 +68,7 @@ var NewsManagerComponent = (function () {
     NewsManagerComponent.prototype.onSaveNewsItem = function (newsItem) {
         var _this = this;
         console.log("Saving " + newsItem);
-        this._newsService.saveNewsItem(newsItem).subscribe(function (o) {
+        this._newsService.saveNewsItem(newsItem).then(function (o) {
             _this.updateNewsItems();
             _this.showExistingItems();
         });
