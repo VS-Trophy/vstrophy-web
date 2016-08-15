@@ -12,7 +12,7 @@ var core_1 = require('@angular/core');
 var Configuration = (function () {
     function Configuration() {
         this.firstSeason = 2012;
-        this.lastSeason = 2016;
+        this.lastSeason = 2015;
         var host = "vstrophy.ch";
         this.baseURL = "http://" + host + "/rest-api/";
         this.newsItemUrl = this.baseURL + "newsitem";

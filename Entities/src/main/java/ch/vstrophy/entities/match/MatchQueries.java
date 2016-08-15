@@ -42,11 +42,23 @@ public class MatchQueries {
     public static CriteriaQuery<MatchLite> getMatchLitesQuery(CriteriaBuilder cb, Week week){
         CriteriaQuery<MatchLite> q = cb.createQuery(MatchLite.class);
         Root<Match> root = q.from(Match.class);
+
         q.multiselect(
                 root.get(Match_.firstTeam).get(Team_.id),
                 root.get(Match_.secondTeam).get(Team_.id),
                 root.get(Match_.firstTeamPoints), 
-                root.get(Match_.secondTeamPoints));
+                root.get(Match_.secondTeamPoints))
+                ;
+        q.where(
+                cb.and(
+                        cb.equal(
+                                root.get(Match_.week).get(Week_.season),
+                                week.getSeason()),
+                        cb.equal(
+                                root.get(Match_.week).get(Week_.number),
+                                week.getNumber())
+                )
+        );
         return q;
              
     }

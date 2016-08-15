@@ -17,13 +17,13 @@ var WeeksService = (function () {
         this.conf = conf;
     }
     WeeksService.prototype.getWeeks = function (season) {
-        return this.http.get(this.conf.newsItemUrl)
+        return this.http.get(this.conf.weekUrl + '/' + season)
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     WeeksService.prototype.getSeasons = function () {
-        return this.conf.getSeasons();
+        return Promise.resolve(this.conf.getSeasons());
     };
     WeeksService.prototype.handleError = function (error) {
         // in a real world app, we may send the error to some remote logging infrastructure

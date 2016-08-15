@@ -41,14 +41,6 @@ var TeamsService = (function () {
         this._teamCache.forEach(function (value) { return teams.push(value); });
         return teams;
     };
-    TeamsService.prototype.getTeamFromCache = function (id) {
-        return this._teamCache.get(id);
-    };
-    TeamsService.prototype.fillCache = function (teams) {
-        var _this = this;
-        this._teamCache.clear();
-        teams.forEach(function (t) { return _this._teamCache.set(t.id, t); });
-    };
     TeamsService.prototype.putInCache = function (teamObj) {
         var team = new team_1.Team(teamObj);
         this._teamCache.set(team.id, team);

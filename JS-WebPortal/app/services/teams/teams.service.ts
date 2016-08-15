@@ -35,14 +35,8 @@ export class TeamsService {
         return teams;
     }
 
-    private getTeamFromCache(id: number) {
-        return this._teamCache.get(id);
-    }
 
-    private fillCache(teams: Team[]) {
-        this._teamCache.clear();
-        teams.forEach(t => this._teamCache.set(t.id, t));
-    }
+ 
 
     private putInCache(teamObj: any) {
         let team: Team = new Team(teamObj);

@@ -14,15 +14,36 @@ var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var forms_1 = require('@angular/forms');
 var WeekSelectorComponent = (function () {
     function WeekSelectorComponent() {
-        this.weekId = new core_1.EventEmitter();
+        this.week = new core_1.EventEmitter();
+        this.season = new core_1.EventEmitter();
     }
-    Object.defineProperty(WeekSelectorComponent.prototype, "weekModel", {
-        set: function (id) {
-            this.weekId.emit(id);
+    Object.defineProperty(WeekSelectorComponent.prototype, "seasonList", {
+        set: function (seasonArray) {
+            if (seasonArray != undefined) {
+                this._seasonList = seasonArray;
+                this.onSeasonSelect(this._seasonList[this._seasonList.length - 1]);
+            }
         },
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(WeekSelectorComponent.prototype, "_weekModel", {
+        set: function (weekNumber) {
+            console.log("Week clicked");
+            this.week.emit(weekNumber);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    WeekSelectorComponent.prototype.onSeasonSelect = function (season) {
+        this._seasonModel = season;
+        this.season.emit(season);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array), 
+        __metadata('design:paramtypes', [Array])
+    ], WeekSelectorComponent.prototype, "seasonList", null);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)
@@ -30,14 +51,18 @@ var WeekSelectorComponent = (function () {
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
-    ], WeekSelectorComponent.prototype, "weekId", void 0);
+    ], WeekSelectorComponent.prototype, "week", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], WeekSelectorComponent.prototype, "season", void 0);
     WeekSelectorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'vst-week-selector',
             templateUrl: 'week-selector.component.html',
             styleUrls: ['week-selector.component.css'],
-            directives: [ng2_bootstrap_1.BUTTON_DIRECTIVES, common_1.CORE_DIRECTIVES, forms_1.FORM_DIRECTIVES]
+            directives: [ng2_bootstrap_1.DROPDOWN_DIRECTIVES, ng2_bootstrap_1.BUTTON_DIRECTIVES, common_1.CORE_DIRECTIVES, forms_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])
     ], WeekSelectorComponent);

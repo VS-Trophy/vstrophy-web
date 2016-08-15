@@ -25,9 +25,17 @@ var ResultsViewComponent = (function () {
     }
     ResultsViewComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._weekService.getWeeks(2015).then(function (list) { return _this.weeks = list; });
-        this._matchesService.getMatches(2015, 1)
-            .then(function (matches) { return _this._matches = matches; });
+        this._weekService.getSeasons().then(function (list) { return _this.seasons = list; });
+    };
+    ResultsViewComponent.prototype.onWeekSelect = function (weekNumber) {
+        var _this = this;
+        console.log("ONWeek");
+        this._matchesService.getMatches(this._season, weekNumber).then(function (matches) { return _this._matches = matches; });
+    };
+    ResultsViewComponent.prototype.onSeasonSelect = function (season) {
+        var _this = this;
+        this._season = season;
+        this._weekService.getWeeks(season).then(function (list) { _this.weeks = list; });
     };
     ResultsViewComponent = __decorate([
         core_1.Component({
