@@ -1,4 +1,5 @@
 <vst-week-selector (season)="onSeasonSelect($event)" (week)="onWeekSelect($event)" [seasonList]="seasons" [weekList]="weeks"></vst-week-selector>
+<br>
 <div *ngFor="let match of _matches">
  <vst-match [match]="match"></vst-match>
 </div>
