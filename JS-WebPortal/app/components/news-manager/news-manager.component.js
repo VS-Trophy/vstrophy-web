@@ -41,7 +41,6 @@ var NewsManagerComponent = (function () {
     };
     NewsManagerComponent.prototype.setupNewsItemList = function (databaseList) {
         this._newsItems = databaseList;
-        console.log(this._newsItems.length);
     };
     NewsManagerComponent.prototype.createNewsItem = function () {
         var item = new news_item_1.NewsItem();

@@ -51,7 +51,6 @@ export class NewsManagerComponent {
 
     setupNewsItemList(databaseList: NewsItem[]) {
         this._newsItems = databaseList;
-        console.log(this._newsItems.length);
     }
 
     createNewsItem(): NewsItem {

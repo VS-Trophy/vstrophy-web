@@ -22,16 +22,18 @@ var NewsEditorComponent = (function () {
         set: function (newsItem) {
             if (!this._editor) {
                 var configs = {
-                    theme: 'snow'
+                    theme: 'snow',
+                    modules: {
+                        toolbar: {
+                            container: '#toolbar',
+                        }
+                    }
                 };
                 this._editor = new Quill('#editor', configs);
-                this._editor.addModule('toolbar', {
-                    container: '#toolbar'
-                });
             }
             this._newsItem = newsItem;
-            this._editor.setHTML(""); //without this quill takes forever to load
-            this._editor.setHTML(newsItem.text);
+            this._editor.setContents("");
+            this._editor.pasteHTML(newsItem.text);
         },
         enumerable: true,
         configurable: true

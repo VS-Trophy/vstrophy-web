@@ -70,7 +70,7 @@ declare interface QuillStatic {
 
     setContents(delta: DeltaStatic): void;
 
-    setHTML(html: string): void;
+    pasteHTML(html: string): void;
 
     setText(text: string): void;
 
