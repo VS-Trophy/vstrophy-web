@@ -24,31 +24,31 @@ const appRoutes: Routes = [
         path: '**',
         redirectTo: '/news',
         pathMatch: 'full'
+    },
+    {
+        path: 'news/:id',
+        component: NewsItemComponent
+    },
+    {
+        path: 'teams/:id',
+        component: TeamDetailComponent
+    },
+    {
+        path: 'newsEditor',
+        component: NewsManagerComponent
+    },
+    {
+        path: 'teams',
+        component: TeamsViewComponent
+    },
+    {
+        path: 'results',
+        component: ResultsViewComponent
+    },
+    {
+        path: 'history',
+        component: HistoryViewComponent
     }
-    /*  {
-          path: 'news/:id',
-          component: NewsItemComponent
-      },
-      {
-          path: 'teams/:id',
-          component: TeamDetailComponent
-      },
-      {
-          path: 'newsEditor',
-          component: NewsManagerComponent
-      },
-      {
-          path: 'teams',
-          component: TeamsViewComponent
-      },
-      {
-          path: 'results',
-          component: ResultsViewComponent
-      },
-      {
-          path: 'history',
-          component: HistoryViewComponent
-      }*/
 
 
 ];
