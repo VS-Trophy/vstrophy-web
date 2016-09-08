@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
 var NavigationComponent = (function () {
     function NavigationComponent() {
     }
@@ -19,7 +18,6 @@ var NavigationComponent = (function () {
             selector: 'vst-navigation',
             templateUrl: 'navigation.html',
             styleUrls: ['navigation.css'],
-            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])
     ], NavigationComponent);

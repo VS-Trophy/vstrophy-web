@@ -14,29 +14,15 @@ var news_service_1 = require('./services/news/news.service');
 var teams_service_1 = require('./services/teams/teams.service');
 var matches_service_1 = require('./services/matches/matches.service');
 var weeks_service_1 = require('./services/weeks/weeks.service');
-//Other
-var navigation_component_1 = require('./components/navigation/navigation.component');
 var configuration_1 = require('./configuration/configuration');
-var router_1 = require('@angular/router');
-var http_1 = require('@angular/http');
-//Views
-var results_view_component_1 = require('./components/results-view/results-view.component');
-var history_view_component_1 = require('./components/history-view/history-view.component');
-var teams_view_component_1 = require('./components/teams-view/teams-view.component');
-var team_detail_component_1 = require('./components/team-detail/team-detail.component');
-var news_view_component_1 = require('./components/news-view/news-view.component');
-var news_item_component_1 = require('./components/news-item/news-item.component');
-var news_manager_component_1 = require('./components/news-manager/news-manager.component');
 var AppComponent = (function () {
     function AppComponent() {
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            directives: [navigation_component_1.NavigationComponent, router_1.ROUTER_DIRECTIVES],
-            providers: [weeks_service_1.WeeksService, news_service_1.NewsService, teams_service_1.TeamsService, matches_service_1.MatchesService, configuration_1.Configuration, http_1.HTTP_PROVIDERS],
-            templateUrl: 'app/app.component.html',
-            precompile: [results_view_component_1.ResultsViewComponent, history_view_component_1.HistoryViewComponent, teams_view_component_1.TeamsViewComponent, team_detail_component_1.TeamDetailComponent, news_view_component_1.NewsViewComponent, news_item_component_1.NewsItemComponent, news_manager_component_1.NewsManagerComponent]
+            providers: [weeks_service_1.WeeksService, news_service_1.NewsService, teams_service_1.TeamsService, matches_service_1.MatchesService, configuration_1.Configuration],
+            templateUrl: 'app/app.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

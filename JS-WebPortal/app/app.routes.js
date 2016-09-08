@@ -8,7 +8,7 @@ var team_detail_component_1 = require('./components/team-detail/team-detail.comp
 var news_view_component_1 = require('./components/news-view/news-view.component');
 var news_item_component_1 = require('./components/news-item/news-item.component');
 var news_manager_component_1 = require('./components/news-manager/news-manager.component');
-var routes = [
+var appRoutes = [
     {
         path: 'news',
         component: news_view_component_1.NewsViewComponent
@@ -38,11 +38,16 @@ var routes = [
         component: history_view_component_1.HistoryViewComponent
     },
     {
+        path: '',
+        redirectTo: '/news',
+        pathMatch: 'full'
+    },
+    {
         path: '**',
-        component: news_view_component_1.NewsViewComponent
+        redirectTo: '/news',
+        pathMatch: 'full'
     },
 ];
-exports.appRouterProviders = [
-    router_1.provideRouter(routes)
-];
+exports.appRoutingProviders = [];
+exports.routing = router_1.RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routes.js.map

@@ -29,7 +29,6 @@ var NewsItemComponent = (function () {
             selector: 'vst-news-item',
             templateUrl: 'news-item.component.html',
             styleUrls: ['news-item.component.css'],
-            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [news_service_1.NewsService, router_1.ActivatedRoute])
     ], NewsItemComponent);

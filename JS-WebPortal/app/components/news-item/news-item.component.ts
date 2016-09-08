@@ -2,14 +2,13 @@ import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {NewsService} from '../../services/news/news.service';
 import {NewsItem} from '../../model/news-item/news-item';
-import {ActivatedRoute,ROUTER_DIRECTIVES } from '@angular/router';
+import {ActivatedRoute } from '@angular/router';
 
 @Component({
     moduleId: module.id,
     selector: 'vst-news-item',
     templateUrl: 'news-item.component.html',
     styleUrls: ['news-item.component.css'],
-    directives: [ROUTER_DIRECTIVES]
 })
 export class NewsItemComponent implements OnInit {
     private _newsItem: NewsItem;

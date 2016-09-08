@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var news_service_1 = require('../../services/news/news.service');
-var router_1 = require('@angular/router');
 var NewsViewComponent = (function () {
     function NewsViewComponent(_newsService) {
         this._newsService = _newsService;
@@ -26,7 +25,6 @@ var NewsViewComponent = (function () {
             selector: 'vst-news',
             templateUrl: 'news-view.component.html',
             styleUrls: ['news-view.component.css'],
-            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [news_service_1.NewsService])
     ], NewsViewComponent);

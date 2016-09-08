@@ -9,8 +9,7 @@ import {WeeksService} from './services/weeks/weeks.service';
 //Other
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {Configuration} from './configuration/configuration'
-import {ROUTER_DIRECTIVES } from '@angular/router';
-import {HTTP_PROVIDERS}    from '@angular/http';
+
 
 //Views
 import {ResultsViewComponent} from './components/results-view/results-view.component'
@@ -24,10 +23,8 @@ import {NewsManagerComponent} from './components/news-manager/news-manager.compo
 
 @Component({
     selector: 'my-app',
-    directives: [NavigationComponent,ROUTER_DIRECTIVES],
-    providers: [WeeksService,NewsService,TeamsService,MatchesService, Configuration,HTTP_PROVIDERS],
-    templateUrl: 'app/app.component.html',
-    precompile: [ResultsViewComponent,HistoryViewComponent,TeamsViewComponent,TeamDetailComponent,NewsViewComponent,NewsItemComponent,NewsManagerComponent]
+    providers: [WeeksService,NewsService,TeamsService,MatchesService, Configuration],
+    templateUrl: 'app/app.component.html'
 })
 
 

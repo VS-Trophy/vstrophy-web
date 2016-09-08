@@ -27,7 +27,6 @@ var TeamDetailComponent = (function () {
             selector: 'vst-team-detail',
             templateUrl: 'team-detail.component.html',
             styleUrls: ['team-detail.component.css'],
-            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [teams_service_1.TeamsService, router_1.ActivatedRoute])
     ], TeamDetailComponent);

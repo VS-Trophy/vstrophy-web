@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var teams_service_1 = require('../../services/teams/teams.service');
-var router_1 = require('@angular/router');
 var TeamsViewComponent = (function () {
     function TeamsViewComponent(_teamsService) {
         this._teamsService = _teamsService;
@@ -28,7 +27,6 @@ var TeamsViewComponent = (function () {
             selector: 'vst-teams',
             templateUrl: 'teams-view.component.html',
             styleUrls: ['teams-view.component.css'],
-            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [teams_service_1.TeamsService])
     ], TeamsViewComponent);
