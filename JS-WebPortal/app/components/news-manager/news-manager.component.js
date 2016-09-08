@@ -11,8 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var news_service_1 = require('../../services/news/news.service');
 var news_item_1 = require('../../model/news-item/news-item');
-var news_editor_component_1 = require('../news-editor/news-editor.component');
-var news_list_component_1 = require('../news-list/news-list.component');
 var NewsManagerComponent = (function () {
     function NewsManagerComponent(_newsService) {
         this._newsService = _newsService;
@@ -84,7 +82,6 @@ var NewsManagerComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'vst-news-manager',
-            directives: [news_editor_component_1.NewsEditorComponent, news_list_component_1.NewsListComponent],
             templateUrl: 'news-manager.component.html',
             styleUrls: ['news-manager.component.css']
         }), 

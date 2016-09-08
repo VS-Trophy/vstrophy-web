@@ -9,19 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var NavigationComponent = (function () {
-    function NavigationComponent() {
+var platform_browser_1 = require('@angular/platform-browser');
+var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
+var app_component_1 = require('./app.component');
+var app_routes_1 = require('./app.routes');
+var AppModule = (function () {
+    function AppModule() {
     }
-    NavigationComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'vst-navigation',
-            templateUrl: 'navigation.html',
-            styleUrls: ['navigation.css'],
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                platform_browser_1.BrowserModule,
+                // Router
+                router_1.RouterModule.forRoot(app_routes_1.appRoutingProviders),
+                http_1.HttpModule,
+                router_1.RouterModule
+            ],
+            providers: [],
+            declarations: [app_component_1.AppComponent],
+            bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], NavigationComponent);
-    return NavigationComponent;
+    ], AppModule);
+    return AppModule;
 }());
-exports.NavigationComponent = NavigationComponent;
-//# sourceMappingURL=navigation.component.js.map
+exports.AppModule = AppModule;
+//# sourceMappingURL=app.module.js.map

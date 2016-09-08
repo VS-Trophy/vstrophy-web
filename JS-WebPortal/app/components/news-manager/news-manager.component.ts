@@ -2,15 +2,12 @@ import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {NewsService} from '../../services/news/news.service';
 import {NewsItem} from '../../model/news-item/news-item';
-import {NewsEditorComponent} from '../news-editor/news-editor.component';
-import {NewsListComponent} from '../news-list/news-list.component';
 import {NgClass} from '@angular/common';
 
 
 @Component({
     moduleId: module.id,
     selector: 'vst-news-manager',
-    directives: [NewsEditorComponent, NewsListComponent],
     templateUrl: 'news-manager.component.html',
     styleUrls: ['news-manager.component.css']
 })

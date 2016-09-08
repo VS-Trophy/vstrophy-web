@@ -1,4 +1,5 @@
-import { provideRouter, RouterConfig } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
 
 //Components to route to
 import {ResultsViewComponent} from './components/results-view/results-view.component'
@@ -8,7 +9,7 @@ import {TeamDetailComponent} from './components/team-detail/team-detail.componen
 import {NewsViewComponent} from './components/news-view/news-view.component';
 import {NewsItemComponent} from './components/news-item/news-item.component';
 import {NewsManagerComponent} from './components/news-manager/news-manager.component';
-const routes: RouterConfig = [
+const appRoutes: Routes  = [
 
     {
         path: 'news',
@@ -44,7 +45,8 @@ const routes: RouterConfig = [
     },
 
 ];
+export const appRoutingProviders: any[] = [
 
-export const appRouterProviders = [
-    provideRouter(routes)
 ];
+
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

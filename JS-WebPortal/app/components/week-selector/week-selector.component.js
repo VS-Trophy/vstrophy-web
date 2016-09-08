@@ -9,9 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
-var forms_1 = require('@angular/forms');
 var WeekSelectorComponent = (function () {
     function WeekSelectorComponent() {
         this.week = new core_1.EventEmitter();
@@ -62,7 +59,6 @@ var WeekSelectorComponent = (function () {
             selector: 'vst-week-selector',
             templateUrl: 'week-selector.component.html',
             styleUrls: ['week-selector.component.css'],
-            directives: [ng2_bootstrap_1.DROPDOWN_DIRECTIVES, ng2_bootstrap_1.BUTTON_DIRECTIVES, common_1.CORE_DIRECTIVES, forms_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])
     ], WeekSelectorComponent);

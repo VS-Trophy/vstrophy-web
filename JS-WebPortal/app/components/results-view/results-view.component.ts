@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CORE_DIRECTIVES, NgModel} from '@angular/common';
-import { FORM_DIRECTIVES } from '@angular/forms';
 import {MatchesService} from '../../services/matches/matches.service';
 import {MatchComponent} from '../match/match.component';
 import {Match} from '../../model/match/match';
-import {DROPDOWN_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {WeekSelectorComponent} from '../week-selector/week-selector.component';
 import {WeeksService} from '../../services/weeks/weeks.service';
 import {Week} from '../../model/Week/Week';
@@ -13,7 +10,6 @@ import {Week} from '../../model/Week/Week';
     moduleId: module.id,
     selector: 'vst-results',
     templateUrl: 'results-view.component.html',
-    directives: [WeekSelectorComponent, FORM_DIRECTIVES, CORE_DIRECTIVES,DROPDOWN_DIRECTIVES, MatchComponent]
 })
 export class ResultsViewComponent implements OnInit {
     constructor(private _matchesService: MatchesService, private _weekService: WeeksService) { }
