@@ -13,7 +13,9 @@ var platform_browser_1 = require('@angular/platform-browser');
 var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
 var app_component_1 = require('./app.component');
+var navigation_component_1 = require('./components/navigation/navigation.component');
 var app_routes_1 = require('./app.routes');
+var news_view_component_1 = require('./components/news-view/news-view.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -22,12 +24,15 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 // Router
-                router_1.RouterModule.forRoot(app_routes_1.appRoutingProviders),
+                app_routes_1.routing,
                 http_1.HttpModule,
                 router_1.RouterModule
             ],
-            providers: [],
-            declarations: [app_component_1.AppComponent],
+            providers: [app_routes_1.appRoutingProviders],
+            declarations: [
+                app_component_1.AppComponent,
+                navigation_component_1.NavigationComponent,
+                news_view_component_1.NewsViewComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
