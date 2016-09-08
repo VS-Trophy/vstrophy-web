@@ -16,16 +16,6 @@ const appRoutes: Routes = [
         component: NewsViewComponent
     },
     {
-        path: '',
-        redirectTo: '/news',
-        pathMatch: 'full'
-    },
-    {
-        path: '**',
-        redirectTo: '/news',
-        pathMatch: 'full'
-    },
-    {
         path: 'news/:id',
         component: NewsItemComponent
     },
@@ -48,7 +38,17 @@ const appRoutes: Routes = [
     {
         path: 'history',
         component: HistoryViewComponent
-    }
+    },
+    {
+        path: '',
+        redirectTo: '/news',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: '/news',
+        pathMatch: 'full'
+    },
 
 
 ];

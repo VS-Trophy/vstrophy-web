@@ -14,16 +14,6 @@ var appRoutes = [
         component: news_view_component_1.NewsViewComponent
     },
     {
-        path: '',
-        redirectTo: '/news',
-        pathMatch: 'full'
-    },
-    {
-        path: '**',
-        redirectTo: '/news',
-        pathMatch: 'full'
-    },
-    {
         path: 'news/:id',
         component: news_item_component_1.NewsItemComponent
     },
@@ -46,7 +36,17 @@ var appRoutes = [
     {
         path: 'history',
         component: history_view_component_1.HistoryViewComponent
-    }
+    },
+    {
+        path: '',
+        redirectTo: '/news',
+        pathMatch: 'full'
+    },
+    {
+        path: '**',
+        redirectTo: '/news',
+        pathMatch: 'full'
+    },
 ];
 exports.appRoutingProviders = [];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);
