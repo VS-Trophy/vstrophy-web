@@ -5,30 +5,5 @@
     <input id="author" [(ngModel)]="newsItem.author" placeholder="autor" class="form-control" name="author" />
 </form>
 <div class="panel panel-default news-editor">
-
-    <div id="toolbar"  class="toolbar panel-heading">
-        <!-- Add font size dropdown -->
-        <select class="ql-size">
-    <option value="small"></option>
-    <!-- Note a missing, thus falsy value, is used to reset to default -->
-    <option selected></option>
-    <option value="large"></option>
-    <option value="huge"></option>
-  </select>
-        <!-- Add a bold button -->
-        <button class="ql-bold"></button>
-        <button class="ql-italic"></button>
-        <button class="ql-underline"></button>
-        <button class="ql-strike"></button>
-        <button class="ql-blockquote"></button>
-        <button class="ql-code-block"></button>
-        <!-- Add subscript and superscript buttons -->
-        <button class="ql-script" value="sub"></button>
-        <button class="ql-script" value="super"></button>
-        <input class="btn btn-primary"  type="button" value="Speichern" (click)="onSaveNewsItem()"/>
-        <input class="pull-right btn" (click)="onCancel()"  type="button" value="Zurück"/>
-    </div>
-    <div class="panel-body news-editor-content">
-        <div id="editor"></div>
-    </div>
+<p-editor [(ngModel)]="newsItem.text" ></p-editor>
 </div>
