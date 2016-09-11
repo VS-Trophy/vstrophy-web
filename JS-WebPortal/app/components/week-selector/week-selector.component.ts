@@ -1,4 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {SelectItem} from 'primeng/primeng';
 import {Week} from '../../model/week/week';
 
 @Component({
@@ -9,18 +10,29 @@ import {Week} from '../../model/week/week';
 })
 export class WeekSelectorComponent {
 
-    private _seasonModel: number
-    private _seasonList: number[]
+    private _seasonList: SelectItem[];
+    private _weekList: SelectItem[];
+
+    constructor() {
+        this._weekList = new Array<SelectItem>();
+    }
+
     @Input()
-    set seasonList(seasonArray:Array<number>){
-        if(seasonArray!=undefined){
-        this._seasonList = seasonArray;
-        this.onSeasonSelect(this._seasonList[this._seasonList.length - 1]);
-       }
-    }   
-    
+    set weekList(weekArray: Array<Week>) {
+        this._weekList = new Array<SelectItem>();
+        if (weekArray != undefined) {
+            weekArray.forEach(w => this._weekList.push({ label: w.number + ""; value: w.number + "" }));
+        }
+    }
     @Input()
-    weekList: Week[];
+    set seasonList(seasonArray: Array<number>) {
+        this._seasonList = new Array<SelectItem>();
+        if (seasonArray != undefined) {
+            seasonArray.forEach(n => this._seasonList.push({ label: n + "", value: n }));
+        }
+    }
+
+
     @Output()
     week = new EventEmitter<Number>();
     @Output()
@@ -31,9 +43,14 @@ export class WeekSelectorComponent {
         this.week.emit(weekNumber);
     }
 
+    set _seasonModel(season: number) {
+        console.log("Season selected");
+        this.season.emit(season);
+    }
 
 
-    onSeasonSelect(season:number) {
+
+    onSeasonSelect(season: number) {
         this._seasonModel = season;
         this.season.emit(season);
     }

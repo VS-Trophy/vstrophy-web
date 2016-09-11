@@ -12,7 +12,9 @@ import {Week} from '../../model/Week/Week';
     templateUrl: 'results-view.component.html',
 })
 export class ResultsViewComponent implements OnInit {
-    constructor(private _matchesService: MatchesService, private _weekService: WeeksService) { }
+    constructor(private _matchesService: MatchesService, private _weekService: WeeksService) {
+        this.weeks = new Array<Week>();
+     }
     private _matches: Match[];
     private _season:number;
     public weeks: Week[];

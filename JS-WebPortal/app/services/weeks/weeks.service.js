@@ -17,6 +17,7 @@ var WeeksService = (function () {
         this.conf = conf;
     }
     WeeksService.prototype.getWeeks = function (season) {
+        console.log("Weeks requested");
         return this.http.get(this.conf.weekUrl + '/' + season)
             .toPromise()
             .then(function (res) { return res.json(); })

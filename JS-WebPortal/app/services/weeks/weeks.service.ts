@@ -7,9 +7,10 @@ import {Configuration} from '../../configuration/configuration';
 export class WeeksService {
     constructor(private http: Http, private conf: Configuration) { }
     getWeeks(season: number): Promise<Week[]> {
+        console.log("Weeks requested");
         return this.http.get(this.conf.weekUrl + '/' + season)
             .toPromise()
-            .then(res => res.json() as Week[])
+            .then(res => {return res.json() as Week[];})
             .catch(this.handleError);
     }
 
