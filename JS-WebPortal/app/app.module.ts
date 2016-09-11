@@ -19,6 +19,7 @@ import {WeekSelectorComponent} from './components/week-selector/week-selector.co
 import {MatchComponent} from './components/match/match.component';
 import { FormsModule }   from '@angular/forms';
 import {EditorModule, SharedModule} from 'primeng/primeng';
+import {ButtonModule} from 'primeng/primeng';
 //TODO: SPLIT THIS UP!!!!!
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import {EditorModule, SharedModule} from 'primeng/primeng';
     FormsModule,
     ButtonsModule,
     EditorModule,
-     SharedModule
+     SharedModule,
+     ButtonModule
 
   ],
   providers: [appRoutingProviders],

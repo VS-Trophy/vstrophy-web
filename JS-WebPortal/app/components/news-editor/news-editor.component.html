@@ -5,5 +5,22 @@
     <input id="author" [(ngModel)]="newsItem.author" placeholder="autor" class="form-control" name="author" />
 </form>
 <div class="panel panel-default news-editor">
-<p-editor [(ngModel)]="newsItem.text" ></p-editor>
+    <button pButton type="button" (click)="onSaveNewsItem()" label="Speichern"></button>
+    <button pButton type="button" (click)="onCancel()" label="Zurück"></button>
+<p-editor [(ngModel)]="newsItem.text" >
+<header>
+        <span class="ql-format-group">
+            <button title="Bold" class="ql-format-button ql-bold"></button>
+            <span class="ql-format-separator"></span>
+            <button title="Italic" class="ql-format-button ql-italic"></button>
+            <span class="ql-format-separator"></span>
+            <button title="Underline" class="ql-format-button ql-underline"></button>
+            <span class="ql-format-separator"></span>
+            <button title="Strikethrough" class="ql-format-button ql-strike"></button>
+            
+        </span>
+        
+    </header>
+</p-editor>
+
 </div>
