@@ -21,6 +21,7 @@ import {EditorModule, SharedModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
 import {SelectButtonModule} from 'primeng/primeng';
 import {DropdownModule} from 'primeng/primeng';
+import {InputTextModule} from 'primeng/primeng';
 //TODO: SPLIT THIS UP!!!!!
 @NgModule({
   imports: [
