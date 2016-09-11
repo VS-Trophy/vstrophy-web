@@ -13,12 +13,25 @@ var WeekSelectorComponent = (function () {
     function WeekSelectorComponent() {
         this.week = new core_1.EventEmitter();
         this.season = new core_1.EventEmitter();
+        this._weekList = new Array();
     }
+    Object.defineProperty(WeekSelectorComponent.prototype, "weekList", {
+        set: function (weekArray) {
+            var _this = this;
+            this._weekList = new Array();
+            if (weekArray != undefined) {
+                weekArray.forEach(function (w) { return _this._weekList.push({ label: w.number + "", value: w.number + "" }); });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(WeekSelectorComponent.prototype, "seasonList", {
         set: function (seasonArray) {
+            var _this = this;
+            this._seasonList = new Array();
             if (seasonArray != undefined) {
-                this._seasonList = seasonArray;
-                this.onSeasonSelect(this._seasonList[this._seasonList.length - 1]);
+                seasonArray.forEach(function (n) { return _this._seasonList.push({ label: n + "", value: n }); });
             }
         },
         enumerable: true,
@@ -32,6 +45,14 @@ var WeekSelectorComponent = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(WeekSelectorComponent.prototype, "_seasonModel", {
+        set: function (season) {
+            console.log("Season selected");
+            this.season.emit(season);
+        },
+        enumerable: true,
+        configurable: true
+    });
     WeekSelectorComponent.prototype.onSeasonSelect = function (season) {
         this._seasonModel = season;
         this.season.emit(season);
@@ -40,11 +61,12 @@ var WeekSelectorComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Array), 
         __metadata('design:paramtypes', [Array])
-    ], WeekSelectorComponent.prototype, "seasonList", null);
+    ], WeekSelectorComponent.prototype, "weekList", null);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Array)
-    ], WeekSelectorComponent.prototype, "weekList", void 0);
+        __metadata('design:type', Array), 
+        __metadata('design:paramtypes', [Array])
+    ], WeekSelectorComponent.prototype, "seasonList", null);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

@@ -17,6 +17,7 @@ var ResultsViewComponent = (function () {
         this._weekService = _weekService;
         this.radioModel = 'Middle';
         this.checkModel = { left: false, middle: true, right: false };
+        this.weeks = new Array();
     }
     ResultsViewComponent.prototype.ngOnInit = function () {
         var _this = this;

@@ -12,7 +12,6 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
-var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 var app_component_1 = require('./app.component');
 var navigation_component_1 = require('./components/navigation/navigation.component');
 var app_routes_1 = require('./app.routes');
@@ -30,6 +29,8 @@ var match_component_1 = require('./components/match/match.component');
 var forms_1 = require('@angular/forms');
 var primeng_1 = require('primeng/primeng');
 var primeng_2 = require('primeng/primeng');
+var primeng_3 = require('primeng/primeng');
+var primeng_4 = require('primeng/primeng');
 //TODO: SPLIT THIS UP!!!!!
 var AppModule = (function () {
     function AppModule() {
@@ -43,10 +44,11 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 router_1.RouterModule,
                 forms_1.FormsModule,
-                ng2_bootstrap_1.ButtonsModule,
                 primeng_1.EditorModule,
                 primeng_1.SharedModule,
-                primeng_2.ButtonModule
+                primeng_2.ButtonModule,
+                primeng_3.SelectButtonModule,
+                primeng_4.DropdownModule
             ],
             providers: [app_routes_1.appRoutingProviders],
             declarations: [

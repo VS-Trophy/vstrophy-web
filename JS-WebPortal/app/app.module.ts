@@ -2,7 +2,6 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
-import { ButtonsModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { AppComponent }   from './app.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {appRoutingProviders, routing} from './app.routes';
@@ -20,6 +19,8 @@ import {MatchComponent} from './components/match/match.component';
 import { FormsModule }   from '@angular/forms';
 import {EditorModule, SharedModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/primeng';
+import {SelectButtonModule} from 'primeng/primeng';
+import {DropdownModule} from 'primeng/primeng';
 //TODO: SPLIT THIS UP!!!!!
 @NgModule({
   imports: [
@@ -29,10 +30,11 @@ import {ButtonModule} from 'primeng/primeng';
     HttpModule,
     RouterModule,
     FormsModule,
-    ButtonsModule,
     EditorModule,
-     SharedModule,
-     ButtonModule
+    SharedModule,
+    ButtonModule,
+    SelectButtonModule,
+    DropdownModule
 
   ],
   providers: [appRoutingProviders],
