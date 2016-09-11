@@ -1,4 +1,5 @@
 import {Component, Input,Output,EventEmitter} from '@angular/core';
+import {EditorModule,SharedModule} from 'primeng/primeng';
 import {NewsItem} from '../../model/news-item/news-item';
 
 @Component({
@@ -10,7 +11,6 @@ import {NewsItem} from '../../model/news-item/news-item';
 
 export class NewsEditorComponent {
     private _newsItem: NewsItem;
-    private _editor: QuillStatic;
 
     @Output()
     saveNewsItem = new EventEmitter<NewsItem>();
@@ -20,22 +20,7 @@ export class NewsEditorComponent {
     
     @Input()
     set newsItem(newsItem: NewsItem) {
-        if (!this._editor) {
-            var configs = {
-                theme: 'snow',
-                modules:{
-                    toolbar:{
-                        container: '#toolbar',
-                    }
-                }
-            };
-            this._editor = new Quill('#editor', configs);
-          
-        }
         this._newsItem = newsItem;
-        this._editor.setContents("");
-        this._editor.pasteHTML(newsItem.text);
-
     }
 
     get newsItem() {
@@ -43,7 +28,6 @@ export class NewsEditorComponent {
     }
 
     onSaveNewsItem() {
-        this._newsItem.text = this._editor.getHTML();
         this.saveNewsItem.emit(this._newsItem);
     }
     

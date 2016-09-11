@@ -20,26 +20,12 @@ var NewsEditorComponent = (function () {
             return this._newsItem;
         },
         set: function (newsItem) {
-            if (!this._editor) {
-                var configs = {
-                    theme: 'snow',
-                    modules: {
-                        toolbar: {
-                            container: '#toolbar',
-                        }
-                    }
-                };
-                this._editor = new Quill('#editor', configs);
-            }
             this._newsItem = newsItem;
-            this._editor.setContents("");
-            this._editor.pasteHTML(newsItem.text);
         },
         enumerable: true,
         configurable: true
     });
     NewsEditorComponent.prototype.onSaveNewsItem = function () {
-        this._newsItem.text = this._editor.getHTML();
         this.saveNewsItem.emit(this._newsItem);
     };
     NewsEditorComponent.prototype.onCancel = function () {

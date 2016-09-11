@@ -28,6 +28,8 @@ var news_editor_component_1 = require('./components/news-editor/news-editor.comp
 var week_selector_component_1 = require('./components/week-selector/week-selector.component');
 var match_component_1 = require('./components/match/match.component');
 var forms_1 = require('@angular/forms');
+var primeng_1 = require('primeng/primeng');
+var primeng_2 = require('primeng/primeng');
 //TODO: SPLIT THIS UP!!!!!
 var AppModule = (function () {
     function AppModule() {
@@ -41,7 +43,10 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 router_1.RouterModule,
                 forms_1.FormsModule,
-                ng2_bootstrap_1.ButtonsModule
+                ng2_bootstrap_1.ButtonsModule,
+                primeng_1.EditorModule,
+                primeng_1.SharedModule,
+                primeng_2.ButtonModule
             ],
             providers: [app_routes_1.appRoutingProviders],
             declarations: [
