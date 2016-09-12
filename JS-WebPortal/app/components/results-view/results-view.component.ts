@@ -28,7 +28,6 @@ export class ResultsViewComponent implements OnInit {
     }
 
     onWeekSelect(weekNumber:number){
-        console.log("ONWeek");
      this._matchesService.getMatches(this._season,weekNumber).then(matches => this._matches = matches);
     }
 

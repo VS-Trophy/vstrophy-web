@@ -11,24 +11,25 @@ import {Week} from '../../model/week/week';
 export class WeekSelectorComponent {
 
     private _seasonList: number[];
-    private _weekList: number[];
+    private _weekList: Week[];
 
-    constructor() {
-        this._weekList = new Array<number>();
+    private _seasonModel:number;
+
+    constructor(){
+        this._seasonModel=5;
     }
 
     @Input()
     set weekList(weekArray: Array<Week>) {
-        this._weekList = new Array<number>();
-        if (weekArray != undefined) {
-            weekArray.forEach(w => this._weekList.push(w.number));
+        if(weekArray!=undefined){
+            this._weekList = weekArray;
         }
     }
     @Input()
     set seasonList(seasonArray: Array<number>) {
-        this._seasonList = new Array<number>();
         if (seasonArray != undefined) {
-            seasonArray.forEach(n => this._seasonList.push(n));
+           this._seasonList = seasonArray;
+           this.onSeasonSelect(this._seasonList[this._seasonList.length -1])
         }
     }
 
@@ -42,13 +43,6 @@ export class WeekSelectorComponent {
         console.log("Week clicked")
         this.week.emit(weekNumber);
     }
-
-    set _seasonModel(season: number) {
-        console.log("Season selected");
-        this.season.emit(season);
-    }
-
-
 
     onSeasonSelect(season: number) {
         this._seasonModel = season;

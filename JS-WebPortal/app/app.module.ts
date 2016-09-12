@@ -17,6 +17,8 @@ import {NewsEditorComponent} from './components/news-editor/news-editor.componen
 import {WeekSelectorComponent} from './components/week-selector/week-selector.component';
 import {MatchComponent} from './components/match/match.component';
 import { FormsModule }   from '@angular/forms';
+import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { Ng2BootstrapModule } from 'ng2-bootstrap/ng2-bootstrap';
 //TODO: SPLIT THIS UP!!!!!
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { FormsModule }   from '@angular/forms';
     routing,
     HttpModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    Ng2BootstrapModule,
+    DropdownModule
   ],
   providers: [appRoutingProviders],
   declarations: [

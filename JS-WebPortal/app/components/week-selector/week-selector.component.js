@@ -13,14 +13,12 @@ var WeekSelectorComponent = (function () {
     function WeekSelectorComponent() {
         this.week = new core_1.EventEmitter();
         this.season = new core_1.EventEmitter();
-        this._weekList = new Array();
+        this._seasonModel = 5;
     }
     Object.defineProperty(WeekSelectorComponent.prototype, "weekList", {
         set: function (weekArray) {
-            var _this = this;
-            this._weekList = new Array();
             if (weekArray != undefined) {
-                weekArray.forEach(function (w) { return _this._weekList.push(w.number); });
+                this._weekList = weekArray;
             }
         },
         enumerable: true,
@@ -28,10 +26,9 @@ var WeekSelectorComponent = (function () {
     });
     Object.defineProperty(WeekSelectorComponent.prototype, "seasonList", {
         set: function (seasonArray) {
-            var _this = this;
-            this._seasonList = new Array();
             if (seasonArray != undefined) {
-                seasonArray.forEach(function (n) { return _this._seasonList.push(n); });
+                this._seasonList = seasonArray;
+                this.onSeasonSelect(this._seasonList[this._seasonList.length - 1]);
             }
         },
         enumerable: true,
@@ -41,14 +38,6 @@ var WeekSelectorComponent = (function () {
         set: function (weekNumber) {
             console.log("Week clicked");
             this.week.emit(weekNumber);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WeekSelectorComponent.prototype, "_seasonModel", {
-        set: function (season) {
-            console.log("Season selected");
-            this.season.emit(season);
         },
         enumerable: true,
         configurable: true

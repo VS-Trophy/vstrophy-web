@@ -27,6 +27,8 @@ var news_editor_component_1 = require('./components/news-editor/news-editor.comp
 var week_selector_component_1 = require('./components/week-selector/week-selector.component');
 var match_component_1 = require('./components/match/match.component');
 var forms_1 = require('@angular/forms');
+var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
+var ng2_bootstrap_2 = require('ng2-bootstrap/ng2-bootstrap');
 //TODO: SPLIT THIS UP!!!!!
 var AppModule = (function () {
     function AppModule() {
@@ -39,7 +41,9 @@ var AppModule = (function () {
                 app_routes_1.routing,
                 http_1.HttpModule,
                 router_1.RouterModule,
-                forms_1.FormsModule
+                forms_1.FormsModule,
+                ng2_bootstrap_2.Ng2BootstrapModule,
+                ng2_bootstrap_1.DropdownModule
             ],
             providers: [app_routes_1.appRoutingProviders],
             declarations: [

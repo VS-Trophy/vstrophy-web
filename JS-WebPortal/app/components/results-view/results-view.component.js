@@ -25,7 +25,6 @@ var ResultsViewComponent = (function () {
     };
     ResultsViewComponent.prototype.onWeekSelect = function (weekNumber) {
         var _this = this;
-        console.log("ONWeek");
         this._matchesService.getMatches(this._season, weekNumber).then(function (matches) { return _this._matches = matches; });
     };
     ResultsViewComponent.prototype.onSeasonSelect = function (season) {

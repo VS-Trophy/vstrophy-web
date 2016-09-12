@@ -1,0 +1,16 @@
+<!-- Split button -->
+<div class="btn-group" dropdown>
+    <button id="split-button" type="button" class="btn btn-danger">Action</button>
+    <button type="button" class="btn btn-danger dropdown-toggle-split" dropdownToggle>
+      <span class="caret"></span>
+      <span class="sr-only">Split button!</span>
+    </button>
+    <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="split-button">
+        <li *ngFor="let season of _seasonList" role="menuitem" (click)="onSeasonSelect(season)">
+            <a class="dropdown-item">{{season}}</a>
+        </li>
+    </ul>
+</div>
+<div class="btn-group">
+    <label *ngFor="let week of weekList" class="btn btn-primary" [(ngModel)]="_weekModel" btnRadio="{{week.number}}">{{week.number}}</label>
+</div>
