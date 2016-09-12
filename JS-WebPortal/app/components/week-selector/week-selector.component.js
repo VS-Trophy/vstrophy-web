@@ -20,7 +20,7 @@ var WeekSelectorComponent = (function () {
             var _this = this;
             this._weekList = new Array();
             if (weekArray != undefined) {
-                weekArray.forEach(function (w) { return _this._weekList.push({ label: w.number + "", value: w.number + "" }); });
+                weekArray.forEach(function (w) { return _this._weekList.push(w.number); });
             }
         },
         enumerable: true,
@@ -31,7 +31,7 @@ var WeekSelectorComponent = (function () {
             var _this = this;
             this._seasonList = new Array();
             if (seasonArray != undefined) {
-                seasonArray.forEach(function (n) { return _this._seasonList.push({ label: n + "", value: n }); });
+                seasonArray.forEach(function (n) { return _this._seasonList.push(n); });
             }
         },
         enumerable: true,

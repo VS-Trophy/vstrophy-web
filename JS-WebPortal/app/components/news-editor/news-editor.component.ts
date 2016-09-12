@@ -1,5 +1,4 @@
 import {Component, Input,Output,EventEmitter} from '@angular/core';
-import {EditorModule,SharedModule} from 'primeng/primeng';
 import {NewsItem} from '../../model/news-item/news-item';
 
 @Component({

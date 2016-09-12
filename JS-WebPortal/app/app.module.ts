@@ -17,11 +17,6 @@ import {NewsEditorComponent} from './components/news-editor/news-editor.componen
 import {WeekSelectorComponent} from './components/week-selector/week-selector.component';
 import {MatchComponent} from './components/match/match.component';
 import { FormsModule }   from '@angular/forms';
-import {EditorModule, SharedModule} from 'primeng/primeng';
-import {ButtonModule} from 'primeng/primeng';
-import {SelectButtonModule} from 'primeng/primeng';
-import {DropdownModule} from 'primeng/primeng';
-import {InputTextModule} from 'primeng/primeng';
 //TODO: SPLIT THIS UP!!!!!
 @NgModule({
   imports: [
@@ -30,13 +25,7 @@ import {InputTextModule} from 'primeng/primeng';
     routing,
     HttpModule,
     RouterModule,
-    FormsModule,
-    EditorModule,
-    SharedModule,
-    ButtonModule,
-    SelectButtonModule,
-    DropdownModule
-
+    FormsModule
   ],
   providers: [appRoutingProviders],
   declarations: [

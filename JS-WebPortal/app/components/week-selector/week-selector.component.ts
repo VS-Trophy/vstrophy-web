@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {SelectItem} from 'primeng/primeng';
+
 import {Week} from '../../model/week/week';
 
 @Component({
@@ -10,25 +10,25 @@ import {Week} from '../../model/week/week';
 })
 export class WeekSelectorComponent {
 
-    private _seasonList: SelectItem[];
-    private _weekList: SelectItem[];
+    private _seasonList: number[];
+    private _weekList: number[];
 
     constructor() {
-        this._weekList = new Array<SelectItem>();
+        this._weekList = new Array<number>();
     }
 
     @Input()
     set weekList(weekArray: Array<Week>) {
-        this._weekList = new Array<SelectItem>();
+        this._weekList = new Array<number>();
         if (weekArray != undefined) {
-            weekArray.forEach(w => this._weekList.push({ label: w.number + "", value: w.number + "" }));
+            weekArray.forEach(w => this._weekList.push(w.number));
         }
     }
     @Input()
     set seasonList(seasonArray: Array<number>) {
-        this._seasonList = new Array<SelectItem>();
+        this._seasonList = new Array<number>();
         if (seasonArray != undefined) {
-            seasonArray.forEach(n => this._seasonList.push({ label: n + "", value: n }));
+            seasonArray.forEach(n => this._seasonList.push(n));
         }
     }
 
