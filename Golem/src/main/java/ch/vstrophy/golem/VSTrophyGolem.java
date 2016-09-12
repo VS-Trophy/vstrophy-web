@@ -40,7 +40,7 @@ public class VSTrophyGolem {
     private static final String USERNAME = "vstrophy";
     private static final String PASSWORD = "g04l3m080815";
 
-    private static final int CURRENT_SEASON = 2015;
+    private static final int CURRENT_SEASON = 2016;
 
     @Inject
     private WeekInfoProvider weekInfoProvider;
@@ -67,7 +67,7 @@ public class VSTrophyGolem {
     public void getHistoricData() throws IOException {
 
         Map<String, String> cookies = login();
-        for (int season = 2012; season < 2016; season++) {
+        for (int season = 2012; season < 2017; season++) {
             for (int weekNumber = 1; weekNumber < 18; weekNumber++) {
                 try {
                     updateWeek(season, weekNumber, cookies, persistenceHandler.getTeamMap());
