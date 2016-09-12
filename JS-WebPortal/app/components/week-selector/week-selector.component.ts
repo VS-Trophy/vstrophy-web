@@ -21,7 +21,7 @@ export class WeekSelectorComponent {
     set weekList(weekArray: Array<Week>) {
         this._weekList = new Array<SelectItem>();
         if (weekArray != undefined) {
-            weekArray.forEach(w => this._weekList.push({ label: w.number + ""; value: w.number + "" }));
+            weekArray.forEach(w => this._weekList.push({ label: w.number + "", value: w.number + "" }));
         }
     }
     @Input()
