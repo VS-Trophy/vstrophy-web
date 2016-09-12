@@ -4,6 +4,7 @@
 package ch.vstrophy.golem;
 
 import ch.vstrophy.common.WeekInfoProvider;
+import static ch.vstrophy.common.WeekInfoProvider.CURRENT_SEASON;
 import ch.vstrophy.entities.match.Match;
 import ch.vstrophy.entities.teams.Team;
 import ch.vstrophy.entities.weeks.Week;
@@ -40,7 +41,6 @@ public class VSTrophyGolem {
     private static final String USERNAME = "vstrophy";
     private static final String PASSWORD = "g04l3m080815";
 
-    private static final int CURRENT_SEASON = 2016;
 
     @Inject
     private WeekInfoProvider weekInfoProvider;

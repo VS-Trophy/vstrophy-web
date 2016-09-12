@@ -22,12 +22,12 @@ public class WeekInfoProvider {
     @Inject
     private WeekEntityManager weekEntityManager;
 
-    private static final DateTime FANTASY_SEAON_WEEK_1_2015 = new DateTime(2015, 9, 8, 5, 0);
-    private static final int CURRENT_SEASON = 2015;
+    private static final DateTime FANTASY_SEAON_WEEK_1_2016 = new DateTime(2016, 9, 8, 5, 0);
+    public static final int CURRENT_SEASON = 2016;
 
     public int getCurrentWeekNumber() {
         int week = 0;
-        DateTime dateTime = FANTASY_SEAON_WEEK_1_2015;
+        DateTime dateTime = FANTASY_SEAON_WEEK_1_2016;
         while (dateTime.isBefore(DateTime.now()) && week < 18) {
             dateTime = dateTime.plus(Weeks.ONE);
             ++week;
