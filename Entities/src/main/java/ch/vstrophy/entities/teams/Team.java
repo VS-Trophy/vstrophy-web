@@ -7,7 +7,9 @@ import ch.vstrophy.entities.divisions.Division;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -44,7 +46,7 @@ public class Team implements Serializable {
             name = "team_official",
             joinColumns = @JoinColumn(name = "team_ID")
     )
-    private List<TeamOfficial> officials;
+    private Set<TeamOfficial> officials;
 
     @Column(name = "team_founded_in")
     @Temporal(TemporalType.DATE)
@@ -100,14 +102,14 @@ public class Team implements Serializable {
         this.division = division;
     }
 
-    public List<TeamOfficial> getOfficials() {
+    public Set<TeamOfficial> getOfficials() {
         if (officials == null) {
-            return new ArrayList<>();
+            return new HashSet<>();
         }
         return officials;
     }
 
-    public void setOfficials(List<TeamOfficial> officials) {
+    public void setOfficials(Set<TeamOfficial> officials) {
         this.officials = officials;
     }
 

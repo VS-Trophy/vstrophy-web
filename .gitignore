@@ -7,3 +7,4 @@
 /REST-API/target/
 /JS-WebPortal/node_modules/
 /JS-WebPortal/typings/
+.log,npm-debug.log.*

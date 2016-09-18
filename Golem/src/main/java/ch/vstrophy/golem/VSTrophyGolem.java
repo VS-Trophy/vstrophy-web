@@ -55,8 +55,10 @@ public class VSTrophyGolem {
         int week = weekInfoProvider.getCurrentWeekNumber();
         Map<String, String> cookies = login();
         try {
+            LOGGER.info("Updating latest week");
             updateWeek(CURRENT_SEASON, week, cookies, persistenceHandler.getTeamMap());
             if (week > 1) {
+                LOGGER.info("Updating last week as well");
                 updateWeek(CURRENT_SEASON, week - 1, cookies, persistenceHandler.getTeamMap());
             }
         } catch (GolemException ex) {
@@ -109,6 +111,7 @@ public class VSTrophyGolem {
                 for (int idx = 0; idx < historyViewParser.getMatchCount(); ++idx) {
                     LOGGER.info("Getting match #" + idx);
                     Team firstTeam = teamMap.get(historyViewParser.getFirstTeamID(idx));
+                    
                     if (firstTeam == null) {
                         throw new GolemException("First team is null!");
                     }
@@ -116,12 +119,15 @@ public class VSTrophyGolem {
                     if (secondTeam == null) {
                         throw new GolemException("Second team is null!");
                     }
+                    
                     Match match = persistenceHandler.getOrCreateMatch(week, firstTeam, secondTeam);
+                    LOGGER.info("Got match {}",match);
                     match.setFirstTeamPoints(historyViewParser.getFirstTeamPoints(idx));
                     match.setSecondTeamPoints(historyViewParser.getSecondTeamPoints(idx));
+                    LOGGER.info("Match filled out {}-{}",match.getFirstTeamPoints(),match.getSecondTeamPoints());
                 }
             }
-        } catch (GolemParserException ex) {
+        } catch (Exception ex) {
             LOGGER.error("Problem parsing the site.", ex);
         }
     }

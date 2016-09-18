@@ -9,12 +9,14 @@ import ch.vstrophy.entities.teams.Team;
 import ch.vstrophy.entities.teams.TeamEntityManager;
 import ch.vstrophy.entities.weeks.Week;
 import ch.vstrophy.entities.weeks.WeekEntityManager;
+import ch.vstrophy.golem.GolemService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -24,12 +26,13 @@ import javax.inject.Inject;
 @LocalBean
 public class PersistenceHandler {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(GolemService.class);
     @Inject
     private TeamEntityManager teamEntityManager;
-
+    
     @Inject
     private WeekEntityManager weekEntityManager;
-
+    
     @Inject
     private MatchEntityManager matchEntityManager;
 
@@ -46,24 +49,24 @@ public class PersistenceHandler {
         }
         return teamMap;
     }
-
+    
     public void saveWeek(final Week week) {
         weekEntityManager.saveWeek(week);
     }
-
+    
     public void saveMatch(final Match match) {
         matchEntityManager.saveMatch(match);
     }
-
+    
     public Week getOrCreateWeek(int season, int weekNumber) {
-
+        
         Week week = weekEntityManager.getWeek(season, weekNumber);
         if (week == null) {
             week = new Week(season, weekNumber);
             weekEntityManager.saveWeek(week);
         }
         return week;
-
+        
     }
 
     /**
@@ -75,9 +78,13 @@ public class PersistenceHandler {
      * @return
      */
     public Match getOrCreateMatch(Week week, Team firstTeam, Team secondTeam) {
-
-        Match match = matchEntityManager.getMatch(week, firstTeam, secondTeam);
-
+        
+        Match match = null;
+        try {
+            matchEntityManager.getMatch(week, firstTeam, secondTeam);
+        } catch (Exception ex) {
+            LOGGER.warn("Error while getting or creating match",ex);
+        }
         if (match == null) {
             match = new Match();
             match.setFirstTeam(firstTeam);

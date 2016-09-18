@@ -25,6 +25,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.Upload;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -225,7 +226,7 @@ public class TeamForm extends ViewComponent {
 
     private void save() {
         try {
-            team.setOfficials(officialsContainer.getItemIds());
+            team.setOfficials(new HashSet(officialsContainer.getItemIds()));
             team.setDivision((Division) divisionComboBox.getValue());
             fieldGroup.commit();
         } catch (FieldGroup.CommitException ex) {

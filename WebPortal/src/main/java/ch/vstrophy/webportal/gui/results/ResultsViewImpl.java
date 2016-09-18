@@ -86,6 +86,9 @@ public class ResultsViewImpl extends AbstractMVPView implements ResultsView {
         weekSelect.setRows(weekList.size());
         weekSelect.setVisible(true);
         matchListLayout.setVisible(false);
+        if(!weekList.isEmpty()){
+            weekSelect.select(weekList.get(0));
+        }
     }
 
     @Override

@@ -32,6 +32,7 @@ public class GolemService {
     @Schedule(hour = "*", minute = "33", second = "0", persistent = false)
     private void run() {
         try {
+            LOGGER.info("Golem run triggered");
             golem.updateCurrentWeek();
         } catch (IOException ex) {
             LOGGER.error("Could not update current week!", ex);
