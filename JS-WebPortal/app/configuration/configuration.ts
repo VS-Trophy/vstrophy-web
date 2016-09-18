@@ -8,7 +8,7 @@ export class Configuration {
     matchUrl: string;
     weekUrl: string;
     firstSeason: number = 2012;
-    lastSeason: number = 2015;
+    lastSeason: number = 2016;
     constructor() {
         var host: string = "vstrophy.ch";
         this.baseURL = "http://" + host + "/rest-api/";
