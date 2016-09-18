@@ -81,7 +81,7 @@ public class PersistenceHandler {
         
         Match match = null;
         try {
-            matchEntityManager.getMatch(week, firstTeam, secondTeam);
+           match = matchEntityManager.getMatch(week, firstTeam, secondTeam);
         } catch (Exception ex) {
             LOGGER.warn("Error while getting or creating match",ex);
         }
