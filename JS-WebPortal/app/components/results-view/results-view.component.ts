@@ -44,7 +44,10 @@ export class ResultsViewComponent implements OnInit {
     onSeasonSelect(season) {
         if (season != undefined) {
             this._season = season;
-            this._weekService.getWeeks(season).then(list => { this.weeks = list });
+            this._weekService.getWeeks(season).then(list => {
+                this.weeks = list;
+                this.onWeekSelect(this.weeks[this.weeks.length - 1].number);
+            });
         }
     }
 

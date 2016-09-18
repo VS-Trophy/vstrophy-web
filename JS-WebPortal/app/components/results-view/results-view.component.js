@@ -42,7 +42,10 @@ var ResultsViewComponent = (function () {
         var _this = this;
         if (season != undefined) {
             this._season = season;
-            this._weekService.getWeeks(season).then(function (list) { _this.weeks = list; });
+            this._weekService.getWeeks(season).then(function (list) {
+                _this.weeks = list;
+                _this.onWeekSelect(_this.weeks[_this.weeks.length - 1].number);
+            });
         }
     };
     ResultsViewComponent = __decorate([
