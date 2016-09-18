@@ -15,8 +15,6 @@ var ResultsViewComponent = (function () {
     function ResultsViewComponent(_matchesService, _weekService) {
         this._matchesService = _matchesService;
         this._weekService = _weekService;
-        this.radioModel = 'Middle';
-        this.checkModel = { left: false, middle: true, right: false };
         this.weeks = new Array();
     }
     ResultsViewComponent.prototype.ngOnInit = function () {
@@ -27,10 +25,25 @@ var ResultsViewComponent = (function () {
         var _this = this;
         this._matchesService.getMatches(this._season, weekNumber).then(function (matches) { return _this._matches = matches; });
     };
+    Object.defineProperty(ResultsViewComponent.prototype, "radioModel", {
+        get: function () {
+            return this._radioModel;
+        },
+        set: function (model) {
+            this._radioModel = model;
+            if (model != undefined) {
+                this.onWeekSelect(model);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     ResultsViewComponent.prototype.onSeasonSelect = function (season) {
         var _this = this;
-        this._season = season;
-        this._weekService.getWeeks(season).then(function (list) { _this.weeks = list; });
+        if (season != undefined) {
+            this._season = season;
+            this._weekService.getWeeks(season).then(function (list) { _this.weeks = list; });
+        }
     };
     ResultsViewComponent = __decorate([
         core_1.Component({

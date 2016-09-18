@@ -14,27 +14,38 @@ import {Week} from '../../model/Week/Week';
 export class ResultsViewComponent implements OnInit {
     constructor(private _matchesService: MatchesService, private _weekService: WeeksService) {
         this.weeks = new Array<Week>();
-     }
+    }
     private _matches: Match[];
-    private _season:number;
-    public weeks: Week[];
-    public seasons:number[];
+    private _season: number;
+    private weeks: Week[];
+    private seasons: number[];
 
-    public radioModel: string = 'Middle';
-    public checkModel: any = { left: false, middle: true, right: false };
+    private _radioModel: number;
     ngOnInit() {
         this._weekService.getSeasons().then(list => this.seasons = list);
 
     }
 
-    onWeekSelect(weekNumber:number){
-     this._matchesService.getMatches(this._season,weekNumber).then(matches => this._matches = matches);
+    onWeekSelect(weekNumber: number) {
+        this._matchesService.getMatches(this._season, weekNumber).then(matches => this._matches = matches);
     }
 
+    set radioModel(model: number) {
+        this._radioModel = model;
+        if (model != undefined) {
+            this.onWeekSelect(model);
+        }
+    }
 
-    onSeasonSelect(season){
-        this._season=season;
-        this._weekService.getWeeks(season).then(list => {this.weeks = list});
+    get radioModel() {
+        return this._radioModel;
+    }
+
+    onSeasonSelect(season) {
+        if (season != undefined) {
+            this._season = season;
+            this._weekService.getWeeks(season).then(list => { this.weeks = list });
+        }
     }
 
 }
