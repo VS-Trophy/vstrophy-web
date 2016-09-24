@@ -3,7 +3,15 @@
   background-color: #e7e7e7 !important; 
 }
 
+.vst-navbar{
+  margin-top: 62px;
+}
+
+.vst-nav{
+  margin-left: 120px;
+}
+
 .vst-logo{
-  height: 120px;
-  padding: 10px;
+  position: absolute;
+  top: -62px;
 }
