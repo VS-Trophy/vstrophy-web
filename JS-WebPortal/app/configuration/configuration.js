@@ -13,8 +13,7 @@ var Configuration = (function () {
     function Configuration() {
         this.firstSeason = 2012;
         this.lastSeason = 2016;
-        var host = "vstrophy.ch";
-        this.baseURL = "http://" + host + "/rest-api/";
+        this.baseURL = "http://rest.vstrophy.ch/";
         this.newsItemUrl = this.baseURL + "newsitem";
         this.teamUrl = this.baseURL + "team";
         this.matchUrl = this.baseURL + "match";
