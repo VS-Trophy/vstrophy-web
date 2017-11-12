@@ -31,6 +31,10 @@ public class WeekHandler {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Match> getMatchesOfWeek(final int season, final int week) {
         List<Match> matchList = weekEntityManager.getWeek(season, week).getMatches();
+        for(Match match : matchList){
+          match.getFirstTeam().getLogo();
+          match.getSecondTeam().getLogo();
+        }
         //This is necessary because of lazy loading. The UI has no transaction so the lazy load always fails
         List<Match> returnList = new ArrayList<>();
         returnList.addAll(matchList);

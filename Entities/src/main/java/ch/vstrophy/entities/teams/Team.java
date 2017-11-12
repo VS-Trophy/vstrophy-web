@@ -76,7 +76,7 @@ public class Team implements Serializable {
     @Lob
     private byte[] logo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Division division;
 
     @Column(name = "team_nfl_id", unique = true, nullable = false)

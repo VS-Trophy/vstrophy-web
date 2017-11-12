@@ -65,6 +65,10 @@ public class MatchEntityManager {
         try {
             List<Match> matches = em.createQuery(query).getResultList();
             LOGGER.info("...done");
+            for(Match match : matches){
+              match.getFirstTeam().getDivision();
+              match.getSecondTeam().getDivision();
+            }
             return matches;
         } catch (NoResultException ex) {
             return null;
