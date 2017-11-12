@@ -10,8 +10,11 @@ import ch.vstrophy.entities.match.Match;
 import ch.vstrophy.entities.teams.Team;
 import ch.vstrophy.entities.teams.TeamEntityManager;
 import ch.vstrophy.entities.weeks.Week;
+import ch.vstrophy.golem.entities.Cookie;
 import ch.vstrophy.golem.parsers.HistoryViewParser;
 import ch.vstrophy.golem.persistence.PersistenceHandler;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,9 +65,20 @@ public class VSTrophyGolemTest {
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void testGolemService() throws IOException{
         golem.updateCurrentWeek();
+    }
+    
+    @Test
+    public void bla() throws JsonProcessingException, IOException{
+      Cookie cookie = new Cookie();
+      cookie.setName("asdf");
+      cookie.setValue("Bla");
+      ObjectMapper mapper = new ObjectMapper();
+      String gegl = mapper.writeValueAsString(cookie);
+      System.out.println(gegl);
+      Cookie c2 = mapper.readValue("{\"name\":\"asdf\",\"value\":\"Bla\"}", Cookie.class);
     }
     
 

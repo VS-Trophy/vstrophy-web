@@ -25,7 +25,7 @@ public class ResultsPresenter extends AbstractMVPPresenter<ResultsView> {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ResultsPresenter.class);
     private static final int FIRST_SEASON = 2012;
-    private static final int LAST_SEASON = 2016;
+    private static final int LAST_SEASON = 2017;
     @Inject
     private WeekHandler weekHandler;
     private List<String> seasonList;
