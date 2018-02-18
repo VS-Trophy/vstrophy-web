@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Entities/Entities.iml" filepath="$PROJECT_DIR$/Entities/Entities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Golem/Golem.iml" filepath="$PROJECT_DIR$/Golem/Golem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/REST-API/REST-API.iml" filepath="$PROJECT_DIR$/REST-API/REST-API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VSTrophy.iml" filepath="$PROJECT_DIR$/VSTrophy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WebPortal/WebPortal.iml" filepath="$PROJECT_DIR$/WebPortal/WebPortal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/target/maven-archiver/maven-archiver (1).iml" filepath="$PROJECT_DIR$/common/target/maven-archiver/maven-archiver (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/Entities/target/maven-archiver/maven-archiver (2).iml" filepath="$PROJECT_DIR$/Entities/target/maven-archiver/maven-archiver (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/Golem/target/maven-archiver/maven-archiver (3).iml" filepath="$PROJECT_DIR$/Golem/target/maven-archiver/maven-archiver (3).iml" />
+      <module fileurl="file://$PROJECT_DIR$/REST-API/target/maven-archiver/maven-archiver (4).iml" filepath="$PROJECT_DIR$/REST-API/target/maven-archiver/maven-archiver (4).iml" />
+      <module fileurl="file://$PROJECT_DIR$/WebPortal/target/maven-archiver/maven-archiver (5).iml" filepath="$PROJECT_DIR$/WebPortal/target/maven-archiver/maven-archiver (5).iml" />
+    </modules>
+  </component>
+</project>
