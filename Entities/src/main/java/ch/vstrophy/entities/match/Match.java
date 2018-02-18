@@ -1,92 +1,32 @@
 /*
- * Copyright 2015 Burning Hammer. All rights reserved.
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package ch.vstrophy.entities.match;
 
-import ch.vstrophy.entities.teams.Team;
-import ch.vstrophy.entities.weeks.Week;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 /**
  *
- * @author kobashi@burninghammer.ch
+ * @author Fabian Chanton <fabian.chanton@gmx.ch>
  */
-@Entity
-@Table(name = "matches")
 public class Match {
+private double firstTeamPoints;
+private double secondTeamPoints;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  public double getFirstTeamPoints() {
+    return firstTeamPoints;
+  }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "first_team_id")
-    private Team firstTeam;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "second_team_id")
-    private Team secondTeam;
-    @Column(name = "first_team_points")
-    private double firstTeamPoints;
-    @Column(name = "second_team_points")
-    private double secondTeamPoints;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "week_id", nullable = false)
-    private Week week;
+  public void setFirstTeamPoints(double firstTeamPoints) {
+    this.firstTeamPoints = firstTeamPoints;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public double getSecondTeamPoints() {
+    return secondTeamPoints;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Team getFirstTeam() {
-        return firstTeam;
-    }
-
-    public void setFirstTeam(Team firstTeam) {
-        this.firstTeam = firstTeam;
-    }
-
-    public Team getSecondTeam() {
-        return secondTeam;
-    }
-
-    public void setSecondTeam(Team secondTeam) {
-        this.secondTeam = secondTeam;
-    }
-
-    public double getFirstTeamPoints() {
-        return firstTeamPoints;
-    }
-
-    public void setFirstTeamPoints(double firstTeamPoints) {
-        this.firstTeamPoints = firstTeamPoints;
-    }
-
-    public double getSecondTeamPoints() {
-        return secondTeamPoints;
-    }
-
-    public void setSecondTeamPoints(double secondTeamPoints) {
-        this.secondTeamPoints = secondTeamPoints;
-    }
-
-    public Week getWeek() {
-        return week;
-    }
-
-    public void setWeek(Week week) {
-        this.week = week;
-    }
-
+  public void setSecondTeamPoints(double secondTeamPoints) {
+    this.secondTeamPoints = secondTeamPoints;
+  }
+  
 }

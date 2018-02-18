@@ -13,7 +13,6 @@ import ch.vstrophy.golem.entities.CookieResponse;
 import ch.vstrophy.golem.exception.GolemException;
 import ch.vstrophy.golem.parsers.HistoryViewParser;
 import ch.vstrophy.golem.persistence.ArangoPersistenceHandler;
-import ch.vstrophy.golem.persistence.MySQLPersistenceHandler;
 import ch.vstrophy.golem.persistence.PersistenceHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -58,7 +57,7 @@ public class VSTrophyGolem {
   private HistoryViewParser historyViewParser;
 
   @Inject
-  private ArangoPersistenceHandler persistenceHandler;
+  private PersistenceHandler persistenceHandler;
 
   public void updateCurrentWeek() throws IOException {
     int week = weekInfoProvider.getCurrentWeekNumber();

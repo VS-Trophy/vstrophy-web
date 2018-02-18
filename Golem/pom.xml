@@ -24,12 +24,12 @@
     <dependency>
       <groupId>ch.vstrophy</groupId>
       <artifactId>Entities</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>ch.vstrophy</groupId>
       <artifactId>common</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>javax</groupId>
