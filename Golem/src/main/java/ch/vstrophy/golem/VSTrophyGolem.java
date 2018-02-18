@@ -11,12 +11,10 @@ import ch.vstrophy.entities.weeks.Week;
 import ch.vstrophy.golem.entities.Cookie;
 import ch.vstrophy.golem.entities.CookieResponse;
 import ch.vstrophy.golem.exception.GolemException;
-import ch.vstrophy.golem.exception.GolemParserException;
 import ch.vstrophy.golem.parsers.HistoryViewParser;
+import ch.vstrophy.golem.persistence.ArangoPersistenceHandler;
+import ch.vstrophy.golem.persistence.MySQLPersistenceHandler;
 import ch.vstrophy.golem.persistence.PersistenceHandler;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,7 +25,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
-import javax.ws.rs.core.GenericType;
+
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
@@ -60,7 +58,7 @@ public class VSTrophyGolem {
   private HistoryViewParser historyViewParser;
 
   @Inject
-  private PersistenceHandler persistenceHandler;
+  private ArangoPersistenceHandler persistenceHandler;
 
   public void updateCurrentWeek() throws IOException {
     int week = weekInfoProvider.getCurrentWeekNumber();

@@ -6,28 +6,23 @@
 package ch.vstrophy.golem;
 
 import ch.vstrophy.common.WeekInfoProvider;
-import ch.vstrophy.entities.match.Match;
 import ch.vstrophy.entities.teams.Team;
-import ch.vstrophy.entities.teams.TeamEntityManager;
-import ch.vstrophy.entities.weeks.Week;
 import ch.vstrophy.golem.entities.Cookie;
 import ch.vstrophy.golem.parsers.HistoryViewParser;
-import ch.vstrophy.golem.persistence.PersistenceHandler;
+import ch.vstrophy.golem.persistence.MySQLPersistenceHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.inject.Inject;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnit44Runner;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
@@ -46,7 +41,7 @@ public class VSTrophyGolemTest {
    
     
     @Mock
-    private PersistenceHandler handler;
+    private MySQLPersistenceHandler handler;
     
     @InjectMocks
     private VSTrophyGolem golem;
