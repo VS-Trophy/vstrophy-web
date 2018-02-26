@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ch.vstrophy.entities.weeks;
+package ch.vstrophy.entities.seasons;
 
 /**
  *
  * @author Fabian Chanton <fabian.chanton@gmx.ch>
  */
-public class Week {
-  int number;
+public class Season {
+  private int number;
 
-  public Week() {
+  public Season(){
+    
   }
-
-  public Week(int number) {
+  
+  public Season(int number) {
     this.number = number;
   }
 
