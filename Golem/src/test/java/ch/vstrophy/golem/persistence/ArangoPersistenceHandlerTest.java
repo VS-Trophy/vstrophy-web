@@ -5,7 +5,10 @@
  */
 package ch.vstrophy.golem.persistence;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -20,6 +23,11 @@ public class ArangoPersistenceHandlerTest {
   public void setup(){
     arangoPersistenceHandler = new ArangoPersistenceHandler();
     arangoPersistenceHandler.init();
+  }
+  
+  @After
+  public void tearDown(){
+  arangoPersistenceHandler.tearDown();
   }
   
   @Test

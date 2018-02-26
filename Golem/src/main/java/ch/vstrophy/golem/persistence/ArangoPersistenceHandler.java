@@ -20,6 +20,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import java.util.Map;
+import javax.annotation.PreDestroy;
 import org.slf4j.LoggerFactory;
 
 @Stateless
@@ -27,7 +28,7 @@ import org.slf4j.LoggerFactory;
 public class ArangoPersistenceHandler implements PersistenceHandler {
 
   private static final String VSTROPHY_DATABASE = "vs-trophy";
-    private static final String SEASON_GRAPH = "SeasonGraph";
+  private static final String SEASON_GRAPH = "SeasonGraph";
   private static final String WEEKS_COLLECTION = "Weeks";
   private static final String SEASONS_COLLLECTION = "Seasons";
   private static final String WEEKS_IN_SEASON_COLLECTION = "WeeksInSeason";
@@ -41,6 +42,11 @@ public class ArangoPersistenceHandler implements PersistenceHandler {
   protected void init() {
     ArangoDB arangoDB = new ArangoDB.Builder().build();
     database = arangoDB.db(VSTROPHY_DATABASE);
+  }
+
+  @PreDestroy
+  protected void tearDown() {
+   database.arango().shutdown();
   }
 
   @Override
