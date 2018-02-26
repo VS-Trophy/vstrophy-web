@@ -27,7 +27,7 @@ public class WeekInfoProvider {
     public int getCurrentWeekNumber() {
         int week = 0;
         DateTime dateTime = FANTASY_SEAON_WEEK_1_2017;
-        while (dateTime.isBefore(DateTime.now()) && week < 18) {
+        while (dateTime.isBefore(DateTime.now()) && week < 17) {
             dateTime = dateTime.plus(Weeks.ONE);
             ++week;
         }
