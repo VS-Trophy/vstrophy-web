@@ -9,11 +9,11 @@ import java.util.Map;
 public interface PersistenceHandler {
     Map<Integer, Team> getTeamMap();
 
-    void saveWeek(Week week);
+    void saveWeek(Week week) throws GolemPersistenceException;
 
-    void saveMatch(Match match);
+    void saveMatch(Match match) throws GolemPersistenceException;
 
-    Week getOrCreateWeek(int season, int weekNumber);
+    Week getOrCreateWeek(int season, int weekNumber) throws GolemPersistenceException;
 
-    Match getOrCreateMatch(Week week, Team firstTeam, Team secondTeam);
+    Match getOrCreateMatch(Week week, Team firstTeam, Team secondTeam) throws GolemPersistenceException;
 }
