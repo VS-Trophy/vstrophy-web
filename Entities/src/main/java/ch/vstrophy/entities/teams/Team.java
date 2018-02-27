@@ -10,13 +10,13 @@ package ch.vstrophy.entities.teams;
  * @author Fabian Chanton <fabian.chanton@gmx.ch>
  */
 public class Team {
-  private int NflId;
+  private int nflId;
 
   public int getNflId() {
-    return NflId;
+    return nflId;
   }
 
   public void setNflId(int NflId) {
-    this.NflId = NflId;
+    this.nflId = NflId;
   }
 }
