@@ -5,10 +5,16 @@
  */
 package ch.vstrophy.golem.persistence;
 
+import ch.vstrophy.entities.match.Match;
+import ch.vstrophy.entities.teams.Team;
+import com.arangodb.entity.BaseDocument;
+import javax.validation.constraints.AssertFalse;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -31,7 +37,26 @@ public class ArangoPersistenceHandlerTest {
   }
   
   @Test
+  @Ignore
   public void getOrCreateWeekTest() throws GolemPersistenceException{
     arangoPersistenceHandler.getOrCreateWeek(2017, 2);
+  }
+  
+  @Test
+  public void getTeamTest() throws GolemPersistenceException{
+    BaseDocument team = arangoPersistenceHandler.getTeam("4");
+    assertFalse(team==null);
+  }
+  
+  @Test
+  public void saveMatchTest() throws GolemPersistenceException{
+    Match match = new Match();
+    match.setFirstTeamId("1");    
+    match.setFirstTeamPoints(123.1);
+    
+    match.setSecondTeamId("2");
+    match.setSecondTeamPoints(88.2);
+    
+    arangoPersistenceHandler.saveMatch(2017, 1, match);
   }
 }

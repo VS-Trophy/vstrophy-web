@@ -20,4 +20,8 @@ public class Queries {
   protected static final String GET_SEASON = 
       "FOR season IN Seasons FILTER season.number == @season "
       + " RETURN season";
+  
+  protected static final String GET_TEAM = 
+      "FOR team IN VSTrophyTeams FILTER team.nflId == @nflId "
+      + " RETURN team";
 }

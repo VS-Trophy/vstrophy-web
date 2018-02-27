@@ -47,7 +47,7 @@ public class HistoryViewParser {
         return matchups.size();
     }
 
-    public int getFirstTeamID(int matchupIdx) throws GolemParserException {
+    public String getFirstTeamID(int matchupIdx) throws GolemParserException {
         if (historyViewDocument == null) {
             throw new GolemParserException("Document has not been set");
         }
@@ -56,7 +56,7 @@ public class HistoryViewParser {
         return getTeamIdFromTeamWrap(teamWrap);
     }
 
-    public int getSecondTeamID(int matchupIdx) throws GolemParserException {
+    public String getSecondTeamID(int matchupIdx) throws GolemParserException {
         if (historyViewDocument == null) {
             throw new GolemParserException("Document has not been set");
         }
@@ -107,13 +107,13 @@ public class HistoryViewParser {
         return children.get(0);
     }
 
-    private int getTeamIdFromTeamWrap(Element teamWrap) throws GolemParserException {
+    private String getTeamIdFromTeamWrap(Element teamWrap) throws GolemParserException {
         Element teamPoint = getOneElementByClass(teamWrap, TEAM_POINT_CLASS);
         for (String className : teamPoint.classNames()) {
             if (className.startsWith(TEAM_ID_PREFIX)) {
                 try {
                     //As the class name starts with the prefix, we just take everything after the prefix
-                    return Integer.parseInt(className.substring(TEAM_ID_PREFIX.length()));
+                    return className.substring(TEAM_ID_PREFIX.length());
                 } catch (NumberFormatException ex) {
                     throw new GolemParserException("Could not parse ID " + ex);
                 }

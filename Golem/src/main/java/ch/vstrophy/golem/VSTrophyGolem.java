@@ -146,23 +146,21 @@ public class VSTrophyGolem {
       int matchCount = historyViewParser.getMatchCount();
       LOGGER.info("Found " + matchCount + "matches.");
       if (matchCount > 0) {
-        Week week = persistenceHandler.getOrCreateWeek(season, weekNumber);
+        persistenceHandler.getOrCreateWeek(season, weekNumber);
         for (int idx = 0; idx < historyViewParser.getMatchCount(); ++idx) {
           LOGGER.info("Getting match #" + idx);
-          Team firstTeam = teamMap.get(historyViewParser.getFirstTeamID(idx));
-
-          if (firstTeam == null) {
-            throw new GolemException("First team is null!");
-          }
-          Team secondTeam = teamMap.get(historyViewParser.getSecondTeamID(idx));
-          if (secondTeam == null) {
-            throw new GolemException("Second team is null!");
-          }
-
-          Match match = persistenceHandler.getOrCreateMatch(week, firstTeam, secondTeam);
-          LOGGER.info("Got match {}", match);
+          String firstTeamId = historyViewParser.getFirstTeamID(idx);
+          String secondTeamId = historyViewParser.getSecondTeamID(idx);
+          
+          Match match = new Match();
+          match.setFirstTeamId(firstTeamId);
+          match.setSecondTeamId(secondTeamId);
+              
           match.setFirstTeamPoints(historyViewParser.getFirstTeamPoints(idx));
           match.setSecondTeamPoints(historyViewParser.getSecondTeamPoints(idx));
+          
+          persistenceHandler.saveMatch(season, weekNumber, match);
+
           LOGGER.info("Match filled out {}-{}", match.getFirstTeamPoints(), match.getSecondTeamPoints());
         }
       }
