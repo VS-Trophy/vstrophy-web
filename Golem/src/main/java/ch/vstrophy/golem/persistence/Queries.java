@@ -11,11 +11,12 @@ package ch.vstrophy.golem.persistence;
  */
 public class Queries {
   protected static final String GET_WEEK = 
-      "FOR season IN Seasons "
+        "FOR season IN Seasons "
       + "FILTER season.number == @season "
       + "FOR week IN 1..1 OUTBOUND season WeeksInSeason "
       + "FILTER week.number == @week "
       + "RETURN week";
+  
   protected static final String GET_SEASON = 
       "FOR season IN Seasons FILTER season.number == @season "
       + " RETURN season";

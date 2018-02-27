@@ -12,7 +12,6 @@ import ch.vstrophy.golem.entities.Cookie;
 import ch.vstrophy.golem.entities.CookieResponse;
 import ch.vstrophy.golem.exception.GolemException;
 import ch.vstrophy.golem.parsers.HistoryViewParser;
-import ch.vstrophy.golem.persistence.ArangoPersistenceHandler;
 import ch.vstrophy.golem.persistence.PersistenceHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
