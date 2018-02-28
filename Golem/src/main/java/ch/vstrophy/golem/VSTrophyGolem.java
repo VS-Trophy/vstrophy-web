@@ -159,7 +159,7 @@ public class VSTrophyGolem {
           match.setFirstTeamPoints(historyViewParser.getFirstTeamPoints(idx));
           match.setSecondTeamPoints(historyViewParser.getSecondTeamPoints(idx));
           
-          persistenceHandler.saveMatch(season, weekNumber, match);
+          persistenceHandler.updateOrCreateMatch(season, weekNumber, match);
 
           LOGGER.info("Match filled out {}-{}", match.getFirstTeamPoints(), match.getSecondTeamPoints());
         }

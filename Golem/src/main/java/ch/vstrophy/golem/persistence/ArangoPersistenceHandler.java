@@ -12,7 +12,6 @@ import com.arangodb.entity.BaseEdgeDocument;
 import com.arangodb.entity.DocumentCreateEntity;
 import com.arangodb.entity.VertexEntity;
 import com.arangodb.util.MapBuilder;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -163,43 +162,79 @@ public class ArangoPersistenceHandler implements PersistenceHandler {
     }
   }
 
+  protected BaseDocument getMatch(int seasonNumber, int weekNumber, String firstTeamNflId, String secondTeamNflId) throws GolemPersistenceException {
+    String query = Queries.GET_SPECIFIC_MATCH;
+    Map<String, Object> bindVars = new MapBuilder()
+        .put("season", seasonNumber)
+        .put("week", weekNumber)
+        .put("firstNflId", firstTeamNflId)
+        .put("secondNflId", secondTeamNflId)
+        .get();
+    ArangoCursor<BaseDocument> cursor
+        = database.query(query, bindVars, null, BaseDocument.class);
+    List<BaseDocument> matches = cursor.asListRemaining();
+    if (matches.size() > 1) {
+      throw new GolemPersistenceException(
+          "Got " + matches.size()
+          + " matches for season "
+          + seasonNumber
+          + " week "
+          + weekNumber
+          + " and teams "
+          + firstTeamNflId
+          + " and "
+          + secondTeamNflId);
+    }
+    if (matches.isEmpty()) {
+      return null;
+    } else {
+      return matches.get(0);
+    }
+  }
+
   @Override
-  public void saveMatch(int seasonNumber, int weekNumber, Match match) throws GolemPersistenceException {
+  public void updateOrCreateMatch(int seasonNumber, int weekNumber, Match match) throws GolemPersistenceException {
+    BaseDocument existingMatch = 
+        getMatch(seasonNumber, weekNumber, match.getFirstTeamId(), match.getSecondTeamId());
+    if(existingMatch != null){
+      //TODO update edges
+      LOGGER.info("Match exists already, skipping...");
+    } else {
+      LOGGER.info("Inserting match into graph...");
     BaseDocument week = getWeek(seasonNumber, weekNumber, BaseDocument.class);
     BaseDocument firstTeam = getTeam(match.getFirstTeamId());
     BaseDocument secondTeam = getTeam(match.getSecondTeamId());
-    
+    //Create the match vertex
     VertexEntity matchEntity
         = database
             .graph(SEASON_GRAPH)
             .vertexCollection(MATCHES_COLLECTION)
             .insertVertex(new BaseDocument());
-    
-    BaseEdgeDocument matchInWeek = 
-        new BaseEdgeDocument(week.getId(), matchEntity.getId());
-    
+
+    BaseEdgeDocument matchInWeek
+        = new BaseEdgeDocument(week.getId(), matchEntity.getId());
+    //Connect match and week
     database
         .graph(SEASON_GRAPH)
         .edgeCollection(MATCHES_IN_WEEK_COLLECTION)
         .insertEdge(matchInWeek);
-    
+
     TeamPerformanceEdge firstTeamEdge = new TeamPerformanceEdge(firstTeam.getId(), matchEntity.getId());
     firstTeamEdge.setPoints(match.getFirstTeamPoints());
-    
+
     TeamPerformanceEdge secondTeamEdge = new TeamPerformanceEdge(secondTeam.getId(), matchEntity.getId());
     firstTeamEdge.setPoints(match.getSecondTeamPoints());
-    
-    
+    //Connect match and teams
     database
         .graph(SEASON_GRAPH)
         .edgeCollection(TEAM_PLAYED_IN_COLLECTION)
         .insertEdge(firstTeamEdge);
-    
+
     database
         .graph(SEASON_GRAPH)
         .edgeCollection(TEAM_PLAYED_IN_COLLECTION)
         .insertEdge(secondTeamEdge);
-    
-    
+    LOGGER.info("...done");
+    }
   }
 }

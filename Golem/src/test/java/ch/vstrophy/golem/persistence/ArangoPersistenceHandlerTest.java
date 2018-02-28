@@ -37,7 +37,7 @@ public class ArangoPersistenceHandlerTest {
   }
   
   @Test
-  @Ignore
+  @Ignore("This may insert unwanted data!")
   public void getOrCreateWeekTest() throws GolemPersistenceException{
     arangoPersistenceHandler.getOrCreateWeek(2017, 2);
   }
@@ -49,14 +49,21 @@ public class ArangoPersistenceHandlerTest {
   }
   
   @Test
+  public void getMatchTest() throws GolemPersistenceException{
+    BaseDocument match = arangoPersistenceHandler.getMatch(2017,1,"1","2");
+    //assertFalse(match==null);
+  }
+  
+  @Test
+  @Ignore("This may insert unwanted data!")
   public void saveMatchTest() throws GolemPersistenceException{
     Match match = new Match();
-    match.setFirstTeamId("1");    
-    match.setFirstTeamPoints(123.1);
+    match.setFirstTeamId("3");    
+    match.setFirstTeamPoints(12);
     
     match.setSecondTeamId("2");
-    match.setSecondTeamPoints(88.2);
+    match.setSecondTeamPoints(21);
     
-    arangoPersistenceHandler.saveMatch(2017, 1, match);
+    arangoPersistenceHandler.updateOrCreateMatch(2017, 3, match);
   }
 }
