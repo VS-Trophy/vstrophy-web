@@ -223,7 +223,7 @@ public class ArangoPersistenceHandler implements PersistenceHandler {
     firstTeamEdge.setPoints(match.getFirstTeamPoints());
 
     TeamPerformanceEdge secondTeamEdge = new TeamPerformanceEdge(secondTeam.getId(), matchEntity.getId());
-    firstTeamEdge.setPoints(match.getSecondTeamPoints());
+    secondTeamEdge.setPoints(match.getSecondTeamPoints());
     //Connect match and teams
     database
         .graph(SEASON_GRAPH)
