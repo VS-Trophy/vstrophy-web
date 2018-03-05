@@ -26,6 +26,11 @@ public class Queries {
       = "FOR team IN VSTrophyTeams FILTER team.nflId == @nflId "
       + " RETURN team";
 
+  protected static final String GET_EDGES_FOR_MATCH
+      = "RETURN MERGE(\n"
+      + "FOR team, edge IN 1..1 ANY @match TeamPlayedIn\n"
+      + "RETURN {[team.nflId]:edge})";
+
   protected static final String GET_SPECIFIC_MATCH
       = "FOR commonMatchInWeek IN INTERSECTION(\n"
       + "\n"

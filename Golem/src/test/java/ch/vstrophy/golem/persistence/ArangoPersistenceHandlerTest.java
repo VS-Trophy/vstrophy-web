@@ -6,14 +6,12 @@
 package ch.vstrophy.golem.persistence;
 
 import ch.vstrophy.entities.match.Match;
-import ch.vstrophy.entities.teams.Team;
 import com.arangodb.entity.BaseDocument;
-import javax.validation.constraints.AssertFalse;
+import java.util.Map;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -52,6 +50,15 @@ public class ArangoPersistenceHandlerTest {
   public void getMatchTest() throws GolemPersistenceException{
     BaseDocument match = arangoPersistenceHandler.getMatch(2017,1,"1","2");
     //assertFalse(match==null);
+  }
+  
+  @Test
+  public void getMatchEdgesTest() throws GolemPersistenceException{
+    Map<String, Map<String,Object>> map = arangoPersistenceHandler.getTeamPerformances("Matches/118377");
+    assertFalse(map == null);
+    assertTrue(map.size() == 2);
+    
+
   }
   
   @Test

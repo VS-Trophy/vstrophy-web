@@ -12,6 +12,7 @@ import com.arangodb.entity.BaseEdgeDocument;
 import com.arangodb.entity.DocumentCreateEntity;
 import com.arangodb.entity.VertexEntity;
 import com.arangodb.util.MapBuilder;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -162,6 +163,27 @@ public class ArangoPersistenceHandler implements PersistenceHandler {
     }
   }
 
+  protected Map<String, Map<String,Object>> getTeamPerformances(String matchkey) throws GolemPersistenceException {
+    String query = Queries.GET_EDGES_FOR_MATCH;
+    Map<String, Object> bindVars = new MapBuilder()
+        .put("match", matchkey)
+        .get();
+    ArangoCursor<Map> cursor
+        = database.query(query, bindVars, null, Map.class);
+    List<Map> edgeMaps = cursor.asListRemaining();
+    if (edgeMaps.size() > 1) {
+      throw new GolemPersistenceException(
+          "Got " + edgeMaps.size()
+          + " edgeMaps for match "
+          + matchkey);
+    }
+    if (edgeMaps.isEmpty()) {
+      return null;
+    } else {
+      return edgeMaps.get(0);
+    }
+  }
+
   protected BaseDocument getMatch(int seasonNumber, int weekNumber, String firstTeamNflId, String secondTeamNflId) throws GolemPersistenceException {
     String query = Queries.GET_SPECIFIC_MATCH;
     Map<String, Object> bindVars = new MapBuilder()
@@ -194,47 +216,60 @@ public class ArangoPersistenceHandler implements PersistenceHandler {
 
   @Override
   public void updateOrCreateMatch(int seasonNumber, int weekNumber, Match match) throws GolemPersistenceException {
-    BaseDocument existingMatch = 
-        getMatch(seasonNumber, weekNumber, match.getFirstTeamId(), match.getSecondTeamId());
-    if(existingMatch != null){
-      //TODO update edges
-      LOGGER.info("Match exists already, skipping...");
+    BaseDocument existingMatch
+        = getMatch(seasonNumber, weekNumber, match.getFirstTeamId(), match.getSecondTeamId());
+    if (existingMatch != null) {
+      LOGGER.info("Match exists already, updating...");
+      Map<String, Map<String,Object>> teamPerformances
+          = getTeamPerformances(existingMatch.getId());
+      updateTeamPerformance(teamPerformances, match.getFirstTeamId(), match.getFirstTeamPoints());
+      updateTeamPerformance(teamPerformances, match.getSecondTeamId(), match.getSecondTeamPoints());
     } else {
       LOGGER.info("Inserting match into graph...");
-    BaseDocument week = getWeek(seasonNumber, weekNumber, BaseDocument.class);
-    BaseDocument firstTeam = getTeam(match.getFirstTeamId());
-    BaseDocument secondTeam = getTeam(match.getSecondTeamId());
-    //Create the match vertex
-    VertexEntity matchEntity
-        = database
-            .graph(SEASON_GRAPH)
-            .vertexCollection(MATCHES_COLLECTION)
-            .insertVertex(new BaseDocument());
+      BaseDocument week = getWeek(seasonNumber, weekNumber, BaseDocument.class);
+      BaseDocument firstTeam = getTeam(match.getFirstTeamId());
+      BaseDocument secondTeam = getTeam(match.getSecondTeamId());
+      //Create the match vertex
+      VertexEntity matchEntity
+          = database
+              .graph(SEASON_GRAPH)
+              .vertexCollection(MATCHES_COLLECTION)
+              .insertVertex(new BaseDocument());
 
-    BaseEdgeDocument matchInWeek
-        = new BaseEdgeDocument(week.getId(), matchEntity.getId());
-    //Connect match and week
-    database
-        .graph(SEASON_GRAPH)
-        .edgeCollection(MATCHES_IN_WEEK_COLLECTION)
-        .insertEdge(matchInWeek);
+      BaseEdgeDocument matchInWeek
+          = new BaseEdgeDocument(week.getId(), matchEntity.getId());
+      //Connect match and week
+      database
+          .graph(SEASON_GRAPH)
+          .edgeCollection(MATCHES_IN_WEEK_COLLECTION)
+          .insertEdge(matchInWeek);
 
-    TeamPerformanceEdge firstTeamEdge = new TeamPerformanceEdge(firstTeam.getId(), matchEntity.getId());
-    firstTeamEdge.setPoints(match.getFirstTeamPoints());
+      TeamPerformanceEdge firstTeamEdge = new TeamPerformanceEdge(firstTeam.getId(), matchEntity.getId());
+      firstTeamEdge.setPoints(match.getFirstTeamPoints());
 
-    TeamPerformanceEdge secondTeamEdge = new TeamPerformanceEdge(secondTeam.getId(), matchEntity.getId());
-    secondTeamEdge.setPoints(match.getSecondTeamPoints());
-    //Connect match and teams
-    database
-        .graph(SEASON_GRAPH)
-        .edgeCollection(TEAM_PLAYED_IN_COLLECTION)
-        .insertEdge(firstTeamEdge);
+      TeamPerformanceEdge secondTeamEdge = new TeamPerformanceEdge(secondTeam.getId(), matchEntity.getId());
+      secondTeamEdge.setPoints(match.getSecondTeamPoints());
+      //Connect match and teams
+      database
+          .graph(SEASON_GRAPH)
+          .edgeCollection(TEAM_PLAYED_IN_COLLECTION)
+          .insertEdge(firstTeamEdge);
 
-    database
-        .graph(SEASON_GRAPH)
-        .edgeCollection(TEAM_PLAYED_IN_COLLECTION)
-        .insertEdge(secondTeamEdge);
-    LOGGER.info("...done");
+      database
+          .graph(SEASON_GRAPH)
+          .edgeCollection(TEAM_PLAYED_IN_COLLECTION)
+          .insertEdge(secondTeamEdge);
+      LOGGER.info("...done");
     }
+  }
+
+  private void updateTeamPerformance(Map<String, Map<String,Object>> teamPerformanceEdges, String teamId, double points) throws GolemPersistenceException {
+    Map<String,Object> teamPerformanceEdge = teamPerformanceEdges.get(teamId);
+    if (teamPerformanceEdge == null) {
+      throw new GolemPersistenceException("Query did not return existing edge to team " + teamId);
+    }
+    teamPerformanceEdge.put("points", points);
+    database.graph(SEASON_GRAPH).edgeCollection(TEAM_PLAYED_IN_COLLECTION).updateEdge((String)teamPerformanceEdge.get("_key"), teamPerformanceEdge);
+
   }
 }
