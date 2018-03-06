@@ -54,7 +54,7 @@ public class ArangoPersistenceHandlerTest {
   
   @Test
   public void getMatchEdgesTest() throws GolemPersistenceException{
-    Map<String, Map<String,Object>> map = arangoPersistenceHandler.getTeamPerformances("Matches/118377");
+    Map<String,TeamPerformanceEdge> map = arangoPersistenceHandler.getTeamPerformances("Matches/118377");
     assertFalse(map == null);
     assertTrue(map.size() == 2);
     
