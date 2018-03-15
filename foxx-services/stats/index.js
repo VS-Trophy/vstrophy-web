@@ -55,7 +55,7 @@ router.get('/matches/margin', function (req, res) {
 .queryParam('season',joi.number().integer().positive().default(null), 'If set only results of this season are displayed')
 .queryParam('week',joi.number().integer().positive().default(null), 'If set only results of this week are displayed')
 .response(['application/json'], 'An Object containing all important informations regarding the matches')
-.summary('Highest or lowest scoring matches')
+.summary('Closest or clearest matches')
 .description('Returns the closest or clearest matches');
 
 
@@ -83,4 +83,27 @@ router.get('/matches/totalpoints', function (req, res) {
 .response(['application/json'], 'An Object containing all important informations regarding the matches')
 .summary('Highest or lowest scoring matches')
 .description('Returns the closest or clearest matches');
+
+
+router.get('/team/:team/winloss', function (req, res) {
+  try {
+    const season = req.queryParams.season
+    const team = req.pathParams.team
+    const opponent = req.queryParams.opponent
+    const record = 
+    db._query(queries.winlossrecord(team, opponent,season))
+    res.send(record)
+  } catch (e) {
+    if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
+      throw e;
+    }
+    res.throw(500, 'Could not get matches', e);
+  }
+})
+.queryParam('season',joi.number().integer().positive().default(null), 'If set only results of this season are displayed')
+.pathParam('team',joi.string().required(), 'The record of this team will be calculated')
+.queryParam('opponent',joi.string().default(null), 'The record against this team will be calculated. If null the overall record will be calculated')
+.response(['application/json'], 'An Object containing informations regarding the win loss record of this team')
+.summary('The win / loss record of a team.')
+.description('Returns the win / loss record of a team. May be narrowed down by season and / or opponent');
 

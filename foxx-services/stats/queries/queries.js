@@ -54,6 +54,27 @@ module.exports.highestScoringMatches = function(ascdesc,limit,week,season){
     
     LIMIT ${limit}
     RETURN {"firstTeam": performances[0].team,"firstTeamPoints": performances[0].points,"secondTeam": performances[1].team,"secondTeamPoints": performances[1].points, "totalScore" : score,"season" : seasonweek.season, "week": seasonweek.week}`
-    
+}
 
+
+module.exports.winlossrecord = function(team, opponent, season){
+    return aql`LET seasonMatches = (
+        FOR season IN Seasons
+        FILTER ${season} == null || season.number == ${season}
+            FOR week IN 1..1 ANY season WeeksInSeason
+                FOR match IN 1..1 ANY week MatchesInWeek
+                RETURN match._id
+        )
+        
+        LET winloss =  MERGE (
+        FOR team IN VSTrophyTeams 
+        FILTER team.nflId == ${team}
+        FOR vertex, performance, path IN 2..2 ANY team TeamPlayedIn
+        FILTER ${opponent} == null || path.vertices[2].nflId == ${opponent}  
+        FILTER ${season} == null || path.vertices[1]._id IN seasonMatches
+        
+        COLLECT category = path.edges[0].points > path.edges[1].points ? "wins" : "losses" WITH COUNT INTO ammount
+        return {[category] : ammount})
+        let matchCount = winloss.wins+winloss.losses
+        RETURN {"wins" : winloss.wins?:0, "losses" : winloss.losses?:0, "ratio" : matchCount>0?(winloss.wins / (matchCount)):0}`
 }
