@@ -17,7 +17,7 @@ export class TopmatchesComponent implements OnInit {
   }
 
   getTopMatches(): void{
-    this.statsService.getTopMatches().subscribe(topMatches => this.topMatches = topMatches);
+    this.statsService.getTopMatches().subscribe(topMatches => this.topMatches = topMatches.toString());
   }
 
 }
