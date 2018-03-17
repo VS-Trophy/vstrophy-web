@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StatsService} from '../stats.service';
 
 @Component({
   selector: 'vst-topmatches',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopmatchesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private statsService: StatsService) { }
+
+  topMatches: string;
 
   ngOnInit() {
+    this.getTopMatches();
+  }
+
+  getTopMatches(): void{
+    this.statsService.getTopMatches().subscribe(topMatches => this.topMatches = topMatches);
   }
 
 }

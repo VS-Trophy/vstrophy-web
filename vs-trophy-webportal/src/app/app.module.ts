@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TopmatchesComponent } from './topmatches/topmatches.component';
+import { StatsService } from './stats.service';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { TopmatchesComponent } from './topmatches/topmatches.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [StatsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
