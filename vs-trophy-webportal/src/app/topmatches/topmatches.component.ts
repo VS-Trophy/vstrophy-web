@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {StatsService} from '../stats.service';
+import {StatsService} from '../services/stats.service';
+import { TeamPerformance } from '../entities/team-performance';
 
 @Component({
   selector: 'vst-topmatches',
@@ -10,14 +11,14 @@ export class TopmatchesComponent implements OnInit {
 
   constructor(private statsService: StatsService) { }
 
-  topMatches: string;
+  topMatches: TeamPerformance;
 
   ngOnInit() {
     this.getTopMatches();
   }
 
   getTopMatches(): void{
-    this.statsService.getTopMatches().subscribe(topMatches => this.topMatches = topMatches.toString());
+    this.statsService.getTopMatches().subscribe(topMatches => this.topMatches = topMatches);
   }
 
 }

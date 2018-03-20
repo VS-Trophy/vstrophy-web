@@ -5,7 +5,7 @@ import {HttpClientModule} from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { TopmatchesComponent } from './topmatches/topmatches.component';
-import { StatsService } from './stats.service';
+import { StatsService } from './services/stats.service';
 
 
 @NgModule({
