@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { HistoryModule } from './history/history.module';
 import { MatchesModule } from './matches/matches.module';
 
 
@@ -16,8 +15,7 @@ import { MatchesModule } from './matches/matches.module';
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule,
-    HistoryModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
