@@ -8,3 +8,4 @@
 /JS-WebPortal/node_modules/
 /JS-WebPortal/typings/
 *.log*
+foxx-services/*.zip
