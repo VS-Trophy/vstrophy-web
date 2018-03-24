@@ -4,7 +4,6 @@ import {HttpClientModule} from '@angular/common/http'
 
 
 import { AppComponent } from './app.component';
-import { StatsService } from './services/stats.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { HistoryModule } from './history/history.module';
 
@@ -19,7 +18,7 @@ import { HistoryModule } from './history/history.module';
     AppRoutingModule,
     HistoryModule
   ],
-  providers: [StatsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
