@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatchesService } from '../../matches/shared/matches.service';
+import { Match } from '../../matches/match';
 
 @Component({
   selector: 'vst-history-view',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryViewComponent implements OnInit {
 
-  constructor() { }
+  matches: Match[];
+  constructor(private matchesService: MatchesService) { }
 
   ngOnInit() {
+    this.getMatches();
+  }
+
+  getMatches():void{
+    this.matchesService
+    .getAllMatches()
+    .subscribe(matches => this.matches = matches);
   }
 
 }
