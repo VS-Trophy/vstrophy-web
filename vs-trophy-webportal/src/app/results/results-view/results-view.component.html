@@ -1,3 +1,1 @@
-<p>
-  {{matches[0] | json}}
-</p>
+<p><vst-match *ngFor="let match of matches" [match]="match"></vst-match></p>
