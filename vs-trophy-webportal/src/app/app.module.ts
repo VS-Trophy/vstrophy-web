@@ -4,18 +4,20 @@ import {HttpClientModule} from '@angular/common/http'
 
 
 import { AppComponent } from './app.component';
-import { TopmatchesComponent } from './topmatches/topmatches.component';
 import { StatsService } from './services/stats.service';
+import { AppRoutingModule } from './/app-routing.module';
+import { HistoryModule } from './history/history.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TopmatchesComponent
+    AppComponent
   ],
   imports: [
     HttpClientModule,
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    HistoryModule
   ],
   providers: [StatsService],
   bootstrap: [AppComponent]

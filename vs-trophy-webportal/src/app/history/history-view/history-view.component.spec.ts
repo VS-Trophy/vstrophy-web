@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopmatchesComponent } from './topmatches.component';
+import { HistoryViewComponent } from './history-view.component';
 
-describe('TopmatchesComponent', () => {
-  let component: TopmatchesComponent;
-  let fixture: ComponentFixture<TopmatchesComponent>;
+describe('HistoryViewComponent', () => {
+  let component: HistoryViewComponent;
+  let fixture: ComponentFixture<HistoryViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopmatchesComponent ]
+      declarations: [ HistoryViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TopmatchesComponent);
+    fixture = TestBed.createComponent(HistoryViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
