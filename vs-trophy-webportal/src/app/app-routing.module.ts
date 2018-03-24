@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { HistoryViewComponent } from './history/history-view/history-view.component';
+import { ResultsViewComponent } from './results/results-view/results-view.component';
+
 
 const routes: Routes = [
-  {path: 'history', component: HistoryViewComponent}
+  {path: 'results', component: ResultsViewComponent}
 ]
 
 @NgModule({

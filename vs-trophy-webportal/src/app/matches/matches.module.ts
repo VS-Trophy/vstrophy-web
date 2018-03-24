@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Match } from './match';
-import { MatchesService } from './shared/matches.service';
+import { MatchesService } from './matches.service';
 
 @NgModule({
   imports: [
