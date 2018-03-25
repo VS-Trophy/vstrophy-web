@@ -7,4 +7,7 @@ export class Match {
   season: number,
   week: number
     ){}
+
+    firstTeamName: string;
+    secondTeamName: string;
 }

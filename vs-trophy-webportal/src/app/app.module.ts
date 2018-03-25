@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MatchesModule } from './matches/matches.module';
 import { ResultsModule } from './results/results.module';
+import { TeamsModule } from './teams/teams.module';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({
@@ -16,7 +18,13 @@ import { ResultsModule } from './results/results.module';
   imports: [
     HttpClientModule,
     BrowserModule,
+
     AppRoutingModule,
+
+    CoreModule,
+
+    TeamsModule,
+    MatchesModule,
     ResultsModule
   ],
   providers: [],

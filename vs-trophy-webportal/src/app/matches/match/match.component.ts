@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Match } from '../match';
+import { TeamsService } from '../../teams/teams.service';
 
 @Component({
   selector: 'vst-match',
@@ -8,11 +9,15 @@ import { Match } from '../match';
 })
 export class MatchComponent implements OnInit {
 
-  @Input() match: Match
+  @Input()
+  match: Match
+
+
 
   constructor() { }
 
   ngOnInit() {
   }
+
 
 }
