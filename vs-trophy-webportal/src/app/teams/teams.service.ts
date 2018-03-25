@@ -10,14 +10,21 @@ export class TeamsService {
   private teamsPath = 'teams'
   private teamMap = new Map<String,VSTrophyTeam>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loadAllTeams()
+  }
 
   public getTeamById(nflId: string): VSTrophyTeam{
-    return this.teamMap.get(nflId);
+    var team =  this.teamMap.get(nflId);
+    if(team == null){
+      console.warn("Could not load team with nflId " +nflId )
+    }
+    return team
   }
   
   private loadAllTeams(): void{
-    this.http.get<VSTrophyTeam[]>(environment.apiRoot + this.teamsPath).subscribe(teams => teams.forEach(this.addTeamToTeamMap))
+    console.info("Loading all teams")
+    this.http.get<VSTrophyTeam[]>(environment.apiRoot + this.teamsPath).subscribe(teams => teams.forEach(team => this.addTeamToTeamMap(team)))
   }
 
   private addTeamToTeamMap(team: VSTrophyTeam): void{
