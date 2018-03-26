@@ -10,7 +10,8 @@ RETURN {"season" : season.number, "weeks" : weeks}`
 }
 
 module.exports.seasonNumbers = function(){
-    return aql`FOR season in Seasons 
+    return aql`FOR season in Seasons
+    SORT season.number DESC
     return season.number`
 }
 
