@@ -26,12 +26,12 @@ router.get('/', function (req, res) {
 .description('Returns all season with their weeks');
 
 
-router.get('/:season', function (req, res) {
+router.get('/:seasonNumber', function (req, res) {
   try {
-    const seasonParam = req.pathParams.season
-    const season =
+    const seasonParam = req.pathParams.seasonNumber
+    var seasons =
     db._query(queries.season(Number(seasonParam)))
-    res.send(season)
+    res.send(seasons)
   } catch (e) {
     if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
       throw e;
@@ -39,7 +39,7 @@ router.get('/:season', function (req, res) {
     res.throw(500, 'Could not get season', e);
   }
 })
-.pathParam('season', joi.number.required(), 'Season to get')
+.pathParam('seasonNumber', joi.number().required(), 'Season to get')
 .response(['application/json'], 'The season with its weeks')
 .summary('Season with weeks')
 .description('Returns the specified season with its weeks');
