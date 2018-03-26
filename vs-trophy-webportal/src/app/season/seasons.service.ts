@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { ExceptionService } from '../core/exception.service';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
+import { map, tap } from 'rxjs/operators';
+import { Season } from './season';
 
 @Injectable()
 export class SeasonsService {
@@ -15,6 +17,10 @@ export class SeasonsService {
 
 
   getWeekNumbers(season: number): Observable<number[]>{
-    return this.http.get<number[]>(environment.apiRoot + this.seasonsPath + "/" + season)
+    return this.http.get<Season[]>(environment.apiRoot + this.seasonsPath + "/" + season)
+    .pipe(
+      tap(seasons => console.log(season)),
+      map(seasons => seasons[0].weeks)
+    )
   }
 }
