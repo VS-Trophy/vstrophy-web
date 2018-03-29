@@ -15,11 +15,15 @@ export class ResultsViewComponent implements OnInit {
   constructor(private matchesService: MatchesService) { }
 
   ngOnInit() {
-    this.getMatches();
   }
 
-  getMatches(): void{
-    this.matchesService.getAllMatches().subscribe(matches => this.matches = matches)
+  getMatches(season: number): void{
+    this.matchesService.getMatchesForWeek(season,1).subscribe(matches => {this.matches = matches;console.log("Matches received!")})
+  }
+
+  onSeasonSelected(selectedSeason: number){
+    this.getMatches(selectedSeason)
+    this.matches = []
   }
 
 }

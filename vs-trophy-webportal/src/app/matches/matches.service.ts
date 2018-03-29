@@ -25,7 +25,8 @@ export class MatchesService {
   }
 
   getMatchesForWeek(season: number, week: number): Observable<Match[]>{
-    return this.http.get<Match[]>(environment.apiRoot + this.matchesPath)
+    var path: string = environment.apiRoot + this.matchesPath;
+    return this.http.get<Match[]>(environment.apiRoot + this.matchesPath + '?season=' + season + '&week=' + week)
   }
 
 

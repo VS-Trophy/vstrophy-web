@@ -2,8 +2,10 @@
     <div class="row">
         <h1>Resultate</h1>
     </div>
-    <vst-season-selector></vst-season-selector>
-    <div class="row"  *ngFor="let match of matches">
+
+    <vst-season-selector (onSelected)="onSeasonSelected($event)"></vst-season-selector>
+
+    <div class="row" *ngFor="let match of matches">
         <div class="col">
             <vst-match [match]="match"></vst-match>
         </div>

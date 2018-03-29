@@ -28,7 +28,7 @@ export class SeasonSelectorComponent implements OnInit {
 
   private loadSeasonNumbers(){
     console.log("loading season numbers")
-    this.seasonsService.getSeasonNumbers().subscribe(numbers => {this.seasonNumbers = numbers;this.selectedSeason = numbers[0]})
+    this.seasonsService.getSeasonNumbers().subscribe(numbers => {this.seasonNumbers = numbers;this.onSelect(numbers[0])})
   }
 
 }
