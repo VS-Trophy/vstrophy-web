@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Match } from '../../matches/match';
 import { MatchesService } from '../../matches/matches.service';
+import { WeekPointer } from '../../season/week-pointer';
 
 
 @Component({
@@ -17,12 +18,12 @@ export class ResultsViewComponent implements OnInit {
   ngOnInit() {
   }
 
-  getMatches(season: number): void{
-    this.matchesService.getMatchesForWeek(season,1).subscribe(matches => {this.matches = matches;console.log("Matches received!")})
+  getMatches(weekPointer: WeekPointer): void{
+    this.matchesService.getMatchesForWeek(weekPointer.season,weekPointer.week).subscribe(matches => this.matches = matches)
   }
 
-  onSeasonSelected(selectedSeason: number){
-    this.getMatches(selectedSeason)
+    onWeekSelected(weekPointer: WeekPointer){
+    this.getMatches(weekPointer)
     this.matches = []
   }
 
