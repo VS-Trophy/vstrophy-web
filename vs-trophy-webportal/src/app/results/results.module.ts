@@ -9,8 +9,7 @@ import { SeasonModule } from '../season/season.module';
   imports: [
     CommonModule,
     MatchesModule,
-    SeasonModule,
-    NgbModule
+    SeasonModule
   ],
   declarations: [ResultsViewComponent],
   exports: [

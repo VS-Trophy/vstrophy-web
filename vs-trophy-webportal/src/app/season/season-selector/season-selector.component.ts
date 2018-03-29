@@ -12,13 +12,21 @@ export class SeasonSelectorComponent implements OnInit {
 
   seasonNumbers: number[]
 
+  selectedSeason: number
+
   ngOnInit() {
+
     this.loadSeasonNumbers()
+  }
+
+  onSelect(season: number): void {
+    console.log("Updating season " + season)
+    this.selectedSeason = season;
   }
 
   private loadSeasonNumbers(){
     console.log("loading season numbers")
-    this.seasonsService.getSeasonNumbers().subscribe(numbers => {this.seasonNumbers = numbers; console.log(numbers);})
+    this.seasonsService.getSeasonNumbers().subscribe(numbers => {this.seasonNumbers = numbers;this.selectedSeason = numbers[0]})
   }
 
 }
