@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SeasonsService } from '../seasons.service';
 
 @Component({
@@ -10,17 +10,19 @@ export class SeasonSelectorComponent implements OnInit {
 
   constructor(private seasonsService: SeasonsService) { }
 
+  @Output()
+  onSelected = new EventEmitter<number>()
+
   seasonNumbers: number[]
 
   selectedSeason: number
 
   ngOnInit() {
-
     this.loadSeasonNumbers()
   }
 
   onSelect(season: number): void {
-    console.log("Updating season " + season)
+    this.onSelected.emit(season);
     this.selectedSeason = season;
   }
 
