@@ -15,30 +15,34 @@ export class MatchesService {
 
   constructor(private http: HttpClient, private exceptionService: ExceptionService, private teamsService: TeamsService) { }
 
-  getAllMatches(): Observable<Match[]>{
+  getAllMatches(): Observable<Match[]> {
     return this.http.get<Match[]>(environment.apiRoot + this.matchesPath)
-    .pipe(
-      catchError(this.exceptionService.handleHttpError("getAllMatches",[])),
+      .pipe(
+        catchError(this.exceptionService.handleHttpError("getAllMatches", [])),
+        //Resolve the team name by id
+        map(matches => this.setNames(matches))
+      )
+  }
+
+  getMatchesForWeek(season: number, week: number): Observable<Match[]> {
+    var path: string = environment.apiRoot + this.matchesPath;
+    return this.http.get<Match[]>(environment.apiRoot + this.matchesPath + '?season=' + season + '&week=' + week).pipe(
+      catchError(this.exceptionService.handleHttpError("getMatchesForWeek", [])),
       //Resolve the team name by id
       map(matches => this.setNames(matches))
     )
   }
 
-  getMatchesForWeek(season: number, week: number): Observable<Match[]>{
-    var path: string = environment.apiRoot + this.matchesPath;
-    return this.http.get<Match[]>(environment.apiRoot + this.matchesPath + '?season=' + season + '&week=' + week)
-  }
 
-
-  private setNames(matches: Match[]): Match[]{
+  private setNames(matches: Match[]): Match[] {
     matches.forEach(match => {
-    var firstTeam = this.teamsService.getTeamById(match.firstTeamId)
-    if(firstTeam != null){
-    match.firstTeamName = firstTeam.name
-    }
-    var secondTeam = this.teamsService.getTeamById(match.secondTeamId)
-    if(secondTeam != null){
-      match.secondTeamName = secondTeam.name
+      var firstTeam = this.teamsService.getTeamById(match.firstTeamId)
+      if (firstTeam != null) {
+        match.firstTeamName = firstTeam.name
+      }
+      var secondTeam = this.teamsService.getTeamById(match.secondTeamId)
+      if (secondTeam != null) {
+        match.secondTeamName = secondTeam.name
       }
     })
     return matches
