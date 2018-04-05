@@ -19,7 +19,6 @@ export class SeasonsService {
   getWeekNumbers(season: number): Observable<number[]>{
     return this.http.get<Season[]>(environment.apiRoot + this.seasonsPath + "/" + season)
     .pipe(
-      tap(seasons => console.log(season)),
       map(seasons => seasons[0].weeks)
     )
   }
