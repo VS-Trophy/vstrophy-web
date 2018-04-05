@@ -1,9 +1,11 @@
 export class Match {
     firstTeamName: string;
-    secondTeamName: string;
     firstTeamId: string;
+    firstTeamLogoPath: string;
     firstTeamPoints: number;
+    secondTeamName: string;
     secondTeamId: string;
+    secondTeamLogoPath: string;
     secondTeamPoints: number;
     season: number;
     week: number;

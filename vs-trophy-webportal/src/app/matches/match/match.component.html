@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body row">
-    <span class="col-md-4">{{match.firstTeamName}}</span>
+    <span class="col-md-4"><img [src]="match.firstTeamLogoPath"/> {{match.firstTeamName}}</span>
     <span class="col-md-4 text-center">{{match.firstTeamPoints}} VS {{match.secondTeamPoints}}</span>
-    <span class="col-md-4 text-right">{{match.secondTeamName}}</span>
+    <span class="col-md-4 text-right">{{match.secondTeamName}} <img [src]="match.secondTeamLogoPath"/></span>
   </div>
 </div>

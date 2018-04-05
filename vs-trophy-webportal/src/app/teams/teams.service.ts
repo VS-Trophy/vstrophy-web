@@ -7,6 +7,9 @@ import { VSTrophyTeam } from './vstrophyteam';
 
 @Injectable()
 export class TeamsService {
+
+  private logoBasePath = '/assets/images/teamlogos/'
+  private fileSuffix = '.png'
   private teamsPath = 'teams'
   private teamMap = new Map<String,VSTrophyTeam>();
 
@@ -19,6 +22,8 @@ export class TeamsService {
     if(team == null){
       console.warn("Could not load team with nflId " +nflId )
     }
+    
+    team.logoPath = this.logoBasePath + nflId + this.fileSuffix;
     return team
   }
   
