@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TeamsService } from './teams.service';
+import { TeamsOverviewComponent } from './teams-overview/teams-overview.component';
 
 @NgModule({
   imports: [
@@ -9,6 +10,6 @@ import { TeamsService } from './teams.service';
   providers: [
     TeamsService
   ],
-  declarations: []
+  declarations: [TeamsOverviewComponent]
 })
 export class TeamsModule { }
