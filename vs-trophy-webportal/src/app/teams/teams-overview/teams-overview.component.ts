@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TeamsService } from '../teams.service';
+import { VSTrophyTeam } from '../vstrophyteam';
 
 @Component({
   selector: 'vst-teams-overview',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TeamsOverviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private teamsService:TeamsService) { }
+
+  teams: VSTrophyTeam[]
 
   ngOnInit() {
+    this.loadAllTeams()
+  }
+
+  private loadAllTeams(){
+    this.teamsService.getAllTeams().subscribe(teams => this.teams = teams)
   }
 
 }

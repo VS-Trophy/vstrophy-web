@@ -36,16 +36,15 @@ export class MatchesService {
 
   private loadTeams(matches: Match[]): Match[] {
     matches.forEach(match => {
-      var firstTeam = this.teamsService.getTeamById(match.firstTeamId)
-      if (firstTeam != null) {
-        match.firstTeamName = firstTeam.name
-        match.firstTeamLogoPath = firstTeam.logoPath
-      }
-      var secondTeam = this.teamsService.getTeamById(match.secondTeamId)
-      if (secondTeam != null) {
-        match.secondTeamName = secondTeam.name
-        match.secondTeamLogoPath = secondTeam.logoPath
-      }
+      this.teamsService.getTeamById(match.firstTeamId).subscribe(team => {
+        match.firstTeamName = team.name;
+        match.firstTeamLogoPath = team.logoPath
+      })
+
+      this.teamsService.getTeamById(match.secondTeamId).subscribe(team => {
+        match.secondTeamName = team.name;
+        match.secondTeamLogoPath = team.logoPath
+      })
     })
     return matches
   }

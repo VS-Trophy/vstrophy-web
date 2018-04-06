@@ -1,3 +1,6 @@
-<p>
-  teams-overview works!
-</p>
+<div *ngFor="let team of teams" class="row">
+  <div class="col">
+    {{team.name}}
+    <img [src]="team.logoPath" />
+  </div>
+</div>
