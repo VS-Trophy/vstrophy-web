@@ -1,6 +1,9 @@
 <div *ngFor="let team of teams" class="row">
   <div class="col">
-    {{team.name}}
+      <a routerLink='/teams/{{team.nflId}}'>
+        {{team.name}}
+      </a>
     <img [src]="team.logoPath" />
+
   </div>
 </div>
