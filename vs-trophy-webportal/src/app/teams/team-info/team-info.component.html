@@ -1,3 +1,22 @@
-<p>
-  {{team.name}} {{team.foundedIn}} {{team.memberSince}} {{team.city}} {{team.colors}} {{team.stadium}}
-</p>
+<div class="row justify-content-md-center">
+  <div class="card column">
+    <div class="card-body">
+      <h1 class="card-title">
+        <img class="img-fluid" [src]=team.logoPath/> {{team.name}}
+      </h1>
+
+      <div class="card-text">
+        <p>
+          <strong>Gegründet: </strong>{{team.foundedIn}}
+
+          <strong>VS-Trophy Mitglied seit: </strong>{{team.memberSince}}</p>
+        <p>
+          <strong>Ort: </strong>{{team.city}}
+
+          <strong>Stadion: </strong>{{team.stadium}}</p>
+        <p>
+          <strong>Farben: </strong>{{team.colors}}</p>
+      </div>
+    </div>
+  </div>
+</div>
