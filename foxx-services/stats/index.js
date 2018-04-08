@@ -92,7 +92,7 @@ router.get('/team/:team/winloss', function (req, res) {
     const opponent = req.queryParams.opponent
     const record = 
     db._query(queries.winlossrecord(team, opponent,season))
-    res.send(record)
+    res.send(record._documents[0])
   } catch (e) {
     if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
       throw e;
