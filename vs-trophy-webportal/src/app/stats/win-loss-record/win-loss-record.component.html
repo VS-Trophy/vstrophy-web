@@ -1,1 +1,4 @@
-{{winlossRecord.wins}} - {{winlossRecord.losses}} ({{winlossRecord.ratio}})
+<div class="card" *ngIf="winlossRecord">
+<h5 class="card-title">{{title}}</h5>
+{{winlossRecord.wins}} - {{winlossRecord.losses}} ({{winlossRecord.ratio | number: '0.3' | slice: 1}})
+<div>

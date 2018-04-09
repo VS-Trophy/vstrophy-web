@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VSTrophyTeam } from '../vstrophyteam';
 import { TeamsService } from '../teams.service';
+import { StatsService } from '../../stats/stats.service';
 
 @Component({
   selector: 'vst-team-info',
@@ -10,14 +11,19 @@ import { TeamsService } from '../teams.service';
 })
 export class TeamInfoComponent implements OnInit,OnDestroy {
 
-  constructor(private route: ActivatedRoute, private teamsService: TeamsService) { }
+  constructor(private route: ActivatedRoute, private teamsService: TeamsService, private statsService: StatsService) { }
   team: VSTrophyTeam
   private sub: any
-
+  
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.teamsService.getTeamById(params['teamId']).subscribe(team => this.team = team)
-   });
+    this.sub = this.route.params.subscribe(params => 
+      this.setNflId(params['teamId'])
+   );
+  }
+
+  private setNflId(nflId: string){
+    this.teamsService.getTeamById(nflId).subscribe(team => {this.team = team})
+
   }
 
   ngOnDestroy(){

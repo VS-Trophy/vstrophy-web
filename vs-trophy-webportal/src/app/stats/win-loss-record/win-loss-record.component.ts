@@ -10,15 +10,14 @@ import { WinLossRecord } from '../win-loss-record';
 export class WinLossRecordComponent implements OnInit {
 
 @Input()
-nflId: String
-
 winlossRecord: WinLossRecord
 
-  constructor(private statsService:StatsService) { }
+@Input()
+title: string
+
+  constructor() { }
 
   ngOnInit() {
-    this.statsService.getTeamRecord(this.nflId)
-    .subscribe(record => this.winlossRecord = record);
   }
 
 }
