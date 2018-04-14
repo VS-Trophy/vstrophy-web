@@ -97,7 +97,7 @@ router.get('/team/:team/winloss', function (req, res) {
     if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
       throw e;
     }
-    res.throw(500, 'Could not get matches', e);
+    res.throw(500, 'Could not get record', e);
   }
 })
 .queryParam('season',joi.number().integer().positive().default(null), 'If set only results of this season are displayed')
@@ -107,3 +107,23 @@ router.get('/team/:team/winloss', function (req, res) {
 .summary('The win / loss record of a team.')
 .description('Returns the win / loss record of a team. May be narrowed down by season and / or opponent');
 
+
+router.get('/team/:team/winloss/map', function (req, res) {
+  try {
+    const season = req.queryParams.season
+    const team = req.pathParams.team
+    const record = 
+    db._query(queries.winlossoverview(team, season))
+    res.send(record._documents[0])
+  } catch (e) {
+    if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
+      throw e;
+    }
+    res.throw(500, 'Could not get matches', e);
+  }
+})
+.queryParam('season',joi.number().integer().positive().default(null), 'If set only results of this season are displayed')
+.pathParam('team',joi.string().required(), 'The record of this team will be calculated')
+.response(['application/json'], 'An Object containing informations regarding the win loss record of this team')
+.summary('The win / loss record of a team.')
+.description('Returns the win / loss record of a team. May be narrowed down by season');

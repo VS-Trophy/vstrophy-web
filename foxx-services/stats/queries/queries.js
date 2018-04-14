@@ -78,3 +78,29 @@ module.exports.winlossrecord = function(team, opponent, season){
         let matchCount = winloss.wins+winloss.losses
         RETURN {"wins" : winloss.wins?:0, "losses" : winloss.losses?:0, "ratio" : matchCount>0?(winloss.wins / (matchCount)):0}`
 }
+
+module.exports.winlossoverview = function(team, season){
+    return aql`LET team = 
+    FIRST (
+        FOR team IN VSTrophyTeams
+        FILTER team.nflId == ${team}
+        RETURN team
+    )
+    
+    LET seasonMatches = (
+    FOR season IN Seasons
+    FILTER ${season} == null || season.number == ${season}
+        FOR week IN 1..1 ANY season WeeksInSeason
+            FOR match IN 1..1 ANY week MatchesInWeek
+            RETURN match._id
+    )
+    
+    LET recordMap = MERGE(
+    FOR node,edge,path IN 2..2 ANY team TeamPlayedIn
+    FILTER ${season} == null || path.vertices[1]._id IN seasonMatches
+    COLLECT opponent = node.nflId
+    AGGREGATE wins = SUM(path.edges[0].points > path.edges[1].points ? 1 : 0), losses= SUM(path.edges[0].points > path.edges[1].points ? 0 : 1)
+    let matchCount = wins+losses
+    RETURN {[opponent] : {"wins" : wins, "losses": losses,"ratio" : matchCount>0?(wins / (matchCount)):0}})
+    RETURN recordMap`
+}
