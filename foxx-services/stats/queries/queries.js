@@ -95,12 +95,11 @@ module.exports.winlossoverview = function(team, season){
             RETURN match._id
     )
     
-    LET recordMap = MERGE(
+    
     FOR node,edge,path IN 2..2 ANY team TeamPlayedIn
     FILTER ${season} == null || path.vertices[1]._id IN seasonMatches
     COLLECT opponent = node.nflId
     AGGREGATE wins = SUM(path.edges[0].points > path.edges[1].points ? 1 : 0), losses= SUM(path.edges[0].points > path.edges[1].points ? 0 : 1)
     let matchCount = wins+losses
-    RETURN {[opponent] : {"wins" : wins, "losses": losses,"ratio" : matchCount>0?(wins / (matchCount)):0}})
-    RETURN recordMap`
+    RETURN {"opponent" : opponent, "record" : {"wins" : wins, "losses": losses,"ratio" : matchCount>0?(wins / (matchCount)):0}}`
 }

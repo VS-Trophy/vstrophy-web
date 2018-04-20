@@ -108,13 +108,13 @@ router.get('/team/:team/winloss', function (req, res) {
 .description('Returns the win / loss record of a team. May be narrowed down by season and / or opponent');
 
 
-router.get('/team/:team/winloss/map', function (req, res) {
+router.get('/team/:team/winloss/opponents', function (req, res) {
   try {
     const season = req.queryParams.season
     const team = req.pathParams.team
     const record = 
     db._query(queries.winlossoverview(team, season))
-    res.send(record._documents[0])
+    res.send(record)
   } catch (e) {
     if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
       throw e;
