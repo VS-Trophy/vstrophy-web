@@ -1,1 +1,12 @@
-<vst-win-loss-record [title]="'Total'" [winlossRecord]='overallRecord'></vst-win-loss-record>
+<div class="row">
+  <div class="col">
+    <vst-win-loss-record [title]="'Total'" [winlossRecord]='overallRecord'></vst-win-loss-record>
+  </div>
+</div>
+<div *ngIf="recordsPerOpponent">
+  <div class="row" *ngFor="let entry of recordsPerOpponent">
+    <div class="col">
+      <vst-win-loss-record [title]="'VS ' + entry.opponent" [winlossRecord]='entry.record'></vst-win-loss-record>
+    </div>
+  </div>
+</div>

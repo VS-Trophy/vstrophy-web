@@ -14,7 +14,6 @@ winlossRecord: WinLossRecord
 
 @Input()
 title: string
-
   constructor() { }
 
   ngOnInit() {
