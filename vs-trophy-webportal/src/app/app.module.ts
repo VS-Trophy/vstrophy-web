@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http'
 
@@ -9,6 +10,8 @@ import { ResultsModule } from './results/results.module';
 import { TeamsModule } from './teams/teams.module';
 import { CoreModule } from './core/core.module';
 
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +21,9 @@ import { CoreModule } from './core/core.module';
     //From angular
     HttpClientModule,
     BrowserModule,
+    //Material
+    BrowserAnimationsModule,
+    MatSelectModule,
     //Routing
     AppRoutingModule,
     //Core
@@ -25,7 +31,8 @@ import { CoreModule } from './core/core.module';
     //Features
     TeamsModule,
     MatchesModule,
-    ResultsModule,
+    ResultsModule
+    
     //Third party
 
   ],

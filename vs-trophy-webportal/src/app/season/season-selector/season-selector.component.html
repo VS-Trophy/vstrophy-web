@@ -1,9 +1,7 @@
 <div class="row">
   <div class="col">
-    <div ngbDropdown class="d-inline-block" *ngIf ="selectedSeason">
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{selectedSeason}}</button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button class="dropdown-item" *ngFor="let seasonNumber of seasonNumbers" (click)="onSelect(seasonNumber)">{{seasonNumber}}</button>
-      </div>
+    <mat-select placeholder="Season" *ngIf ="selectedSeason">
+      <mat-option *ngFor="let seasonNumber of seasonNumbers">{{seasonNumber}}</mat-option>
+    </mat-select>
     </div>
   </div>
