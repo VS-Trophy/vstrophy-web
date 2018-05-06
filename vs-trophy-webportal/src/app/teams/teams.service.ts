@@ -1,7 +1,7 @@
+import {of as observableOf,  Observable} from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs';
-import 'rxjs/add/observable/of';
+
 import { environment } from '../../environments/environment';
 import { VSTrophyTeam } from './vstrophyteam';
 import { catchError, map, share, filter, single, expand, mergeAll, mergeMap, merge } from 'rxjs/operators';
@@ -26,7 +26,7 @@ export class TeamsService {
       if (team == null) {
         console.warn("Could not load team with nflId " + nflId)
       }
-      return Observable.of(team)
+      return observableOf(team)
     } else if (this._observable) {
        return this._observable.pipe(
        map(teams => teams.filter(team => team.nflId == nflId)[0])
@@ -51,7 +51,7 @@ export class TeamsService {
 
   public getAllTeams(): Observable<VSTrophyTeam[]> {
     if (this._teamMap) {
-      return Observable.of(this.getCachedTeams());
+      return observableOf(this.getCachedTeams());
     } else if (this._observable) {
       return this._observable;
     } else {
