@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WinLossRecord } from './win-loss-record';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ExceptionService } from '../core/exception.service';
 import { catchError, tap, map } from 'rxjs/operators';
