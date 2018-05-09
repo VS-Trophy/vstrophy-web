@@ -2,7 +2,7 @@
     <h1 class="mat-display-2">Resultate</h1>
     <vst-week-selector (onSelected)="onWeekSelected($event)"></vst-week-selector>
     <div fxLayout="row">
-        <div fxLayout="column" fxLayoutGap="10px" >
+        <div fxLayout="column" fxLayoutGap="10px" fxFlex="600">
             <vst-match [match]="match" *ngFor="let match of matches"></vst-match>
         </div>
     </div>

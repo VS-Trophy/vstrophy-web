@@ -1,7 +1,7 @@
 <mat-card>
   <div fxLayout="row" fxLayoutAlign="center center" >
-    <a routerLink="/teams/{{match.firstTeamId}}" fxLayout="column" fxLayoutAlign="center center"><img [src]="match.firstTeamLogoPath"/> {{match.firstTeamName}}</a>
-    <div fxFlex="20%" fxLayoutAlign="center"><span >{{match.firstTeamPoints}} VS {{match.secondTeamPoints}}</span></div>
-    <a routerLink="/teams/{{match.secondTeamId}}" fxLayout="column" fxLayoutAlign="center center"><img [src]="match.secondTeamLogoPath"/> {{match.secondTeamName}} </a>
+    <a routerLink="/teams/{{match.firstTeamId}}" fxFlex fxLayout="column" fxLayoutAlign="center center"><img [src]="match.firstTeamLogoPath"/> {{match.firstTeamName}}</a>
+    <div fxFlex fxLayoutAlign="center"><span >{{match.firstTeamPoints}} VS {{match.secondTeamPoints}}</span></div>
+    <a routerLink="/teams/{{match.secondTeamId}}" fxFlex fxLayout="column" fxLayoutAlign="center center"><img [src]="match.secondTeamLogoPath"/> {{match.secondTeamName}} </a>
   </div>
 </mat-card>
