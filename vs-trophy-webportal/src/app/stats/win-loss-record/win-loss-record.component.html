@@ -1,4 +1,4 @@
-<div class="card" *ngIf="winlossRecord">
-<h5 class="card-title">{{title}}</h5>
-{{winlossRecord.wins}} - {{winlossRecord.losses}} ({{winlossRecord.ratio | number: '0.3' | slice: 1}})
-<div>
+<mat-card *ngIf="winlossRecord">
+    <mat-card-title>{{title}}</mat-card-title>
+    <mat-card-content><span>{{winlossRecord.wins}} - {{winlossRecord.losses}} ({{winlossRecord.ratio | number: '0.3' | slice: 1}})</span></mat-card-content>
+</mat-card>

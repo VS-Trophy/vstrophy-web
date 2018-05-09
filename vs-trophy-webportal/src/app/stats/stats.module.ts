@@ -4,11 +4,16 @@ import { WinLossRecordComponent } from './win-loss-record/win-loss-record.compon
 import { StatsService } from './stats.service';
 import { TeamStatsComponent } from './team-stats/team-stats.component';
 import { SeasonModule } from '../season/season.module';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   imports: [
     CommonModule,
-    SeasonModule
+    SeasonModule,
+    MatCardModule,
+    FlexLayoutModule
   ],
   providers : [StatsService],
   exports : [TeamStatsComponent,WinLossRecordComponent],
