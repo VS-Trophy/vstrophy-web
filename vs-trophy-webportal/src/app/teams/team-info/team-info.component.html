@@ -1,23 +1,15 @@
-<div class="row justify-content-md-center" *ngIf="team">
-  <div class="card column">
-    <div class="card-body">
-      <h1 class="card-title">
-        <img class="img-fluid" [src]=team.logoPath/> {{team.name}}
-      </h1>
+<div *ngIf="team" fxLayout="column" fxLayoutGap="10px">
+  <mat-card class="infoCard">
+      <img [src]=team.logoPath/> {{team.name}}
+      <p>
+        <strong>Gegründet: </strong>{{team.foundedIn}}
+        <strong>VS-Trophy Mitglied seit: </strong>{{team.memberSince}}</p>
+      <p>
+        <strong>Ort: </strong>{{team.city}}
+        <strong>Stadion: </strong>{{team.stadium}}</p>
+      <p>
+        <strong>Farben: </strong>{{team.colors}}</p>
 
-      <div class="card-text">
-        <p>
-          <strong>Gegründet: </strong>{{team.foundedIn}}
-
-          <strong>VS-Trophy Mitglied seit: </strong>{{team.memberSince}}</p>
-        <p>
-          <strong>Ort: </strong>{{team.city}}
-
-          <strong>Stadion: </strong>{{team.stadium}}</p>
-        <p>
-          <strong>Farben: </strong>{{team.colors}}</p>
-          <vst-team-stats [nflId]=team.nflId></vst-team-stats>
-      </div>
-    </div>
-  </div>
+  </mat-card>
+  <vst-team-stats [nflId]=team.nflId class="stats"></vst-team-stats>
 </div>
