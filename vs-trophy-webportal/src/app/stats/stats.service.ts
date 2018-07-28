@@ -29,6 +29,7 @@ export class StatsService {
   public getTeamRecordAgainstOpponent(nflId:string, opponent:string): Observable<WinLossRecord>{
     return this.http.get<WinLossRecord>(environment.apiRoot + `stats/team/${nflId}/winloss?opponent=${opponent}`)
     .pipe(
+      
       catchError(this.exceptionService.handleHttpError("getTeamRecordSeason", new WinLossRecord()))
     )
   }
