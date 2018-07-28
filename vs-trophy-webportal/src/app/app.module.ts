@@ -12,6 +12,7 @@ import { TeamsModule } from './teams/teams.module';
 import { CoreModule } from './core/core.module';
 
 import {MatSelectModule} from '@angular/material/select';
+import { NewsModule } from './news/news.module';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MatSelectModule} from '@angular/material/select';
     //Features
     TeamsModule,
     MatchesModule,
-    ResultsModule
+    ResultsModule,
+    NewsModule
     
     //Third party
 
