@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StatsService } from '../stats.service';
 import { WinLossRecord } from '../win-loss-record';
 
 @Component({
