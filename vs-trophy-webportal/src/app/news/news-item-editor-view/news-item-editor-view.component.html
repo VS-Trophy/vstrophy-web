@@ -1,3 +1,4 @@
-<vst-news-item-list [newsItems]="items" (selectEvent)="onSelect($event)"></vst-news-item-list>
-<vst-news-item-editor [newsItem] = "selectedItem" (saveEvent) = "onSave($event)"></vst-news-item-editor>
-{{selectedItem?.title}}
+<div fxLayout="row">
+    <vst-news-item-list [newsItems]="items" (selectEvent)="onSelect($event)"></vst-news-item-list>
+    <vst-news-item-editor [newsItem]="selectedItem" (saveEvent)="onSave($event)" fxFlexFill></vst-news-item-editor>
+</div>
