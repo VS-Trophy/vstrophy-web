@@ -1,9 +1,9 @@
-<form *ngIf="newsItem" (ngSubmit)="onSave()">
+<form *ngIf="newsItem" (ngSubmit)="onSave()" fxLayout="column" >
   <mat-form-field>
-    <input matInput placeholder="Author">
+    <input matInput [(ngModel)]="newsItem.author" placeholder="Autor" name="author" >
   </mat-form-field>
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+    <input matInput [matDatepicker]="picker" [(ngModel)]="newsItem.publicationDate" name="date" placeholder="Datum auswählen">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
@@ -11,8 +11,8 @@
     <input matInput [(ngModel)]="newsItem.title" name="title" placeholder="Title">
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Content"></textarea>
+    <textarea matInput placeholder="Content" [(ngModel)]="newsItem.content" name="content"></textarea>
   </mat-form-field>
-  <button mat-button type="submit">Speichern</button>
+    <button mat-button type="submit">Speichern</button>
 </form>
 <div *ngIf="!newsItem"> None selected</div>
