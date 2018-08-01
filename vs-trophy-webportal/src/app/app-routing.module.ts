@@ -4,11 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { ResultsViewComponent } from './results/results-view/results-view.component';
 import { TeamsOverviewComponent } from './teams/teams-overview/teams-overview.component';
 import { TeamInfoComponent } from './teams/team-info/team-info.component';
-import { NewsItemEditorComponent } from './news/news-item-editor/news-item-editor.component';
+import { NewsItemEditorViewComponent } from './news/news-item-editor-view/news-item-editor-view.component';
 
 
 const routes: Routes = [
-  {path: 'news', component: NewsItemEditorComponent},
+  {path: 'news', component: NewsItemEditorViewComponent},
   {path: 'results', component: ResultsViewComponent},
   {path: 'teams', component: TeamsOverviewComponent},
   {path: 'teams/:teamId', component: TeamInfoComponent}

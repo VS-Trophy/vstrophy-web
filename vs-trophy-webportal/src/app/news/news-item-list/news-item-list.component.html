@@ -1,0 +1,3 @@
+<mat-selection-list #selectionList role="list" (selectionChange)="onSelection($event)">
+  <mat-list-option *ngFor="let newsItem of newsItems" role="listitem" [value]="newsItem">{{newsItem.title}}</mat-list-option>
+</mat-selection-list>

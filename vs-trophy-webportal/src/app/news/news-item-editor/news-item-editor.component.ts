@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NewsItemService } from '../news-item.service';
+import { NewsItem } from '../news-item';
+
 
 @Component({
   selector: 'vst-news-item-editor',
@@ -10,7 +12,17 @@ export class NewsItemEditorComponent implements OnInit {
 
   constructor(private newsItemService: NewsItemService) { }
 
-  ngOnInit() {
-  }
+  @Input()
+  newsItem: NewsItem;
 
+  @Output()
+  saveEvent: EventEmitter<NewsItem> = new EventEmitter();
+
+  ngOnInit() {
+  
+  }
+  
+  onSave(){
+    this.saveEvent.emit(this.newsItem);
+  }
 }

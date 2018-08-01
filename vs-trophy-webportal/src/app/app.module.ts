@@ -16,6 +16,7 @@ import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-mome
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import { NewsModule } from './news/news.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
