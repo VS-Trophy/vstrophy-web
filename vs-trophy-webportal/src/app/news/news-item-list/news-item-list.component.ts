@@ -23,7 +23,6 @@ export class NewsItemListComponent implements OnInit {
   selectEvent: EventEmitter<NewsItem> = new EventEmitter();
 
   onSelection(selectionChange: MatSelectionListChange){
-    console.info(selectionChange.option.value)
     this.selectEvent.emit(selectionChange.option.value)
   }
 
