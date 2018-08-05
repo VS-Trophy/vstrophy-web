@@ -11,22 +11,22 @@ export class WeekSelectorComponent implements OnInit {
 
   constructor(private seasonsService: SeasonsService) { }
 
-  weeks: number[]
+  weekNumbers: number[]
   selectedWeek: number
   selectedSeason: number
-  @Output() onSelected= new EventEmitter<WeekPointer>();
+  @Output() selectedWeekChange= new EventEmitter<WeekPointer>();
 
   ngOnInit() {
   }
 
   onSeasonSelected(season: number){
     this.selectedSeason = season
-    this.seasonsService.getWeekNumbers(season).subscribe(weeks => {this.weeks = weeks; this.setWeek(weeks[0])})
+    this.seasonsService.getWeekNumbers(season).subscribe(weeks => {this.weekNumbers = weeks; this.setWeek(weeks[0])})
   }
 
   setWeek(week:number){
     this.selectedWeek = week
-    this.onSelected.emit(new WeekPointer(this.selectedSeason,this.selectedWeek))
+    this.selectedWeekChange.emit(new WeekPointer(this.selectedSeason,this.selectedWeek))
   }
 
 

@@ -11,18 +11,20 @@ import { WeekPointer } from '../../season/week-pointer';
 })
 export class ResultsViewComponent implements OnInit {
 
-  matches : Match[]
+  matches: Match[]
 
   constructor(private matchesService: MatchesService) { }
 
   ngOnInit() {
   }
 
-  getMatches(weekPointer: WeekPointer): void{
-    this.matchesService.getMatchesForWeek(weekPointer.season,weekPointer.week).subscribe(matches => this.matches = matches)
+  getMatches(weekPointer: WeekPointer): void {
+    if (weekPointer.season != null && weekPointer.week != null) {
+      this.matchesService.getMatchesForWeek(weekPointer.season, weekPointer.week).subscribe(matches => this.matches = matches)
+    }
   }
 
-    onWeekSelected(weekPointer: WeekPointer){
+  onWeekSelected(weekPointer: WeekPointer) {
     this.getMatches(weekPointer)
     this.matches = []
   }

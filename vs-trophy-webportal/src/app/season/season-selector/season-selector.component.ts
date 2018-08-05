@@ -11,7 +11,7 @@ export class SeasonSelectorComponent implements OnInit {
   constructor(private seasonsService: SeasonsService) { }
 
   @Output()
-  onSelected = new EventEmitter<number>()
+  selectedEvent = new EventEmitter<number>()
 
   seasonNumbers: number[]
 
@@ -22,7 +22,7 @@ export class SeasonSelectorComponent implements OnInit {
   }
 
   onSelect(season: number): void {
-    this.onSelected.emit(season);
+    this.selectedEvent.emit(season);
     this.selectedSeason = season;
   }
 
