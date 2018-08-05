@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Match } from '../match';
-import { TeamsService } from '../../teams/teams.service';
+
+const WINNER: string = "winner";
+const LOSER: string = "loser";
 
 @Component({
   selector: 'vst-match',
@@ -18,6 +20,22 @@ export class MatchComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  getFirstTeamClass():string{
+    if(this.match.firstTeamPoints >= this.match.secondTeamPoints){
+      return WINNER;
+    } else {
+      return LOSER;
+    }
+  }
+  getSecondTeamClass():string{
+    if(this.match.secondTeamPoints >= this.match.firstTeamPoints){
+      return WINNER;
+    } else {
+      return LOSER;
+    }
+  }
+  
 
 
 }

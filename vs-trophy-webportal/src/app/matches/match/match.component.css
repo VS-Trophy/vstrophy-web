@@ -1,0 +1,13 @@
+.winner{
+    font-weight: bold
+}
+
+.loser{
+    font-weight: normal
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
