@@ -8,6 +8,8 @@ import { NewsItemEditorViewComponent } from './news-item-editor-view/news-item-e
 import { FormsModule } from '@angular/forms';
 import { NewsItemListComponent } from './news-item-list/news-item-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NewsFeedViewComponent } from './news-feed-view/news-feed-view.component';
+import { NewsCardComponent } from './news-card/news-card.component';
 
 
 @NgModule({
@@ -24,6 +26,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     //Flex Layout
     FlexLayoutModule
   ],
-  declarations: [NewsItemEditorComponent, NewsItemEditorViewComponent, NewsItemListComponent]
+  declarations: [NewsItemEditorComponent, NewsItemEditorViewComponent, NewsItemListComponent, NewsFeedViewComponent, NewsCardComponent]
 })
 export class NewsModule { }

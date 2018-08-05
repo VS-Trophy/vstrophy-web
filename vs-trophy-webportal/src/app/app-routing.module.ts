@@ -5,10 +5,11 @@ import { ResultsViewComponent } from './results/results-view/results-view.compon
 import { TeamsOverviewComponent } from './teams/teams-overview/teams-overview.component';
 import { TeamInfoComponent } from './teams/team-info/team-info.component';
 import { NewsItemEditorViewComponent } from './news/news-item-editor-view/news-item-editor-view.component';
+import { NewsFeedViewComponent } from './news/news-feed-view/news-feed-view.component';
 
 
 const routes: Routes = [
-  {path: 'news', component: NewsItemEditorViewComponent},
+  {path: 'news', component: NewsFeedViewComponent},
   {path: 'results', component: ResultsViewComponent},
   {path: 'teams', component: TeamsOverviewComponent},
   {path: 'teams/:teamId', component: TeamInfoComponent}
