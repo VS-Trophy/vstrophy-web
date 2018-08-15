@@ -13,6 +13,7 @@ import ch.vstrophy.golem.entities.CookieResponse;
 import ch.vstrophy.golem.exception.GolemException;
 import ch.vstrophy.golem.parsers.HistoryViewParser;
 import ch.vstrophy.golem.persistence.PersistenceHandler;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,9 +24,11 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+import javax.json.Json;
 
 import org.jsoup.Connection;
 import org.jsoup.Connection.Method;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.LoggerFactory;
@@ -39,14 +42,22 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class VSTrophyGolem {
 
+  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
   private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(VSTrophyGolem.class);
   private static final String SEASON_PLACEHOLDER = "{SEASONBR}";
   private static final String WEEK_PLACEHOLDER = "{WEEKNBR}";
   private static final String HISTORY_ADDRESS = "http://fantasy.nfl.com/league/1268875/history/" + SEASON_PLACEHOLDER + "/schedule?scheduleDetail=" + WEEK_PLACEHOLDER + "&scheduleType=week&standingsTab=schedule&gameSeason=" + SEASON_PLACEHOLDER + "&leagueId=1268875";
-  private static final String NFL_LOGIN_ADDRESS = "https://api.nfl.com/v1/reroute";
+  private static final String GIGYA_LOGIN_ADDRESS = "https://accounts.us1.gigya.com/accounts.login";
+  private static final String NFL_REROUTE_ADDRESS = "https://api.nfl.com/v1/reroute";
   private static final String NFL_COOKIE_ADDRESS = "https://api.nfl.com/v1/cookie";
   private static final String USERNAME = "vstrophy";
+  private static final String GIGYA_GRAND_TYPE = "gigya_signature";
+  private static final String GIGYA_UID = "UID";
+  private static final String GIGYA_UID_SIGNATURE = "UIDSignature";
+  private static final String GIGYA_SIGNATURE_TIMESTAMP = "signatureTimestamp";
   private static final String PASSWORD = "g04l3m080815";
+  private static final String NFL_API_KEY = "3_JuHa5qkVIfY_KsNk1TuudSQT5Nif4axD-QXug1OgBmAgVieKA56umYvWPnoursaC";
   private static final Pattern TOKEN_PATTERN = Pattern.compile("\"access_token\":\"([^\"]*)\"");
 
   @Inject
@@ -97,34 +108,52 @@ public class VSTrophyGolem {
 
   private Map<String, String> login() throws IOException {
     LOGGER.info("LOGGING IN");
-    try{
-    Connection.Response loginResponse = Jsoup.connect(NFL_LOGIN_ADDRESS)
-        .header("x-domain-id", "100")
-        .header("content-type", "application/x-www-form-urlencoded")
-        .data("username", USERNAME)
-        .data("password", PASSWORD)
-        .data("grant_type", "password")
-        .ignoreContentType(true)
-        .method(Method.POST)
-        .execute();
+    try {
+      //First we need to login to gigya (whatever that is)
+      Connection.Response gigyaResponse = Jsoup.connect(GIGYA_LOGIN_ADDRESS)
+          .header("x-domain-id", "100")
+          .header("content-type", "application/x-www-form-urlencoded")
+          .data("loginID", USERNAME)
+          .data("password", PASSWORD)
+          .data("ApiKey", NFL_API_KEY)
+          .ignoreContentType(true)
+          .method(Method.POST)
+          .execute();
 
-    Connection.Response cookieResp = Jsoup.connect(NFL_COOKIE_ADDRESS)
-        .header("Authorization", "Bearer " + getToken(loginResponse.body()))
-        .method(Method.GET)
-        .ignoreContentType(true)
-        .execute();
-    ObjectMapper mapper = new ObjectMapper();
+      Map<String, Object> gigyaResponseMap
+          = OBJECT_MAPPER.readValue(gigyaResponse.body(), new TypeReference<Map<String, Object>>() {
+          });
 
-    CookieResponse cookieResponse
-        = mapper.readValue(cookieResp.body(), CookieResponse.class);
-    Map<String, String> cookies = new HashMap<>();
-    for (Cookie cookie : cookieResponse.getCookies()) {
-      cookies.put(cookie.getName(), cookie.getValue());
-    }
-    LOGGER.info("LOGGED IN GOT " + cookies.size() + " COOKIES");
-    return cookies;
-    }catch(Exception ex){
-      LOGGER.error("ERROR LOGGING IN",ex);
+      Connection.Response loginResponse = Jsoup.connect(NFL_REROUTE_ADDRESS)
+          .header("x-domain-id", "100")
+          .header("content-type", "application/x-www-form-urlencoded")
+          .data("grant_type", GIGYA_GRAND_TYPE)
+          .data("username", USERNAME)
+          .data("gigya_UID", String.valueOf(gigyaResponseMap.get(GIGYA_UID)))
+          .data("gigya_signature", String.valueOf(gigyaResponseMap.get(GIGYA_UID_SIGNATURE)))
+          .data("gigya_signature_timestamp", String.valueOf(gigyaResponseMap.get(GIGYA_SIGNATURE_TIMESTAMP)))
+          .ignoreContentType(true)
+          .method(Method.POST)
+          .execute();
+
+      Connection.Response cookieResp = Jsoup.connect(NFL_COOKIE_ADDRESS)
+          .header("Authorization", "Bearer " + getToken(loginResponse.body()))
+          .method(Method.GET)
+          .ignoreContentType(true)
+          .execute();
+      ObjectMapper mapper = new ObjectMapper();
+
+      CookieResponse cookieResponse
+          = mapper.readValue(cookieResp.body(), CookieResponse.class);
+      Map<String, String> cookies = new HashMap<>();
+      for (Cookie cookie : cookieResponse.getCookies()) {
+        cookies.put(cookie.getName(), cookie.getValue());
+      }
+      LOGGER.info("LOGGED IN GOT " + cookies.size() + " COOKIES");
+      return cookies;
+
+    } catch (Exception ex) {
+      LOGGER.error("ERROR LOGGING IN", ex);
       throw ex;
     }
   }
@@ -151,14 +180,14 @@ public class VSTrophyGolem {
           LOGGER.info("Getting match #" + idx);
           String firstTeamId = historyViewParser.getFirstTeamID(idx);
           String secondTeamId = historyViewParser.getSecondTeamID(idx);
-          
+
           Match match = new Match();
           match.setFirstTeamId(firstTeamId);
           match.setSecondTeamId(secondTeamId);
-              
+
           match.setFirstTeamPoints(historyViewParser.getFirstTeamPoints(idx));
           match.setSecondTeamPoints(historyViewParser.getSecondTeamPoints(idx));
-          
+
           persistenceHandler.updateOrCreateMatch(season, weekNumber, match);
 
           LOGGER.info("Match filled out {}-{}", match.getFirstTeamPoints(), match.getSecondTeamPoints());

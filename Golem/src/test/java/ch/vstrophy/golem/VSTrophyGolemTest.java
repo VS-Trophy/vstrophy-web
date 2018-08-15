@@ -30,8 +30,9 @@ import org.mockito.runners.MockitoJUnitRunner;
  *
  * @author kobashi@vstrophy.ch
  */
-@Ignore
+
 @RunWith(MockitoJUnitRunner.class)
+@Ignore
 public class VSTrophyGolemTest {
     
     @Spy
@@ -68,6 +69,7 @@ public class VSTrophyGolemTest {
     }
     
     @Test
+    @Ignore
     public void bla() throws JsonProcessingException, IOException{
       Cookie cookie = new Cookie();
       cookie.setName("asdf");
