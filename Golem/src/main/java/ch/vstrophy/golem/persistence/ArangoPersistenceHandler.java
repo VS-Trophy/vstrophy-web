@@ -50,7 +50,11 @@ public class ArangoPersistenceHandler implements PersistenceHandler {
 
   @PostConstruct
   protected void init() {
-    ArangoDB arangoDB = new ArangoDB.Builder().build();
+    ArangoDB arangoDB = new 
+    ArangoDB.Builder()
+        .user("vstrophy")
+        .password("@nd33luck12")
+        .build();
     database = arangoDB.db(VSTROPHY_DATABASE);
   }
 
