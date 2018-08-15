@@ -5,6 +5,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { TruncateHtmlPipe } from './truncate-html.pipe';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
   providers: [
     ExceptionService
   ],
-  declarations: [NavigationComponent],
-  exports: [NavigationComponent]
+  declarations: [NavigationComponent, TruncateHtmlPipe],
+  exports: [NavigationComponent,TruncateHtmlPipe]
 })
 export class CoreModule { }

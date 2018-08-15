@@ -4,9 +4,8 @@
     <mat-card-subtitle>{{newsItem.author}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>
-      {{newsItem.content}}
-    </p>
+    <div [innerHTML]="newsItem.content | truncateHtml : 1000">
+    </div>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>Alles lesen</button>

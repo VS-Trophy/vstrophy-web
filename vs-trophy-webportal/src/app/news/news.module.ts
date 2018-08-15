@@ -10,6 +10,7 @@ import { NewsItemListComponent } from './news-item-list/news-item-list.component
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NewsFeedViewComponent } from './news-feed-view/news-feed-view.component';
 import { NewsCardComponent } from './news-card/news-card.component';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
@@ -24,7 +25,9 @@ import { NewsCardComponent } from './news-card/news-card.component';
     MatDividerModule,
     MatCardModule,
     //Flex Layout
-    FlexLayoutModule
+    FlexLayoutModule,
+    //Our Core Module
+    CoreModule
   ],
   declarations: [NewsItemEditorComponent, NewsItemEditorViewComponent, NewsItemListComponent, NewsFeedViewComponent, NewsCardComponent]
 })
