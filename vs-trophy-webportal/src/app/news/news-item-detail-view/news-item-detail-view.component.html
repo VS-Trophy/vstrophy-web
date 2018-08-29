@@ -1,2 +1,10 @@
-<h1>{{id}}</h1>
-
+<mat-card *ngIf="newsItem">
+    <mat-card-header>
+      <mat-card-title><h1>{{newsItem.title}}</h1></mat-card-title>
+      <mat-card-subtitle>{{newsItem.author}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="newsItem.content">
+      </div>
+    </mat-card-content>
+  </mat-card>

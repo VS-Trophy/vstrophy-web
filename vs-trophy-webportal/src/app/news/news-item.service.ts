@@ -3,7 +3,7 @@ import { NewsItem } from './news-item';
 import { Observable,from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { ExceptionService } from '../core/exception.service';
 
 @Injectable({
@@ -17,6 +17,13 @@ export class NewsItemService {
     return this.http.get<NewsItem[]>(environment.apiRoot + `newsItems/`)
       .pipe(
         catchError(this.exceptionService.handleHttpError("getNewsItems", []))
+      );
+  }
+
+  getNewsItem(newsItemId: string): Observable<NewsItem> {
+    return this.http.get<NewsItem[]>(environment.apiRoot + `newsItems/` + newsItemId)
+      .pipe(
+        map(newsItems => newsItems[0])
       );
   }
 
