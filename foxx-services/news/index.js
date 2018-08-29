@@ -15,7 +15,7 @@ router.get('/', function (req, res) {
     const offset = req.queryParams.offset
     const count = req.queryParams.count
     const newsItems = 
-    db._query(queries.news(offset,count))
+    db._query(queries.newsItems(offset,count))
     res.send(newsItems)
   } catch (e) {
     if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
@@ -29,3 +29,21 @@ router.get('/', function (req, res) {
 .response(['application/json'], 'A list of news items')
 .summary('News Items')
 .description('Returns news items');
+
+router.get('/:newsItemId', function (req, res) {
+  try {
+    const newsItemId = req.pathParams.newsItemId;
+    const newsItem = 
+    db._query(queries.newsItem(newsItemId))
+    res.send(newsItem)
+  } catch (e) {
+    if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
+      throw e;
+    }
+    res.throw(404, 'Could not get news item ' + newsItemId, e);
+  }
+})
+.pathParam('newsItemId',joi.string().required(), 'The id of the news Item to get')
+.response(['application/json'], 'The requested news item')
+.summary('News Items')
+.description('Returns news a news item by id');
