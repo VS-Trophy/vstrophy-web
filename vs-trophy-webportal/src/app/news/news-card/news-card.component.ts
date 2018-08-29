@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NewsItem } from '../news-item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vst-news-card',
@@ -11,9 +12,13 @@ export class NewsCardComponent implements OnInit {
   @Input()
   newsItem: NewsItem;
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  readMoreClicked(){
+      this.router.navigate(['news/' + this.newsItem.id]);
   }
 
 }

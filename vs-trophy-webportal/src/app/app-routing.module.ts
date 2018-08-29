@@ -6,10 +6,12 @@ import { TeamsOverviewComponent } from './teams/teams-overview/teams-overview.co
 import { TeamInfoComponent } from './teams/team-info/team-info.component';
 import { NewsItemEditorViewComponent } from './news/news-item-editor-view/news-item-editor-view.component';
 import { NewsFeedViewComponent } from './news/news-feed-view/news-feed-view.component';
+import { NewsItemDetailViewComponent } from './news/news-item-detail-view/news-item-detail-view.component';
 
 
 const routes: Routes = [
   {path: 'news', component: NewsFeedViewComponent},
+  {path: 'news/:newsItemId', component: NewsItemDetailViewComponent},
   {path: 'results', component: ResultsViewComponent},
   {path: 'teams', component: TeamsOverviewComponent},
   {path: 'teams/:teamId', component: TeamInfoComponent}
