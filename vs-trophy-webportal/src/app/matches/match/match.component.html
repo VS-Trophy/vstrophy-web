@@ -9,5 +9,7 @@
     </div>
     <a routerLink="/teams/{{match.secondTeamId}}" fxFlex fxLayout="column" fxLayoutAlign="center center" [class]="getSecondTeamClass()">
       <img mat-card-avatar [src]="match.secondTeamLogoPath" /> {{match.secondTeamName}} </a>
+      
   </div>
+  <mat-progress-bar class="progress" [value]="getProgressBarValue()"></mat-progress-bar>
 </mat-card>

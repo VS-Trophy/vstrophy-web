@@ -12,9 +12,17 @@ const LOSER: string = "loser";
 export class MatchComponent implements OnInit {
 
   @Input()
-  match: Match
+  match: Match;
 
-
+  getProgressBarValue(): number{
+    if(this.match != null){
+      const totalPoints = 
+      this.match.firstTeamPoints 
+      + this.match.secondTeamPoints;
+      return this.match.firstTeamPoints * 100 / totalPoints
+    }
+    return 0;
+  }
 
   constructor() { }
 

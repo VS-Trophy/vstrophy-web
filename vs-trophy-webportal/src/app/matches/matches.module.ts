@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Match } from './match';
 import { MatchesService } from './matches.service';
 import { MatchComponent } from './match/match.component';
-import { TeamsModule } from '../teams/teams.module';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { AppRoutingModule } from '../app-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -13,7 +13,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CommonModule,
     AppRoutingModule,
     MatCardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatProgressBarModule
   ],
   providers: [
     MatchesService
