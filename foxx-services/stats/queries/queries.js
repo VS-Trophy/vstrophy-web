@@ -103,3 +103,10 @@ module.exports.winlossoverview = function(team, season){
     let matchCount = wins+losses
     RETURN {"opponent" : opponent, "record" : {"wins" : wins, "losses": losses,"ratio" : matchCount>0?(wins / (matchCount)):0}}`
 }
+
+module.exports.averagepoints = function(team){
+    return aql`FOR team IN VSTrophyTeams FILTER team.nflId == ${team}  LIMIT 1
+    FOR match, performance IN 1..1 OUTBOUND team TeamPlayedIn
+    COLLECT AGGREGATE averagePoints = AVERAGE(performance.points)
+    RETURN averagePoints`
+}
