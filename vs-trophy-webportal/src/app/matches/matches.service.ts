@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Match } from './match';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -26,13 +26,15 @@ export class MatchesService {
 
   getMatchesForWeek(season: number, week: number): Observable<Match[]> {
     var path: string = environment.apiRoot + this.matchesPath;
+    var parameters: HttpParams =  new HttpParams();
     if (season != -1) {
-      path += '?season=' + season;
+     parameters = parameters.set('season',season+"");
     }
     if(week != -1){
-      path += '?week=' + week;
+      parameters = parameters.set('week',week+"");
     }
-    return this.http.get<Match[]>(path).pipe(
+    this.http.get
+    return this.http.get<Match[]>(path,{params: parameters}).pipe(
       catchError(this.exceptionService.handleHttpError("getMatchesForWeek", [])),
       //Resolve the team name by id
       map(matches => this.loadTeams(matches))
