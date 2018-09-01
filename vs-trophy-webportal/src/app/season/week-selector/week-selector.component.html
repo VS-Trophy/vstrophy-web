@@ -2,7 +2,7 @@
     <vst-season-selector (selectedEvent)="onSeasonSelected($event)"></vst-season-selector>
     <mat-form-field *ngIf="weekNumbers">
         <mat-select  placeholder="Woche" [value]="selectedWeek" (valueChange)="setWeek($event)">
-            <mat-option *ngFor="let weekNumber of weekNumbers" [value]="weekNumber">{{weekNumber}}</mat-option>
+            <mat-option *ngFor="let weekNumber of weekNumbers" [value]="weekNumber">{{getValueName(weekNumber)}}</mat-option>
         </mat-select>
     </mat-form-field>
 </div>

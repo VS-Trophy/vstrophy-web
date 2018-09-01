@@ -18,6 +18,7 @@ export class SeasonSelectorComponent implements OnInit {
   selectedSeason: number
 
   ngOnInit() {
+    this.seasonNumbers = [-1]
     this.loadSeasonNumbers()
   }
 
@@ -26,9 +27,15 @@ export class SeasonSelectorComponent implements OnInit {
     this.selectedSeason = season;
   }
 
+  getValueName(season: number){
+    if(season == -1){
+      return "Alle";
+    }
+    return season;
+  }
+
   private loadSeasonNumbers(){
-    console.log("loading season numbers")
-    this.seasonsService.getSeasonNumbers().subscribe(numbers => {this.seasonNumbers = numbers;this.onSelect(numbers[0])})
+    this.seasonsService.getSeasonNumbers().subscribe(numbers => {this.seasonNumbers.push(...numbers);this.onSelect(numbers[0])})
   }
 
 }

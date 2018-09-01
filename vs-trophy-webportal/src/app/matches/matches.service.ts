@@ -26,7 +26,13 @@ export class MatchesService {
 
   getMatchesForWeek(season: number, week: number): Observable<Match[]> {
     var path: string = environment.apiRoot + this.matchesPath;
-    return this.http.get<Match[]>(environment.apiRoot + this.matchesPath + '?season=' + season + '&week=' + week).pipe(
+    if (season != -1) {
+      path += '?season=' + season;
+    }
+    if(week != -1){
+      path += '?week=' + week;
+    }
+    return this.http.get<Match[]>(path).pipe(
       catchError(this.exceptionService.handleHttpError("getMatchesForWeek", [])),
       //Resolve the team name by id
       map(matches => this.loadTeams(matches))

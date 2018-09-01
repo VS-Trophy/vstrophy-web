@@ -1,5 +1,5 @@
 <mat-form-field *ngIf="selectedSeason">
   <mat-select placeholder="Saison"  [value]="selectedSeason" (valueChange)="onSelect($event)">
-    <mat-option *ngFor="let seasonNumber of seasonNumbers" [value]="seasonNumber">{{seasonNumber}}</mat-option>
+    <mat-option *ngFor="let seasonNumber of seasonNumbers" [value]="seasonNumber">{{getValueName(seasonNumber)}}</mat-option>
   </mat-select>
 </mat-form-field>
