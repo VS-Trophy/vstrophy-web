@@ -1,14 +1,18 @@
 const aql = require('@arangodb').aql;
 
-module.exports.matches = function(season, week){
+module.exports.matches = function(season, week, team1, team2){
     return aql`FOR season IN Seasons
     FILTER  ${season} == null || season.number == ${season}
-        FOR week IN 1..1 ANY season WeeksInSeason
+        FOR week IN 1..1 OUTBOUND season WeeksInSeason
         FILTER ${week} == null || week.number == ${week}
-            FOR match IN 1..1 ANY week MatchesInWeek
-                FOR team,performance IN 1..1 ANY match TeamPlayedIn
+            FOR match IN 1..1 OUTBOUND week MatchesInWeek
+                FOR team,performance IN 1..1 INBOUND match TeamPlayedIn
+                SORT team.nflId
                 COLLECT daMatch = match._key INTO teamPerfs
-                    RETURN 
+                    LET featuredTeams = [teamPerfs[0].team.nflId,teamPerfs[1].team.nflId]
+                    FILTER ${team1} == null  || POSITION(featuredTeams, ${team1})
+                    FILTER ${team2} == null || POSITION(featuredTeams, ${team2})
+                   RETURN 
                     {"firstTeamId" : teamPerfs[0].team.nflId, 
                     "firstTeamPoints" : teamPerfs[0].performance.points, 
                     "secondTeamId" : teamPerfs[1].team.nflId, 

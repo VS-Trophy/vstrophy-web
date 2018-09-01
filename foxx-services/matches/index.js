@@ -13,8 +13,10 @@ router.get('/', function (req, res) {
   try {
     const week = req.queryParams.week
     const season = req.queryParams.season
+    const team1 = req.queryParams.team1
+    const team2 = req.queryParams.team2
     const matches =
-    db._query(queries.matches(season,week))
+    db._query(queries.matches(season,week,team1,team2))
     res.send(matches)
   } catch (e) {
     if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
@@ -25,9 +27,11 @@ router.get('/', function (req, res) {
 })
 .queryParam('season', joi.number().integer().positive().default(null), 'If set only matches of this season are displayed')
 .queryParam('week', joi.number().integer().positive().default(null), 'If set only matches of this week are displayed')
+.queryParam('team1', joi.string().default(null), 'If set only matches containing this team will be displayed')
+.queryParam('team2', joi.string().default(null), 'If set only matches containing this team will be displayed. May not be set if team1 is null!')
 .response(['application/json'], 'All matching matches')
 .summary('Matches')
-.description('Returns matches. Filterable by season and week');
+.description('Returns matches. Filterable by season and week and teams');
 
 router.get('/margin', function (req, res) {
   try {
