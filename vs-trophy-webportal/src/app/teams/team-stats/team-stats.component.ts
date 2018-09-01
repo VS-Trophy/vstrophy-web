@@ -35,7 +35,7 @@ export class TeamStatsComponent implements OnInit {
           //Replace the team id with the team name
           records.forEach(record => {
             const oppId = record.opponent;
-            record.opponent = teams.find(t => t.nflId === oppId).name;
+            record.opponentTeam = teams.find(t => t.nflId === oppId);
           })
           //now we can set the records
           this.recordsPerOpponent = records;

@@ -1,5 +1,11 @@
 <mat-card *ngIf="winlossRecord">
-    <mat-card-title>{{title}}</mat-card-title>
-    <mat-card-content><span>{{winlossRecord.wins}} - {{winlossRecord.losses}} ({{winlossRecord.ratio | number: '0.3' | slice: 1}})</span></mat-card-content>
+    <mat-card-header>
+        <img *ngIf="logoPath" mat-card-avatar [src]="logoPath" />
+        <mat-card-title ><span class="mat-title">{{title}}</span></mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="content"><span class="mat-display-1">{{winlossRecord.wins}} - {{winlossRecord.losses}} ({{winlossRecord.ratio | number: '0.3' | slice:
+            1}})
+        </span></mat-card-content>
     <mat-progress-bar [value]="winlossRecord.ratio * 100" [color]="'warn'"></mat-progress-bar>
 </mat-card>

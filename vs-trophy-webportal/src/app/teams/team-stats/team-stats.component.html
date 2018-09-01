@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="10px">
   <vst-win-loss-record [title]="'Total'" [winlossRecord]='overallRecord'>
   </vst-win-loss-record>
-  <vst-win-loss-record *ngFor="let entry of recordsPerOpponent" [title]="'VS ' + entry.opponent"
-    [winlossRecord]='entry.record'></vst-win-loss-record>
+  <vst-win-loss-record *ngFor="let entry of recordsPerOpponent" [title]="entry.opponentTeam.name"
+    [winlossRecord]='entry.record' [logoPath]="entry.opponentTeam.logoPath"></vst-win-loss-record>
 </div>

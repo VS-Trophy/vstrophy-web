@@ -13,6 +13,9 @@ winlossRecord: WinLossRecord
 
 @Input()
 title: string
+
+@Input()
+logoPath: string
   constructor() { }
 
   ngOnInit() {
