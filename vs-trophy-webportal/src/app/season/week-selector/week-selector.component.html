@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutGap="20px">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
     <vst-season-selector (selectedEvent)="onSeasonSelected($event)"></vst-season-selector>
     <mat-form-field *ngIf="weekNumbers">
         <mat-select  placeholder="Woche" [value]="selectedWeek" (valueChange)="setWeek($event)">
