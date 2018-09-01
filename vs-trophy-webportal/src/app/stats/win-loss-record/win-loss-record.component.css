@@ -1,3 +1,9 @@
 .content{
     text-align: center;
 }
+
+.winloss-card{
+    min-width: 360px;
+    max-width: 500px;
+    width: 100%;
+}
