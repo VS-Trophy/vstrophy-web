@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { ExceptionService } from '../core/exception.service';
 import { TeamsService } from '../teams/teams.service';
 import { VSTrophyTeam } from '../teams/vstrophyteam';
+import { WeekPointer } from '../season/week-pointer';
 
 @Injectable()
 export class MatchesService {
@@ -24,14 +25,20 @@ export class MatchesService {
       )
   }
 
-  getMatchesForWeek(season: number, week: number): Observable<Match[]> {
+  getMatchesForWeek(weekPointer: WeekPointer, team1: VSTrophyTeam, team2: VSTrophyTeam): Observable<Match[]> {
     var path: string = environment.apiRoot + this.matchesPath;
     var parameters: HttpParams =  new HttpParams();
-    if (season != -1) {
-     parameters = parameters.set('season',season+"");
+    if (weekPointer.season != -1) {
+     parameters = parameters.set('season',weekPointer.season+"");
     }
-    if(week != -1){
-      parameters = parameters.set('week',week+"");
+    if(weekPointer.week != -1){
+      parameters = parameters.set('week',weekPointer.week+"");
+    }
+    if(team1 != null){
+      parameters = parameters.set('team1',team1.nflId);
+    }
+    if(team2 != null){
+      parameters = parameters.set('team2',team2.nflId);
     }
     this.http.get
     return this.http.get<Match[]>(path,{params: parameters}).pipe(

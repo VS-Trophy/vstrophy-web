@@ -1,6 +1,10 @@
 <div fxLayout="column" fxLayoutAlign="center center">
     <h1 class="mat-display-2">Resultate</h1>
-    <vst-week-selector (selectedWeekChange)="onWeekSelected($event)"></vst-week-selector>
+    <div fxLayout="row" fxLayoutGap="20px">
+        <vst-week-selector (selectedWeekChange)="onWeekSelected($event)"></vst-week-selector>
+        <vst-team-selector [caption]="'Team'" (selectedEvent)="onTeam1Selected($event)"></vst-team-selector>
+        <vst-team-selector [caption]="'Gegner'" [disabled]="team1 == null" (selectedEvent)="onTeam2Selected($event)"></vst-team-selector>
+    </div>
     <div class="mat-body-1">{{matches?.length}} Matches</div>
     <div fxLayout="row">
         <div fxLayout="column" fxLayoutGap="10px" fxFlex="600">

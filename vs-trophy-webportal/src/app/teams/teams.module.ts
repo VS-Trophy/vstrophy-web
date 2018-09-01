@@ -9,11 +9,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { TeamStatsComponent } from './team-stats/team-stats.component';
 import { StatsModule } from '../stats/stats.module';
+import { TeamSelectorComponent } from './team-selector/team-selector.component';
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     AppRoutingModule,
+    //Angular Material
+    MatFormFieldModule,
+    MatSelectModule,
     MatCardModule,
     FlexLayoutModule,
     MatGridListModule,
@@ -22,6 +27,7 @@ import { StatsModule } from '../stats/stats.module';
   providers: [
     TeamsService
   ],
-  declarations: [TeamsOverviewComponent, TeamInfoComponent,TeamStatsComponent ]
+  declarations: [TeamsOverviewComponent, TeamInfoComponent,TeamStatsComponent, TeamSelectorComponent ],
+  exports: [TeamSelectorComponent]
 })
 export class TeamsModule { }
