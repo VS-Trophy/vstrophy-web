@@ -15,21 +15,38 @@ export class TeamSelectorComponent implements OnInit {
 
   selectedTeam: VSTrophyTeam;
 
+  isDisabled: boolean;
+
   @Input()
   caption: string;
 
-  @Input()
-  disabled: boolean;
+  @Input("disabled")
+  set setDisabled(disabled: boolean) {
+
+    if (disabled) {
+      this.selectedTeam = null;
+    }
+    this.isDisabled = disabled;
+  }
 
   @Output()
   selectedEvent: EventEmitter<VSTrophyTeam> = new EventEmitter<VSTrophyTeam>()
 
   ngOnInit() {
-    this.teamsService.getAllTeams().subscribe(teams => this.teams = teams)
+    const nullTeam: VSTrophyTeam = new VSTrophyTeam();
+    nullTeam.nflId = "";
+    nullTeam.name = "Alle";
+    this.teams = [nullTeam];
+    this.teamsService.getAllTeams().subscribe(teams => this.teams.push(...teams))
   }
 
-  onSelect(team: VSTrophyTeam){
-    this.selectedEvent.emit(team);
+  onSelect(team: VSTrophyTeam) {
+    if (team.name == "Alle") {
+      this.selectedEvent.emit(null);
+    } else {
+      this.selectedEvent.emit(team);
+    }
+
   }
 
 }

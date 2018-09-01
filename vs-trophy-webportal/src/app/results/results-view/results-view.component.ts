@@ -36,6 +36,9 @@ export class ResultsViewComponent implements OnInit {
 
   onTeam1Selected(team: VSTrophyTeam){
     this.team1 = team;
+    if(team == null){
+      this.team2 = null;
+    }
     this.getMatches();
   }
 

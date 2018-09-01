@@ -1,5 +1,5 @@
 <mat-form-field *ngIf="teams">
-    <mat-select [placeholder]="caption"  [value]="selectedTeam" [disabled]="disabled" (valueChange)="onSelect($event)">
+    <mat-select [placeholder]="caption"  [value]="selectedTeam" [disabled]="isDisabled" (valueChange)="onSelect($event)">
       <mat-option *ngFor="let team of teams" [value]="team">{{team.name}}</mat-option>
     </mat-select>
   </mat-form-field>
