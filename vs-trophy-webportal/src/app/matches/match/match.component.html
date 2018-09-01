@@ -1,4 +1,5 @@
 <mat-card>
+  <mat-card-header fxLayout="row" fxLayoutAlign="end center"><mat-card-title>{{match.season}} Woche {{match.week}}</mat-card-title></mat-card-header>
   <div fxLayout="row" fxLayoutAlign="center center">
     <a routerLink="/teams/{{match.firstTeamId}}" fxFlex fxLayout="column" fxLayoutAlign="center center" [class]="getFirstTeamClass()">
       <img mat-card-avatar [src]="match.firstTeamLogoPath" /> {{match.firstTeamName}}</a>
