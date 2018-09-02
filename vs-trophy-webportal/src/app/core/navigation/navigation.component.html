@@ -8,6 +8,15 @@
     </div>
     <div fxHide fxHide.lt-sm="false" fxFlex="grow"></div>
     <button fxHide fxHide.lt-sm="false" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-
   </div>
 </mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #snav fxLayout="column"> 
+    <a mat-button routerLink="/news" (click)="snav.close()">News</a>
+    <a mat-button routerLink="/teams" (click)="snav.close()">Teams</a>
+    <a mat-button routerLink="/results" (click)="snav.close()">Resultate</a>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
