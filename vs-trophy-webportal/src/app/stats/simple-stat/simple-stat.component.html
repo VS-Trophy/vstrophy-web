@@ -1,0 +1,8 @@
+<mat-card *ngIf="statValue != null">
+    <mat-card-header>
+        <mat-card-title ><span class="mat-title">{{statName}}</span></mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="content"><span class="mat-display-1">{{statValue | number: '0.1'}}
+        </span></mat-card-content>
+</mat-card>

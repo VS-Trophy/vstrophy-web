@@ -1,14 +1,21 @@
 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="10px">
-<div fxLayout="column" fxLayoutGap="10px">
+  <div fxLayout="column" fxLayoutGap="10px">
     <h1 class="mat-title">Nach Gegner</h1>
-  <vst-win-loss-record *ngFor="let entry of recordsPerOpponent" [title]="entry.opponentTeam.name"
-    [winlossRecord]='entry.record' [logoPath]="entry.opponentTeam.logoPath"></vst-win-loss-record>
-</div>
-<div fxLayout="column" fxLayoutGap="10px">
-<h1 class="mat-title">Nach Saison</h1>
-<vst-win-loss-record title="Total" [winlossRecord]='overallRecord'>
-  </vst-win-loss-record>
-  <vst-win-loss-record *ngFor="let entrySeason of recordsPerSeason" [title]="entrySeason.season"
-    [winlossRecord]='entrySeason.record'></vst-win-loss-record>
-</div>
+    <vst-win-loss-record *ngFor="let entry of recordsPerOpponent" [title]="entry.opponentTeam.name" [winlossRecord]='entry.record'
+      [logoPath]="entry.opponentTeam.logoPath"></vst-win-loss-record>
+  </div>
+  <div fxLayout="column" fxLayoutGap="10px">
+    <h1 class="mat-title">Nach Saison</h1>
+    <vst-win-loss-record title="Total" [winlossRecord]='overallRecord'>
+    </vst-win-loss-record>
+    <vst-win-loss-record *ngFor="let entrySeason of recordsPerSeason" [title]="entrySeason.season" [winlossRecord]='entrySeason.record'></vst-win-loss-record>
+  </div>
+  <div fxLayout="column" fxLayoutGap="10px">
+    <h1 class="mat-title">Punkte</h1>
+    <vst-simple-stat *ngIf="pointStats" statName="Punkte pro Spiel" [statValue]="pointStats.average"></vst-simple-stat>
+    <vst-simple-stat *ngIf="pointStats" statName="Anzahl Spiele" [statValue]="pointStats.matches"></vst-simple-stat>
+    <vst-simple-stat *ngIf="pointStats" statName="Total Punkte" [statValue]="pointStats.total"></vst-simple-stat>
+    <vst-simple-stat *ngIf="pointStats" statName="Beste Leistung" [statValue]="pointStats.max"></vst-simple-stat>
+    <vst-simple-stat *ngIf="pointStats" statName="Schlechteste Leistung" [statValue]="pointStats.min"></vst-simple-stat>
+  </div>
 </div>

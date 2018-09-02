@@ -8,6 +8,7 @@ import { catchError, map } from 'rxjs/operators';
 import { WinLossRecordOpponent } from './win-loss-record-opponent';
 import { TeamsService } from '../teams/teams.service';
 import { WinLossRecordSeason } from './win-loss-record-opponent.1';
+import { PointStats } from './point-stats';
 
 
 @Injectable()
@@ -49,6 +50,13 @@ export class StatsService {
     return this.http.get<Map<String, WinLossRecord>>(environment.apiRoot + `stats/team/${nflId}/winloss/map?=${season}`)
       .pipe(
         catchError(this.exceptionService.handleHttpError("getTeamRecordMap", new Map()))
+      )
+  }
+
+  public getTeamPointStats(nflId: string): Observable<PointStats> {
+    return this.http.get<PointStats>(environment.apiRoot + `stats/team/${nflId}/pointstats`)
+      .pipe(
+        catchError(this.exceptionService.handleHttpError("getTeamRecordMap", new PointStats))
       )
   }
 
