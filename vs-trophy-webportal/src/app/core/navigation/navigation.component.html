@@ -1,5 +1,7 @@
-<mat-toolbar color="primary">
-  <div fxLayout="row" fxFlex="grow">
+<mat-toolbar color="primary" class="toolbar">
+  <div fxLayout="row" fxFlex="grow" fxLayoutAlign="start center">
+    <img class="logo" src="/assets/images/leaguelogo/Logo-export.png">
+
     <span>VS-Trophy</span>
     <div fxShow fxShow.lt-sm="false">
       <a mat-button routerLink="/news">News</a>
@@ -11,12 +13,12 @@
   </div>
 </mat-toolbar>
 <mat-sidenav-container>
-  <mat-sidenav #snav fxLayout="column"> 
+  <mat-sidenav #snav fxLayout="column">
     <a mat-button routerLink="/news" (click)="snav.close()">News</a>
     <a mat-button routerLink="/teams" (click)="snav.close()">Teams</a>
     <a mat-button routerLink="/results" (click)="snav.close()">Resultate</a>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content class="content">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

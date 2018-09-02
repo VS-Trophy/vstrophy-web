@@ -1,0 +1,9 @@
+.logo{
+    z-index: 12;
+    padding-top: 40px;
+    padding-right: 10px;
+}
+
+.content{
+    overflow: hidden;
+}
