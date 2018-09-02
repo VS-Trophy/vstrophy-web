@@ -1,4 +1,4 @@
-<mat-grid-list fxHide fxHide.md="false" cols="5" rowHeight="1:1">
+<mat-grid-list fxShow fxHide.lt-sm="true" cols="5" rowHeight="1:1">
   <mat-grid-tile *ngFor="let team of teams">
     <mat-card class="team-card" fxLayout="column" fxLayoutAlign="center" (click)="cardClicked(team)">
       <img  mat-card-avatar fxFlexAlign="center" [src]="team.logoPath">
@@ -6,7 +6,7 @@
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
-<mat-grid-list fxHide.md="true" cols="1" rowHeight="1:1">
+<mat-grid-list fxHide fxHide.lt-sm="false" cols="1" rowHeight="1:1">
     <mat-grid-tile *ngFor="let team of teams">
       <mat-card class="team-card" fxLayout="column" fxLayoutAlign="center" (click)="cardClicked(team)">
         <img  mat-card-avatar fxFlexAlign="center" [src]="team.logoPath">
