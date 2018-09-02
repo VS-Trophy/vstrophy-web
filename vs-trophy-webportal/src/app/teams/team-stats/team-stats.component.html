@@ -1,7 +1,14 @@
-Records:
-<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-  <vst-win-loss-record [title]="'Total'" [winlossRecord]='overallRecord'>
-  </vst-win-loss-record>
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="10px">
+<div fxLayout="column" fxLayoutGap="10px">
+    <h1 class="mat-title">Nach Gegner</h1>
   <vst-win-loss-record *ngFor="let entry of recordsPerOpponent" [title]="entry.opponentTeam.name"
     [winlossRecord]='entry.record' [logoPath]="entry.opponentTeam.logoPath"></vst-win-loss-record>
+</div>
+<div fxLayout="column" fxLayoutGap="10px">
+<h1 class="mat-title">Nach Saison</h1>
+<vst-win-loss-record title="Total" [winlossRecord]='overallRecord'>
+  </vst-win-loss-record>
+  <vst-win-loss-record *ngFor="let entrySeason of recordsPerSeason" [title]="entrySeason.season"
+    [winlossRecord]='entrySeason.record'></vst-win-loss-record>
+</div>
 </div>

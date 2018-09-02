@@ -3,6 +3,10 @@ import { TeamsService } from '../../teams/teams.service';
 import { WinLossRecord } from '../../stats/win-loss-record';
 import { StatsService } from '../../stats/stats.service';
 import { WinLossRecordOpponent } from '../../stats/win-loss-record-opponent';
+import { SeasonsService } from '../../season/seasons.service';
+import { WinLossRecordSeason } from '../../stats/win-loss-record-opponent.1';
+import { Observable, merge } from 'rxjs';
+import { toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'vst-team-stats',
@@ -11,13 +15,13 @@ import { WinLossRecordOpponent } from '../../stats/win-loss-record-opponent';
 })
 export class TeamStatsComponent implements OnInit {
 
-  constructor(private statsService: StatsService, private teamsService: TeamsService) { 
+  constructor(private statsService: StatsService, private teamsService: TeamsService, private seasonService: SeasonsService) {
   }
 
 
   overallRecord: WinLossRecord
 
-  recordsPerSeason: Map<String, WinLossRecord>
+  recordsPerSeason: WinLossRecordSeason[]
 
   recordsPerOpponent: WinLossRecordOpponent[]
 
@@ -25,7 +29,7 @@ export class TeamStatsComponent implements OnInit {
   @Input('nflId')
   set nflId(nflId: string) {
     this.overallRecord = null;
-    this.recordsPerSeason = null;
+    this.recordsPerSeason = [];
     this.recordsPerOpponent = null;
     this.statsService.getTeamRecord(nflId).subscribe(record => { this.overallRecord = record })
     this.statsService.getTeamRecordsPerOpponent(nflId).subscribe(
@@ -41,7 +45,25 @@ export class TeamStatsComponent implements OnInit {
           this.recordsPerOpponent = records;
         });
       })
+
+
+    this.seasonService.getSeasonNumbers()
+      .subscribe(seasonNumbers => {
+        var observables: Observable<WinLossRecordSeason>[] =
+        seasonNumbers
+          .map(season => this.statsService.getTeamRecordForSeason(nflId, season + ""))
+          const mergedObservable = merge(...observables);
+          mergedObservable
+          .pipe(toArray())
+          .subscribe(records => { records.sort((a, b) => b.season - a.season); this.recordsPerSeason = records; });
+      });
+
+
+   
+   
   }
+
+
 
   ngOnInit() {
   }

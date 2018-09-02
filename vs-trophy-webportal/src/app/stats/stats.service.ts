@@ -4,9 +4,10 @@ import { WinLossRecord } from './win-loss-record';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ExceptionService } from '../core/exception.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { WinLossRecordOpponent } from './win-loss-record-opponent';
 import { TeamsService } from '../teams/teams.service';
+import { WinLossRecordSeason } from './win-loss-record-opponent.1';
 
 
 @Injectable()
@@ -21,10 +22,11 @@ export class StatsService {
       )
   }
 
-  public getTeamRecordForSeason(nflId: string, season: string): Observable<WinLossRecord> {
+  public getTeamRecordForSeason(nflId: string, season: string): Observable<WinLossRecordSeason> {
     return this.http.get<WinLossRecord>(environment.apiRoot + `stats/team/${nflId}/winloss?season=${season}`)
       .pipe(
-        catchError(this.exceptionService.handleHttpError("getTeamRecordSeason", new WinLossRecord()))
+        map(record => {const seasonRecord: WinLossRecordSeason = new WinLossRecordSeason(); seasonRecord.season = +season; seasonRecord.record = record; return seasonRecord;}),
+        catchError(this.exceptionService.handleHttpError("getTeamRecordSeason", new WinLossRecordSeason()))
       )
   }
 
