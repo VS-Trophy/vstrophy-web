@@ -10,6 +10,7 @@ import { NewsItemDetailViewComponent } from './news/news-item-detail-view/news-i
 
 
 const routes: Routes = [
+  {path: '', redirectTo: 'news',pathMatch:'full'},
   {path: 'news', component: NewsFeedViewComponent},
   {path: 'news/:newsItemId', component: NewsItemDetailViewComponent},
   {path: 'results', component: ResultsViewComponent},
