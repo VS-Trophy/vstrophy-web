@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http'
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -16,8 +16,11 @@ import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-mome
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import { NewsModule } from './news/news.module';
+import localeDECH from '@angular/common/locales/de-CH';
 import { FormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
 
+registerLocaleData(localeDECH);
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     //Locale and date format for angular material components
+    { provide: LOCALE_ID, useValue: 'de-CH' },
     {provide: MAT_DATE_LOCALE, useValue: 'de-CH'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
