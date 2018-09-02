@@ -107,23 +107,23 @@ router.get('/team/:team/winloss', function (req, res) {
 .summary('The win / loss record of a team.')
 .description('Returns the win / loss record of a team. May be narrowed down by season and / or opponent');
 
-router.get('/team/:team/averagepoints', function (req, res) {
+router.get('/team/:team/pointstats', function (req, res) {
   try {
     const team = req.pathParams.team
     const record = 
-    db._query(queries.averagepoints(team))
+    db._query(queries.pointstats(team))
     res.send(record._documents[0])
   } catch (e) {
     if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
       throw e;
     }
-    res.throw(500, 'Could not get average points', e);
+    res.throw(500, 'Could not get pointstats', e);
   }
 })
-.pathParam('team',joi.string().required(), 'The average points per match of this team will be calculated')
-.response(['application/json'], 'The average points per match')
-.summary('Average points made per match.')
-.description('Average points made per match.');
+.pathParam('team',joi.string().required(), 'Stats of this team will be returned')
+.response(['application/json'], 'Highest, lowest, and total points scored, average points per game and number of games')
+.summary('Highest, lowest, and total points scored, average points per game and number of games')
+.description('Highest, lowest, and total points scored, average points per game and number of games');
 
 
 router.get('/team/:team/winloss/opponents', function (req, res) {

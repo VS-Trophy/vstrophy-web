@@ -106,9 +106,14 @@ module.exports.winlossoverview = function(team, season){
     RETURN {"opponent" : opponent, "record" : {"wins" : wins, "losses": losses,"ratio" : ratio}}`
 }
 
-module.exports.averagepoints = function(team){
+module.exports.pointstats = function(team){
     return aql`FOR team IN VSTrophyTeams FILTER team.nflId == ${team}  LIMIT 1
     FOR match, performance IN 1..1 OUTBOUND team TeamPlayedIn
-    COLLECT AGGREGATE averagePoints = AVERAGE(performance.points)
-    RETURN averagePoints`
+    COLLECT AGGREGATE averagePoints = AVERAGE(performance.points), minPoints = MIN(performance.points), maxPoints = MAX(performance.points), totalPoints = SUM(performance.points), matches = LENGTH(match)
+    RETURN {'team': ${team}, 
+    "average" : averagePoints,
+    "max": maxPoints,
+    "min" : minPoints,
+    "total": totalPoints,
+    "matches": matches}`
 }
