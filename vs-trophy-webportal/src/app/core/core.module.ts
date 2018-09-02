@@ -6,6 +6,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { TruncateHtmlPipe } from './truncate-html.pipe';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -16,7 +17,9 @@ import { TruncateHtmlPipe } from './truncate-html.pipe';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    //Flex Layout
+    FlexLayoutModule
   ],
   providers: [
     ExceptionService

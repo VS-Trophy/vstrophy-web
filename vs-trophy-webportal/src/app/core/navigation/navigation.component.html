@@ -1,9 +1,13 @@
-
-     <mat-toolbar color="primary">
-      <span>VS-Trophy</span>
+<mat-toolbar color="primary">
+  <div fxLayout="row" fxFlex="grow">
+    <span>VS-Trophy</span>
+    <div fxShow fxShow.lt-sm="false">
       <a mat-button routerLink="/news">News</a>
       <a mat-button routerLink="/teams">Teams</a>
       <a mat-button routerLink="/results">Resultate</a>
-    </mat-toolbar>
+    </div>
+    <div fxHide fxHide.lt-sm="false" fxFlex="grow"></div>
+    <button fxHide fxHide.lt-sm="false" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
 
-
+  </div>
+</mat-toolbar>
