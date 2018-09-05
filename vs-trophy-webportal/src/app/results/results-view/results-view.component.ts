@@ -15,8 +15,8 @@ export class ResultsViewComponent implements OnInit {
   matches: Match[]
 
   private weekPointer: WeekPointer;
-  private team1: VSTrophyTeam;
-  private team2: VSTrophyTeam;
+  team1: VSTrophyTeam;
+  team2: VSTrophyTeam;
 
   constructor(private matchesService: MatchesService) { }
 
