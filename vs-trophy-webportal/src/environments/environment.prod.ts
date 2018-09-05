@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiRoot: "http://arango.vstrophy.ch/_db/vs-trophy/"
+  apiRoot: "https://arango.vstrophy.ch/_db/vs-trophy/"
 };
