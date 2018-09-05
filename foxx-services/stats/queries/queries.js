@@ -1,4 +1,7 @@
 const aql = require('@arangodb').aql;
+const week = require('./week.js')
+
+
 module.exports.topPerformances = function(ascdesc,limit,week,season){
 return aql`
 FOR teamPerformance IN TeamPlayedIn
@@ -58,12 +61,15 @@ module.exports.highestScoringMatches = function(ascdesc,limit,week,season){
 
 
 module.exports.winlossrecord = function(team, opponent, season){
+    var currentWeek =  week.currentWeek()
+    var currentSeason = week.currentSeason();
     return aql`LET seasonMatches = (
         FOR season IN Seasons
-        FILTER ${season} == null || season.number == ${season}
-            FOR week IN 1..1 ANY season WeeksInSeason
-                FOR match IN 1..1 ANY week MatchesInWeek
-                RETURN match._id
+    FILTER ${season} == null || season.number == ${season}
+        FOR week IN 1..1 ANY season WeeksInSeason
+        FILTER season.number != ${currentSeason} || week.number != ${currentWeek} 
+            FOR match IN 1..1 ANY week MatchesInWeek
+            RETURN match._id
         )
         
         LET winloss =  MERGE (
@@ -80,6 +86,8 @@ module.exports.winlossrecord = function(team, opponent, season){
 }
 
 module.exports.winlossoverview = function(team, season){
+    var currentWeek =  week.currentWeek()
+    var currentSeason = week.currentSeason();
     return aql`LET team = 
     FIRST (
         FOR team IN VSTrophyTeams
@@ -91,13 +99,14 @@ module.exports.winlossoverview = function(team, season){
     FOR season IN Seasons
     FILTER ${season} == null || season.number == ${season}
         FOR week IN 1..1 ANY season WeeksInSeason
+        FILTER season.number != ${currentSeason} || week.number != ${currentWeek} 
             FOR match IN 1..1 ANY week MatchesInWeek
             RETURN match._id
     )
     
     
     FOR node,edge,path IN 2..2 ANY team TeamPlayedIn
-    FILTER ${season} == null || path.vertices[1]._id IN seasonMatches
+    FILTER  path.vertices[1]._id IN seasonMatches
     COLLECT opponent = node.nflId
     AGGREGATE wins = SUM(path.edges[0].points > path.edges[1].points ? 1 : 0), losses= SUM(path.edges[0].points > path.edges[1].points ? 0 : 1)
     LET matchCount = wins+losses
@@ -107,8 +116,18 @@ module.exports.winlossoverview = function(team, season){
 }
 
 module.exports.pointstats = function(team){
-    return aql`FOR team IN VSTrophyTeams FILTER team.nflId == ${team}  LIMIT 1
+    var currentWeek = week.currentWeek();
+    var currentSeason = week.currentSeason();
+    return aql`
+
+    FOR team IN VSTrophyTeams FILTER team.nflId == ${team}  LIMIT 1
     FOR match, performance IN 1..1 OUTBOUND team TeamPlayedIn
+    LET isMatchOngoing = LENGTH(
+        FOR week IN 1..1 INBOUND match MatchesInWeek FILTER week.number == ${currentWeek}
+            FOR season IN 1..1 INBOUND week WeeksInSeason FILTER season.number == ${currentSeason}
+                RETURN season
+    )
+    FILTER isMatchOngoing == 0
     COLLECT AGGREGATE averagePoints = AVERAGE(performance.points), minPoints = MIN(performance.points), maxPoints = MAX(performance.points), totalPoints = SUM(performance.points), matches = LENGTH(match)
     RETURN {'team': ${team}, 
     "average" : averagePoints,
