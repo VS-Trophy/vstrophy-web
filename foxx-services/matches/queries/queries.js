@@ -12,6 +12,7 @@ module.exports.matches = function(season, week, team1, team2){
                     LET featuredTeams = [teamPerfs[0].team.nflId,teamPerfs[1].team.nflId]
                     FILTER ${team1} == null  || POSITION(featuredTeams, ${team1})
                     FILTER ${team2} == null || POSITION(featuredTeams, ${team2})
+                    SORT teamPerfs[0].season.number DESC, teamPerfs[0].week.number DESC
                    RETURN 
                     {"firstTeamId" : teamPerfs[0].team.nflId, 
                     "firstTeamPoints" : teamPerfs[0].performance.points, 
