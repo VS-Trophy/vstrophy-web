@@ -1,5 +1,6 @@
+<div class="mat-display-1 division-name">White Star Division</div>
 <mat-grid-list fxShow fxHide.lt-sm="true" cols="5" rowHeight="1:1">
-  <mat-grid-tile *ngFor="let team of teams">
+  <mat-grid-tile *ngFor="let team of whiteStarTeams">
     <mat-card class="team-card" fxLayout="column" fxLayoutAlign="center" (click)="cardClicked(team)">
       <img  mat-card-avatar fxFlexAlign="center" [src]="team.logoPath">
       <span  class="team-name">{{team.name}}</span>
@@ -7,10 +8,27 @@
   </mat-grid-tile>
 </mat-grid-list>
 <mat-grid-list fxHide fxHide.lt-sm="false" cols="1" rowHeight="1:1">
-    <mat-grid-tile *ngFor="let team of teams">
-      <mat-card class="team-card" fxLayout="column" fxLayoutAlign="center" (click)="cardClicked(team)">
-        <img  mat-card-avatar fxFlexAlign="center" [src]="team.logoPath">
-        <span  class="team-name">{{team.name}}</span>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <mat-grid-tile *ngFor="let team of whiteStarTeams">
+    <mat-card class="team-card" fxLayout="column" fxLayoutAlign="center" (click)="cardClicked(team)">
+      <img  mat-card-avatar fxFlexAlign="center" [src]="team.logoPath">
+      <span  class="team-name">{{team.name}}</span>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<div class="mat-display-1 division-name">Red Star Division</div>
+<mat-grid-list fxShow fxHide.lt-sm="true" cols="5" rowHeight="1:1">
+  <mat-grid-tile *ngFor="let team of redStarTeams">
+    <mat-card class="team-card" fxLayout="column" fxLayoutAlign="center" (click)="cardClicked(team)">
+      <img  mat-card-avatar fxFlexAlign="center" [src]="team.logoPath">
+      <span  class="team-name">{{team.name}}</span>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list fxHide fxHide.lt-sm="false" cols="1" rowHeight="1:1">
+  <mat-grid-tile *ngFor="let team of redStarTeams">
+    <mat-card class="team-card" fxLayout="column" fxLayoutAlign="center" (click)="cardClicked(team)">
+      <img  mat-card-avatar fxFlexAlign="center" [src]="team.logoPath">
+      <span  class="team-name">{{team.name}}</span>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

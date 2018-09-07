@@ -10,19 +10,29 @@ import { Router } from '@angular/router';
 })
 export class TeamsOverviewComponent implements OnInit {
 
-  constructor(private teamsService:TeamsService, private router: Router) { }
-
-  teams: VSTrophyTeam[]
+  constructor(private teamsService: TeamsService, private router: Router) { }
+  whiteStarTeams: VSTrophyTeam[]
+  redStarTeams: VSTrophyTeam[]
 
   ngOnInit() {
     this.loadAllTeams()
   }
 
-  private loadAllTeams(){
-    this.teamsService.getAllTeams().subscribe(teams => this.teams = teams)
+  private loadAllTeams() {
+    this.whiteStarTeams = []
+    this.redStarTeams = []
+    this.teamsService.getAllTeams().subscribe(teams => teams.forEach(team => this.addTeam(team)));
   }
 
-  cardClicked(team: VSTrophyTeam){
+  private addTeam(team: VSTrophyTeam){
+    if(team.division == "White Star"){
+      this.whiteStarTeams.push(team);
+    } else if(team.division == "Red Star"){
+      this.redStarTeams.push(team);
+    }
+  }
+
+  cardClicked(team: VSTrophyTeam) {
     this.router.navigate(['teams/' + team.nflId])
   }
 
