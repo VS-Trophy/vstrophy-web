@@ -6,4 +6,5 @@ foundedIn: string;
 memberSince: string;
 city: string;
 stadium: string;
+division: string;
 }
