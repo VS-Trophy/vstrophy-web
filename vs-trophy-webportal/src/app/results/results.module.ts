@@ -5,6 +5,8 @@ import { ResultsViewComponent } from './results-view/results-view.component';
 import { SeasonModule } from '../season/season.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TeamsModule } from '../teams/teams.module';
+import { ResultsOverviewComponent } from './results-overview/results-overview.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   imports: [
@@ -12,11 +14,12 @@ import { TeamsModule } from '../teams/teams.module';
     MatchesModule,
     SeasonModule,
     TeamsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTabsModule
   ],
-  declarations: [ResultsViewComponent],
+  declarations: [ResultsViewComponent, ResultsOverviewComponent],
   exports: [
-    ResultsViewComponent
+    ResultsOverviewComponent
   ]
 
 
