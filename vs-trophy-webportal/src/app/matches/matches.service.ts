@@ -13,6 +13,7 @@ import { WeekPointer } from '../season/week-pointer';
 export class MatchesService {
 
   private matchesPath = 'matches'
+  private margin = '/margin'
 
   constructor(private http: HttpClient, private exceptionService: ExceptionService, private teamsService: TeamsService) { }
 
@@ -25,23 +26,67 @@ export class MatchesService {
       )
   }
 
+  getClosestMatches(season: number, week: number, limit: number): Observable<Match[]> {
+    var path: string = environment.apiRoot + this.matchesPath + this.margin;
+    var parameters: HttpParams = new HttpParams();
+    if (season != null) {
+      parameters =  parameters.set('season', season + '');
+    }
+    if (week != null) {
+      parameters =   parameters.set('week', week + '');
+    }
+    if (limit != null) {
+      parameters =    parameters.set('limit', limit + '');
+    }
+    parameters.set('sortorder', 'asc'); //This lets us get the closest matches
+    this.http.get
+    return this.http.get<Match[]>(path, { params: parameters }).pipe(
+      catchError(this.exceptionService.handleHttpError("getClosestMatches", [])),
+      //Resolve the team name by id
+      map(matches => this.loadTeams(matches))
+    )
+  }
+
+  getMostDecisiveMatches(season: number, week: number, limit: number): Observable<Match[]> {
+    var path: string = environment.apiRoot + this.matchesPath + this.margin;
+    var parameters: HttpParams = new HttpParams();
+    if (season != null) {
+      parameters = parameters.set('season', season + '');
+    }
+    if (week != null) {
+      parameters = parameters.set('week', week + '');
+    }
+    if (limit != null) {
+      parameters = parameters.set('limit', limit + '');
+    }
+    parameters = parameters.set('sortorder', 'desc'); //This lets us get the most decisive matches
+    console.info(parameters);
+    this.http.get
+    return this.http.get<Match[]>(path, { params: parameters }).pipe(
+      catchError(this.exceptionService.handleHttpError("getClosestMatches", [])),
+      //Resolve the team name by id
+      map(matches => this.loadTeams(matches))
+    )
+  }
+
   getMatchesForWeek(weekPointer: WeekPointer, team1: VSTrophyTeam, team2: VSTrophyTeam): Observable<Match[]> {
     var path: string = environment.apiRoot + this.matchesPath;
-    var parameters: HttpParams =  new HttpParams();
+    var parameters: HttpParams = new HttpParams();
     if (weekPointer.season != -1) {
-     parameters = parameters.set('season',weekPointer.season+"");
+      parameters = parameters.set('season', weekPointer.season + "");
     }
-    if(weekPointer.week != -1){
-      parameters = parameters.set('week',weekPointer.week+"");
+    if (weekPointer.week != -1) {
+      parameters = parameters.set('week', weekPointer.week + "");
     }
-    if(team1 != null){
-      parameters = parameters.set('team1',team1.nflId);
+    if (team1 != null) {
+      parameters = parameters.set('team1', team1.nflId);
     }
-    if(team2 != null){
-      parameters = parameters.set('team2',team2.nflId);
+    if (team2 != null) {
+      parameters = parameters.set('team2', team2.nflId);
     }
+    console.info(parameters);
     this.http.get
-    return this.http.get<Match[]>(path,{params: parameters}).pipe(
+    return this.http.get<Match[]>(path, { params: parameters }).pipe(
       catchError(this.exceptionService.handleHttpError("getMatchesForWeek", [])),
       //Resolve the team name by id
       map(matches => this.loadTeams(matches))

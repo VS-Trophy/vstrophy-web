@@ -7,6 +7,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { AppRoutingModule } from '../app-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatchListComponent } from './match-list/match-list.component';
 
 @NgModule({
   imports: [
@@ -20,8 +21,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatchesService
   ],
   exports:[
-    MatchComponent
+    MatchComponent,MatchListComponent
   ],
-  declarations: [MatchComponent]
+  declarations: [MatchComponent, MatchListComponent]
 })
 export class MatchesModule { }
