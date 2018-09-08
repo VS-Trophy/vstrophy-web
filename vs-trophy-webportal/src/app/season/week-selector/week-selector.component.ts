@@ -29,7 +29,7 @@ export class WeekSelectorComponent implements OnInit {
       this.seasonsService.getWeekNumbers(season).subscribe(weeks => {
         this.weekNumbers.push(...weeks);
         if (!this.weekNumbers.includes(this.selectedWeek)) {
-          this.setWeek(-1)
+          this.setWeek(this.weekNumbers[this.weekNumbers.length -1])
         }
         this.emitEvent();
       })
