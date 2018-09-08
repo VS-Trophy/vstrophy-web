@@ -25,7 +25,7 @@ module.exports.matches = function(season, week, team1, team2){
 module.exports.closestMatches = function(ascdesc,limit,season,week){
 return aql`FOR match IN Matches
 LET performances = (FOR team,performance IN 1..1 ANY match TeamPlayedIn
-RETURN {"team" : team.name, "points" : performance.points})
+RETURN {"team" : team, "points" : performance.points})
 LET margin = ABS(performances[0].points - performances[1].points)
 SORT margin ${ascdesc}
 
@@ -36,13 +36,13 @@ FILTER ${season}==null || season.number == ${season}
 LET seasonweek =  {"season" : season.number, "week" : week.number}
 
 LIMIT ${limit}
-RETURN {"firstTeam": performances[0].team,"firstTeamPoints": performances[0].points,"secondTeam": performances[1].team,"secondTeamPoints": performances[1].points, "margin" : margin,"season" : seasonweek.season, "week": seasonweek.week}`
+RETURN {"firstTeamId": performances[0].team.nflId,"firstTeamPoints": performances[0].points,"secondTeamId": performances[1].team.nflId,"secondTeamPoints": performances[1].points, "margin" : margin,"season" : seasonweek.season, "week": seasonweek.week}`
 }
 
 module.exports.highestScoringMatches = function(ascdesc,limit,season,week){
     return aql`FOR match IN Matches
     LET performances = (FOR team,performance IN 1..1 ANY match TeamPlayedIn
-    RETURN {"team" : team.name, "points" : performance.points})
+    RETURN {"team" : team, "points" : performance.points})
     LET score = performances[0].points + performances[1].points
     SORT score ${ascdesc}
     
@@ -53,5 +53,5 @@ module.exports.highestScoringMatches = function(ascdesc,limit,season,week){
     LET seasonweek =  {"season" : season.number, "week" : week.number}
     
     LIMIT ${limit}
-    RETURN {"firstTeam": performances[0].team,"firstTeamPoints": performances[0].points,"secondTeam": performances[1].team,"secondTeamPoints": performances[1].points, "totalScore" : score,"season" : seasonweek.season, "week": seasonweek.week}`
+    RETURN {"firstTeamId": performances[0].team.nflId,"firstTeamPoints": performances[0].points,"secondTeamId": performances[1].team.nflId,"secondTeamPoints": performances[1].points, "totalScore" : score,"season" : seasonweek.season, "week": seasonweek.week}`
 }
