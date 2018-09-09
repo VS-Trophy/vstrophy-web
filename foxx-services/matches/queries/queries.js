@@ -1,5 +1,5 @@
 const aql = require('@arangodb').aql;
-
+const weekmod = require('./week.js')
 module.exports.matches = function(season, week, team1, team2){
     return aql`FOR season IN Seasons
     FILTER  ${season} == null || season.number == ${season}
@@ -23,6 +23,8 @@ module.exports.matches = function(season, week, team1, team2){
 }
 
 module.exports.closestMatches = function(ascdesc,limit,season,week){
+    var currentWeek =  weekmod.currentWeek()
+    var currentSeason = weekmod.currentSeason();
 return aql`FOR match IN Matches
 LET performances = (FOR team,performance IN 1..1 ANY match TeamPlayedIn
 RETURN {"team" : team, "points" : performance.points})
@@ -33,6 +35,7 @@ FOR week IN 1..1 ANY match MatchesInWeek
 FILTER ${week}==null || week.number == ${week} 
 FOR season IN 1..1 ANY week WeeksInSeason
 FILTER ${season}==null || season.number == ${season} 
+FILTER week.number != ${currentWeek} && season.number != ${currentSeason}
 LET seasonweek =  {"season" : season.number, "week" : week.number}
 
 LIMIT ${limit}
@@ -40,6 +43,8 @@ RETURN {"firstTeamId": performances[0].team.nflId,"firstTeamPoints": performance
 }
 
 module.exports.highestScoringMatches = function(ascdesc,limit,season,week){
+    var currentWeek =  weekmod.currentWeek()
+    var currentSeason = weekmod.currentSeason();
     return aql`FOR match IN Matches
     LET performances = (FOR team,performance IN 1..1 ANY match TeamPlayedIn
     RETURN {"team" : team, "points" : performance.points})
@@ -50,6 +55,7 @@ module.exports.highestScoringMatches = function(ascdesc,limit,season,week){
     FILTER ${week}==null || week.number == ${week} 
     FOR season IN 1..1 ANY week WeeksInSeason
     FILTER ${season}==null || season.number == ${season} 
+    FILTER week.number != ${currentWeek} && season.number != ${currentSeason}
     LET seasonweek =  {"season" : season.number, "week" : week.number}
     
     LIMIT ${limit}
