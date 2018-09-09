@@ -1,8 +1,7 @@
-<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-evenly stretch">
+<div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutAlign="space-evenly">
     <vst-match-list [matches]="closestMatchesEver" title="Knappste Matches"></vst-match-list>
     <vst-match-list [matches]="mostDecisiveMatchesEver" title="Eindeutigste Matches"></vst-match-list>
-</div>
-<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-evenly stretch">
+
     <vst-match-list [matches]="topScoringMatchesEver" title="Am Meisten Punkte"></vst-match-list>
     <vst-match-list [matches]="leastScoringMatchesEver" title="Am Wenigsten Punkte"></vst-match-list>
 </div>

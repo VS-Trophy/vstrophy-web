@@ -18,8 +18,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCardModule,
     FlexLayoutModule,
     MatProgressBarModule,
-    MatBadgeModule,
-    MatExpansionModule
+    MatBadgeModule
   ],
   providers: [
     MatchesService
