@@ -12,5 +12,7 @@
       <img mat-card-avatar [src]="match.secondTeamLogoPath" /> {{match.secondTeamName}} </a>
       
   </div>
+  <div class="center-text" *ngIf="match.margin">Differenz: {{match.margin | number: '0.1'}}</div>
+  <div class="center-text" *ngIf="match.totalScore">Total: {{match.totalScore}}</div>
   <mat-progress-bar class="progress" [value]="getProgressBarValue()"></mat-progress-bar>
 </mat-card>

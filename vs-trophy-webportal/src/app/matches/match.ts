@@ -9,4 +9,6 @@ export class Match {
     secondTeamPoints: number;
     season: number;
     week: number;
+    margin: number;
+    totalScore: number;
 }
