@@ -13,10 +13,14 @@ export class RecordResultViewComponent implements OnInit {
 
   closestMatchesEver: Match[]
   mostDecisiveMatchesEver: Match[]
+  topScoringMatchesEver: Match[]
+  leastScoringMatchesEver: Match[]
 
   ngOnInit() {
     this.matchesService.getClosestMatches(null,null,null).subscribe(matches => this.closestMatchesEver = matches)
     this.matchesService.getMostDecisiveMatches(null,null,null).subscribe(matches => this.mostDecisiveMatchesEver = matches)
+    this.matchesService.getTopScoringMatches(null,null,null).subscribe(matches => this.topScoringMatchesEver = matches)
+    this.matchesService.getLeastScoringMatches(null,null,null).subscribe(matches => this.leastScoringMatchesEver = matches)
   }
 
 }

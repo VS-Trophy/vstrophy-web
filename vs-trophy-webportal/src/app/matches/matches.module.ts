@@ -9,6 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatchListComponent } from './match-list/match-list.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatCardModule,
     FlexLayoutModule,
     MatProgressBarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatExpansionModule
   ],
   providers: [
     MatchesService

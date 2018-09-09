@@ -1,6 +1,6 @@
-<mat-card [matBadgeHidden] = "!badgeValue" matBadgeSize="large" [matBadge]="badgeValue" matBadgePosition="before" >
+<mat-card [matBadgeHidden]="!badgeValue" matBadgeSize="large" [matBadge]="badgeValue" matBadgePosition="before">
   <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-    <mat-card-title >{{match.season}} Woche
+    <mat-card-title>{{match.season}} Woche
       {{match.week}}</mat-card-title>
   </mat-card-header>
   <div fxLayout="row" fxLayoutAlign="center center">
@@ -16,6 +16,6 @@
 
   </div>
   <div class="center-text" *ngIf="match.margin">Differenz: {{match.margin | number: '0.1'}}</div>
-  <div class="center-text" *ngIf="match.totalScore">Total: {{match.totalScore}}</div>
+  <div class="center-text" *ngIf="match.totalScore">Total: {{match.totalScore | number: '0.1'}}</div>
   <mat-progress-bar class="progress" [value]="getProgressBarValue()"></mat-progress-bar>
 </mat-card>

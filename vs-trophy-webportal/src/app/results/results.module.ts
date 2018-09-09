@@ -9,6 +9,7 @@ import { ResultsOverviewComponent } from './results-overview/results-overview.co
 import {MatTabsModule} from '@angular/material/tabs';
 import { RecordResultViewComponent } from './record-result-view/record-result-view.component';
 
+
 @NgModule({
   imports: [
     CommonModule,

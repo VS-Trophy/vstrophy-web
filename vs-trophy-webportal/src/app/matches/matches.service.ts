@@ -14,6 +14,7 @@ export class MatchesService {
 
   private matchesPath = 'matches'
   private margin = '/margin'
+  private totalpoints = '/totalpoints'
 
   constructor(private http: HttpClient, private exceptionService: ExceptionService, private teamsService: TeamsService) { }
 
@@ -60,6 +61,50 @@ export class MatchesService {
       parameters = parameters.set('limit', limit + '');
     }
     parameters = parameters.set('sortorder', 'desc'); //This lets us get the most decisive matches
+    console.info(parameters);
+    this.http.get
+    return this.http.get<Match[]>(path, { params: parameters }).pipe(
+      catchError(this.exceptionService.handleHttpError("getClosestMatches", [])),
+      //Resolve the team name by id
+      map(matches => this.loadTeams(matches))
+    )
+  }
+
+  getTopScoringMatches(season: number, week: number, limit: number): Observable<Match[]> {
+    var path: string = environment.apiRoot + this.matchesPath + this.totalpoints;
+    var parameters: HttpParams = new HttpParams();
+    if (season != null) {
+      parameters = parameters.set('season', season + '');
+    }
+    if (week != null) {
+      parameters = parameters.set('week', week + '');
+    }
+    if (limit != null) {
+      parameters = parameters.set('limit', limit + '');
+    }
+    parameters = parameters.set('sortorder', 'desc'); //This lets us get the top scoring matches
+    console.info(parameters);
+    this.http.get
+    return this.http.get<Match[]>(path, { params: parameters }).pipe(
+      catchError(this.exceptionService.handleHttpError("getClosestMatches", [])),
+      //Resolve the team name by id
+      map(matches => this.loadTeams(matches))
+    )
+  }
+
+  getLeastScoringMatches(season: number, week: number, limit: number): Observable<Match[]> {
+    var path: string = environment.apiRoot + this.matchesPath + this.totalpoints;
+    var parameters: HttpParams = new HttpParams();
+    if (season != null) {
+      parameters = parameters.set('season', season + '');
+    }
+    if (week != null) {
+      parameters = parameters.set('week', week + '');
+    }
+    if (limit != null) {
+      parameters = parameters.set('limit', limit + '');
+    }
+    parameters = parameters.set('sortorder', 'asc'); //This lets us get the least scoring matches
     console.info(parameters);
     this.http.get
     return this.http.get<Match[]>(path, { params: parameters }).pipe(
