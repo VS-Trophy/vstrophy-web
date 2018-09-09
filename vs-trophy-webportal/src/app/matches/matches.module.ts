@@ -8,6 +8,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatchListComponent } from './match-list/match-list.component';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MatchListComponent } from './match-list/match-list.component';
     AppRoutingModule,
     MatCardModule,
     FlexLayoutModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBadgeModule
   ],
   providers: [
     MatchesService

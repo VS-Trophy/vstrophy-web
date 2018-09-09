@@ -1,16 +1,19 @@
-<mat-card>
-  <mat-card-header fxLayout="row" fxLayoutAlign="end center"><mat-card-title>{{match.season}} Woche {{match.week}}</mat-card-title></mat-card-header>
+<mat-card [matBadgeHidden] = "!badgeValue" matBadgeSize="large" [matBadge]="badgeValue" matBadgePosition="before" >
+  <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+    <mat-card-title >{{match.season}} Woche
+      {{match.week}}</mat-card-title>
+  </mat-card-header>
   <div fxLayout="row" fxLayoutAlign="center center">
     <a routerLink="/teams/{{match.firstTeamId}}" fxFlex fxLayout="column" fxLayoutAlign="center center" [class]="getFirstTeamClass()">
       <img mat-card-avatar [src]="match.firstTeamLogoPath" /> {{match.firstTeamName}}</a>
     <div fxFlex fxLayoutAlign="center">
       <span [class]="getFirstTeamClass()">{{match.firstTeamPoints}} </span>
       <span> &nbsp;VS&nbsp; </span>
-      <span  [class]="getSecondTeamClass()"> {{match.secondTeamPoints}}</span>
+      <span [class]="getSecondTeamClass()"> {{match.secondTeamPoints}}</span>
     </div>
     <a routerLink="/teams/{{match.secondTeamId}}" fxFlex fxLayout="column" fxLayoutAlign="center center" [class]="getSecondTeamClass()">
       <img mat-card-avatar [src]="match.secondTeamLogoPath" /> {{match.secondTeamName}} </a>
-      
+
   </div>
   <div class="center-text" *ngIf="match.margin">Differenz: {{match.margin | number: '0.1'}}</div>
   <div class="center-text" *ngIf="match.totalScore">Total: {{match.totalScore}}</div>

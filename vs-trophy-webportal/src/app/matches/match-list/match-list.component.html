@@ -1,2 +1,4 @@
-<span class="mat-title">{{title}}</span>
-<vst-match *ngFor="let match of matches" [match]="match"></vst-match>
+<div class="mat-title list-title">{{title}}</div>
+<div fxLayoutGap="20px">
+    <vst-match *ngFor="let match of matches; let rank = index " [match]="match" [badgeValue]="rank + 1"></vst-match>
+</div>

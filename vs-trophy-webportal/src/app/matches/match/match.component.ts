@@ -14,6 +14,9 @@ export class MatchComponent implements OnInit {
   @Input()
   match: Match;
 
+  @Input()
+  badgeValue: string;
+
   getProgressBarValue(): number{
     if(this.match != null){
       const totalPoints = 
