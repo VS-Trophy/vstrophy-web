@@ -20,13 +20,19 @@ export class NewsItemEditorViewComponent implements OnInit {
     this.newsItemService.getAllNewsItems().subscribe(items => {this.items = items;});
   }
 
+
   onSelect(selected: NewsItem){
     console.info()
     this.selectedItem = selected;
   }
 
   onSave(modifiedNewsItem: NewsItem){
-    this.newsItemService.updateNewsItem(modifiedNewsItem);
+    this.newsItemService.updateNewsItem(modifiedNewsItem).subscribe(n => console.log(n))
+  }
+
+  createNew(){
+    const newNewsItem: NewsItem = {author:null,publicationDate:null,content:null,title:"Not Saved Yet",_key:null};
+    this.items.push(newNewsItem);
   }
 
 }

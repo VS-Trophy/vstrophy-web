@@ -1,4 +1,7 @@
 <div fxLayout="row" fxLayoutGap="10px" class="news-editor-view-container">
     <vst-news-item-list [newsItems]="items" (selectEvent)="onSelect($event)"></vst-news-item-list>
-    <vst-news-item-editor [newsItem]="selectedItem" (saveEvent)="onSave($event)" fxFlex></vst-news-item-editor>
+    <vst-news-item-editor [newsItem]="selectedItem" (saveEvent)="onSave($event)" fxFlex></vst-news-item-editor> 
+</div>
+<div fxLayout="row" fxLayoutAlign="end">
+<button mat-fab (click)="createNew()">+</button>
 </div>

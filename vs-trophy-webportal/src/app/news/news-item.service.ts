@@ -34,7 +34,10 @@ export class NewsItemService {
       );
   }
 
-  updateNewsItem(modifiedItem: NewsItem){
-    console.info("Modifying news item...");
+  updateNewsItem(modifiedItem: NewsItem):Observable<NewsItem>{
+   return this.http.post<NewsItem>(environment.apiRoot+`newsItems/`,modifiedItem)
+   .pipe(
+    catchError(this.exceptionService.handleHttpError("updateNewsItem", null))
+   );
   }
 }

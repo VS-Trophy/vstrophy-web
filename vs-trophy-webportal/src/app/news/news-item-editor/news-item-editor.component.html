@@ -10,9 +10,7 @@
   <mat-form-field>
     <input matInput [(ngModel)]="newsItem.title" name="title" placeholder="Title">
   </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Content" [(ngModel)]="newsItem.content" name="content"></textarea>
-  </mat-form-field>
+  <angular-editor  [(ngModel)]="newsItem.content" name="content" [config]="editorConfig"></angular-editor>
     <button mat-button type="submit">Speichern</button>
 </form>
 <div *ngIf="!newsItem"> None selected</div>

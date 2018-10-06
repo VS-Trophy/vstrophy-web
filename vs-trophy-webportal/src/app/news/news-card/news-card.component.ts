@@ -18,7 +18,7 @@ export class NewsCardComponent implements OnInit {
   }
 
   readMoreClicked(){
-      this.router.navigate(['news/' + this.newsItem.id]);
+      this.router.navigate(['news/' + this.newsItem._key]);
   }
 
 }

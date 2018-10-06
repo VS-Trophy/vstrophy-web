@@ -47,3 +47,31 @@ router.get('/:newsItemId', function (req, res) {
 .response(['application/json'], 'The requested news item')
 .summary('News Items')
 .description('Returns news a news item by id');
+
+
+router.post('/', function (req, res) {
+  try {
+    const doc = req.body;
+    var answer;
+    const collection = db._collection('NewsItems');
+    if(doc._key != null){
+      answer =  collection.replace(doc,doc)
+    } else {
+      delete doc._key
+      answer =  collection.insert(doc)
+    }
+    doc._key = answer._key
+    doc._id = answer._key
+    doc._rev = answer._rev
+    res.send(doc);
+  } catch (e) {
+    if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
+      throw e;
+    }
+    res.throw(404, 'Could not get news item ' + newsItemId, e);
+  }
+})
+.response(['application/json'], 'The created / update object')
+.body(joi.object().required(), 'Entry to store in the collection.')
+.summary('News Items')
+.description('Creates or updates a news item');

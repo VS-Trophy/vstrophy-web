@@ -26,6 +26,8 @@ export class NewsItemListComponent implements OnInit {
     this.selectEvent.emit(selectionChange.option.value)
   }
 
+
+
   ngOnInit() {
     //This is necessary, so the list is single select only!
     this.selectionList.selectedOptions = new SelectionModel<MatListOption>(false);

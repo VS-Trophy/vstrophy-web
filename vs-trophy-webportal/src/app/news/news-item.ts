@@ -1,5 +1,5 @@
 export interface NewsItem {
-    id: string
+    _key: string
     author: string
     title: string
     content: string
