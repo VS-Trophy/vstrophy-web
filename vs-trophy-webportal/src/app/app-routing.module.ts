@@ -14,6 +14,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'news',pathMatch:'full'},
   {path: 'news', component: NewsFeedViewComponent},
   {path: 'news/:newsItemId', component: NewsItemDetailViewComponent},
+  {path: 'newseditor', component: NewsItemEditorViewComponent},
   {path: 'results', component: ResultsOverviewComponent},
   {path: 'teams', component: TeamsOverviewComponent},
   {path: 'teams/:teamId', component: TeamInfoComponent}
