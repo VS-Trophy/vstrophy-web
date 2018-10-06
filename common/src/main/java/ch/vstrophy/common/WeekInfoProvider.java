@@ -21,7 +21,7 @@ public class WeekInfoProvider {
 
   
 
-    private static final DateTime FANTASY_SEAON_WEEK_1_2018 = new DateTime(2018, 9, 3, 5, 0);
+    private static final DateTime FANTASY_SEAON_WEEK_1_2018 = new DateTime(2018, 9, 4, 5, 0);
     public static final int CURRENT_SEASON = 2018;
 
     public int getCurrentWeekNumber() {
