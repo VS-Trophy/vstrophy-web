@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { SimpleStatComponent } from './simple-stat/simple-stat.component';
+import { StatsViewComponent } from './stats-view/stats-view.component';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { SimpleStatComponent } from './simple-stat/simple-stat.component';
     MatProgressBarModule
   ],
   providers : [StatsService],
-  exports : [WinLossRecordComponent, SimpleStatComponent],
-  declarations: [WinLossRecordComponent, SimpleStatComponent]
+  exports : [WinLossRecordComponent, SimpleStatComponent, StatsViewComponent],
+  declarations: [WinLossRecordComponent, SimpleStatComponent, StatsViewComponent]
 })
 export class StatsModule { }
