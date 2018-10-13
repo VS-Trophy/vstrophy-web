@@ -136,3 +136,25 @@ module.exports.pointstats = function(team){
     "total": totalPoints,
     "matches": matches}`
 }
+
+module.exports.pointstats = function(){
+    var currentWeek = week.currentWeek();
+    var currentSeason = week.currentSeason();
+    return aql`
+
+    FOR team IN VSTrophyTeams
+    FOR match, performance IN 1..1 OUTBOUND team TeamPlayedIn
+    LET isMatchOngoing = LENGTH(
+        FOR week IN 1..1 INBOUND match MatchesInWeek FILTER week.number == ${currentWeek}
+            FOR season IN 1..1 INBOUND week WeeksInSeason FILTER season.number == ${currentSeason}
+                RETURN season
+    )
+    FILTER isMatchOngoing == 0
+    COLLECT teamKey = team._key AGGREGATE averagePoints = AVERAGE(performance.points), minPoints = MIN(performance.points), maxPoints = MAX(performance.points), totalPoints = SUM(performance.points), matches = LENGTH(match)
+    RETURN {'team': teamKey, 
+    "average" : averagePoints,
+    "max": maxPoints,
+    "min" : minPoints,
+    "total": totalPoints,
+    "matches": matches}`
+}

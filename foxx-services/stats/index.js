@@ -125,6 +125,23 @@ router.get('/team/:team/pointstats', function (req, res) {
 .summary('Highest, lowest, and total points scored, average points per game and number of games')
 .description('Highest, lowest, and total points scored, average points per game and number of games');
 
+router.get('/teams/pointstats', function (req, res) {
+  try {
+    const team = req.pathParams.team
+    const record = 
+    db._query(queries.pointstats())
+    res.send(record._documents)
+  } catch (e) {
+    if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
+      throw e;
+    }
+    res.throw(500, 'Could not get pointstats', e);
+  }
+})
+.response(['application/json'], 'Highest, lowest, and total points scored, average points per game and number of games')
+.summary('Highest, lowest, and total points scored, average points per game and number of games')
+.description('Highest, lowest, and total points scored, average points per game and number of games');
+
 
 router.get('/team/:team/winloss/opponents', function (req, res) {
   try {
