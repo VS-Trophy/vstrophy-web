@@ -156,7 +156,7 @@ module.exports.pointstatsTeams = function (filteredWeek, filteredSeason) {
     )
     FILTER isMatchInValid == 0
     LET isWin = path.edges[0].points > path.edges[1].points ? 1 : 0
-    COLLECT teamKey = team._key 
+    COLLECT teamKey = team.nflId 
     AGGREGATE averagePoints = AVERAGE(performance.points), 
     minPoints = MIN(performance.points), 
     maxPoints = MAX(performance.points), 
