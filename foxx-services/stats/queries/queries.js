@@ -2,8 +2,8 @@ const aql = require('@arangodb').aql;
 const week = require('./week.js')
 
 
-module.exports.topPerformances = function(ascdesc,limit,week,season){
-return aql`
+module.exports.topPerformances = function (ascdesc, limit, week, season) {
+    return aql`
 FOR teamPerformance IN TeamPlayedIn
 SORT teamPerformance.points ${ascdesc}
 
@@ -25,8 +25,8 @@ RETURN {"opponent" : opp.name, "points" : oppPerf.points}
 RETURN {"points" : teamPerformance.points, "team" : team.name, "season" : seasonweek.season, "week": seasonweek.week, "opponent": opponentPerformance.opponent, "opponentPoints" : opponentPerformance.points }`
 }
 
-module.exports.closestMatches = function(ascdesc,limit,week,season){
-return aql`FOR match IN Matches
+module.exports.closestMatches = function (ascdesc, limit, week, season) {
+    return aql`FOR match IN Matches
 LET performances = (FOR team,performance IN 1..1 ANY match TeamPlayedIn
 RETURN {"team" : team.name, "points" : performance.points})
 LET margin = ABS(performances[0].points - performances[1].points)
@@ -42,7 +42,7 @@ LIMIT ${limit}
 RETURN {"firstTeam": performances[0].team,"firstTeamPoints": performances[0].points,"secondTeam": performances[1].team,"secondTeamPoints": performances[1].points, "margin" : margin,"season" : seasonweek.season, "week": seasonweek.week}`
 }
 
-module.exports.highestScoringMatches = function(ascdesc,limit,week,season){
+module.exports.highestScoringMatches = function (ascdesc, limit, week, season) {
     return aql`FOR match IN Matches
     LET performances = (FOR team,performance IN 1..1 ANY match TeamPlayedIn
     RETURN {"team" : team.name, "points" : performance.points})
@@ -60,8 +60,8 @@ module.exports.highestScoringMatches = function(ascdesc,limit,week,season){
 }
 
 
-module.exports.winlossrecord = function(team, opponent, season){
-    var currentWeek =  week.currentWeek()
+module.exports.winlossrecord = function (team, opponent, season) {
+    var currentWeek = week.currentWeek()
     var currentSeason = week.currentSeason();
     return aql`LET seasonMatches = (
         FOR season IN Seasons
@@ -85,8 +85,8 @@ module.exports.winlossrecord = function(team, opponent, season){
         RETURN {"wins" : winloss.wins?:0, "losses" : winloss.losses?:0, "ratio" : matchCount>0?(winloss.wins / (matchCount)):0}`
 }
 
-module.exports.winlossoverview = function(team, season){
-    var currentWeek =  week.currentWeek()
+module.exports.winlossoverview = function (team, season) {
+    var currentWeek = week.currentWeek()
     var currentSeason = week.currentSeason();
     return aql`LET team = 
     FIRST (
@@ -115,7 +115,7 @@ module.exports.winlossoverview = function(team, season){
     RETURN {"opponent" : opponent, "record" : {"wins" : wins, "losses": losses,"ratio" : ratio}}`
 }
 
-module.exports.pointstats = function(team){
+module.exports.pointstats = function (team) {
     var currentWeek = week.currentWeek();
     var currentSeason = week.currentSeason();
     return aql`
@@ -137,22 +137,38 @@ module.exports.pointstats = function(team){
     "matches": matches}`
 }
 
-module.exports.pointstats = function(){
+module.exports.pointstats = function (filteredWeek, filteredSeason) {
     var currentWeek = week.currentWeek();
     var currentSeason = week.currentSeason();
     return aql`
 
     FOR team IN VSTrophyTeams
-    FOR match, performance IN 1..1 OUTBOUND team TeamPlayedIn
-    LET isMatchOngoing = LENGTH(
-        FOR week IN 1..1 INBOUND match MatchesInWeek FILTER week.number == ${currentWeek}
-            FOR season IN 1..1 INBOUND week WeeksInSeason FILTER season.number == ${currentSeason}
-                RETURN season
+
+    FOR match, performance,path IN 2..2 ANY team TeamPlayedIn
+    LET isMatchInValid = LENGTH(
+        FOR week IN 1..1 INBOUND path.vertices[1] MatchesInWeek 
+        FILTER (${filteredWeek} != null && week.number != ${filteredWeek}) 
+            FOR season IN 1..1 INBOUND week WeeksInSeason 
+           FILTER
+            (${filteredSeason} != null && season.number != ${filteredSeason} ) 
+            || (week.number == ${currentWeek} && season.number == ${currentSeason})
+                RETURN week
     )
-    FILTER isMatchOngoing == 0
-    COLLECT teamKey = team._key AGGREGATE averagePoints = AVERAGE(performance.points), minPoints = MIN(performance.points), maxPoints = MAX(performance.points), totalPoints = SUM(performance.points), matches = LENGTH(match)
-    RETURN {'team': teamKey, 
+    FILTER isMatchInValid == 0
+    LET isWin = path.edges[0].points > path.edges[1].points ? 1 : 0
+    COLLECT teamKey = team._key 
+    AGGREGATE averagePoints = AVERAGE(performance.points), 
+    minPoints = MIN(performance.points), 
+    maxPoints = MAX(performance.points), 
+    totalPoints = SUM(performance.points), 
+    matches = LENGTH(match), 
+    wins = SUM(isWin)
+    
+    RETURN {'team': teamKey,
+    'wins': wins,
+    'losses': (matches - wins),
     "average" : averagePoints,
+    "ratio" : (wins / (matches)),
     "max": maxPoints,
     "min" : minPoints,
     "total": totalPoints,
