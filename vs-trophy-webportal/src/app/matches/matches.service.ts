@@ -61,7 +61,6 @@ export class MatchesService {
       parameters = parameters.set('limit', limit + '');
     }
     parameters = parameters.set('sortorder', 'desc'); //This lets us get the most decisive matches
-    console.info(parameters);
     this.http.get
     return this.http.get<Match[]>(path, { params: parameters }).pipe(
       catchError(this.exceptionService.handleHttpError("getClosestMatches", [])),

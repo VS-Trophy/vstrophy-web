@@ -1,0 +1,54 @@
+<div class="container">
+<table mat-table matSort [dataSource]="dataSource" class="responsive_table mat-elevation-z8">
+   
+   <ng-container matColumnDef="teamName"  >
+    <th mat-header-cell *matHeaderCellDef> Team </th>
+    <td mat-cell *matCellDef="let stat"> {{stat.teamName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="max" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Max </th>
+    <td mat-cell *matCellDef="let stat"> {{stat.max | number: '0.2'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="min">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Min </th>
+    <td mat-cell *matCellDef="let stat"> {{stat.min | number: '0.2'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="average">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Average </th>
+    <td mat-cell *matCellDef="let stat"> {{stat.average | number: '0.2'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+    <td mat-cell *matCellDef="let stat"> {{stat.total | number: '0.2'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="ratio">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ratio </th>
+    <td mat-cell *matCellDef="let stat"> {{stat.ratio | number: '0.3' | slice:
+      1}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="matches">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Matches </th>
+    <td mat-cell *matCellDef="let stat">   {{stat.matches}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="wins">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Wins </th>
+    <td mat-cell *matCellDef="let stat"> {{stat.wins}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="losses">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Losses </th>
+    <td mat-cell *matCellDef="let stat"> {{stat.losses}} </td>
+  </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>

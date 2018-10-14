@@ -56,7 +56,13 @@ export class StatsService {
   public getTeamPointStats(nflId: string): Observable<PointStats> {
     return this.http.get<PointStats>(environment.apiRoot + `stats/team/${nflId}/pointstats`)
       .pipe(
-        catchError(this.exceptionService.handleHttpError("getTeamRecordMap", new PointStats))
+        catchError(this.exceptionService.handleHttpError("getTeamPointStats", new PointStats))
+      )
+  }
+  public getAllTeamPointStats(): Observable<PointStats[]> {
+    return  this.http.get<PointStats[]>(environment.apiRoot + `stats/teams/pointstats`)
+      .pipe(
+        catchError(this.exceptionService.handleHttpError("getAllTeamPointStats", []))
       )
   }
 
