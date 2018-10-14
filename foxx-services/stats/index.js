@@ -130,7 +130,7 @@ router.get('/teams/pointstats', function (req, res) {
     const filteredWeek = req.queryParams.week
     const filteredSeason = req.queryParams.season
     const record = 
-    db._query(queries.pointstats(filteredWeek,filteredSeason))
+    db._query(queries.pointstatsTeams(filteredWeek,filteredSeason))
     res.send(record._documents)
   } catch (e) {
     if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {

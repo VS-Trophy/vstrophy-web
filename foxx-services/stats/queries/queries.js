@@ -137,7 +137,7 @@ module.exports.pointstats = function (team) {
     "matches": matches}`
 }
 
-module.exports.pointstats = function (filteredWeek, filteredSeason) {
+module.exports.pointstatsTeams = function (filteredWeek, filteredSeason) {
     var currentWeek = week.currentWeek();
     var currentSeason = week.currentSeason();
     return aql`
