@@ -42,7 +42,7 @@ module.exports.winlossrecord = function (team, opponent, season) {
         FILTER team.nflId == ${team}
         FOR vertex, performance, path IN 2..2 ANY team TeamPlayedIn
         FILTER ${opponent} == null || path.vertices[2].nflId == ${opponent}  
-        FILTER ${season} == null || path.vertices[1]._id IN seasonMatches
+        FILTER path.vertices[1]._id IN seasonMatches
         
         COLLECT category = path.edges[0].points > path.edges[1].points ? "wins" : "losses" WITH COUNT INTO ammount
         return {[category] : ammount})

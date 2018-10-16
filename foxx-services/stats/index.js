@@ -4,6 +4,7 @@ const router = createRouter();
 const joi = require('joi');
 const db = require('@arangodb').db;
 const queries = require('./queries/queries.js')
+const week = require('./queries/week.js')
 const errors = require('@arangodb').errors;
 const teamCollection = db._collection('VSTrophyTeams');
 const DOC_NOT_FOUND = errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code;
