@@ -35,7 +35,7 @@ FOR week IN 1..1 ANY match MatchesInWeek
 FILTER ${week}==null || week.number == ${week} 
 FOR season IN 1..1 ANY week WeeksInSeason
 FILTER ${season}==null || season.number == ${season} 
-FILTER week.number != ${currentWeek} && season.number != ${currentSeason}
+FILTER week.number != ${currentWeek} || season.number != ${currentSeason}
 LET seasonweek =  {"season" : season.number, "week" : week.number}
 
 LIMIT ${limit}
@@ -55,7 +55,7 @@ module.exports.highestScoringMatches = function(ascdesc,limit,season,week){
     FILTER ${week}==null || week.number == ${week} 
     FOR season IN 1..1 ANY week WeeksInSeason
     FILTER ${season}==null || season.number == ${season} 
-    FILTER week.number != ${currentWeek} && season.number != ${currentSeason}
+    FILTER week.number != ${currentWeek} || season.number != ${currentSeason}
     LET seasonweek =  {"season" : season.number, "week" : week.number}
     
     LIMIT ${limit}

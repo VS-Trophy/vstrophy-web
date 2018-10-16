@@ -1,5 +1,7 @@
-<div class="container">
-<table mat-table matSort [dataSource]="dataSource" class="responsive_table mat-elevation-z8">
+<div fxLayout="column" fxLayoutAling="center center">
+  <vst-week-selector></vst-week-selector>
+  <div class="container">
+  <table mat-table matSort [dataSource]="dataSource" class="responsive_table mat-elevation-z8">
    
    <ng-container matColumnDef="teamName"  >
     <th mat-header-cell *matHeaderCellDef> Team </th>
@@ -34,7 +36,7 @@
 
   <ng-container matColumnDef="matches">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Matches </th>
-    <td mat-cell *matCellDef="let stat">   {{stat.matches}} </td>
+    <td mat-cell *matCellDef="let stat">  {{stat.matches}} </td>
   </ng-container>
 
   <ng-container matColumnDef="wins">
@@ -51,4 +53,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-</div>
+</div></div>
