@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiRoot: "http://localhost:8529/_db/vs-trophy/"
+  apiRoot: 'http://localhost:8529/_db/vs-trophy/'
 };
