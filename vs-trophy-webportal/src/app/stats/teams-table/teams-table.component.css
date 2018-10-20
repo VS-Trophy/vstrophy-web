@@ -1,10 +1,29 @@
-  .container{
-    overflow: auto;
+
+
+  .containerFull{
     width: 100%;
+
+  }
+
+  .mat-cell {
+    text-align: center;
+    padding: 5px;
+}
+.mat-header-cell{
+  text-align: center;
+}
+
+::ng-deep .mat-sort-header-container {
+  justify-content: center;
+}
+
+  .containerWithMargin{
+    width: calc(100% - 20px);
+    margin-bottom: 50px
   }
 
   table{
-      width: 100%
+    width: 100%;
   }
 
   .tableLogo{
