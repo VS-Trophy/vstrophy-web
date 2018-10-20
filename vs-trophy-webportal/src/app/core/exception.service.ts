@@ -14,7 +14,7 @@ export class ExceptionService {
 public handleHttpError<T> (operation = 'operation', result?: T) {
   return (error: any): Observable<T> => {
      // log to console
-    console.error('Error in operation ' + operation)
+    console.error('Error in operation ' + operation);
     console.error(error);
 
     // Let the app keep running by returning an empty result.
