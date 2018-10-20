@@ -1,5 +1,5 @@
-<div fxLayout="column" fxLayoutAling="center center">
-  <vst-week-selector></vst-week-selector>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <vst-week-selector (selectedWeekChange)="onWeekChange($event)"></vst-week-selector>
   <div class="container">
   <table mat-table matSort [dataSource]="dataSource" class="responsive_table mat-elevation-z8">
    

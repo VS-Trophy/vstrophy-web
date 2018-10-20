@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { WinLossRecord } from './win-loss-record';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -62,8 +62,15 @@ export class StatsService {
         catchError(this.exceptionService.handleHttpError('getTeamPointStats', new PointStats))
       );
   }
-  public getAllTeamPointStats(): Observable<PointStats[]> {
-    return this.http.get<PointStats[]>(environment.apiRoot + `stats/teams/pointstats`)
+  public getAllTeamPointStats(season: number, week: number): Observable<PointStats[]> {
+    let parameters: HttpParams = new HttpParams();
+    if (season != null && season !== -1) {
+      parameters = parameters.set('season', season + '');
+    }
+    if (week != null && week !== -1) {
+      parameters = parameters.set('week', week + '');
+    }
+    return this.http.get<PointStats[]>(environment.apiRoot + `stats/teams/pointstats`, { params: parameters })
       .pipe(
         catchError(this.exceptionService.handleHttpError('getAllTeamPointStats', []))
       );

@@ -4,6 +4,7 @@ import { PointStats } from '../point-stats';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { TeamsService } from '../../teams/teams.service';
 import { tap } from 'rxjs/operators';
+import { WeekPointer } from '../../season/week-pointer';
 
 @Component({
   selector: 'vst-teams-table',
@@ -19,15 +20,19 @@ export class TeamsTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
-    this.statsService.getAllTeamPointStats().pipe(
-      tap(stats =>
-        stats
-          .forEach(
-            stat =>
-              this.teamService.getTeamById(stat.team)
-              .subscribe(team => { stat.teamName = team.name; stat.teamLogoPath = team.logoPath; })))
-    ).subscribe(data => this.dataSource.data = data);
+  }
 
+  onWeekChange(weekPointer: WeekPointer) {
+    if (weekPointer != null) {
+      this.statsService.getAllTeamPointStats(weekPointer.season, weekPointer.week).pipe(
+        tap(stats =>
+          stats
+            .forEach(
+              stat =>
+                this.teamService.getTeamById(stat.team)
+                  .subscribe(team => { stat.teamName = team.name; stat.teamLogoPath = team.logoPath; })))
+      ).subscribe(data => this.dataSource.data = data);
+    }
   }
 
 }
