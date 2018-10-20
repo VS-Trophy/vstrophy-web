@@ -1,5 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="center center">
-  <vst-week-selector (selectedWeekChange)="onWeekChange($event)"></vst-week-selector>
+  <vst-week-selector class="selector" (selectedWeekPointerChange)="onWeekChange($event)"
+  [selectedWeekPointer]="weekPointer"></vst-week-selector>
   <div class="containerWithMargin"  [ngClass.lt-md]="{'containerWithMargin': false, 'containerFull':true}" [ngClass.md]="{'containerWithMargin': true, 'containerFull':false}">
   <table mat-table matSort [dataSource]="dataSource" class="responsive_table mat-elevation-z8">
    

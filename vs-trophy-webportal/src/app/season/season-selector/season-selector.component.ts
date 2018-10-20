@@ -11,11 +11,20 @@ export class SeasonSelectorComponent implements OnInit {
   constructor(private seasonsService: SeasonsService) { }
 
   @Output()
-  selectedEvent = new EventEmitter<number>();
+  selectedSeasonChange = new EventEmitter<number>();
+  @Input('selectedSeason')
+  set setSelectedSeason(season: number) {
+    if (this.seasonNumbers != null && this.seasonNumbers.includes(season)) {
+      this.onSelect(season);
+    } else {
+      console.log('Could not set season ' + season + ' as it is not one of the values');
+    }
+  }
 
   seasonNumbers: number[];
+  selectedSeasonNumber;
 
-  selectedSeason: number;
+
 
   ngOnInit() {
     this.seasonNumbers = [-1];
@@ -23,8 +32,8 @@ export class SeasonSelectorComponent implements OnInit {
   }
 
   onSelect(season: number): void {
-    this.selectedEvent.emit(season);
-    this.selectedSeason = season;
+    this.selectedSeasonChange.emit(season);
+    this.selectedSeasonNumber = season;
   }
 
   getValueName(season: number) {

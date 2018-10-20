@@ -1,11 +1,12 @@
 
-
-  .containerFull{
+.selector{
+  margin: 10px;
+}
+.containerFull{
     width: 100%;
-
   }
 
-  .mat-cell {
+.mat-cell {
     text-align: center;
     padding: 5px;
 }
@@ -17,12 +18,12 @@
   justify-content: center;
 }
 
-  .containerWithMargin{
+.containerWithMargin{
     width: calc(100% - 20px);
     margin-bottom: 50px
   }
 
-  table{
+table{
     width: 100%;
   }
 
