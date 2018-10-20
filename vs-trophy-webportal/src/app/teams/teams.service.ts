@@ -1,4 +1,4 @@
-import {of as observableOf,  Observable} from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,11 +10,11 @@ import { ExceptionService } from '../core/exception.service';
 @Injectable()
 export class TeamsService {
 
-  private _logoBasePath = '/assets/images/teamlogos/'
-  private _fileSuffix = '.png'
-  private _teamsPath = 'teams'
+  private _logoBasePath = '/assets/images/teamlogos/';
+  private _fileSuffix = '.png';
+  private _teamsPath = 'teams';
   private _teamMap: Map<String, VSTrophyTeam>;
-  private _observable: Observable<VSTrophyTeam[]>
+  private _observable: Observable<VSTrophyTeam[]>;
 
 
   constructor(private _http: HttpClient, private _exceptionService: ExceptionService) {
@@ -22,19 +22,19 @@ export class TeamsService {
 
   public getTeamById(nflId: string): Observable<VSTrophyTeam> {
     if (this._teamMap) {
-      var team = this._teamMap.get(nflId);
+      const team = this._teamMap.get(nflId);
       if (team == null) {
-        console.warn("Could not load team with nflId " + nflId)
+        console.warn('Could not load team with nflId ' + nflId);
       }
-      return observableOf(team)
+      return observableOf(team);
     } else if (this._observable) {
-       return this._observable.pipe(
-       map(teams => teams.filter(team => team.nflId == nflId)[0])
-       ) 
-    } else{
+      return this._observable.pipe(
+        map(teams => teams.filter(team => team.nflId === nflId)[0])
+      );
+    } else {
       return this.getAllTeams().pipe(
-        map(teams => teams.filter(team => team.nflId == nflId)[0])
-        )
+        map(teams => teams.filter(team => team.nflId === nflId)[0])
+      );
     }
   }
 
@@ -56,16 +56,16 @@ export class TeamsService {
       return this._observable;
     } else {
       this._observable = this._http.get<VSTrophyTeam[]>(environment.apiRoot + this._teamsPath).pipe(
-        catchError(this._exceptionService.handleHttpError("getAllMatches", [])),
+        catchError(this._exceptionService.handleHttpError('getAllMatches', [])),
 
         map(teams => {
           this._observable = null;
-          this._teamMap = new Map<String,VSTrophyTeam>()
-          teams.forEach(team => this.addTeamToTeamMap(team))
-          return this.getCachedTeams()
+          this._teamMap = new Map<String, VSTrophyTeam>();
+          teams.forEach(team => this.addTeamToTeamMap(team));
+          return this.getCachedTeams();
         }),
         share()
-      )
+      );
       return this._observable;
     }
   }
