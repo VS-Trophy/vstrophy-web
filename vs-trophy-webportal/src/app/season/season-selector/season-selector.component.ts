@@ -11,15 +11,15 @@ export class SeasonSelectorComponent implements OnInit {
   constructor(private seasonsService: SeasonsService) { }
 
   @Output()
-  selectedEvent = new EventEmitter<number>()
+  selectedEvent = new EventEmitter<number>();
 
-  seasonNumbers: number[]
+  seasonNumbers: number[];
 
-  selectedSeason: number
+  selectedSeason: number;
 
   ngOnInit() {
-    this.seasonNumbers = [-1]
-    this.loadSeasonNumbers()
+    this.seasonNumbers = [-1];
+    this.loadSeasonNumbers();
   }
 
   onSelect(season: number): void {
@@ -27,15 +27,15 @@ export class SeasonSelectorComponent implements OnInit {
     this.selectedSeason = season;
   }
 
-  getValueName(season: number){
-    if(season == -1){
-      return "Alle";
+  getValueName(season: number) {
+    if (season === -1) {
+      return 'Alle';
     }
     return season;
   }
 
-  private loadSeasonNumbers(){
-    this.seasonsService.getSeasonNumbers().subscribe(numbers => {this.seasonNumbers.push(...numbers);this.onSelect(numbers[0])})
+  private loadSeasonNumbers() {
+    this.seasonsService.getSeasonNumbers().subscribe(numbers => {this.seasonNumbers.push(...numbers); this.onSelect(numbers[0]); });
   }
 
 }
