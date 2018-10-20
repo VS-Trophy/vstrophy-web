@@ -119,13 +119,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "vst",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "vst",
       "kebab-case"
     ],
     "no-output-on-prefix": true,
