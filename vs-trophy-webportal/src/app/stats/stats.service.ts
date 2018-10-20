@@ -19,51 +19,54 @@ export class StatsService {
   public getTeamRecord(nflId: string): Observable<WinLossRecord> {
     return this.http.get<WinLossRecord>(environment.apiRoot + `stats/team/${nflId}/winloss`)
       .pipe(
-        catchError(this.exceptionService.handleHttpError("getTeamRecord", new WinLossRecord()))
-      )
+        catchError(this.exceptionService.handleHttpError('getTeamRecord', new WinLossRecord()))
+      );
   }
 
   public getTeamRecordForSeason(nflId: string, season: string): Observable<WinLossRecordSeason> {
     return this.http.get<WinLossRecord>(environment.apiRoot + `stats/team/${nflId}/winloss?season=${season}`)
       .pipe(
-        map(record => {const seasonRecord: WinLossRecordSeason = new WinLossRecordSeason(); seasonRecord.season = +season; seasonRecord.record = record; return seasonRecord;}),
-        catchError(this.exceptionService.handleHttpError("getTeamRecordSeason", new WinLossRecordSeason()))
-      )
+        map(record => {
+          const seasonRecord: WinLossRecordSeason = new WinLossRecordSeason();
+          seasonRecord.season = +season; seasonRecord.record = record; return seasonRecord;
+        }),
+        catchError(this.exceptionService.handleHttpError('getTeamRecordSeason', new WinLossRecordSeason()))
+      );
   }
 
   public getTeamRecordAgainstOpponent(nflId: string, opponent: string): Observable<WinLossRecord> {
     return this.http.get<WinLossRecord>(environment.apiRoot + `stats/team/${nflId}/winloss?opponent=${opponent}`)
       .pipe(
-        catchError(this.exceptionService.handleHttpError("getTeamRecordSeason", new WinLossRecord()))
-      )
+        catchError(this.exceptionService.handleHttpError('getTeamRecordSeason', new WinLossRecord()))
+      );
   }
 
   public getTeamRecordsPerOpponent(nflId: string): Observable<WinLossRecordOpponent[]> {
     return this.http.get<WinLossRecordOpponent[]>(environment.apiRoot + `stats/team/${nflId}/winloss/opponents`)
       .pipe(
-        catchError(this.exceptionService.handleHttpError("getTeamRecordMap", []))
-      )
+        catchError(this.exceptionService.handleHttpError('getTeamRecordMap', []))
+      );
   }
 
 
   public getTeamRecordMapForSeason(nflId: string, season: string): Observable<Map<String, WinLossRecord>> {
     return this.http.get<Map<String, WinLossRecord>>(environment.apiRoot + `stats/team/${nflId}/winloss/map?=${season}`)
       .pipe(
-        catchError(this.exceptionService.handleHttpError("getTeamRecordMap", new Map()))
-      )
+        catchError(this.exceptionService.handleHttpError('getTeamRecordMap', new Map()))
+      );
   }
 
   public getTeamPointStats(nflId: string): Observable<PointStats> {
     return this.http.get<PointStats>(environment.apiRoot + `stats/team/${nflId}/pointstats`)
       .pipe(
-        catchError(this.exceptionService.handleHttpError("getTeamPointStats", new PointStats))
-      )
+        catchError(this.exceptionService.handleHttpError('getTeamPointStats', new PointStats))
+      );
   }
   public getAllTeamPointStats(): Observable<PointStats[]> {
-    return  this.http.get<PointStats[]>(environment.apiRoot + `stats/teams/pointstats`)
+    return this.http.get<PointStats[]>(environment.apiRoot + `stats/teams/pointstats`)
       .pipe(
-        catchError(this.exceptionService.handleHttpError("getAllTeamPointStats", []))
-      )
+        catchError(this.exceptionService.handleHttpError('getAllTeamPointStats', []))
+      );
   }
 
 }
