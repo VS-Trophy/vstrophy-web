@@ -113,12 +113,14 @@ module.exports.pointstatsTeams = function (filteredWeek, filteredSeason) {
     FOR match, performance,path IN 2..2 ANY team TeamPlayedIn
     LET isMatchInValid = LENGTH(
         FOR week IN 1..1 INBOUND path.vertices[1] MatchesInWeek 
-        FILTER (${filteredWeek} != null && week.number != ${filteredWeek}) 
-            FOR season IN 1..1 INBOUND week WeeksInSeason 
-           FILTER
-            (${filteredSeason} != null && season.number != ${filteredSeason} ) 
-            || (week.number == ${currentWeek} && season.number == ${currentSeason})
-                RETURN week
+        FOR season IN 1..1 INBOUND week WeeksInSeason
+        FILTER
+        (${filteredSeason} !=null && season.number != ${filteredSeason} ) 
+        OR
+        (${filteredWeek} != null && week.number != ${filteredWeek})
+        OR
+        (week.number == ${currentWeek} && season.number == ${currentSeason})
+        RETURN season
     )
     FILTER isMatchInValid == 0
     LET isWin = path.edges[0].points > path.edges[1].points ? 1 : 0
