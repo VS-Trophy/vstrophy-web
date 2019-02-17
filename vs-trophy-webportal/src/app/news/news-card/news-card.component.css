@@ -1,0 +1,10 @@
+div.blink_me{
+    animation: blinkingText 4s infinite;
+    color: red;
+}
+   
+@keyframes blinkingText{
+    0%{     color: #ff1493;    }
+    50%{    color: transparent; }
+    100%{   color: #ff69b4;    }
+}
