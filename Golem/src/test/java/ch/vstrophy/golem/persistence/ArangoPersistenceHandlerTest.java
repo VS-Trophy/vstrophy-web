@@ -19,6 +19,7 @@ import org.junit.Test;
  *
  * @author Fabian Chanton <fabian.chanton@gmx.ch>
  */
+@Ignore
 public class ArangoPersistenceHandlerTest {
   
   private ArangoPersistenceHandler arangoPersistenceHandler;
