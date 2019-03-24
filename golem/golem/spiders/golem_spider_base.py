@@ -1,17 +1,21 @@
 import json
 
 import scrapy
+from ..items import WeekItem
 from scrapy.shell import inspect_response
 from scrapy.utils.response import open_in_browser
 
 
-class GolemSpyder(scrapy.Spider):
-    name = "golem"
+class GolemSpiderBase(scrapy.Spider):
 
     USERNAME = "vstrophy"
-    handle_httpstatus_list = [400]
-    # First we need to login to GIGYA (wathever that is)
 
+    class WeekPointer(object):
+        def __init__(self, season, week):
+            self.season = season
+            self.week = week
+
+    # First we need to login to GIGYA (wathever that is)
     def start_requests(self):
         GIGYA_URL = "https://accounts.us1.gigya.com/accounts.login"
 
@@ -55,14 +59,20 @@ class GolemSpyder(scrapy.Spider):
     def after_cookies(self, response):
         self.logger.info("Got session cookies. Login completed successfully. Let's get scraping!")
         jsonresponse = json.loads(response.body_as_unicode())
-        
-        HISTORY_GAMECENTER_URL = "https://fantasy.nfl.com/league/1268875/history/{}/teamgamecenter?gameCenterTab=track&teamId=4&trackType=fbs&week={}"
-        url = HISTORY_GAMECENTER_URL.format(2017,7)
-        yield scrapy.Request(url=url,cookies=jsonresponse["cookies"],callback=self.parse_week)
+        sessionCookies = jsonresponse["cookies"]
+        for weekItem in self.get_week_items(sessionCookies):
+            yield weekItem
+            HISTORY_GAMECENTER_URL = "https://fantasy.nfl.com/league/1268875/history/{}/teamgamecenter?gameCenterTab=track&teamId=4&trackType=fbs&week={}"
+            url = HISTORY_GAMECENTER_URL.format(weekItem["season"],weekItem["week"])
+            yield scrapy.Request(url=url,cookies=sessionCookies,callback=self.parse_week)
 
+    def get_week_items(self,cookies):
+        raise NotImplementedError("This method should be overwritten")
 
     def parse_week(self, response):
         self.logger.info("Got week response")
         for teamname in response.css(".teamName::text").getall():
             self.logger.info("Teamname " + teamname)
         open_in_browser(response)
+
+    
