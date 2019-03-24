@@ -56,11 +56,13 @@ class GolemSpyder(scrapy.Spider):
         self.logger.info("Got session cookies. Login completed successfully. Let's get scraping!")
         jsonresponse = json.loads(response.body_as_unicode())
         
-        HISTORY_GAMECENTER_URL = "https://fantasy.nfl.com/league/1268875/history/{0}/teamgamecenter?teamId=1&week={1}"
+        HISTORY_GAMECENTER_URL = "https://fantasy.nfl.com/league/1268875/history/{}/teamgamecenter?gameCenterTab=track&teamId=4&trackType=fbs&week={}"
         url = HISTORY_GAMECENTER_URL.format(2017,7)
         yield scrapy.Request(url=url,cookies=jsonresponse["cookies"],callback=self.parse_week)
 
 
     def parse_week(self, response):
         self.logger.info("Got week response")
+        for teamname in response.css(".teamName::text").getall():
+            self.logger.info("Teamname " + teamname)
         open_in_browser(response)
