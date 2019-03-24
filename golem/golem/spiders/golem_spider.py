@@ -25,6 +25,7 @@ class GolemSpyder(scrapy.Spider):
 
     # After the gigya login we need to call the reroute address to login to nfl.com
     def after_gigya_login(self, response):
+        self.logger.info("Gigya login successful. Obtaining nfl access-token.")
         NFL_REROUTE_URL = "https://api.nfl.com/v1/reroute"
         jsonresponse = json.loads(response.body_as_unicode())
         # We send the "gigya_signature" to nfl.com to receive the bearer token
@@ -40,6 +41,7 @@ class GolemSpyder(scrapy.Spider):
     # The nfl login provides a bearer token. We need ot send this token
     # to another url to get all the cookies we need to start collecting data
     def after_nfl_login(self, response):
+        self.logger.info("Obtained access-token. Getting session cookies")
         NFL_COOKIE_ADDRESS = "https://api.nfl.com/v1/cookie"
 
         jsonresponse = json.loads(response.body_as_unicode())
@@ -47,9 +49,18 @@ class GolemSpyder(scrapy.Spider):
         yield scrapy.Request(url=NFL_COOKIE_ADDRESS,
                              headers={"Authorization": "Bearer " +
                                       jsonresponse["access_token"]},
-                             callback=self.start_collecting)
+                             callback=self.after_cookies)
 
     # The starting point after all loging in is done and whe have the session cookies
-    def start_collecting(self, response):
-        self.logger.info("Successfully loged in! ")
-        self.logger.info(response.headers)
+    def after_cookies(self, response):
+        self.logger.info("Got session cookies. Login completed successfully. Let's get scraping!")
+        jsonresponse = json.loads(response.body_as_unicode())
+        
+        HISTORY_GAMECENTER_URL = "https://fantasy.nfl.com/league/1268875/history/{0}/teamgamecenter?teamId=1&week={1}"
+        url = HISTORY_GAMECENTER_URL.format(2017,7)
+        yield scrapy.Request(url=url,cookies=jsonresponse["cookies"],callback=self.parse_week)
+
+
+    def parse_week(self, response):
+        self.logger.info("Got week response")
+        open_in_browser(response)
