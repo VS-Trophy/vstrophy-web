@@ -11,3 +11,7 @@ class WeekItem(scrapy.Item):
     season = scrapy.Field()
     week = scrapy.Field()
     pass    
+
+class SeasonItem(scrapy.Item):
+    season = scrapy.Field()
+    pass    

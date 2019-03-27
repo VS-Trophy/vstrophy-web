@@ -1,7 +1,7 @@
-from .golem_spider_base import GolemSpiderBase
+from .golemspiderbase import GolemSpiderBase
 import scrapy
 from scrapy.shell import inspect_response
-from ..items import WeekItem
+from ..items import *
 
 
 class GolemCompleteSpider(GolemSpiderBase):
@@ -20,6 +20,7 @@ class GolemCompleteSpider(GolemSpiderBase):
         HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule"
         for season in response.css(".st-menu > a::text").getall():
             season = season[:4]
+            yield SeasonItem(season = season)
             url = HISTORY_SCHEDULE_URL.format(season)
             yield scrapy.Request(url=url,
                                  meta={'season': season},
@@ -31,4 +32,4 @@ class GolemCompleteSpider(GolemSpiderBase):
         lastWeek = int(response.css(
             ".scheduleWeekNav > .last > a > span.title > span::text").get())
         for week in range(1, lastWeek + 1):
-            self.logger.info("Got week " + str(week) + " " + season)
+            yield WeekItem(season=season,week=week)
