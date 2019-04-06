@@ -20,7 +20,6 @@ class GolemCompleteSpider(GolemSpiderBase):
         HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule"
         for season in response.css(".st-menu > a::text").getall():
             season = season[:4]
-            yield SeasonItem(season = season)
             url = HISTORY_SCHEDULE_URL.format(season)
             yield scrapy.Request(url=url,
                                  meta={'season': season},

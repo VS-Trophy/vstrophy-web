@@ -95,7 +95,6 @@ USER_AGENTS = [
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'golem.pipelines.SeasonPipeline': 300,
     'golem.pipelines.WeekPipeline': 300
 }
 
