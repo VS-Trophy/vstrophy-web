@@ -11,3 +11,11 @@ class WeekItem(scrapy.Item):
     season = scrapy.Field()
     week = scrapy.Field()
     pass     
+
+class MatchItemVST(scrapy.Item):
+    season = scrapy.Field()
+    week = scrapy.Field()
+    team1 = scrapy.Field()
+    team2 = scrapy.Field()
+    team1_points = scrapy.Field()
+    team2_points = scrapy.Field()

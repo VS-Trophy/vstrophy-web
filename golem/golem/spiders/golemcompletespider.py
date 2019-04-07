@@ -2,6 +2,7 @@ from .golemspiderbase import GolemSpiderBase
 import scrapy
 from scrapy.shell import inspect_response
 from ..items import *
+from scrapy.utils.response import open_in_browser
 
 
 class GolemCompleteSpider(GolemSpiderBase):
@@ -25,27 +26,29 @@ class GolemCompleteSpider(GolemSpiderBase):
                                  meta={'season': season},
                                  callback=self.parse_weeks)
     # 3. Parse all the weeks and call the schedule of the week
+
     def parse_weeks(self, response):
         season = response.request.meta['season']
         # get the last week
-        lastWeek = int(response.css(
-            ".scheduleWeekNav > .last > a > span.title > span::text").get())
+        # lastWeek = int(response.css(
+        #    ".scheduleWeekNav > .last > a > span.title > span::text").get())
+        lastWeek = 1
         for week in range(1, lastWeek + 1):
-            weekItem = WeekItem(season=season,week=week)
+            weekItem = WeekItem(season=season, week=week)
             yield weekItem
-            WEEK_SECHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/2018/schedule?scheduleDetail=" + str(week)
-            yield scrapy.Request(url = WEEK_SECHEDULE_URL,
-            meta = {'week': weekItem},
-            callback=self.parse_games_of_week
-            )
+            WEEK_SECHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/2018/schedule?scheduleDetail=" + \
+                str(week)
+            yield scrapy.Request(url=WEEK_SECHEDULE_URL,
+                                 meta={'week': weekItem},
+                                 callback=self.parse_games_of_week
+                                 )
 
-    #4. Call all the gamecenters for the week
-    def parse_games_of_week(self,response):
-      for suffix in response.css('.matchupLink > a::attr(href)').getall():
-          GAME_CENTER_URL = "https://fantasy.nfl.com" + suffix
-          yield scrapy.Request(url = GAME_CENTER_URL,
-            callback=self.parse_game)
-
-    #5. Parse all the gamecenters
-    def parse_game(self, response):
-        self.logger.info("GOT THE GAMECENTER!")
+    # 4. Call all the gamecenters for the week
+    def parse_games_of_week(self, response):
+     # for suffix in response.css('.matchupLink > a::attr(href)').getall():
+        GAME_CENTER_URL = "https://fantasy.nfl.com" + \
+            response.css('.matchupLink > a::attr(href)').get() + \
+            '&trackType=fbs'
+        yield scrapy.Request(url=GAME_CENTER_URL,
+                             meta={'week': response.request.meta["week"]},
+                             callback=self.parse_game)

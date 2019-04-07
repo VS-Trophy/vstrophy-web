@@ -12,6 +12,7 @@ from .checkpipeline import *
 class ArangoPipeline(object):
 
     def open_spider(self, spider):
+        spider.logger.info("OPENING CONNECTION")
         client = ArangoClient(protocol='http', host='localhost', port=8529)
         # Select the datbase
         self.db = client.db('vs-trophy', username='root',
@@ -20,6 +21,13 @@ class ArangoPipeline(object):
         self.weeks = self.db.collection("weeks")
         self.seasons = self.db.collection("seasons")
         self.weeks_in_season = self.db.collection("weeksInSeason")
+        self.matchesVST = self.db.collection("matchesVST")
+        self.seasonGraphVST = self.db.graph("seasonVST")
+        self.matchesInWeekVST = self.seasonGraphVST.edge_collection("matchesInWeekVST")
+        self.rostersVST = self.db.collection("rostersVST")
+        self.rosterPlayedInVST = self.seasonGraphVST.edge_collection("rosterPlayedInVST")
+        self.rosterOfVST = self.seasonGraphVST.edge_collection("rosterOfVST")
+
 
     def insert_if_not_present(self, collection, document, silent=True):
         if not collection.has(document):
@@ -41,8 +49,8 @@ class WeekPipeline(ArangoPipeline):
     @check_pipeline
     def process_item(self, item, spider):
 
-        # insert season
-        self.insert_if_not_present(self.seasons, {'_key': item['season']})
+        # insert match
+        self.insert_if_not_present(self.matchesVST, {'_key': item['season']})
 
         # insert week
         week_key = str(item['season']) + '.' + str(item['week'])
@@ -54,4 +62,29 @@ class WeekPipeline(ArangoPipeline):
         if not self.does_edge_exist('weeksInSeason',edge['_from'], edge['_to']):
             # insert edge between season and week
             self.weeks_in_season.insert(edge)
+        return item
+
+
+class MatchVSTPipeline(ArangoPipeline):
+    itemclass = MatchItemVST
+
+    @check_pipeline
+    def process_item(self, item, spider):
+        # insert match
+        match_id = self.matchesVST.insert({}, silent = False)['_id']
+        # insert edge between match and week 
+        week_key = str(item['season']) + '.' + str(item['week'])
+        self.matchesInWeekVST.link('weeks/'+ week_key, match_id)
+
+        #insert rosters
+        roster1_id = self.rostersVST.insert({'_key': week_key + '.' + item['team1']})['_id']
+        roster2_id = self.rostersVST.insert({'_key': week_key + '.' + item['team2']})['_id']
+        
+        # insert edges roster -> match and team -> roster
+        self.rosterOfVST.link('teamsVST/' + item['team1'], roster1_id)
+        self.rosterOfVST.link('teamsVST/' + item['team2'], roster2_id)
+
+        self.rosterPlayedInVST.link(roster1_id, match_id)
+        self.rosterPlayedInVST.link(roster2_id, match_id)
+
         return item

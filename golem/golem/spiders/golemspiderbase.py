@@ -1,7 +1,7 @@
 import json
 
 import scrapy
-from ..items import WeekItem
+from ..items import WeekItem, MatchItemVST
 from scrapy.shell import inspect_response
 from scrapy.utils.response import open_in_browser
 
@@ -76,15 +76,27 @@ class GolemSpiderBase(scrapy.Spider):
     =====================================================
     '''
 
-    # Scrapes a week via the history gamecenter page and sends it to parse_week 
-    def scrape_week(self, season, week, session_cookies):
-        HISTORY_GAMECENTER_URL = "https://fantasy.nfl.com/league/1268875/history/{}/teamgamecenter?gameCenterTab=track&teamId=4&trackType=fbs&week={}"
-        url = HISTORY_GAMECENTER_URL.format(season, week)
-        yield scrapy.Request(url=url, cookies=session_cookies, callback=self.parse_week)
-    
-    # Parses a history gamecenter page
-    def parse_week(self, response):
-        self.logger.info("Got week response")
-        for teamname in response.css(".teamName::text").getall():
-            self.logger.info("Teamname " + teamname)
-        open_in_browser(response)
+    def parse_game(self, response):
+        week = response.request.meta["week"]
+        team1_perf = self.getTeamperformance(
+            response.css(".teamWrap-1 > .teamTotal"))
+        team2_perf = self.getTeamperformance(
+            response.css(".teamWrap-2 > .teamTotal"))
+        match = MatchItemVST(
+            team1=team1_perf["id"],
+            team1_points=team1_perf["points"],
+            team2=team2_perf["id"],
+            team2_points=team2_perf["points"],
+            season = week["season"],
+            week = week["week"])
+        yield match    
+
+    '''
+    Expects the teamTotal div of a teamWrap of the gamecenter and returns a
+    dict containing the points and the id
+    '''
+    def getTeamperformance(self, perftag):
+        teamperf = {}
+        teamperf["points"] = perftag.xpath('.//text()').get()
+        teamperf["id"] = perftag.re_first('teamId-(\d+)')
+        return teamperf
