@@ -43,6 +43,9 @@ class ArangoPipeline(object):
         cursor.close()
         return exists
 
+    def get_week_key(self, season, week):
+        return str(season) + '.' + str(week)
+
 
 class WeekPipeline(ArangoPipeline):
     itemclass = WeekItem
@@ -54,7 +57,7 @@ class WeekPipeline(ArangoPipeline):
         self.insert_if_not_present(self.seasons, {'_key': item['season']})
 
         # insert week
-        week_key = str(item['season']) + '.' + str(item['week'])
+        week_key = self.get_week_key(item["season"], item["week"])
         self.insert_if_not_present(
             self.weeks, {'_key': week_key, 'number': item['week']})
 
@@ -75,12 +78,9 @@ class MatchVSTPipeline(ArangoPipeline):
 
     @check_pipeline
     def process_item(self, item, spider):
-        week_key = str(item['season']) + '.' + str(item['week'])
+        week_key = self.get_week_key(item["season"], item["week"])
         match_id = self.get_match_id(week_key, item['team1'], item['team2'])
-        spider.logger.info("MatchID of " + week_key + " " +
-                           item['team1'] + " vs " + item['team2'] + " is " + str(match_id))
         if match_id is None:
-            spider.logger.info("generating match")
             # insert match
             match_id = self.matchesVST.insert({}, silent=False)['_id']
             # insert edge between match and week
@@ -88,16 +88,16 @@ class MatchVSTPipeline(ArangoPipeline):
 
             # insert rosters
             roster1_id = self.rostersVST.insert(
-                {'_key': week_key + '.' + item['team1']})['_id']
+                self.create_roster(week_key,item['team1']))['_id']
             roster2_id = self.rostersVST.insert(
-                {'_key': week_key + '.' + item['team2']})['_id']
+                self.create_roster(week_key,item['team2']))['_id']
 
             # insert edges roster -> match and team -> roster
             self.rosterOfVST.link('teamsVST/' + item['team1'], roster1_id)
             self.rosterOfVST.link('teamsVST/' + item['team2'], roster2_id)
 
-            self.rosterPlayedInVST.link(roster1_id, match_id)
-            self.rosterPlayedInVST.link(roster2_id, match_id)
+            self.rosterPlayedInVST.link(roster1_id, match_id,item['team1_points'])
+            self.rosterPlayedInVST.link(roster2_id, match_id,item['team2_points'])
             self.insert_count += 1
         else:
             spider.logger.info("Updating match")
@@ -108,6 +108,9 @@ class MatchVSTPipeline(ArangoPipeline):
     def close_spider(self, spider):
         spider.logger.info("Inserted " + str(self.insert_count) + " matches.")
         spider.logger.info("Updated " + str(self.update_count) + " matches.")
+
+    def create_roster(self, week_key, team_key):
+        return  {'_key': week_key + '.' + team_key}
 
     def get_match_id(self, week_key, team1, team2):
         query = """
