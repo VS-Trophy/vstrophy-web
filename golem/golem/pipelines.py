@@ -28,7 +28,6 @@ class ArangoPipeline(object):
         self.rosterPlayedInVST = self.seasonGraphVST.edge_collection("rosterPlayedInVST")
         self.rosterOfVST = self.seasonGraphVST.edge_collection("rosterOfVST")
 
-
     def insert_if_not_present(self, collection, document, silent=True):
         if not collection.has(document):
             return collection.insert(document, silent=silent)
@@ -42,6 +41,23 @@ class ArangoPipeline(object):
         cursor.close()
         return exists
 
+    def get_match_id(self,week_key, team1, team2):
+        query = """
+        FOR match IN 1..1 OUTBOUND @weekId matchesInWeekVST
+            LET teams = (FOR team IN 2..2 INBOUND match rosterOfVST, rosterPlayedInVST 
+            RETURN team._key)
+        FILTER teams ALL IN @teams
+        LIMIT 1
+        return match._id""" 
+
+        cursor = self.db.aql.execute(query, 
+        bind_vars={
+            'weekId': 'weeks/' + week_key,
+            'teams' : [team1,team2]
+            },count=False)
+
+        return None if cursor.empty() else cursor.next()
+
 
 class WeekPipeline(ArangoPipeline):
     itemclass = WeekItem
@@ -49,8 +65,8 @@ class WeekPipeline(ArangoPipeline):
     @check_pipeline
     def process_item(self, item, spider):
 
-        # insert match
-        self.insert_if_not_present(self.matchesVST, {'_key': item['season']})
+        # insert season
+        self.insert_if_not_present(self.seasons, {'_key': item['season']})
 
         # insert week
         week_key = str(item['season']) + '.' + str(item['week'])
@@ -68,23 +84,39 @@ class WeekPipeline(ArangoPipeline):
 class MatchVSTPipeline(ArangoPipeline):
     itemclass = MatchItemVST
 
+    def __init__(self):
+        self.insert_count = 0
+        self.update_count = 0
+
     @check_pipeline
     def process_item(self, item, spider):
-        # insert match
-        match_id = self.matchesVST.insert({}, silent = False)['_id']
-        # insert edge between match and week 
         week_key = str(item['season']) + '.' + str(item['week'])
-        self.matchesInWeekVST.link('weeks/'+ week_key, match_id)
+        match_id = self.get_match_id(week_key,item['team1'],item['team2'])
+        spider.logger.info("MatchID of " + week_key + " " + item['team1'] + " vs "  + item['team2'] + " is " + str(match_id))
+        if match_id is None:
+            spider.logger.info("generating match")
+            # insert match
+            match_id = self.matchesVST.insert({}, silent = False)['_id']
+            # insert edge between match and week 
+            self.matchesInWeekVST.link('weeks/'+ week_key, match_id)
 
-        #insert rosters
-        roster1_id = self.rostersVST.insert({'_key': week_key + '.' + item['team1']})['_id']
-        roster2_id = self.rostersVST.insert({'_key': week_key + '.' + item['team2']})['_id']
+            #insert rosters
+            roster1_id = self.rostersVST.insert({'_key': week_key + '.' + item['team1']})['_id']
+            roster2_id = self.rostersVST.insert({'_key': week_key + '.' + item['team2']})['_id']
         
-        # insert edges roster -> match and team -> roster
-        self.rosterOfVST.link('teamsVST/' + item['team1'], roster1_id)
-        self.rosterOfVST.link('teamsVST/' + item['team2'], roster2_id)
+            # insert edges roster -> match and team -> roster
+            self.rosterOfVST.link('teamsVST/' + item['team1'], roster1_id)
+            self.rosterOfVST.link('teamsVST/' + item['team2'], roster2_id)
 
-        self.rosterPlayedInVST.link(roster1_id, match_id)
-        self.rosterPlayedInVST.link(roster2_id, match_id)
-
+            self.rosterPlayedInVST.link(roster1_id, match_id)
+            self.rosterPlayedInVST.link(roster2_id, match_id)
+            self.insert_count += 1
+        else:
+            spider.logger.info("Updating match")
+            # TODO: update roster and maybe body of rosterPlayedInVST
+            self.update_count += 1
         return item
+
+    def close_spider(self, spider):
+        spider.logger.info("Inserted " + str(self.insert_count) + " matches.")
+        spider.logger.info("Updated " + str(self.update_count) + " matches.")
