@@ -30,13 +30,13 @@ class GolemCompleteSpider(GolemSpiderBase):
     def parse_weeks(self, response):
         season = response.request.meta['season']
         # get the last week
-        # lastWeek = int(response.css(
-        #    ".scheduleWeekNav > .last > a > span.title > span::text").get())
-        lastWeek = 1
+        lastWeek = int(response.css(
+           ".scheduleWeekNav > .last > a > span.title > span::text").get())
+       
         for week in range(1, lastWeek + 1):
             weekItem = WeekItem(season=season, week=week)
             yield weekItem
-            WEEK_SECHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/2018/schedule?scheduleDetail=" + \
+            WEEK_SECHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/"+season+"/schedule?scheduleDetail=" + \
                 str(week)
             yield scrapy.Request(url=WEEK_SECHEDULE_URL,
                                  meta={'week': weekItem},
@@ -45,10 +45,10 @@ class GolemCompleteSpider(GolemSpiderBase):
 
     # 4. Call all the gamecenters for the week
     def parse_games_of_week(self, response):
-     # for suffix in response.css('.matchupLink > a::attr(href)').getall():
-        GAME_CENTER_URL = "https://fantasy.nfl.com" + \
-            response.css('.matchupLink > a::attr(href)').get() + \
+        for suffix in response.css('.matchupLink > a::attr(href)').getall():
+            GAME_CENTER_URL = "https://fantasy.nfl.com" + \
+            suffix + \
             '&trackType=fbs'
-        yield scrapy.Request(url=GAME_CENTER_URL,
+            yield scrapy.Request(url=GAME_CENTER_URL,
                              meta={'week': response.request.meta["week"]},
                              callback=self.parse_game)
