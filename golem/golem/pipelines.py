@@ -23,9 +23,11 @@ class ArangoPipeline(object):
         self.weeks_in_season = self.db.collection("weeksInSeason")
         self.matchesVST = self.db.collection("matchesVST")
         self.seasonGraphVST = self.db.graph("seasonVST")
-        self.matchesInWeekVST = self.seasonGraphVST.edge_collection("matchesInWeekVST")
+        self.matchesInWeekVST = self.seasonGraphVST.edge_collection(
+            "matchesInWeekVST")
         self.rostersVST = self.db.collection("rostersVST")
-        self.rosterPlayedInVST = self.seasonGraphVST.edge_collection("rosterPlayedInVST")
+        self.rosterPlayedInVST = self.seasonGraphVST.edge_collection(
+            "rosterPlayedInVST")
         self.rosterOfVST = self.seasonGraphVST.edge_collection("rosterOfVST")
 
     def insert_if_not_present(self, collection, document, silent=True):
@@ -40,23 +42,6 @@ class ArangoPipeline(object):
         exists = cursor.count() > 0
         cursor.close()
         return exists
-
-    def get_match_id(self,week_key, team1, team2):
-        query = """
-        FOR match IN 1..1 OUTBOUND @weekId matchesInWeekVST
-            LET teams = (FOR team IN 2..2 INBOUND match rosterOfVST, rosterPlayedInVST 
-            RETURN team._key)
-        FILTER teams ALL IN @teams
-        LIMIT 1
-        return match._id""" 
-
-        cursor = self.db.aql.execute(query, 
-        bind_vars={
-            'weekId': 'weeks/' + week_key,
-            'teams' : [team1,team2]
-            },count=False)
-
-        return None if cursor.empty() else cursor.next()
 
 
 class WeekPipeline(ArangoPipeline):
@@ -75,7 +60,7 @@ class WeekPipeline(ArangoPipeline):
 
         edge = {'_from': 'seasons/' +
                 str(item['season']), '_to': 'weeks/' + week_key}
-        if not self.does_edge_exist('weeksInSeason',edge['_from'], edge['_to']):
+        if not self.does_edge_exist('weeksInSeason', edge['_from'], edge['_to']):
             # insert edge between season and week
             self.weeks_in_season.insert(edge)
         return item
@@ -91,19 +76,22 @@ class MatchVSTPipeline(ArangoPipeline):
     @check_pipeline
     def process_item(self, item, spider):
         week_key = str(item['season']) + '.' + str(item['week'])
-        match_id = self.get_match_id(week_key,item['team1'],item['team2'])
-        spider.logger.info("MatchID of " + week_key + " " + item['team1'] + " vs "  + item['team2'] + " is " + str(match_id))
+        match_id = self.get_match_id(week_key, item['team1'], item['team2'])
+        spider.logger.info("MatchID of " + week_key + " " +
+                           item['team1'] + " vs " + item['team2'] + " is " + str(match_id))
         if match_id is None:
             spider.logger.info("generating match")
             # insert match
-            match_id = self.matchesVST.insert({}, silent = False)['_id']
-            # insert edge between match and week 
-            self.matchesInWeekVST.link('weeks/'+ week_key, match_id)
+            match_id = self.matchesVST.insert({}, silent=False)['_id']
+            # insert edge between match and week
+            self.matchesInWeekVST.link('weeks/' + week_key, match_id)
 
-            #insert rosters
-            roster1_id = self.rostersVST.insert({'_key': week_key + '.' + item['team1']})['_id']
-            roster2_id = self.rostersVST.insert({'_key': week_key + '.' + item['team2']})['_id']
-        
+            # insert rosters
+            roster1_id = self.rostersVST.insert(
+                {'_key': week_key + '.' + item['team1']})['_id']
+            roster2_id = self.rostersVST.insert(
+                {'_key': week_key + '.' + item['team2']})['_id']
+
             # insert edges roster -> match and team -> roster
             self.rosterOfVST.link('teamsVST/' + item['team1'], roster1_id)
             self.rosterOfVST.link('teamsVST/' + item['team2'], roster2_id)
@@ -120,3 +108,20 @@ class MatchVSTPipeline(ArangoPipeline):
     def close_spider(self, spider):
         spider.logger.info("Inserted " + str(self.insert_count) + " matches.")
         spider.logger.info("Updated " + str(self.update_count) + " matches.")
+
+    def get_match_id(self, week_key, team1, team2):
+        query = """
+        FOR match IN 1..1 OUTBOUND @weekId matchesInWeekVST
+            LET teams = (FOR team IN 2..2 INBOUND match rosterOfVST, rosterPlayedInVST 
+            RETURN team._key)
+        FILTER teams ALL IN @teams
+        LIMIT 1
+        return match._id"""
+
+        cursor = self.db.aql.execute(query,
+                                     bind_vars={
+                                         'weekId': 'weeks/' + week_key,
+                                         'teams': [team1, team2]
+                                     }, count=False)
+
+        return None if cursor.empty() else cursor.next()
