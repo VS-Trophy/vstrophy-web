@@ -1,7 +1,7 @@
 from .golemspiderbase import GolemSpiderBase
 import scrapy
 from scrapy.shell import inspect_response
-from ..items import *
+from ..items import WeekItem, MatchItemVST
 from scrapy.utils.response import open_in_browser
 
 

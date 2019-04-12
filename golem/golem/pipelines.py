@@ -5,8 +5,8 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from arango import ArangoClient
-from .items import *
-from .checkpipeline import *
+from .items import WeekItem,MatchItemVST
+from .checkpipeline import check_pipeline
 
 
 class ArangoPipeline(object):
