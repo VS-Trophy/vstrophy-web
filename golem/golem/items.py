@@ -15,12 +15,12 @@ class WeekItem(scrapy.Item):
 class MatchItemVST(scrapy.Item):
     season = scrapy.Field()
     week = scrapy.Field()
-    team1 = scrapy.Field()
-    team2 = scrapy.Field()
-    team1_points = scrapy.Field()
-    team2_points = scrapy.Field()
+    roster1 = scrapy.Field()
+    roster2 = scrapy.Field()
 
 class RosterItemVST(scrapy.Item):
+    team_key = scrapy.Field()
+    points = scrapy.Field()
     qb = scrapy.Field()
     rb1 = scrapy.Field()
     rb2 = scrapy.Field()
@@ -40,6 +40,11 @@ class RosterItemVST(scrapy.Item):
 class RosterSpotItemVST(scrapy.Item):
     player_key = scrapy.Field()
     player_nfl_team = scrapy.Field()
+    player_nfl_position = scrapy.Field()
+    player_nfl_opponent = scrapy.Field()
+    player_nfl_home = scrapy.Field()
+    player_nfl_result = scrapy.Field()
+    player_nfl_score = scrapy.Field()
     performance = scrapy.Field()
 
 class PlayerPerformanceItemVST(scrapy.Item):

@@ -13,6 +13,7 @@ class GolemCompleteSpider(GolemSpiderBase):
     def start_scraping(self, session_cookies):
         week = WeekItem(season=2018, week=16)
         GAME_CENTER_URL = "https://fantasy.nfl.com/league/1268875/history/2018/teamgamecenter?teamId=4&week=16&trackType=fbs" 
-        yield scrapy.Request(url=GAME_CENTER_URL,
+        return scrapy.Request(url=GAME_CENTER_URL,
+                            cookies=session_cookies,
                              meta={'week': week},
                              callback=parse_game)

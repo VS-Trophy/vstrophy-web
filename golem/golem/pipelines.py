@@ -78,6 +78,7 @@ class MatchVSTPipeline(ArangoPipeline):
 
     @check_pipeline
     def process_item(self, item, spider):
+        spider.logger.info(item)
         week_key = self.get_week_key(item["season"], item["week"])
         match_id = self.get_match_id(week_key, item['team1'], item['team2'])
         if match_id is None:
@@ -101,6 +102,7 @@ class MatchVSTPipeline(ArangoPipeline):
             self.insert_count += 1
         else:
             spider.logger.info("Updating match")
+            spider.logger.info(item)
             # TODO: update roster and maybe body of rosterPlayedInVST
             self.update_count += 1
         return item

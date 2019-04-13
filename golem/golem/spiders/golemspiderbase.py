@@ -60,22 +60,13 @@ class GolemSpiderBase(scrapy.Spider):
     def after_cookies(self, response):
         self.logger.info(
             "Got session cookies. Login completed successfully. Let's get scraping!")
+        
         jsonresponse = json.loads(response.body_as_unicode())
         session_cookies = jsonresponse["cookies"]
+        self.logger.debug("Cookies : " + str(session_cookies))
         # The starting point after all logging in is done and whe have the session cookies
         yield self.start_scraping(session_cookies)
 
     # This method will be implemented from the child classes
     def start_scraping(self, session_cookies):
         raise NotImplementedError("This method should be overwritten")
-
-    '''
-    ================== HELPER METHODS ==================
-    The following methods can be used by child classes
-    to get the data.
-    =====================================================
-    '''
-
-    
-
-    
