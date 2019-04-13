@@ -3,6 +3,7 @@ import scrapy
 from scrapy.shell import inspect_response
 from ..items import WeekItem, MatchItemVST
 from scrapy.utils.response import open_in_browser
+from ..gameparser import parse_game
 
 
 class GolemCompleteSpider(GolemSpiderBase):
@@ -14,4 +15,4 @@ class GolemCompleteSpider(GolemSpiderBase):
         GAME_CENTER_URL = "https://fantasy.nfl.com/league/1268875/history/2018/teamgamecenter?teamId=4&week=16&trackType=fbs" 
         yield scrapy.Request(url=GAME_CENTER_URL,
                              meta={'week': week},
-                             callback=self.parse_game)
+                             callback=parse_game)

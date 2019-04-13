@@ -3,6 +3,7 @@ import scrapy
 from scrapy.shell import inspect_response
 from ..items import WeekItem, MatchItemVST
 from scrapy.utils.response import open_in_browser
+from ..gameparser import parse_game
 
 
 class GolemCompleteSpider(GolemSpiderBase):
@@ -51,4 +52,4 @@ class GolemCompleteSpider(GolemSpiderBase):
             '&trackType=fbs'
             yield scrapy.Request(url=GAME_CENTER_URL,
                              meta={'week': response.request.meta["week"]},
-                             callback=self.parse_game)
+                             callback=parse_game)
