@@ -24,20 +24,30 @@ def parse_game(response):
 Fills the roster spots including player performances of the roster
 '''
 def fill_roster_spots(stats_table, roster_item):
-    roster_item["qb"] = create_offense_roster_spot(stats_table.css("tr.player-QB-0"))
-    roster_item["rb1"] = create_offense_roster_spot(stats_table.css("tr.player-RB-0"))
-    roster_item["rb2"] = create_offense_roster_spot(stats_table.css("tr.player-RB-1"))
-    roster_item["wr1"] = create_offense_roster_spot(stats_table.css("tr.player-WR-0"))
-    roster_item["wr2"] = create_offense_roster_spot(stats_table.css("tr.player-WR-1"))
-    roster_item["te"] = create_offense_roster_spot(stats_table.css("tr.player-TE-0"))
-    roster_item["flex"] = create_offense_roster_spot(stats_table.css("tr.player-W\/R-0"))
-    roster_item["k"] = create_kicker_roster_spot(stats_table.css("tr.player-K-0"))
-    roster_item["d"] = create_defense_roster_spot(stats_table.css("tr.player-DEF-0"))
+    offense_table = stats_table.css("#tableWrap-O")
+    kicker_table = stats_table.css("#tableWrap-K")
+    defense_table = stats_table.css("#tableWrap-DT")
+    roster_item["qb"] = create_offense_roster_spot(offense_table.css("tr.player-QB-0"))
+    roster_item["rb1"] = create_offense_roster_spot(offense_table.css("tr.player-RB-0"))
+    roster_item["rb2"] = create_offense_roster_spot(offense_table.css("tr.player-RB-1"))
+    roster_item["wr1"] = create_offense_roster_spot(offense_table.css("tr.player-WR-0"))
+    roster_item["wr2"] = create_offense_roster_spot(offense_table.css("tr.player-WR-1"))
+    roster_item["te"] = create_offense_roster_spot(offense_table.css("tr.player-TE-0"))
+    roster_item["flex"] = create_offense_roster_spot(offense_table.css(r"tr.player-W\/R-0"))
+    roster_item["k"] = create_kicker_roster_spot(kicker_table.css("tr.player-K-0"))
+    roster_item["d"] = create_defense_roster_spot(defense_table.css("tr.player-DEF-0"))
 
-    bench_classes = stats_table.css("tr::attr(class)").re(r'(player-BN-\d+)')
-    for idx, css_class in enumerate(bench_classes):
-        # TODO: decide if the bench player is offense defense or kicker
-        roster_item["bn" + str(idx+1)] = create_base_player_roster_spot(stats_table.css("tr." + css_class))
+    offense_bench_classes = offense_table.css("tr::attr(class)").re(r'(player-BN-\d+)')
+    for idx, css_class in enumerate(offense_bench_classes):
+              roster_item["bn" + str(idx+1)] = create_offense_roster_spot(offense_table.css("tr." + css_class))
+
+    defense_bench_classes = defense_table.css("tr::attr(class)").re(r'(player-BN-\d+)')
+    for idx, css_class in enumerate(defense_bench_classes):
+              roster_item["bn" + str(idx+1)] = create_defense_roster_spot(defense_table.css("tr." + css_class))
+
+    kicker_bench_classes = kicker_table.css("tr::attr(class)").re(r'(player-BN-\d+)')
+    for idx, css_class in enumerate(kicker_bench_classes):
+              roster_item["bn" + str(idx+1)] = create_kicker_roster_spot(kicker_table.css("tr." + css_class))
     
     
 def create_base_player_roster_spot(player_row):
