@@ -101,6 +101,6 @@ def create_roster_spot(player_row):
 
 def getRosterPerformance(perftag):
     return RosterItemVST(
-        team_key=perftag.re_first('teamId-(\d+)'),
+        team_key=perftag.re_first(r'teamId-(\d+)'),
         points=perftag.xpath('.//text()').get()
     )
