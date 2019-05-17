@@ -37,17 +37,21 @@ class RosterItemVST(scrapy.Item):
     bn5 = scrapy.Field()
     bn6 = scrapy.Field()
 
-class RosterSpotItemVST(scrapy.Item):
+class PlayerItemVST(scrapy.Item):
     player_key = scrapy.Field()
+    player_name = scrapy.Field()
+
+class RosterSpotItemVST(scrapy.Item):
+    player = scrapy.Field()
     player_nfl_team = scrapy.Field()
     player_nfl_position = scrapy.Field()
     player_nfl_opponent = scrapy.Field()
     player_nfl_home = scrapy.Field()
     player_nfl_result = scrapy.Field()
     player_nfl_score = scrapy.Field()
-    performance = scrapy.Field()
 
 class PlayerPerformanceItemVST(scrapy.Item):
+    player = scrapy.Field()
     points = scrapy.Field()
 
 class OffensivePlayerPerformanceItemVST(PlayerPerformanceItemVST):
