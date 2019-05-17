@@ -53,6 +53,7 @@ class RosterSpotItemVST(scrapy.Item):
 class PlayerPerformanceItemVST(scrapy.Item):
     player = scrapy.Field()
     points = scrapy.Field()
+    week = scrapy.Field()
 
 class OffensivePlayerPerformanceItemVST(PlayerPerformanceItemVST):
     pass_yds = scrapy.Field()

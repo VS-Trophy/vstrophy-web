@@ -96,7 +96,8 @@ USER_AGENTS = [
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'golem.pipelines.WeekPipeline': 300,
-    'golem.pipelines.MatchVSTPipeline' : 300
+    'golem.pipelines.MatchVSTPipeline' : 300,
+    'golem.pipelines.OffensivePlayerPerformanceVSTPipeline' : 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

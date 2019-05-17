@@ -35,6 +35,6 @@ class TestSpider(GolemSpiderBase):
                 callback=self.parse_playerstats_week
             )
         for player_row in response.css("table.tableType-player"):
-            yield get_offensive_performance(player_row)
+            yield get_offensive_performance(player_row,response.request.meta["week"])
         
            

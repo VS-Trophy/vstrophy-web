@@ -5,7 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from arango import ArangoClient
-from .items import WeekItem,MatchItemVST
+from .items import WeekItem, MatchItemVST, OffensivePlayerPerformanceItemVST
 from .checkpipeline import check_pipeline
 
 
@@ -29,6 +29,9 @@ class ArangoPipeline(object):
         self.rosterPlayedInVST = self.seasonGraphVST.edge_collection(
             "rosterPlayedInVST")
         self.rosterOfVST = self.seasonGraphVST.edge_collection("rosterOfVST")
+
+        self.players = self.db.collection("players")
+        self.performed_in_week = self.seasonGraphVST.edge_collection("performedInWeek")
 
     def insert_if_not_present(self, collection, document, silent=True):
         if not collection.has(document):
@@ -89,16 +92,18 @@ class MatchVSTPipeline(ArangoPipeline):
 
             # insert rosters
             roster1_id = self.rostersVST.insert(
-                self.create_roster(week_key,item['team1']))['_id']
+                self.create_roster(week_key, item['team1']))['_id']
             roster2_id = self.rostersVST.insert(
-                self.create_roster(week_key,item['team2']))['_id']
+                self.create_roster(week_key, item['team2']))['_id']
 
             # insert edges roster -> match and team -> roster
             self.rosterOfVST.link('teamsVST/' + item['team1'], roster1_id)
             self.rosterOfVST.link('teamsVST/' + item['team2'], roster2_id)
 
-            self.rosterPlayedInVST.link(roster1_id, match_id,item['team1_points'])
-            self.rosterPlayedInVST.link(roster2_id, match_id,item['team2_points'])
+            self.rosterPlayedInVST.link(
+                roster1_id, match_id, item['team1_points'])
+            self.rosterPlayedInVST.link(
+                roster2_id, match_id, item['team2_points'])
             self.insert_count += 1
         else:
             spider.logger.info("Updating match")
@@ -112,7 +117,7 @@ class MatchVSTPipeline(ArangoPipeline):
         spider.logger.info("Updated " + str(self.update_count) + " matches.")
 
     def create_roster(self, week_key, team_key):
-        return  {'_key': week_key + '.' + team_key}
+        return {'_key': week_key + '.' + team_key}
 
     def get_match_id(self, week_key, team1, team2):
         query = """
@@ -130,3 +135,33 @@ class MatchVSTPipeline(ArangoPipeline):
                                      }, count=False)
 
         return None if cursor.empty() else cursor.next()
+
+
+
+class OffensivePlayerPerformanceVSTPipeline(ArangoPipeline):
+    itemclass = OffensivePlayerPerformanceItemVST
+
+    def __init__(self):
+        self.player_insert_count = 0
+        self.player_performance_insert_count = 0
+        self.player_performance_update_count = 0
+
+    def close_spider(self, spider):
+        spider.logger.info("Inserted " + str(self.player_insert_count) + " players.")
+        spider.logger.info("Inserted " + str(self.player_performance_insert_count) + " player performances.")
+        spider.logger.info("Updated " + str(self.player_performance_update_count) + " player performances.")
+
+    @check_pipeline
+    def process_item(self, item, spider):
+        playerDoc = {'_key': item['player']['player_key'],
+                     'name': item['player']['player_name']}
+        if self.insert_if_not_present(self.players, playerDoc, silent=True):
+            self.player_insert_count += 1
+        week_id = 'weeks/' + self.get_week_key(item['week']['season'],item['week']['week'])
+        player_id = 'players/' + playerDoc['_key']
+        if not self.does_edge_exist('performedInWeek', player_id, week_id):
+           self.performed_in_week.link(player_id,week_id, data = {'points':item['points']})
+           self.player_performance_insert_count += 1
+
+
+        return item

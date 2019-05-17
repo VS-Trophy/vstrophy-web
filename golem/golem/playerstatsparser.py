@@ -2,8 +2,9 @@
 from .items import PlayerItemVST, OffensivePlayerPerformanceItemVST, KickPlayerPerformanceItemVST, DefensivePlayerPerformanceItemVST
 
 
-def get_offensive_performance(player_row):
+def get_offensive_performance(player_row, week):
     performance = OffensivePlayerPerformanceItemVST(
+        week = week,
         player=create_player(player_row),
         points=float(player_row.css(
             "span.playerTotal::text").get().replace("-", "0")),
