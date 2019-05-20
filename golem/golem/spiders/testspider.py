@@ -26,7 +26,6 @@ class TestSpider(GolemSpiderBase):
 
     def parse_playerstats_week(self,response):
         next_suffix = response.css("li.next > a::attr(href)").get()
-        
         if next_suffix is not None:
             next_url = TestSpider.RESEARCH_BASE_URL + next_suffix
             yield scrapy.Request(
@@ -34,7 +33,7 @@ class TestSpider(GolemSpiderBase):
                 meta={'week':  response.request.meta["week"]},
                 callback=self.parse_playerstats_week
             )
-        for player_row in response.css("table.tableType-player"):
+        for player_row in response.css("table.tableType-player > tbody > tr"):
             yield get_offensive_performance(player_row,response.request.meta["week"])
         
            
