@@ -159,8 +159,10 @@ class OffensivePlayerPerformanceVSTPipeline(ArangoPipeline):
             self.player_insert_count += 1
         week_id = 'weeks/' + self.get_week_key(item['week']['season'],item['week']['week'])
         player_id = 'players/' + playerDoc['_key']
+        itemDict = dict(item)
+        data = {i:itemDict[i] for i in itemDict if (i!='week' and i!='player')}
         if not self.does_edge_exist('performedInWeek', player_id, week_id):
-           self.performed_in_week.link(player_id,week_id, data = {'points':item['points']})
+           self.performed_in_week.link(player_id,week_id, data = data)
            self.player_performance_insert_count += 1
 
 
