@@ -97,7 +97,7 @@ USER_AGENTS = [
 ITEM_PIPELINES = {
     'golem.pipelines.WeekPipeline': 300,
     'golem.pipelines.MatchVSTPipeline' : 300,
-    'golem.pipelines.OffensivePlayerPerformanceVSTPipeline' : 300
+    'golem.pipelines.PlayerPerformanceVSTPipeline' : 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
