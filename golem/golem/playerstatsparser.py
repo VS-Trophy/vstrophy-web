@@ -54,8 +54,10 @@ def get_kicker_performance(player_row, week):
     return performance
 
 
-def create_defense_performance(player_row):
+def get_defense_performance(player_row, week):
     performance = DefensivePlayerPerformanceItemVST(
+        week=week,
+        player=create_player(player_row),
         points=float(player_row.css(
             "span.playerTotal::text").get().replace("-", "0")),
         sacks=int(player_row.css(
