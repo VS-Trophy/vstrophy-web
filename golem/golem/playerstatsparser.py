@@ -4,7 +4,7 @@ from .items import PlayerItemVST, OffensivePlayerPerformanceItemVST, KickPlayerP
 
 def get_offensive_performance(player_row, week):
     performance = OffensivePlayerPerformanceItemVST(
-        week = week,
+        week=week,
         player=create_player(player_row),
         points=float(player_row.css(
             "span.playerTotal::text").get().replace("-", "0")),
@@ -32,10 +32,12 @@ def get_offensive_performance(player_row, week):
     return performance
 
 
-def create_kicker_performance(player_row):
+def get_kicker_performance(player_row, week):
     performance = KickPlayerPerformanceItemVST(
+        week=week,
+        player=create_player(player_row),
         points=float(player_row.css(
-        "span.playerTotal::text").get().replace("-", "0")),
+            "span.playerTotal::text").get().replace("-", "0")),
         pats=int(player_row.css(
             "span.statId-33::text").get().replace("-", "0")),
         twenty_minus_made=int(player_row.css(
