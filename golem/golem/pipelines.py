@@ -46,6 +46,8 @@ class ArangoPipeline(object):
         cursor.close()
         return exists
 
+    
+
     def get_week_key(self, season, week):
         return str(season) + '.' + str(week)
 
@@ -161,9 +163,12 @@ class OffensivePlayerPerformanceVSTPipeline(ArangoPipeline):
         player_id = 'players/' + playerDoc['_key']
         itemDict = dict(item)
         data = {i:itemDict[i] for i in itemDict if (i!='week' and i!='player')}
+        data['_key'] = str(itemDict['week']['season']) + '.' + str(itemDict['week']['week']) + '.' + itemDict['player']['player_key']
         if not self.does_edge_exist('performedInWeek', player_id, week_id):
            self.performed_in_week.link(player_id,week_id, data = data)
            self.player_performance_insert_count += 1
-
+        else:
+            self.performed_in_week.update(data,silent=True)
+            self.player_performance_update_count +=1
 
         return item
