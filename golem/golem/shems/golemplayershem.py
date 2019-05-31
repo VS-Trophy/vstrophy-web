@@ -8,6 +8,8 @@ from ..playerstatsparser import get_offensive_performance, get_kicker_performanc
 
 
 class GolemPlayerShem(GolemShemBase):
+    """This shem scrapes the player performances. Creates or updates players and player performances."""
+
     name = "golem_player_shem"
     RESEARCH_BASE_URL = "https://fantasy.nfl.com/research/players"
     BASE_URL = "https://fantasy.nfl.com"
