@@ -11,8 +11,8 @@
 
 BOT_NAME = 'golem'
 
-SPIDER_MODULES = ['golem.spiders']
-NEWSPIDER_MODULE = 'golem.spiders'
+SPIDER_MODULES = ['golem.shems']
+NEWSPIDER_MODULE = 'golem.shems'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

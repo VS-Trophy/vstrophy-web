@@ -6,7 +6,7 @@ from scrapy.shell import inspect_response
 from scrapy.utils.response import open_in_browser
 
 
-class GolemSpiderBase(scrapy.Spider):
+class GolemShemBase(scrapy.Spider):
 
     USERNAME = "vstrophy"
 

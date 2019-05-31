@@ -1,4 +1,4 @@
-from .golemspiderbase import GolemSpiderBase
+from .golemshembase import GolemShemBase
 import scrapy
 from scrapy.shell import inspect_response
 from ..items import WeekItem, MatchItemVST
@@ -6,8 +6,8 @@ from scrapy.utils.response import open_in_browser
 from ..gameparser import parse_game
 
 
-class GolemCompleteSpider(GolemSpiderBase):
-    name = "golem_complete"
+class GolemMatchShem(GolemShemBase):
+    name = "golem_match_shem"
 
     # 1. First go to the history page to get all seasons
     def start_scraping(self, session_cookies):
