@@ -1,4 +1,5 @@
-from .items import MatchItemVST,  RosterItemVST, RosterSpotItemVST
+from .items import MatchItemVST,  RosterItemVST, RosterSpotItemVST, PlayerItemVST
+import sys
 
 
 def parse_game(response):
@@ -70,26 +71,26 @@ def fill_roster_spots(stats_table, roster_item):
 
 
 def create_roster_spot(player_row):
-    opponent_string = player_row.css("td.playerOpponent::text").get()
-
-    return RosterSpotItemVST(
-        player_key=player_row.css(
-            ".playerCard::attr(href)").re_first(r'playerId=(\d+)'),
-        player_nfl_team=player_row.css("div.c").re_first(r'c-(\w+)').upper(),
-        player_nfl_position=player_row.css(
-            ".playerNameAndInfo em::text").get().split(" - ")[0],
-        player_nfl_opponent=opponent_string.replace("@", ""),
-        player_nfl_result=player_row.css("span.rt::text").get(),
-        player_nfl_score=player_row.css(
-            "em.s-a::text").get() + '-' + player_row.css("em.s-h::text").get(),
-        player_nfl_home=("@" in opponent_string)
-    )
-
-
-
-
-
-
+    opponent_string = player_row.css("td.playerOpponent *::text").get()
+    try:
+        return RosterSpotItemVST(
+            player=PlayerItemVST(
+                player_key=player_row.css(
+                    ".playerCard::attr(href)").re_first(r'playerId=(\d+)'),
+                player_name=player_row.css('.playerCard::text').get()),
+            player_nfl_team=player_row.css(
+                "div.c").re_first(r'c-(\w+)').upper(),
+            player_nfl_position=player_row.css(
+                ".playerNameAndInfo em::text").get().split(" - ")[0],
+            player_nfl_opponent=opponent_string.replace("@", ""),
+            player_nfl_result=player_row.css("span.rt::text").get(),
+            player_nfl_score=player_row.css(
+                "em.s-a::text").get() + '-' + player_row.css("em.s-h::text").get()
+            if player_row.css("em.s-a::text").get() is not None else "-"
+        )
+    except:
+        print ("Unexpected error:", sys.exc_info())
+        print(player_row.get())
 
 
 '''
