@@ -11,7 +11,7 @@
 
 BOT_NAME = 'golem'
 
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'DEBUG'
 
 SPIDER_MODULES = ['golem.shems']
 NEWSPIDER_MODULE = 'golem.shems'

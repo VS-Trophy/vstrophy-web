@@ -43,7 +43,7 @@ class ArangoPipeline(object):
             return collection.insert(document, silent=silent)
 
     def get_edge_id(self, edge_collection, from_id, to_id):
-        cursor = self.db.aql.execute('FOR edge IN @@edge_collection FILTER edge._from == @from_id AND edge._to == @to_id LIMIT 1 RETURN edge',
+        cursor = self.db.aql.execute('FOR edge IN @@edge_collection FILTER edge._from == @from_id AND edge._to == @to_id LIMIT 1 RETURN edge._id',
                                      bind_vars={'@edge_collection': edge_collection,
                                                 'from_id': from_id, 'to_id': to_id},
                                      count=True)
@@ -95,8 +95,11 @@ class MatchVSTPipeline(ArangoPipeline):
     itemclass = MatchItemVST
 
     def __init__(self):
-        self.insert_count = 0
-        self.update_count = 0
+        super(MatchVSTPipeline, self).__init__()
+        self.match_insert_count = 0
+        self.roster_insert_count = 0
+        self.roster_update_count = 0
+        self.roster_spot_update_count =0
 
     @check_pipeline
     def process_item(self, item, spider):
@@ -105,9 +108,9 @@ class MatchVSTPipeline(ArangoPipeline):
         match_id = self.get_match_id(
             week_key, item['roster1']['team_key'], item['roster2']['team_key'])
         if match_id is None:
-            spider.logger.info("Inserting match")
             # insert match
             match_id = self.matchesVST.insert({}, silent=False)['_id']
+            self.match_insert_count += 1
 
         if self.get_edge_id(self.matchesInWeekVST.name, week_id, match_id) is None:
             # insert edge between match and week
@@ -124,75 +127,34 @@ class MatchVSTPipeline(ArangoPipeline):
         if not self.rostersVST.has(roster_key):
             # insert roster
             self.rostersVST.insert({'_key': roster_key})
+            self.roster_insert_count += 1
 
-            # link roster and team
-            team_id = 'teamsVST/' + roster['team_key']
-            if self.get_edge_id(self.rosterOfVST.name, team_id, roster_id) is None:
-                self.rosterOfVST.link(team_id, roster_id)
+        # link roster and team
+        team_id = 'teamsVST/' + roster['team_key']
+        if self.get_edge_id(self.rosterOfVST.name, team_id, roster_id) is None:
+            self.rosterOfVST.link(team_id, roster_id)
 
-            # link roster and match
-            played_in_id = self.get_edge_id(
-                self.rosterPlayedInVST.name, roster_id, match_id)
-            played_in_doc = {'points': roster['points']}
-            if played_in_id is None:
-                self.rosterPlayedInVST.link(roster_id, match_id, played_in_doc)
-            else:
-                played_in_doc['_id'] = played_in_id
-                self.rosterPlayedInVST.replace(played_in_doc)
+        # link roster and match
+        played_in_id = self.get_edge_id(
+            self.rosterPlayedInVST.name, roster_id, match_id)
+        played_in_doc = {'points': roster['points']}
+        if played_in_id is None:
+            self.rosterPlayedInVST.link(roster_id, match_id, played_in_doc)
+        else:
+            played_in_doc['_id'] = played_in_id
+            print(played_in_doc)
+            self.rosterPlayedInVST.update(played_in_doc)
+            self.roster_update_count += 1
 
-            # remove all played in edges
-            self.delete_all_played_in_edges(roster_id)
+        # remove all played in edges
+        self.delete_all_played_in_edges(roster_id)
 
-            # link the players to the roster
+        # link the players to the roster
+        for spot in roster['spots']:
+            self.insert_and_link_player_of_roster(
+            roster_id, spot)
 
-            self.insert_and_link_player_of_roster(
-                roster_id, 'qb', roster['qb'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'rb1', roster['rb1'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'rb2', roster['rb2'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'wr1', roster['wr1'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'wr2', roster['wr2'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'te', roster['te'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'flex', roster['flex'])
-            self.insert_and_link_player_of_roster(roster_id, 'k', roster['k'])
-            self.insert_and_link_player_of_roster(roster_id, 'd', roster['d'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn1', roster['bn1'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn2', roster['bn2'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn3', roster['bn3'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn4', roster['bn4'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn5', roster['bn5'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn6', roster['bn6'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn7', roster['bn7'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn8', roster['bn8'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn9', roster['bn9'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn10', roster['bn10'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn11', roster['bn11'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn12', roster['bn12'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn13', roster['bn13'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn14', roster['bn14'])
-            self.insert_and_link_player_of_roster(
-                roster_id, 'bn15', roster['bn15'])
-
-    def insert_and_link_player_of_roster(self, roster_id, roster_spot_name, roster_spot):
+    def insert_and_link_player_of_roster(self, roster_id, roster_spot):
         if roster_spot is not None:
             # insert the player
             self.insert_player_if_not_present(roster_spot['player'])
@@ -200,12 +162,14 @@ class MatchVSTPipeline(ArangoPipeline):
 
             # the edge should not exist, and if it does, we delete it
             edge_id = self.get_edge_id(self.playedInVST.name, player_id, roster_id)
-            if self.get_edge_id(self.playedInVST, player_id, roster_id) is not None:
+            if self.get_edge_id(self.playedInVST.name, player_id, roster_id) is not None:
                 self.playedInVST.delete(edge_id)
 
+            roster_spot["player"] = None
+
             # link player and roster
-            roster_spot['spot_name'] = roster_spot_name
             self.playedInVST.link(player_id, roster_id, dict(roster_spot))
+            self.roster_spot_update_count += 1
 
     def delete_all_played_in_edges(self, roster_id):
         query = """FOR edge IN playedInVST
@@ -218,8 +182,11 @@ class MatchVSTPipeline(ArangoPipeline):
                             }, count=False)
 
     def close_spider(self, spider):
-        spider.logger.info("Inserted " + str(self.insert_count) + " matches.")
-        spider.logger.info("Updated " + str(self.update_count) + " matches.")
+        spider.logger.info("Inserted " + str(self.match_insert_count) + " matches.")
+        spider.logger.info("Inserted " + str(self.roster_insert_count) + " rosters.")
+        spider.logger.info("Updated " + str(self.roster_update_count) + " rosters.")
+        spider.logger.info("Updated " + str(self.roster_spot_update_count) + " rosters spots.")
+
 
     def get_match_id(self, week_key, team1, team2):
         query = """
