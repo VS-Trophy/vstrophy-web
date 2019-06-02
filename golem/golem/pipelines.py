@@ -46,7 +46,10 @@ class ArangoPipeline(object):
         cursor.close()
         return exists
 
-    
+    def insert_player_if_not_present(self, item, silent=True):
+        playerDoc = {'_key': item['player_key'],
+                     'name': item['player_name']}
+        return self.insert_if_not_present(self.players,playerDoc, silent=silent) 
 
     def get_week_key(self, season, week):
         return str(season) + '.' + str(week)
@@ -93,9 +96,9 @@ class MatchVSTPipeline(ArangoPipeline):
 
             # insert rosters
             roster1_id = self.rostersVST.insert(
-                self.create_roster(week_key, item['team1']))['_id']
+                self.create_roster(week_key, item['roster1']['team_key']))['_id']
             roster2_id = self.rostersVST.insert(
-                self.create_roster(week_key, item['team2']))['_id']
+                self.create_roster(week_key, item['roster2']['team_key']))['_id']
 
             # insert edges roster -> match and team -> roster
             self.rosterOfVST.link('teamsVST/' + item['team1'], roster1_id)
@@ -106,6 +109,8 @@ class MatchVSTPipeline(ArangoPipeline):
             self.rosterPlayedInVST.link(
                 roster2_id, match_id, item['team2_points'])
             self.insert_count += 1
+
+            # link players to roster
         else:
             spider.logger.info("Updating match")
             # TODO: update roster and maybe body of rosterPlayedInVST
@@ -153,12 +158,11 @@ class PlayerPerformanceVSTPipeline(ArangoPipeline):
 
     @check_pipeline
     def process_item(self, item, spider):
-        playerDoc = {'_key': item['player']['player_key'],
-                     'name': item['player']['player_name']}
-        if self.insert_if_not_present(self.players, playerDoc, silent=True):
+  
+        if self.insert_player_if_not_present(item['player']):
             self.player_insert_count += 1
         week_id = 'weeks/' + self.get_week_key(item['week']['season'],item['week']['week'])
-        player_id = 'players/' + playerDoc['_key']
+        player_id = 'players/' + item['player']['player_key']
         itemDict = dict(item)
         data = {i:itemDict[i] for i in itemDict if (i!='week' and i!='player')}
         data['_key'] = str(itemDict['week']['season']) + '.' + str(itemDict['week']['week']) + '.' + itemDict['player']['player_key']
