@@ -36,6 +36,15 @@ class RosterItemVST(scrapy.Item):
     bn4 = scrapy.Field()
     bn5 = scrapy.Field()
     bn6 = scrapy.Field()
+    bn7 = scrapy.Field()
+    bn8 = scrapy.Field()
+    bn9 = scrapy.Field()
+    bn10 = scrapy.Field()
+    bn11 = scrapy.Field()
+    bn12 = scrapy.Field()
+    bn13 = scrapy.Field()
+    bn14 = scrapy.Field()
+    bn15 = scrapy.Field()
 
 class PlayerItemVST(scrapy.Item):
     player_key = scrapy.Field()
