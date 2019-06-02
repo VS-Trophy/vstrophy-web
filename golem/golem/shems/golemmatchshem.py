@@ -8,7 +8,7 @@ from ..gameparser import parse_game
 
 class GolemMatchShem(GolemShemBase):
     """This shem scrapes the matches. Creates or updates seasons, weeks, matches and rosters."""
-    name = "golem_match_shem"
+    name = "golem_matches_shem"
 
     # 1. First go to the history page to get all seasons
     def start_scraping(self, session_cookies):
