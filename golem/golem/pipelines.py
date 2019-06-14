@@ -14,7 +14,6 @@ class ArangoPipeline(object):
         self.player_insert_count = 0
 
     def open_spider(self, spider):
-        spider.logger.info("OPENING CONNECTION")
         client = ArangoClient(protocol='http', host='localhost', port=8529)
         # Select the datbase
         self.db = client.db('vs-trophy', username='root',
@@ -56,10 +55,7 @@ class ArangoPipeline(object):
         inserted = self.insert_if_not_present(
             self.players, playerDoc, silent=True)
         if inserted:
-            print("INSERTED ONE")
             self.player_insert_count += 1
-        else:
-            print("FUCKER ALREADY EXISTS")
         return inserted
 
     def get_week_key(self, season, week):
@@ -142,7 +138,6 @@ class MatchVSTPipeline(ArangoPipeline):
             self.rosterPlayedInVST.link(roster_id, match_id, played_in_doc)
         else:
             played_in_doc['_id'] = played_in_id
-            print(played_in_doc)
             self.rosterPlayedInVST.update(played_in_doc)
             self.roster_update_count += 1
 

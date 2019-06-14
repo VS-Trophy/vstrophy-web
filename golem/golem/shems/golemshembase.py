@@ -72,14 +72,12 @@ class GolemShemBase(scrapy.Spider):
         raise NotImplementedError("This method should be overwritten")
 
     def itarte_over_all_weeks(self, session_cookies, weekly_callback):
-        self.logger.info("iterate over all weeks")
         HISTORY_URL = "https://fantasy.nfl.com/league/1268875/history/"
         return scrapy.Request(url=HISTORY_URL, cookies=session_cookies,
                             meta={'weekly_callback' : weekly_callback},
                               callback=self.parse_seasons)
 
     def parse_seasons(self, response):
-        self.logger.info("parse seasons")
         HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule"
         for season in response.css(".st-menu > a::text").getall():
             season = season[:4]
@@ -90,7 +88,6 @@ class GolemShemBase(scrapy.Spider):
                                     callback=self.parse_weeks)
 
     def parse_weeks(self, response):
-        self.logger.info("parse weeks")
         season = response.request.meta['season']
         weekly_callback = response.request.meta['weekly_callback']
         # get the last week
