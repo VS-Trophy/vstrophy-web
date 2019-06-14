@@ -224,7 +224,6 @@ class PlayerPerformanceVSTPipeline(ArangoPipeline):
 
     @check_pipeline
     def process_item(self, item, spider):
-
         if self.insert_player_if_not_present(item['player']):
             self.player_insert_count += 1
         week_id = 'weeks/' + \
@@ -236,11 +235,10 @@ class PlayerPerformanceVSTPipeline(ArangoPipeline):
         data['_key'] = str(itemDict['week']['season']) + '.' + \
             str(itemDict['week']['week']) + '.' + \
             itemDict['player']['player_key']
-        if self.get_edge_id('performedInWeek', player_id, week_id) is not None:
+        if self.get_edge_id('performedInWeek', player_id, week_id) is None:
             self.performed_in_week.link(player_id, week_id, data=data)
             self.player_performance_insert_count += 1
         else:
             self.performed_in_week.update(data, silent=True)
             self.player_performance_update_count += 1
-
         return item
