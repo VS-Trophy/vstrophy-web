@@ -13,15 +13,29 @@ class GolemPlayerShem(GolemShemBase):
     name = "golem_players_shem"
     RESEARCH_BASE_URL = "https://fantasy.nfl.com/research/players"
     BASE_URL = "https://fantasy.nfl.com"
-    # 1. First go to the history page to get all seasons
 
     def start_scraping(self, session_cookies):
-        week = WeekItem(season=2018, week=16)
+        return self.itarte_over_all_weeks(session_cookies, self.parse_playerstats_week)
 
-        return scrapy.Request(url=self.RESEARCH_BASE_URL + "?statSeason=2012&statType=weekStats&statWeek=11&position=8",
-                            cookies=session_cookies,
-                             meta={'week': week},
+    def parse_playerstats_week(self, response):
+        season = str(response.request.meta['week']['season'])
+        week = str(response.request.meta['week']['week'])
+        request_url = self.RESEARCH_BASE_URL + "?statSeason=" + season + "&statType=weekStats&statWeek=" + week
+
+        #get offensive performances
+        yield scrapy.Request(url= request_url + "&position=O",
+                             meta=response.request.meta,
+                             callback=self.parse_offensive_playerstats_week)
+
+        #get defensive performances
+        yield scrapy.Request(url= request_url + "&position=8",
+                             meta=response.request.meta,
                              callback=self.parse_defense_playerstats_week)
+
+        #get kicker performances
+        yield scrapy.Request(url= request_url + "&position=7",
+                             meta=response.request.meta,
+                             callback=self.parse_kicker_playerstats_week)                     
 
     def parse_offensive_playerstats_week(self, response):
         next_suffix = response.css("li.next > a::attr(href)").get()
@@ -31,10 +45,10 @@ class GolemPlayerShem(GolemShemBase):
                 url=next_url,
                 meta={'week':  response.request.meta["week"]},
                 callback=self.parse_offensive_playerstats_week
-            )           
+            )
         for player_row in response.css("table.tableType-player > tbody > tr"):
             yield get_offensive_performance(player_row, response.request.meta["week"])
-    
+
     def parse_kicker_playerstats_week(self, response):
         next_suffix = response.css("li.next > a::attr(href)").get()
         if next_suffix is not None:
@@ -43,10 +57,10 @@ class GolemPlayerShem(GolemShemBase):
                 url=next_url,
                 meta={'week':  response.request.meta["week"]},
                 callback=self.parse_kicker_playerstats_week
-            )           
+            )
         for player_row in response.css("table.tableType-player > tbody > tr"):
             yield get_kicker_performance(player_row, response.request.meta["week"])
-    
+
     def parse_defense_playerstats_week(self, response):
         next_suffix = response.css("li.next > a::attr(href)").get()
         if next_suffix is not None:
@@ -55,8 +69,6 @@ class GolemPlayerShem(GolemShemBase):
                 url=next_url,
                 meta={'week':  response.request.meta["week"]},
                 callback=self.parse_defense_playerstats_week
-            )           
+            )
         for player_row in response.css("table.tableType-player > tbody > tr"):
             yield get_defense_performance(player_row, response.request.meta["week"])
-
-   

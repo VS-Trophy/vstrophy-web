@@ -70,3 +70,39 @@ class GolemShemBase(scrapy.Spider):
     # This method will be implemented from the child classes
     def start_scraping(self, session_cookies):
         raise NotImplementedError("This method should be overwritten")
+
+    def itarte_over_all_weeks(self, session_cookies, weekly_callback):
+        self.logger.info("iterate over all weeks")
+        HISTORY_URL = "https://fantasy.nfl.com/league/1268875/history/"
+        return scrapy.Request(url=HISTORY_URL, cookies=session_cookies,
+                            meta={'weekly_callback' : weekly_callback},
+                              callback=self.parse_seasons)
+
+    def parse_seasons(self, response):
+        self.logger.info("parse seasons")
+        HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule"
+        for season in response.css(".st-menu > a::text").getall():
+            season = season[:4]
+            url = HISTORY_SCHEDULE_URL.format(season)
+            response.request.meta['season'] = season
+            yield scrapy.Request(url=url,
+                                    meta=response.request.meta,
+                                    callback=self.parse_weeks)
+
+    def parse_weeks(self, response):
+        self.logger.info("parse weeks")
+        season = response.request.meta['season']
+        weekly_callback = response.request.meta['weekly_callback']
+        # get the last week
+        lastWeek = int(response.css(
+           ".scheduleWeekNav > .last > a > span.title > span::text").get())
+       
+        for week in range(1, lastWeek + 1):
+            weekItem = WeekItem(season=season, week=week)
+            yield weekItem
+            WEEK_SECHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/"+season+"/schedule?scheduleDetail=" + \
+                str(week)
+            yield scrapy.Request(url=WEEK_SECHEDULE_URL,
+                                 meta={'week': weekItem},
+                                 callback=weekly_callback
+                                 )    
