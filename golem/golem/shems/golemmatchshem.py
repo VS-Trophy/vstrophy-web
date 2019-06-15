@@ -12,7 +12,12 @@ class GolemMatchShem(GolemShemBase):
 
     # First go to the history page to get all seasons
     def start_scraping(self, session_cookies):
-        return self.itarte_over_all_weeks(session_cookies, self.parse_games_of_week)
+        if self.complete :
+            self.logger.info("Starting complete matches crawl")
+            return self.iterate_over_all_weeks(session_cookies, self.parse_games_of_week)
+        else:
+            self.logger.info("Starting quick matches crawl")
+            return self.execute_current_week(session_cookies, self.parse_games_of_week)
 
 
     #  Call all the gamecenters for the week

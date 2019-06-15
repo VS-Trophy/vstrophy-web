@@ -9,6 +9,13 @@ from scrapy.utils.response import open_in_browser
 class GolemShemBase(scrapy.Spider):
 
     USERNAME = "vstrophy"
+    HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule"
+
+    def __init__(self, complete=False, **kwargs):
+        self.complete = complete
+
+        super().__init__(**kwargs)  # python3
+
 
     '''
     ================== LOGIN PROCEDURE ==================
@@ -70,28 +77,49 @@ class GolemShemBase(scrapy.Spider):
     def start_scraping(self, session_cookies):
         raise NotImplementedError("This method should be overwritten")
 
-    def execute_test_week(self, session_cookies, weekly_callback):
-        HISTORY_URL = "https://fantasy.nfl.com/league/1268875/history/"
-        weekItem = WeekItem(season=2018, week=4)
-        return scrapy.Request(url=HISTORY_URL, cookies=session_cookies,
-                            meta={'week' : weekItem},
-                              callback= weekly_callback)    
-
-    def itarte_over_all_weeks(self, session_cookies, weekly_callback):
+    def iterate_over_all_weeks(self, session_cookies, weekly_callback):
         HISTORY_URL = "https://fantasy.nfl.com/league/1268875/history/"
         return scrapy.Request(url=HISTORY_URL, cookies=session_cookies,
                             meta={'weekly_callback' : weekly_callback},
                               callback=self.parse_seasons)
 
+    def execute_current_week(self, session_cookies, weekly_callback):
+        HISTORY_URL = "https://fantasy.nfl.com/league/1268875/history/"
+        return scrapy.Request(url=HISTORY_URL, cookies=session_cookies,
+                            meta={'weekly_callback' : weekly_callback},
+                              callback=self.get_current_season)                          
+
+    def get_current_season(self, response):
+        current_season= max(response.css(".st-menu > a::text").getall())
+        season = current_season[:4]
+        url = self.HISTORY_SCHEDULE_URL.format(season)
+        response.request.meta['season'] = season
+        yield scrapy.Request(url=url,
+                                    meta=response.request.meta,
+                                    callback=self.get_current_week)
+
     def parse_seasons(self, response):
-        HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule"
         for season in response.css(".st-menu > a::text").getall():
             season = season[:4]
-            url = HISTORY_SCHEDULE_URL.format(season)
+            url = self.HISTORY_SCHEDULE_URL.format(season)
             response.request.meta['season'] = season
             yield scrapy.Request(url=url,
                                     meta=response.request.meta,
                                     callback=self.parse_weeks)
+
+    def get_current_week(self, response):
+        season = response.request.meta['season']
+        weekly_callback = response.request.meta['weekly_callback']
+        # get the last week
+        lastWeek = int(response.css(
+           ".scheduleWeekNav > .last > a > span.title > span::text").get())
+        weekItem = WeekItem(season=season, week=lastWeek)
+        yield weekItem
+        WEEK_SECHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/"+season+"/schedule?scheduleDetail=" + \
+                str(lastWeek)
+        yield scrapy.Request(url=WEEK_SECHEDULE_URL,
+                                 meta={'week': weekItem},
+                                 callback=weekly_callback)
 
     def parse_weeks(self, response):
         season = response.request.meta['season']
