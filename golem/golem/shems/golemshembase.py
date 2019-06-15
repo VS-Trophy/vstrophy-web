@@ -70,6 +70,13 @@ class GolemShemBase(scrapy.Spider):
     def start_scraping(self, session_cookies):
         raise NotImplementedError("This method should be overwritten")
 
+    def execute_test_week(self, session_cookies, weekly_callback):
+        HISTORY_URL = "https://fantasy.nfl.com/league/1268875/history/"
+        weekItem = WeekItem(season=2018, week=4)
+        return scrapy.Request(url=HISTORY_URL, cookies=session_cookies,
+                            meta={'week' : weekItem},
+                              callback= weekly_callback)    
+
     def itarte_over_all_weeks(self, session_cookies, weekly_callback):
         HISTORY_URL = "https://fantasy.nfl.com/league/1268875/history/"
         return scrapy.Request(url=HISTORY_URL, cookies=session_cookies,

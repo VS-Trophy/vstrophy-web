@@ -77,7 +77,7 @@ def fill_roster_spots(stats_table, roster_item):
 
 
 def create_roster_spot(player_row, spot_name):
-    opponent_string = player_row.css("td.playerOpponent *::text").get()
+  
     if player_row.css(".playerCard::attr(href)").get() is None:
         return None
     try:
@@ -86,17 +86,7 @@ def create_roster_spot(player_row, spot_name):
                 player_key=player_row.css(
                     ".playerCard::attr(href)").re_first(r'playerId=(\d+)'),
                 player_name=player_row.css('.playerCard::text').get()),
-            spot_name=spot_name,
-            player_nfl_team=player_row.css(
-                "div.c").re_first(r'c-(\w+)').upper() if player_row.css(
-                "div.c").re_first(r'c-(\w+)') is not None else '-',
-            player_nfl_position=player_row.css(
-                ".playerNameAndInfo em::text").get().split(" - ")[0],
-            player_nfl_opponent=opponent_string.replace("@", ""),
-            player_nfl_result=player_row.css("span.rt::text").get(),
-            player_nfl_score=player_row.css(
-                "em.s-a::text").get() + '-' + player_row.css("em.s-h::text").get()
-            if player_row.css("em.s-a::text").get() is not None else "-"
+            spot_name=spot_name,            
         )
     except:
         print("Unexpected error:", sys.exc_info())

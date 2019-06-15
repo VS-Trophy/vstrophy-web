@@ -3,9 +3,16 @@ from .items import PlayerItemVST, OffensivePlayerPerformanceItemVST, KickPlayerP
 
 
 def get_offensive_performance(player_row, week):
+    opponent_string = player_row.css("td.playerOpponent *::text").get()
     performance = OffensivePlayerPerformanceItemVST(
         week=week,
         player=create_player(player_row),
+        player_nfl_team=player_row.css(
+                "div.c").re_first(r'c-(\w+)').upper() if player_row.css(
+                "div.c").re_first(r'c-(\w+)') is not None else '-',
+        player_nfl_position=player_row.css(
+                ".playerNameAndInfo em::text").get().split(" - ")[0],
+        player_nfl_opponent=opponent_string.replace("@", ""),
         points=float(player_row.css(
             "span.playerTotal::text").get().replace("-", "0")),
         pass_yds=float(player_row.css(
@@ -33,9 +40,16 @@ def get_offensive_performance(player_row, week):
 
 
 def get_kicker_performance(player_row, week):
+    opponent_string = player_row.css("td.playerOpponent *::text").get()
     performance = KickPlayerPerformanceItemVST(
         week=week,
         player=create_player(player_row),
+         player_nfl_team=player_row.css(
+                "div.c").re_first(r'c-(\w+)').upper() if player_row.css(
+                "div.c").re_first(r'c-(\w+)') is not None else '-',
+        player_nfl_position=player_row.css(
+                ".playerNameAndInfo em::text").get().split(" - ")[0],
+        player_nfl_opponent=opponent_string.replace("@", ""),
         points=float(player_row.css(
             "span.playerTotal::text").get().replace("-", "0")),
         pats=int(player_row.css(
@@ -55,9 +69,16 @@ def get_kicker_performance(player_row, week):
 
 
 def get_defense_performance(player_row, week):
+    opponent_string = player_row.css("td.playerOpponent *::text").get()
     performance = DefensivePlayerPerformanceItemVST(
         week=week,
         player=create_player(player_row),
+         player_nfl_team=player_row.css(
+                "div.c").re_first(r'c-(\w+)').upper() if player_row.css(
+                "div.c").re_first(r'c-(\w+)') is not None else '-',
+        player_nfl_position=player_row.css(
+                ".playerNameAndInfo em::text").get().split(" - ")[0],
+        player_nfl_opponent=opponent_string.replace("@", ""),
         points=float(player_row.css(
             "span.playerTotal::text").get().replace("-", "0")),
         sacks=int(player_row.css(

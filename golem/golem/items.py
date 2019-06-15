@@ -30,17 +30,18 @@ class PlayerItemVST(scrapy.Item):
 class RosterSpotItemVST(scrapy.Item):
     spot_name = scrapy.Field()
     player = scrapy.Field()
-    player_nfl_team = scrapy.Field()
-    player_nfl_position = scrapy.Field()
-    player_nfl_opponent = scrapy.Field()
-    player_nfl_home = scrapy.Field()
-    player_nfl_result = scrapy.Field()
-    player_nfl_score = scrapy.Field()
+    
 
 class PlayerPerformanceItemVST(scrapy.Item):
     player = scrapy.Field()
     points = scrapy.Field()
     week = scrapy.Field()
+    player_nfl_team = scrapy.Field()
+    player_nfl_position = scrapy.Field()
+    player_nfl_opponent = scrapy.Field()
+    player_nfl_home = scrapy.Field()
+
+
 
 class OffensivePlayerPerformanceItemVST(PlayerPerformanceItemVST):
     pass_yds = scrapy.Field()
