@@ -63,7 +63,6 @@ class GolemShemBase(scrapy.Spider):
         
         jsonresponse = json.loads(response.body_as_unicode())
         session_cookies = jsonresponse["cookies"]
-        self.logger.debug("Cookies : " + str(session_cookies))
         # The starting point after all logging in is done and whe have the session cookies
         yield self.start_scraping(session_cookies)
 
