@@ -13,7 +13,7 @@ export class NewsItemListComponent implements OnInit {
 
   constructor() { }
 
-  @ViewChild("selectionList")
+  @ViewChild("selectionList", { static: true })
   selectionList: MatSelectionList
 
   @Input()

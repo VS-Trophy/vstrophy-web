@@ -16,7 +16,7 @@ export class TeamsTableComponent implements OnInit {
 
   constructor(private statsService: StatsService, private teamService: TeamsService) { }
   displayedColumns: string[] = ['teamName', 'total', 'matches', 'average', 'max', 'min', 'ratio', 'wins', 'losses'];
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   dataSource = new MatTableDataSource();
   weekPointer: WeekPointer;
   private firstWeekEvent: boolean;
