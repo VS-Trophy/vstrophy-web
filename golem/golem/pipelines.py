@@ -195,7 +195,7 @@ class MatchVSTPipeline(ArangoPipeline):
         cursor = self.db.aql.execute(query,
                                      bind_vars={
                                          'weekId': 'weeks/' + week_key,
-                                         'teams': [team1, team2]
+                                         'teams': [str(team1), str(team2)]
                                      }, count=False)
 
         return None if cursor.empty() else cursor.next()
