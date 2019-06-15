@@ -10,7 +10,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { TeamStatsComponent } from './team-stats/team-stats.component';
 import { StatsModule } from '../stats/stats.module';
 import { TeamSelectorComponent } from './team-selector/team-selector.component';
-import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [

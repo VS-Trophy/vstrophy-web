@@ -4,7 +4,7 @@ import { SeasonsService } from './seasons.service';
 import { SeasonSelectorComponent } from './season-selector/season-selector.component';
 import { WeekSelectorComponent } from './week-selector/week-selector.component';
 import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({

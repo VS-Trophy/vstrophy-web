@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output,EventEmitter, ViewChild } from '@angular/core';
 import { NewsItem } from '../news-item';
 import {  } from 'events';
-import { MatSelectionList, MatListOption, MatSelectionListChange } from '@angular/material';
+import { MatSelectionList, MatListOption, MatSelectionListChange } from '@angular/material/list';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({

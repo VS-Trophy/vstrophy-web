@@ -9,7 +9,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { SimpleStatComponent } from './simple-stat/simple-stat.component';
 import { StatsViewComponent } from './stats-view/stats-view.component';
 import { TeamsTableComponent } from './teams-table/teams-table.component';
-import { MatTabsModule } from '@angular/material';
+import { MatTabsModule } from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 

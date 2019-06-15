@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { StatsService } from '../stats.service';
 import { PointStats } from '../point-stats';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { TeamsService } from '../../teams/teams.service';
 import { tap } from 'rxjs/operators';
 import { WeekPointer } from '../../season/week-pointer';
