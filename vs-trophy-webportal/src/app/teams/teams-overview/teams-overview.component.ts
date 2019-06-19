@@ -25,7 +25,6 @@ export class TeamsOverviewComponent implements OnInit {
   }
 
   private addTeam(team: VSTrophyTeam){
-    console.info("Adding team" + team.name)
     if(team.division == "White Star"){
       this.whiteStarTeams.push(team);
     } else if(team.division == "Red Star"){
