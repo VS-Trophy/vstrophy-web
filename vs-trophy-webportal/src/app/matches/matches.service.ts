@@ -119,10 +119,10 @@ export class MatchesService {
       parameters = parameters.set('week', weekPointer.week + '');
     }
     if (team1 != null) {
-      parameters = parameters.set('team1', team1.nflId);
+      parameters = parameters.set('team1', team1._key);
     }
     if (team2 != null) {
-      parameters = parameters.set('team2', team2.nflId);
+      parameters = parameters.set('team2', team2._key);
     }
 
     return this.http.get<Match[]>(path, { params: parameters }).pipe(

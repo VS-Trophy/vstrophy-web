@@ -25,6 +25,7 @@ export class TeamsOverviewComponent implements OnInit {
   }
 
   private addTeam(team: VSTrophyTeam){
+    console.info("Adding team" + team.name)
     if(team.division == "White Star"){
       this.whiteStarTeams.push(team);
     } else if(team.division == "Red Star"){
@@ -33,7 +34,7 @@ export class TeamsOverviewComponent implements OnInit {
   }
 
   cardClicked(team: VSTrophyTeam) {
-    this.router.navigate(['teams/' + team.nflId])
+    this.router.navigate(['teams/' + team._key])
   }
 
 }

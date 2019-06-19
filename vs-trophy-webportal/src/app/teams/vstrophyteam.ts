@@ -1,6 +1,6 @@
 export class VSTrophyTeam {
 name: string;
-nflId: string;
+_key: string;
 logoPath: string;
 foundedIn: string;
 memberSince: string;

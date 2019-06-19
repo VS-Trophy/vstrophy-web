@@ -29,11 +29,11 @@ export class TeamsService {
       return observableOf(team);
     } else if (this._observable) {
       return this._observable.pipe(
-        map(teams => teams.filter(team => team.nflId === nflId)[0])
+        map(teams => teams.filter(team => team._key === nflId)[0])
       );
     } else {
       return this.getAllTeams().pipe(
-        map(teams => teams.filter(team => team.nflId === nflId)[0])
+        map(teams => teams.filter(team => team._key === nflId)[0])
       );
     }
   }
@@ -41,8 +41,8 @@ export class TeamsService {
 
 
   private addTeamToTeamMap(team: VSTrophyTeam): void {
-    team.logoPath = this._logoBasePath + team.nflId + this._fileSuffix;
-    this._teamMap.set(team.nflId, team);
+    team.logoPath = this._logoBasePath + team._key + this._fileSuffix;
+    this._teamMap.set(team._key, team);
   }
 
   private getCachedTeams(): VSTrophyTeam[] {

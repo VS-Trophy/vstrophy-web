@@ -34,7 +34,7 @@ export class TeamSelectorComponent implements OnInit {
 
   ngOnInit() {
     const nullTeam: VSTrophyTeam = new VSTrophyTeam();
-    nullTeam.nflId = "";
+    nullTeam._key = "";
     nullTeam.name = "Alle";
     this.teams = [nullTeam];
     this.teamsService.getAllTeams().subscribe(teams => this.teams.push(...teams))
