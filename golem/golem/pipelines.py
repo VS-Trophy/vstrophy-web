@@ -81,7 +81,7 @@ class WeekPipeline(ArangoPipeline):
 
         edge = {'_from': 'seasons/' +
                 str(item['season']), '_to': 'weeks/' + week_key}
-        if self.get_edge_id('weeksInSeason', edge['_from'], edge['_to']) is not None:
+        if self.get_edge_id('weeksInSeason', edge['_from'], edge['_to']) is None:
             # insert edge between season and week
             self.weeks_in_season.insert(edge)
         return item
