@@ -5,23 +5,21 @@ const week = require('./week.js')
 module.exports.winlossrecord = function (team, opponent, season) {
     var currentWeek = week.currentWeek()
     var currentSeason = week.currentSeason();
+    team = "teamsVST/"+team
     return aql`LET seasonMatches = (
-        FOR season IN Seasons
-    FILTER ${season} == null || season.number == ${season}
-        FOR week IN 1..1 ANY season WeeksInSeason
-        FILTER season.number != ${currentSeason} || week.number != ${currentWeek} 
-            FOR match IN 1..1 ANY week MatchesInWeek
+        FOR season IN seasons
+    FILTER ${season} == null || season._key == TO_STRING(${season})
+        FOR week IN 1..1 OUTBOUND season weeksInSeason
+        FILTER season._key != TO_STRING(${currentSeason}) || week.number != ${currentWeek} 
+            FOR match IN 1..1 OUTBOUND week matchesInWeekVST
             RETURN match._id
         )
-        
         LET winloss =  MERGE (
-        FOR team IN VSTrophyTeams 
-        FILTER team.nflId == ${team}
-        FOR vertex, performance, path IN 2..2 ANY team TeamPlayedIn
-        FILTER ${opponent} == null || path.vertices[2].nflId == ${opponent}  
-        FILTER path.vertices[1]._id IN seasonMatches
+        FOR vertex, performance, path IN 4..4 ANY ${team} rosterOfVST, rosterPlayedInVST
+        FILTER ${opponent} == null || path.vertices[4]._key == ${opponent}  
+        FILTER path.vertices[2]._id IN seasonMatches
         
-        COLLECT category = path.edges[0].points > path.edges[1].points ? "wins" : "losses" WITH COUNT INTO ammount
+        COLLECT category = path.edges[1].points > path.edges[2].points ? "wins" : "losses" WITH COUNT INTO ammount
         return {[category] : ammount})
         let matchCount = winloss.wins+winloss.losses
         RETURN {"wins" : winloss.wins?:0, "losses" : winloss.losses?:0, "ratio" : matchCount>0?(winloss.wins / (matchCount)):0}`
@@ -38,7 +36,7 @@ module.exports.winlossoverview = function (team, season) {
     )
     
     LET seasonMatches = (
-    FOR season IN Seasons
+    FOR season IN seasons
     FILTER ${season} == null || season.number == ${season}
         FOR week IN 1..1 ANY season WeeksInSeason
         FILTER season.number != ${currentSeason} || week.number != ${currentWeek} 
