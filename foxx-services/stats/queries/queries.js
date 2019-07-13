@@ -79,27 +79,27 @@ module.exports.pointstatsTeams = function (filteredWeek, filteredSeason) {
     var currentSeason = week.currentSeason();
     return aql`
 
-    FOR team IN VSTrophyTeams
+    FOR team IN teamsVST
 
-    FOR match, performance,path IN 2..2 ANY team TeamPlayedIn
+    FOR match, performance,path IN 4..4 ANY team rosterOfVST, rosterPlayedInVST
     LET isMatchInValid = LENGTH(
-        FOR week IN 1..1 INBOUND path.vertices[1] MatchesInWeek 
-        FOR season IN 1..1 INBOUND week WeeksInSeason
+        FOR week IN 1..1 INBOUND path.vertices[2] matchesInWeekVST 
+        FOR season IN 1..1 INBOUND week weeksInSeason
         FILTER
-        (${filteredSeason} !=null && season.number != ${filteredSeason} ) 
+        (${filteredSeason} !=null && season._key != TO_STRING(${filteredSeason})) 
         OR
         (${filteredWeek} != null && week.number != ${filteredWeek})
         OR
-        (week.number == ${currentWeek} && season.number == ${currentSeason})
+        (week.number == ${currentWeek} && season._key == TO_STRING(${currentSeason}))
         RETURN season
     )
     FILTER isMatchInValid == 0
-    LET isWin = path.edges[0].points > path.edges[1].points ? 1 : 0
-    COLLECT teamKey = team.nflId 
-    AGGREGATE averagePoints = AVERAGE(path.edges[0].points), 
-    minPoints = MIN(path.edges[0].points), 
-    maxPoints = MAX(path.edges[0].points), 
-    totalPoints = SUM(path.edges[0].points), 
+    LET isWin = path.edges[1].points > path.edges[2].points ? 1 : 0
+    COLLECT teamKey = team._key
+    AGGREGATE averagePoints = AVERAGE(path.edges[1].points), 
+    minPoints = MIN(path.edges[1].points), 
+    maxPoints = MAX(path.edges[1].points), 
+    totalPoints = SUM(path.edges[1].points), 
     matches = LENGTH(match), 
     wins = SUM(isWin)
     
