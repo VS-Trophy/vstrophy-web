@@ -28,27 +28,22 @@ module.exports.winlossrecord = function (team, opponent, season) {
 module.exports.winlossoverview = function (team, season) {
     var currentWeek = week.currentWeek()
     var currentSeason = week.currentSeason();
-    return aql`LET team = 
-    FIRST (
-        FOR team IN VSTrophyTeams
-        FILTER team.nflId == ${team}
-        RETURN team
-    )
-    
+    team = "teamsVST/"+team
+    return aql`
     LET seasonMatches = (
-    FOR season IN seasons
-    FILTER ${season} == null || season.number == ${season}
-        FOR week IN 1..1 ANY season WeeksInSeason
-        FILTER season.number != ${currentSeason} || week.number != ${currentWeek} 
-            FOR match IN 1..1 ANY week MatchesInWeek
+        FOR season IN seasons
+    FILTER ${season} == null || season._key == TO_STRING(${season})
+        FOR week IN 1..1 OUTBOUND season weeksInSeason
+        FILTER season._key != TO_STRING(${currentSeason}) || week.number != ${currentWeek} 
+            FOR match IN 1..1 OUTBOUND week matchesInWeekVST
             RETURN match._id
-    )
+        )
     
     
-    FOR node,edge,path IN 2..2 ANY team TeamPlayedIn
-    FILTER  path.vertices[1]._id IN seasonMatches
-    COLLECT opponent = node.nflId
-    AGGREGATE wins = SUM(path.edges[0].points > path.edges[1].points ? 1 : 0), losses= SUM(path.edges[0].points > path.edges[1].points ? 0 : 1)
+    FOR node,edge,path IN 4..4 ANY ${team} rosterOfVST, rosterPlayedInVST
+    FILTER  path.vertices[2]._id IN seasonMatches
+    COLLECT opponent = node._key
+    AGGREGATE wins = SUM(path.edges[1].points > path.edges[2].points ? 1 : 0), losses= SUM(path.edges[1].points > path.edges[2].points ? 0 : 1)
     LET matchCount = wins+losses
     LET ratio =  matchCount>0?(wins / (matchCount)):0
     SORT ratio DESC

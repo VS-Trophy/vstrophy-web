@@ -89,5 +89,5 @@ router.get('/team/:team/winloss/opponents', function (req, res) {
 .queryParam('season',joi.number().integer().positive().default(null), 'If set only results of this season are displayed')
 .pathParam('team',joi.string().required(), 'The record of this team will be calculated')
 .response(['application/json'], 'An Object containing informations regarding the win loss record of this team')
-.summary('The win / loss record of a team.')
+.summary('The win / loss record of a team for every opponent.')
 .description('Returns the win / loss record of a team. May be narrowed down by season');
