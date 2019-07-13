@@ -53,24 +53,25 @@ module.exports.winlossoverview = function (team, season) {
 module.exports.pointstats = function (team) {
     var currentWeek = week.currentWeek();
     var currentSeason = week.currentSeason();
+    teamId = "teamsVST/"+team
     return aql`
 
-    FOR team IN VSTrophyTeams FILTER team.nflId == ${team}  LIMIT 1
-    FOR match, performance IN 1..1 OUTBOUND team TeamPlayedIn
-    LET isMatchOngoing = LENGTH(
-        FOR week IN 1..1 INBOUND match MatchesInWeek 
-            FOR season IN 1..1 INBOUND week WeeksInSeason
-            FILTER week.number == ${currentWeek} && season.number == ${currentSeason}
-                RETURN season
-    )
-    FILTER isMatchOngoing == 0
-    COLLECT AGGREGATE averagePoints = AVERAGE(performance.points), minPoints = MIN(performance.points), maxPoints = MAX(performance.points), totalPoints = SUM(performance.points), matches = LENGTH(match)
-    RETURN {'team': ${team}, 
-    "average" : averagePoints,
-    "max": maxPoints,
-    "min" : minPoints,
-    "total": totalPoints,
-    "matches": matches}`
+    FOR roster IN 1..1 OUTBOUND ${teamId} rosterOfVST
+    FOR match, performance IN 1..1 OUTBOUND roster rosterPlayedInVST
+        LET isMatchOngoing = LENGTH(
+            FOR week IN 1..1 INBOUND match matchesInWeekVST 
+                FOR season IN 1..1 INBOUND week weeksInSeason
+                FILTER week.number == ${currentWeek} && season._key == TO_STRING(${currentSeason})
+                    RETURN season
+        )
+        FILTER isMatchOngoing == 0
+        COLLECT AGGREGATE averagePoints = AVERAGE(performance.points), minPoints = MIN(performance.points), maxPoints = MAX(performance.points), totalPoints = SUM(performance.points), matches = LENGTH(match)
+        RETURN {'team': ${team}, 
+        "average" : averagePoints,
+        "max": maxPoints,
+        "min" : minPoints,
+        "total": totalPoints,
+        "matches": matches}`
 }
 
 module.exports.pointstatsTeams = function (filteredWeek, filteredSeason) {
