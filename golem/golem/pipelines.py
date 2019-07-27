@@ -16,8 +16,8 @@ class ArangoPipeline(object):
     def open_spider(self, spider):
         client = ArangoClient(protocol='http', host='localhost', port=8529)
         # Select the datbase
-        self.db = client.db('vs-trophy', username='root',
-                            password='')
+        self.db = client.db('vs-trophy', username=spider.settings.get("ARANGO_USER"),
+                            password=spider.settings.get("ARANGO_PWD"))
         # Select the collections
         self.weeks = self.db.collection("weeks")
         self.seasons = self.db.collection("seasons")
