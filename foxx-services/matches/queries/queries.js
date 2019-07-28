@@ -1,5 +1,11 @@
 const aql = require('@arangodb').aql;
 const weekmod = require('./week.js')
+
+module.exports.matchDetails = function(matchKey){
+    return aql
+
+}
+
 module.exports.matches = function(season, week, team1, team2){
     return aql`FOR season IN seasons
     FILTER  ${season} == null || season._key == TO_STRING(${season})
@@ -15,7 +21,9 @@ module.exports.matches = function(season, week, team1, team2){
                         FILTER ${team2} == null || POSITION(featuredTeams, ${team2})
                         SORT teamPerfs[0].season._key DESC, teamPerfs[0].week.number DESC
                     RETURN 
-                        {"firstTeamId" : teamPerfs[0].team._key, 
+                        {
+                        "matchId" : daMatch,
+                        "firstTeamId" : teamPerfs[0].team._key, 
                         "firstTeamPoints" : teamPerfs[0].performance.points, 
                         "secondTeamId" : teamPerfs[1].team._key, 
                         "secondTeamPoints" : teamPerfs[1].performance.points,
