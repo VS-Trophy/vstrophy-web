@@ -1,6 +1,6 @@
 from arango import ArangoClient
 import scrapy
-import datetime
+from datetime import datetime
 from ..items import PlayerBirthdayItemVST
 
 
@@ -27,9 +27,9 @@ class GolemPlayerBirthdayShem(scrapy.Spider):
             yield scrapy.Request(url=url,meta={'key': player['_key']},callback=self.parse_playercard)
 
     def parse_playercard(self,response):
-        date_string =response.xpath("//p[contains(., 'Born')]").re_first('[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2}')
+        date_string =response.xpath("//p[contains(., 'Born')]").re_first('[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}')
         if date_string is not None:
-            date_object = datetime.datetime.strptime(date_string, '%m/%d/%y')
-            return PlayerBirthdayItemVST(player_key=response.request.meta['key'], player_birthday=datetime.datetime.timestamp(date_object))
+            date_object = datetime.strptime(date_string, '%m/%d/%Y')
+            return PlayerBirthdayItemVST(player_key=response.request.meta['key'], player_birthday=date_object.strftime('%d.%m.%Y'))
             
 
