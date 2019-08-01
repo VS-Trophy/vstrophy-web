@@ -7,7 +7,7 @@ from ..gameparser import parse_game
 from ..playerstatsparser import get_offensive_performance, get_kicker_performance, get_defense_performance
 
 
-class GolemPlayerShem(GolemShemBase):
+class GolemPlayerShem(GolemNFLFantasyShemBase):
     """This shem scrapes the player performances. Creates or updates players and player performances."""
 
     name = "golem_players_shem"

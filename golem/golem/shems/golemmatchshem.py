@@ -6,7 +6,7 @@ from scrapy.utils.response import open_in_browser
 from ..gameparser import parse_game
 
 
-class GolemMatchShem(GolemShemBase):
+class GolemMatchShem(GolemNFLFantasyShemBase):
     """This shem scrapes the matches. Creates or updates seasons, weeks, matches and rosters."""
     name = "golem_matches_shem"
 
