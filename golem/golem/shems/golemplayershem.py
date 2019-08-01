@@ -1,4 +1,4 @@
-from .golemshembase import GolemShemBase
+from .golemnflfantasyshembase import GolemNFLFantasyShemBase
 import scrapy
 from scrapy.shell import inspect_response
 from ..items import WeekItem, MatchItemVST

@@ -6,7 +6,7 @@ from scrapy.shell import inspect_response
 from scrapy.utils.response import open_in_browser
 
 
-class GolemShemBase(scrapy.Spider):
+class GolemNFLFantasyShemBase(scrapy.Spider):
 
     USERNAME = "vstrophy"
     HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule"
