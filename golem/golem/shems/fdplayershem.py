@@ -23,7 +23,7 @@ class FDPlayerBShem(scrapy.Spider):
     def start_requests(self):
         if self.complete:
             self.logger.info("Starting complete players crawl")
-            return self.iterate_over_all_weeks(session_cookies, self.parse_playerstats_week)
+            return self.iterate_over_all_weeks(self.parse_playerstats_week)
         else:
             self.logger.info("Starting quick players crawl")
             return self.execute_current_week(self.parse_playerstats_week)
