@@ -8,10 +8,10 @@ from scrapy.spidermiddlewares.httperror import HttpError
 from ..items import PlayerUpdateItemVST
 
 
-class GolemFDIDShem(scrapy.Spider):
+class FDIDShem(scrapy.Spider):
     """This shem sets the fantasydata.com id of each player. Players with the same name need to have their birthday set, so they can be identified"""
 
-    name = "golem_fd_id_shem"
+    name = "fd_id_shem"
     FD_BASE_URL = "https://fantasydata.com"
     FD_SEARCH_URL = FD_BASE_URL + "/search"
     SEARCH_BODY_TEMPLATE = "{'searchtext' : {name}}"

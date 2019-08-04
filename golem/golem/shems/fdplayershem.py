@@ -7,7 +7,7 @@ from ..gameparser import parse_game
 from ..playerstatsparser import get_offensive_performance, get_kicker_performance, get_defense_performance
 
 
-class GolemFDPlayerBShem(scrapy.Spider):
+class FDPlayerBShem(scrapy.Spider):
     """This shem scrapes the player performances. Creates or updates players and player performances."""
 
     def __init__(self, complete=False, **kwargs):
@@ -15,7 +15,7 @@ class GolemFDPlayerBShem(scrapy.Spider):
 
         super().__init__(**kwargs)  # python3
 
-    name = "golem_fd_player_shem"
+    name = "fd_player_shem"
     FANTASYDATA_URL = "https://fantasydata.com/FantasyStatsNFL/FantasyStats_Read"
 
     FORM_DATA_TEMPLATE = "sort=FantasyPoints-desc&pageSize=1&group=&filter=&filters.position=1&filters.team=&filters.season={season}&filters.seasontype=1&filters.scope=2&filters.subscope=1&filters.redzonescope=&filters.scoringsystem=&filters.leaguetype=&filters.searchtext=&filters.week={week}&filters.startweek={week}&filters.endweek={week}&filters.minimumsnaps=&filters.teamaspect=&filters.stattype=&filters.exportType=&filters.desktop=&filters.dfsoperator=&filters.dfsslateid=&filters.dfsslategameid=&filters.dfsrosterslot=&filters.page=&filters.showfavs=&filters.posgroup=&filters.aggregatescope=1&filters.rangescope=&filters.range=1"

@@ -1,4 +1,4 @@
-from .golemnflfantasyshembase import GolemNFLFantasyShemBase
+from .nflfantasyshembase import NFLFantasyShemBase
 import scrapy
 from scrapy.shell import inspect_response
 from ..items import WeekItem, MatchItemVST
@@ -7,10 +7,10 @@ from ..gameparser import parse_game
 from ..playerstatsparser import get_offensive_performance, get_kicker_performance, get_defense_performance
 
 
-class GolemNFLPlayerShem(GolemNFLFantasyShemBase):
+class NFLPlayerShem(NFLFantasyShemBase):
     """This shem scrapes the player performances. Creates or updates players and player performances."""
 
-    name = "golem_nfl_fantasy_players_shem"
+    name = "nfl_fantasy_players_shem"
     RESEARCH_BASE_URL = "https://fantasy.nfl.com/research/players"
     BASE_URL = "https://fantasy.nfl.com"
 

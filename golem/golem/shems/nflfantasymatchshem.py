@@ -1,4 +1,4 @@
-from .golemnflfantasyshembase import GolemNFLFantasyShemBase
+from .nflfantasyshembase import NFLFantasyShemBase
 import scrapy
 from scrapy.shell import inspect_response
 from ..items import WeekItem, MatchItemVST
@@ -6,9 +6,9 @@ from scrapy.utils.response import open_in_browser
 from ..gameparser import parse_game
 
 
-class GolemNFLFantasyMatchShem(GolemNFLFantasyShemBase):
+class NFLFantasyMatchShem(NFLFantasyShemBase):
     """This shem scrapes the matches. Creates or updates seasons, weeks, matches and rosters."""
-    name = "golem_nflfantasy_matches_shem"
+    name = "nflfantasy_matches_shem"
 
     # First go to the history page to get all seasons
     def start_scraping(self, session_cookies):
