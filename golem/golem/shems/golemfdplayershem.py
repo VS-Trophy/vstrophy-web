@@ -16,8 +16,9 @@ class GolemFDPlayerBShem(scrapy.Spider):
         super().__init__(**kwargs)  # python3
 
     name = "golem_fd_player_shem"
-    FOOTBALLDB_WEEK_TEMPLATE = "https://www.footballdb.com/fantasy-football/index.html" + \
-        "?pos={pos}&yr={yr}&wk={wk}"
+    FANTASYDATA_URL = "https://fantasydata.com/FantasyStatsNFL/FantasyStats_Read"
+
+    FORM_DATA_TEMPLATE = "sort=FantasyPoints-desc&pageSize=1&group=&filter=&filters.position=1&filters.team=&filters.season={season}&filters.seasontype=1&filters.scope=2&filters.subscope=1&filters.redzonescope=&filters.scoringsystem=&filters.leaguetype=&filters.searchtext=&filters.week={week}&filters.startweek={week}&filters.endweek={week}&filters.minimumsnaps=&filters.teamaspect=&filters.stattype=&filters.exportType=&filters.desktop=&filters.dfsoperator=&filters.dfsslateid=&filters.dfsslategameid=&filters.dfsrosterslot=&filters.page=&filters.showfavs=&filters.posgroup=&filters.aggregatescope=1&filters.rangescope=&filters.range=1"
 
     def start_requests(self):
         if self.complete:
@@ -41,14 +42,21 @@ class GolemFDPlayerBShem(scrapy.Spider):
             SORT week.number DESC
             LIMIT 1
             RETURN {"season": season._key, "week": TO_STRING(week.number)}"""
-        cursor = self.db.aql.execute(query)
+        week = self.db.aql.execute(query).next()
+        return self.parse_playerstats_week(week)
 
-        return parse_playerstats_week(self, cursor.next())
+    def after_post(self, response):
+        self.logger.info(response.body)
 
     def parse_playerstats_week(self, weekObject):
         season = str(weekObject['season'])
         week = str(weekObject['week'])
-
+        yield scrapy.Request(url=self.FANTASYDATA_URL,
+                             headers={
+                                 'Content-Type': "application/x-www-form-urlencoded"},
+                             method='POST',
+                             body=self.FORM_DATA_TEMPLATE.format(**weekObject),
+                             callback=self.after_post)
         # # get offensive performances
         # yield scrapy.Request(url=request_url + "&position=O",
         #                      meta=response.request.meta,
