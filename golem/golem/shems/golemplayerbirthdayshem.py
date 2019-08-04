@@ -11,9 +11,9 @@ class GolemPlayerBirthdayShem(scrapy.Spider):
     PLAYER_PROFILE_URL_TEMPLATE = "http://www.nfl.com/player/{name}/{id}/profile"
 
     def start_requests(self):
-        #First we need to see, which players don't have theyr birthday yet
+        #First we need to see, which players don't have their birthday yet
         client = ArangoClient(protocol='http', host='localhost', port=8529)
-        # Select the datbase
+
         self.db = client.db('vs-trophy', username=self.settings.get("ARANGO_USER"),
                             password=self.settings.get("ARANGO_PWD"))
         cursor = self.db.aql.execute('FOR player in players FILTER player.birthday == null RETURN player')
