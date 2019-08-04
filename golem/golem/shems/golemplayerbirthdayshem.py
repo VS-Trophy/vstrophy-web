@@ -1,7 +1,7 @@
 from arango import ArangoClient
 import scrapy
 from datetime import datetime
-from ..items import PlayerBirthdayItemVST
+from ..items import PlayerUpdateItemVST
 
 
 class GolemNFLPlayerBirthdayShem(scrapy.Spider):
@@ -30,6 +30,6 @@ class GolemNFLPlayerBirthdayShem(scrapy.Spider):
         date_string =response.xpath("//p[contains(., 'Born')]").re_first('[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}')
         if date_string is not None:
             date_object = datetime.strptime(date_string, '%m/%d/%Y')
-            return PlayerBirthdayItemVST(player_key=response.request.meta['key'], player_birthday=date_object.strftime('%d.%m.%Y'))
+            return PlayerUpdateItemVST(player_key=response.request.meta['key'], player_birthday=date_object.strftime('%d.%m.%Y'))
             
 

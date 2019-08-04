@@ -27,9 +27,10 @@ class PlayerItemVST(scrapy.Item):
     player_key = scrapy.Field()
     player_name = scrapy.Field()
 
-class PlayerBirthdayItemVST(scrapy.Item):
+class PlayerUpdateItemVST(scrapy.Item):
     player_key = scrapy.Field()
     player_birthday = scrapy.Field()
+    player_fd_id = scrapy.Field()
 
 class RosterSpotItemVST(scrapy.Item):
     spot_name = scrapy.Field()

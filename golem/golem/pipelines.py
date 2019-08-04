@@ -5,7 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from arango import ArangoClient
-from .items import WeekItem, MatchItemVST, PlayerPerformanceItemVST,PlayerBirthdayItemVST
+from .items import WeekItem, MatchItemVST, PlayerPerformanceItemVST,PlayerUpdateItemVST
 from .checkpipeline import check_pipeline
 
 
@@ -239,19 +239,24 @@ class PlayerPerformanceVSTPipeline(ArangoPipeline):
         return item
 
 
-class PlayerBirthdayVSTPipeline(ArangoPipeline):
-    itemclass = PlayerBirthdayItemVST
+class PlayerUpdateVSTPipeline(ArangoPipeline):
+    itemclass = PlayerUpdateItemVST
 
     def __init__(self):
-        super(PlayerBirthdayVSTPipeline, self).__init__()
-        self.player_birthday_update_count = 0
+        super(PlayerUpdateVSTPipeline, self).__init__()
+        self.player_update_count = 0
 
     def close_spider(self, spider):
         spider.logger.info(
-            "Updated " + str(self.player_birthday_update_count) + " player birthdays.")
+            "Updated " + str(self.player_update_count) + " player birthdays.")
 
     @check_pipeline
     def process_item(self, item, spider):
-        self.players.update({'_key': item['player_key'],'birthday': item['player_birthday']})
-        self.player_birthday_update_count += 1
+        base_document = {'_key': item['player_key']}
+        if 'player_birthday' in item:
+            base_document['birthday'] = item['player_birthday']
+        if 'player_fd_id' in item:
+            base_document['fdid'] = item['player_fd_id']            
+        self.players.update(base_document)
+        self.player_update_count += 1
         return item
