@@ -74,7 +74,7 @@ class FDIDShem(scrapy.Spider):
                 # players with dots in their names are sometimes only found without them
                 cleaned_name = player['name'].replace('.', '').lower()
                 self.logger.info("Trying " + cleaned_name)
-                return self.create_search_request(player, cleaned_name)
+                yield self.create_search_request(player, cleaned_name)
 
     def on_error(self,error):
          if error.check(HttpError):
@@ -92,7 +92,7 @@ class FDIDShem(scrapy.Spider):
         if meta['player']['birthday'] == normalized_bday_string :
             #the player has the same name and the same birthday. that will do
             #we can store the id
-            return PlayerUpdateItemVST(player_key=meta['player']['_key'], player_fd_id=meta['fdid'])
+            yield PlayerUpdateItemVST(player_key=meta['player']['_key'], player_fd_id=meta['fdid'])
         else:
             self.logger.info(meta['player']['name'] + ' Birthdays do not match: ' + normalized_bday_string + " " + meta['player']['birthday'])
 
