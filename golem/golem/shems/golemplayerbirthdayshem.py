@@ -4,10 +4,10 @@ from datetime import datetime
 from ..items import PlayerBirthdayItemVST
 
 
-class GolemPlayerBirthdayShem(scrapy.Spider):
+class GolemNFLPlayerBirthdayShem(scrapy.Spider):
     """This shem scrapes the players birthdays from nfl.com. Updates players."""
 
-    name = "golem_player_birthday_shem"
+    name = "golem_nfl_player_birthday_shem"
     PLAYER_PROFILE_URL_TEMPLATE = "http://www.nfl.com/player/{name}/{id}/profile"
 
     def start_requests(self):
