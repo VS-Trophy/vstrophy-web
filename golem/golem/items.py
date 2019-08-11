@@ -1,16 +1,18 @@
-# -*- coding: utf-8 -*-
+# -*- coding= utf-8 -*-
 
 # Define here the models for your scraped items
 #
-# See documentation in:
-# https://doc.scrapy.org/en/latest/topics/items.html
+# See documentation in=
+# https=//doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
+
 
 class WeekItem(scrapy.Item):
     season = scrapy.Field()
     week = scrapy.Field()
-    pass     
+    pass
+
 
 class MatchItemVST(scrapy.Item):
     season = scrapy.Field()
@@ -18,59 +20,86 @@ class MatchItemVST(scrapy.Item):
     roster1 = scrapy.Field()
     roster2 = scrapy.Field()
 
+
 class RosterItemVST(scrapy.Item):
     team_key = scrapy.Field()
     points = scrapy.Field()
     spots = scrapy.Field()
 
+
 class PlayerItemVST(scrapy.Item):
     player_key = scrapy.Field()
     player_name = scrapy.Field()
+
 
 class PlayerUpdateItemVST(scrapy.Item):
     player_key = scrapy.Field()
     player_birthday = scrapy.Field()
     player_fd_id = scrapy.Field()
 
+
 class RosterSpotItemVST(scrapy.Item):
     spot_name = scrapy.Field()
     player = scrapy.Field()
-    
+
 
 class PlayerPerformanceItemVST(scrapy.Item):
-    player = scrapy.Field()
-    points = scrapy.Field()
-    week = scrapy.Field()
-    player_nfl_team = scrapy.Field()
-    player_nfl_position = scrapy.Field()
-    player_nfl_opponent = scrapy.Field()
-    player_nfl_home = scrapy.Field()
-
-
-
-class OffensivePlayerPerformanceItemVST(PlayerPerformanceItemVST):
-    pass_yds = scrapy.Field()
-    pass_tds = scrapy.Field()
-    pass_ints = scrapy.Field()
-    rush_yds = scrapy.Field()
-    rush_tds = scrapy.Field()
-    rec_yds = scrapy.Field()
-    rec_tds = scrapy.Field()
-    fum_tds = scrapy.Field()
-    two_pts = scrapy.Field()
-    fum_lost = scrapy.Field()
-class KickPlayerPerformanceItemVST(PlayerPerformanceItemVST):
-    pats = scrapy.Field()
-    twenty_minus_made = scrapy.Field()
-    twenty_thirty_made = scrapy.Field()
-    thirty_forthy_made = scrapy.Field()
-    forthy_fifty_made = scrapy.Field()
-    fifty_plus_made = scrapy.Field()
-class DefensivePlayerPerformanceItemVST(PlayerPerformanceItemVST):
-    sacks = scrapy.Field()
-    ints = scrapy.Field()
-    fum_rec = scrapy.Field()
-    safeties = scrapy.Field()
-    def_tds = scrapy.Field()
-    ret_tds = scrapy.Field()
-    allowed_pts = scrapy.Field()
+    PlayerID = scrapy.Field()
+    Name = scrapy.Field()
+    Season = scrapy.Field()
+    Played = scrapy.Field()
+    Started = scrapy.Field()
+    Week = scrapy.Field()
+    Opponent = scrapy.Field()
+    TeamIsHome = scrapy.Field()
+    Result = scrapy.Field()
+    HomeScore = scrapy.Field()
+    AwayScore = scrapy.Field()
+    GameDate = scrapy.Field()
+    PassingCompletions = scrapy.Field()
+    PassingAttempts = scrapy.Field()
+    PassingCompletionPercentage = scrapy.Field()
+    PassingYards = scrapy.Field()
+    PassingYardsPerAttempt = scrapy.Field()
+    PassingTouchdowns = scrapy.Field()
+    PassingInterceptions = scrapy.Field()
+    PassingRating = scrapy.Field()
+    RushingAttempts = scrapy.Field()
+    RushingYards = scrapy.Field()
+    RushingYardsPerAttempt = scrapy.Field()
+    RushingTouchdowns = scrapy.Field()
+    Receptions = scrapy.Field()
+    ReceivingTargets = scrapy.Field()
+    ReceivingYards = scrapy.Field()
+    ReceptionPercentage = scrapy.Field()
+    ReceivingTouchdowns = scrapy.Field()
+    ReceivingLong = scrapy.Field()
+    ReceivingYardsPerTarget = scrapy.Field()
+    ReceivingYardsPerReception = scrapy.Field()
+    Fumbles = scrapy.Field()
+    FumblesLost = scrapy.Field()
+    FieldGoalsMade = scrapy.Field()
+    FieldGoalsAttempted = scrapy.Field()
+    FieldGoalPercentage = scrapy.Field()
+    FieldGoalsLongestMade = scrapy.Field()
+    ExtraPointsMade = scrapy.Field()
+    ExtraPointsAttempted = scrapy.Field()
+    TacklesForLoss = scrapy.Field()
+    Sacks = scrapy.Field()
+    QuarterbackHits = scrapy.Field()
+    Interceptions = scrapy.Field()
+    FumblesRecovered = scrapy.Field()
+    Safeties = scrapy.Field()
+    DefensiveTouchdowns = scrapy.Field()
+    SpecialTeamsTouchdowns = scrapy.Field()
+    SoloTackles = scrapy.Field()
+    AssistedTackles = scrapy.Field()
+    SackYards = scrapy.Field()
+    PassesDefended = scrapy.Field()
+    FumblesForced = scrapy.Field()
+    FantasyPoints = scrapy.Field()
+    PointsAllowedByDefenseSpecialTeams = scrapy.Field()
+    TotalTackles = scrapy.Field()
+    FantasyPosition = scrapy.Field()
+    Position = scrapy.Field()
+    Team = scrapy.Field()

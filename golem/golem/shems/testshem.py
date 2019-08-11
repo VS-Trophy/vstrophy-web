@@ -4,7 +4,6 @@ from scrapy.shell import inspect_response
 from ..items import WeekItem, MatchItemVST
 from scrapy.utils.response import open_in_browser
 from ..gameparser import parse_game
-from ..playerstatsparser import get_offensive_performance, get_kicker_performance, get_defense_performance
 
 
 class TestShem(NFLFantasyShemBase):
