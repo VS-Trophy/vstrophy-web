@@ -1,0 +1,16 @@
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let player"> {{player.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="spot">
+    <th mat-header-cell *matHeaderCellDef> Spot </th>
+    <td mat-cell *matCellDef="let player"> {{player.spot}} </td>
+  </ng-container>
+  <ng-container matColumnDef="points">
+    <th mat-header-cell *matHeaderCellDef> Points </th>
+    <td mat-cell *matCellDef="let player"> {{player.performance?.FantasyPoints}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>

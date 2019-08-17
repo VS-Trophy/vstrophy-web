@@ -11,6 +11,8 @@ import { MatchListComponent } from './match-list/match-list.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatchDetailsComponent } from './match-details/match-details.component';
+import { MatTableModule } from '@angular/material/table';
+import { RosterTableComponent } from './roster-table/roster-table.component';
 
 @NgModule({
   imports: [
@@ -19,6 +21,7 @@ import { MatchDetailsComponent } from './match-details/match-details.component';
     MatCardModule,
     FlexLayoutModule,
     MatProgressBarModule,
+    MatTableModule,
     MatBadgeModule
   ],
   providers: [
@@ -27,6 +30,6 @@ import { MatchDetailsComponent } from './match-details/match-details.component';
   exports:[
     MatchComponent,MatchListComponent
   ],
-  declarations: [MatchComponent, MatchListComponent, MatchDetailsComponent]
+  declarations: [MatchComponent, MatchListComponent, MatchDetailsComponent, RosterTableComponent]
 })
 export class MatchesModule { }

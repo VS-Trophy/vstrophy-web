@@ -1,3 +1,4 @@
-<p>
-  {{match?.matchId}}
-</p>
+ <div fxLayout="row" class="container" fxLayoutAlign="center start">
+ <vst-roster-table fxFlex="40%" [roster]="match?.firstTeamRoster"></vst-roster-table>
+ <vst-roster-table  fxFlex="40%" [roster]="match?.secondTeamRoster"></vst-roster-table>
+</div>
