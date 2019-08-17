@@ -19,6 +19,7 @@ import { NewsModule } from './news/news.module';
 import localeDECH from '@angular/common/locales/de-CH';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
+import { PlayersModule } from './players/players.module';
 
 registerLocaleData(localeDECH);
 
@@ -43,7 +44,8 @@ registerLocaleData(localeDECH);
     TeamsModule,
     MatchesModule,
     ResultsModule,
-    NewsModule
+    NewsModule,
+    PlayersModule
     
     //Third party
 
