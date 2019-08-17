@@ -15,7 +15,7 @@ module.exports.matchDetails = function(matchKey){
                 LIMIT 2
                 LET players = (
                     FOR player IN 1..1 INBOUND roster playedInVST
-                        LET perf = (
+                        LET perf = FIRST(
                             FOR week, playerPerformance IN 1..1 OUTBOUND player performedInWeek
                                 FILTER week._id==weekSeason.week._id
                                 LIMIT 1
