@@ -1,3 +1,5 @@
+import { PlayerPerformance } from '../players/player-performance';
+
 export class Match {
     firstTeamName: string;
     firstTeamId: string;
@@ -11,4 +13,6 @@ export class Match {
     week: number;
     margin: number;
     totalScore: number;
+    firstTeamRoster: PlayerPerformance[];
+    secondTeamRoster: PlayerPerformance[];
 }
