@@ -1,7 +1,7 @@
 <mat-card [matBadgeHidden]="!badgeValue" matBadgeSize="large" [matBadge]="badgeValue" matBadgePosition="before" class="card">
   <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-    <mat-card-title>{{match.season}} Woche
-      {{match.week}}</mat-card-title>
+    <mat-card-title><a routerLink="/matches/{{match.matchId}}">{{match.season}} Woche
+      {{match.week}}</a></mat-card-title>
   </mat-card-header>
   <div fxLayout="row" fxLayoutAlign="center center">
     <a routerLink="/teams/{{match.firstTeamId}}" fxFlex fxLayout="column" fxLayoutAlign="center center" [class]="getFirstTeamClass()">

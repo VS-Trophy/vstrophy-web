@@ -10,6 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatchListComponent } from './match-list/match-list.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatchDetailsComponent } from './match-details/match-details.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
   exports:[
     MatchComponent,MatchListComponent
   ],
-  declarations: [MatchComponent, MatchListComponent]
+  declarations: [MatchComponent, MatchListComponent, MatchDetailsComponent]
 })
 export class MatchesModule { }

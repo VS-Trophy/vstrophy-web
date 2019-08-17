@@ -132,6 +132,17 @@ export class MatchesService {
     );
   }
 
+  
+  getMatchDetails(matchId: String): Observable<Match> {
+    const path: string = environment.apiRoot + this.matchesPath + "/" + matchId;
+    let parameters: HttpParams = new HttpParams();
+    return this.http.get<Match[]>(path, { params: parameters }).pipe(
+      catchError(this.exceptionService.handleHttpError('getMatcheDetails', [])),
+      // Resolve the team name by id
+      map(matches => this.loadTeams(matches)[0])
+    );
+  }
+
 
   private loadTeams(matches: Match[]): Match[] {
     matches.forEach(match => {
