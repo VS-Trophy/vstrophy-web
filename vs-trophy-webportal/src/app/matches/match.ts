@@ -1,6 +1,7 @@
 import { PlayerPerformance } from '../players/player-performance';
 
 export class Match {
+    matchId: string;
     firstTeamName: string;
     firstTeamId: string;
     firstTeamLogoPath: string;

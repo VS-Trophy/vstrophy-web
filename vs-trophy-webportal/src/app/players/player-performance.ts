@@ -1,5 +1,5 @@
 export class PlayerPerformance {
-    id: String;
-    name: String;
-    performance: Object;
+    id: string;
+    name: string;
+    performance: object;
 }
