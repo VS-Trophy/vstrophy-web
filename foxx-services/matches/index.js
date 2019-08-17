@@ -33,6 +33,24 @@ router.get('/', function (req, res) {
 .summary('Matches')
 .description('Returns matches. Filterable by season and week and teams');
 
+router.get('/:matchKey', function (req, res) {
+  try {
+    const matchKey = req.pathParams.matchKey
+    const match =
+    db._query(queries.matchDetails(matchKey))
+    res.send(match)
+  } catch (e) {
+    if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
+      throw e;
+    }
+    res.throw(500, 'Could not get matches', e);
+  }
+})
+.pathParam('matchKey', joi.string().default(null), 'Details of this match will be returned')
+.response(['application/json'], 'The requested match with more details')
+.summary('Matches')
+.description('Returns a specific mathc. Contains rosters and other details');
+
 router.get('/margin', function (req, res) {
   try {
     const ascDesc = req.queryParams.sortorder

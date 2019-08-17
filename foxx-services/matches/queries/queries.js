@@ -2,7 +2,41 @@ const aql = require('@arangodb').aql;
 const weekmod = require('./week.js')
 
 module.exports.matchDetails = function(matchKey){
-    return aql
+    matchId = 'matchesVST/' + matchKey
+    return aql`LET weekSeason = FIRST(
+        FOR week IN 1..1 INBOUND ${matchId} matchesInWeekVST
+            LIMIT 1 
+            FOR season IN 1..1 INBOUND week weeksInSeason
+                LIMIT 1
+                return {"week": week, "season": season})
+                
+        FOR roster,performance IN 1..1 INBOUND ${matchId} rosterPlayedInVST
+            FOR team IN 1..1 INBOUND roster rosterOfVST
+                LIMIT 2
+                LET players = (
+                    FOR player IN 1..1 INBOUND roster playedInVST
+                        LET perf = (
+                            FOR week, playerPerformance IN 1..1 OUTBOUND player performedInWeek
+                                FILTER week._id==weekSeason.week._id
+                                LIMIT 1
+                                RETURN  KEEP(playerPerformance,ATTRIBUTES(playerPerformance,true)))
+                            return {"id": player._key, "name": player.name, "performance": perf}
+                )
+                COLLECT daMatch = ${matchId} INTO teamPerfs
+                LET featuredTeams = [teamPerfs[0].team._key,teamPerfs[1].team._key]
+                
+                RETURN 
+                    {
+                    "matchId" : daMatch,
+                    "firstTeamId" : teamPerfs[0].team._key, 
+                    "firstTeamRoster" : teamPerfs[0].players,
+                    "firstTeamPoints" : teamPerfs[0].performance.points, 
+                    "secondTeamId" : teamPerfs[1].team._key, 
+                    "secondTeamRoster" : teamPerfs[1].players,
+                    "secondTeamPoints" : teamPerfs[1].performance.points,
+                    "season" : weekSeason.season._key,
+                    "week" : weekSeason.week.number}`
+
 
 }
 
