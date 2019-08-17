@@ -14,13 +14,13 @@ module.exports.matchDetails = function(matchKey){
             FOR team IN 1..1 INBOUND roster rosterOfVST
                 LIMIT 2
                 LET players = (
-                    FOR player IN 1..1 INBOUND roster playedInVST
+                    FOR player, edge IN 1..1 INBOUND roster playedInVST
                         LET perf = FIRST(
                             FOR week, playerPerformance IN 1..1 OUTBOUND player performedInWeek
                                 FILTER week._id==weekSeason.week._id
                                 LIMIT 1
                                 RETURN  KEEP(playerPerformance,ATTRIBUTES(playerPerformance,true)))
-                            return {"id": player._key, "name": player.name, "performance": perf}
+                            return {"id": player._key, "name": player.name,"spot": edge.spot_name, "performance": perf}
                 )
                 COLLECT daMatch = ${matchId} INTO teamPerfs
                 LET featuredTeams = [teamPerfs[0].team._key,teamPerfs[1].team._key]
