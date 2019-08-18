@@ -12,7 +12,9 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatchDetailsComponent } from './match-details/match-details.component';
 import { MatTableModule } from '@angular/material/table';
-import { RosterTableComponent } from './roster-table/roster-table.component';
+import { OffenseRosterTableComponent } from './offense-roster-table/offense-roster-table.component';
+import { DefenseRosterTableComponent } from './defense-roster-table/defense-roster-table.component';
+import { KickerRosterTableComponent } from './kicker-roster-table/kicker-roster-table.component';
 
 @NgModule({
   imports: [
@@ -30,6 +32,6 @@ import { RosterTableComponent } from './roster-table/roster-table.component';
   exports:[
     MatchComponent,MatchListComponent
   ],
-  declarations: [MatchComponent, MatchListComponent, MatchDetailsComponent, RosterTableComponent]
+  declarations: [MatchComponent, MatchListComponent, MatchDetailsComponent, OffenseRosterTableComponent, DefenseRosterTableComponent, KickerRosterTableComponent]
 })
 export class MatchesModule { }
