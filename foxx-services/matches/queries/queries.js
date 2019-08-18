@@ -83,7 +83,7 @@ FILTER week.number != ${currentWeek} || season._key != TO_STRING(${currentSeason
 LET seasonweek =  {"season" : season._key, "week" : week.number}
 
 LIMIT ${limit}
-RETURN {"firstTeamId": performances[0].team._key,"firstTeamPoints": performances[0].points,"secondTeamId": performances[1].team._key,"secondTeamPoints": performances[1].points, "margin" : margin,"season" : seasonweek.season, "week": seasonweek.week}`
+RETURN {"matchId":match._key,"firstTeamId": performances[0].team._key,"firstTeamPoints": performances[0].points,"secondTeamId": performances[1].team._key,"secondTeamPoints": performances[1].points, "margin" : margin,"season" : seasonweek.season, "week": seasonweek.week}`
 }
 
 module.exports.highestScoringMatches = function(ascdesc,limit,season,week){
@@ -104,5 +104,5 @@ module.exports.highestScoringMatches = function(ascdesc,limit,season,week){
     LET seasonweek =  {"season" : season._key, "week" : week.number}
     
     LIMIT ${limit}
-    RETURN {"firstTeamId": performances[0].team._key,"firstTeamPoints": performances[0].points,"secondTeamId": performances[1].team._key,"secondTeamPoints": performances[1].points, "totalScore" : score,"season" : seasonweek.season, "week": seasonweek.week}`
+    RETURN {"matchId":match._key,"firstTeamId": performances[0].team._key,"firstTeamPoints": performances[0].points,"secondTeamId": performances[1].team._key,"secondTeamPoints": performances[1].points, "totalScore" : score,"season" : seasonweek.season, "week": seasonweek.week}`
 }
