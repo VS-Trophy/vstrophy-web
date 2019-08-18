@@ -19,9 +19,9 @@ export class DefenseRosterTableComponent implements OnInit {
 
   @Input('roster')
   set setRoster(value: PlayerPerformance[]) {
-    if (value && value.length >0) {
-
-      this.dataSource.data = value
+    
+    this.dataSource.data = value
+    if (value && value.length >0 && this.table!=null) {
       this.table.renderRows()
     }
   }

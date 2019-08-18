@@ -1,9 +1,10 @@
-<div fxLayout="row" class="container" fxLayoutAlign="center start">
+<vst-match *ngIf="match!=null" [match]="match"></vst-match>
+<div fxLayout="row" class="container" fxLayoutGap="5px" fxLayoutAlign="center start">
     <div fxFlex="45%">
         <vst-offense-roster-table [roster]="team1ActiveRoster?.offense"></vst-offense-roster-table>
         <vst-kicker-roster-table [roster]="team1ActiveRoster?.kicker"></vst-kicker-roster-table>
         <vst-defense-roster-table [roster]="team1ActiveRoster?.defense"></vst-defense-roster-table>
-
+        <H2>Bench</H2>
         <vst-offense-roster-table [roster]="team1Bench?.offense"></vst-offense-roster-table>
         <vst-kicker-roster-table [roster]="team1Bench?.kicker"></vst-kicker-roster-table>
         <vst-defense-roster-table [roster]="team1Bench?.defense"></vst-defense-roster-table>
@@ -12,9 +13,9 @@
         <vst-offense-roster-table [roster]="team2ActiveRoster?.offense"></vst-offense-roster-table>
         <vst-kicker-roster-table [roster]="team2ActiveRoster?.kicker"></vst-kicker-roster-table>
         <vst-defense-roster-table [roster]="team2ActiveRoster?.defense"></vst-defense-roster-table>
-
+        <H2>Bench</H2>
         <vst-offense-roster-table [roster]="team2Bench?.offense"></vst-offense-roster-table>
-        <vst-kicker-roster-table [roster]="team2Bench?.kicker"></vst-kicker-roster-table>
+        <vst-kicker-roster-table  [roster]="team2Bench?.kicker"></vst-kicker-roster-table>
         <vst-defense-roster-table [roster]="team2Bench?.defense"></vst-defense-roster-table>
     </div>
 </div>

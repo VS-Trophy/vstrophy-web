@@ -42,6 +42,13 @@ export class MatchDetailsComponent implements OnInit {
     this.splitRoster(match.secondTeamRoster, tempActiveRoster, tempBench)
     this.team2ActiveRoster = tempActiveRoster;
     this.team2Bench = tempBench;
+    this.match = match;
+  }
+
+  hasElements(perfs:PlayerPerformance[]): boolean{
+    console.info(perfs!=null && perfs.length > 0)
+    console.info(perfs)
+    return perfs!=null && perfs.length > 0;
   }
 
   //Splits all the performances and places them inside active and bench partitions
