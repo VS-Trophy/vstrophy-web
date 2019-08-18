@@ -1,10 +1,10 @@
 <table *ngIf="dataSource?.data?.length > 0" mat-table  [dataSource]="dataSource">
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let player"> {{player.name}} </td>
+    <th mat-header-cell *matHeaderCellDef>Name </th>
+    <td mat-cell *matCellDef="let player">{{player.name}}</td>
   </ng-container>
   <ng-container matColumnDef="spot">
-    <th mat-header-cell *matHeaderCellDef> Spot </th>
+    <th mat-header-cell *matHeaderCellDef >Spot </th>
     <td mat-cell *matCellDef="let player"> {{player.spot}} </td>
   </ng-container>
   <ng-container matColumnDef="extrapoints">
@@ -17,11 +17,11 @@
   </ng-container>
   <ng-container matColumnDef="long">
     <th mat-header-cell *matHeaderCellDef> Long </th>
-    <td mat-cell *matCellDef="let player"> {{player.performance?.FieldGoalsLongestMade}} yds</td>
+    <td mat-cell *matCellDef="let player"> {{player.performance?.FieldGoalsLongestMade}} Yds</td>
   </ng-container>
   <ng-container matColumnDef="points">
-    <th mat-header-cell *matHeaderCellDef> Points </th>
-    <td mat-cell *matCellDef="let player"> {{player.performance?.FantasyPoints}} </td>
+    <th mat-header-cell *matHeaderCellDef> <p fxLayoutAlign="end center">Points</p> </th>
+    <td mat-cell *matCellDef="let player" > <strong fxLayoutAlign="end center">{{player.performance?.FantasyPoints | number: '0.2'}}</strong> </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="kickerColumnsToDisplay"></tr>
   <tr mat-row *matRowDef="let row; columns: kickerColumnsToDisplay"></tr>

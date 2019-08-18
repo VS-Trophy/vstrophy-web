@@ -8,8 +8,8 @@
     <td mat-cell *matCellDef="let player"> {{player.spot}} </td>
   </ng-container>
   <ng-container matColumnDef="points">
-    <th mat-header-cell *matHeaderCellDef> Points </th>
-    <td mat-cell *matCellDef="let player"> {{player.performance?.FantasyPoints}} </td>
+    <th mat-header-cell *matHeaderCellDef> <p fxLayoutAlign="end center">Points</p> </th>
+    <td mat-cell *matCellDef="let player" > <strong fxLayoutAlign="end center">{{player.performance?.FantasyPoints | number: '0.2'}}</strong> </td>
   </ng-container>
   <ng-container matColumnDef="int">
     <th mat-header-cell *matHeaderCellDef> INT </th>
