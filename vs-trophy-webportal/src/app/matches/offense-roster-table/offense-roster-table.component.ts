@@ -10,7 +10,7 @@ import { PlayerPerformance } from '../../players/player-performance';
 export class OffenseRosterTableComponent implements OnInit {
   @ViewChild("table", { static: true }) table: MatTable<PlayerPerformance[]>;
   constructor() { }
-  offenseColumnsToDisplay = ['spot', 'name', 'points'];
+  offenseColumnsToDisplay = ['spot', 'name','passing','rushing','receiving', 'points'];
   dataSource = new MatTableDataSource();
 
 

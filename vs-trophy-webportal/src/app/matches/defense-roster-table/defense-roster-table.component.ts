@@ -10,7 +10,7 @@ import { PlayerPerformance } from '../../players/player-performance';
 export class DefenseRosterTableComponent implements OnInit {
   @ViewChild(MatTable, { static: false }) table: MatTable<PlayerPerformance[]>;
   constructor() { }
-  defenseColumnsToDisplay = ['spot','name', 'points'];
+  defenseColumnsToDisplay = ['spot','name','int','fumble','sacks','allowed','safety', 'TDs','points'];
   dataSource = new MatTableDataSource();
 
 

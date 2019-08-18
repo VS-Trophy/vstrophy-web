@@ -7,6 +7,18 @@
     <th mat-header-cell *matHeaderCellDef> Spot </th>
     <td mat-cell *matCellDef="let player"> {{player.spot}} </td>
   </ng-container>
+  <ng-container matColumnDef="extrapoints">
+    <th mat-header-cell *matHeaderCellDef> PATs </th>
+    <td mat-cell *matCellDef="let player"> {{player.performance?.ExtraPointsMade}} / {{player.performance?.ExtraPointsAttempted}} </td>
+  </ng-container>
+  <ng-container matColumnDef="fieldgoals">
+    <th mat-header-cell *matHeaderCellDef> FGs </th>
+    <td mat-cell *matCellDef="let player"> {{player.performance?.FieldGoalsMade}} / {{player.performance?.FieldGoalsAttempted}} </td>
+  </ng-container>
+  <ng-container matColumnDef="long">
+    <th mat-header-cell *matHeaderCellDef> Long </th>
+    <td mat-cell *matCellDef="let player"> {{player.performance?.FieldGoalsLongestMade}} yds</td>
+  </ng-container>
   <ng-container matColumnDef="points">
     <th mat-header-cell *matHeaderCellDef> Points </th>
     <td mat-cell *matCellDef="let player"> {{player.performance?.FantasyPoints}} </td>
