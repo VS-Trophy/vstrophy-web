@@ -1,6 +1,7 @@
 <vst-match *ngIf="match!=null" [match]="match"></vst-match>
-<div fxLayout="row" class="container" fxLayoutGap="5px" fxLayoutAlign="center start">
-    <div fxFlex="50%">
+<div fxLayout="row" fxLayout.lt-sm="column" class="container" fxLayoutAlign="center start">
+    <div class="roster">
+        <div class="mat-h3" fxLayoutAlign="center"><span>{{match.firstTeamName}}</span></div>
         <vst-offense-roster-table [roster]="team1ActiveRoster?.offense"></vst-offense-roster-table>
         <vst-kicker-roster-table [roster]="team1ActiveRoster?.kicker"></vst-kicker-roster-table>
         <vst-defense-roster-table [roster]="team1ActiveRoster?.defense"></vst-defense-roster-table>
@@ -9,7 +10,8 @@
         <vst-kicker-roster-table [roster]="team1Bench?.kicker"></vst-kicker-roster-table>
         <vst-defense-roster-table [roster]="team1Bench?.defense"></vst-defense-roster-table>
     </div>
-    <div fxFlex="50%">
+    <div class="roster">
+        <div class="mat-h3" fxLayoutAlign="center"><span>{{match.secondTeamName}}</span></div>
         <vst-offense-roster-table [roster]="team2ActiveRoster?.offense"></vst-offense-roster-table>
         <vst-kicker-roster-table [roster]="team2ActiveRoster?.kicker"></vst-kicker-roster-table>
         <vst-defense-roster-table [roster]="team2ActiveRoster?.defense"></vst-defense-roster-table>
