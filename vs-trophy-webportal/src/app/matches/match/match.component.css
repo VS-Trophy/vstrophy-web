@@ -18,6 +18,7 @@
 }
 
 .card{
+    cursor: pointer;
     height: 160px;
     padding: 10px;
 }
