@@ -23,6 +23,7 @@ class NFLFantasyMatchShem(NFLFantasyShemBase):
     #  Call all the gamecenters for the week
     def parse_games_of_week(self, response):
         for suffix in response.css('.matchupLink > a::attr(href)').getall():
+            self.logger.info(suffix)
             GAME_CENTER_URL = "https://fantasy.nfl.com" + \
             suffix + \
             '&trackType=fbs'

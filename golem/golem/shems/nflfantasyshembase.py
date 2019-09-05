@@ -9,7 +9,8 @@ from scrapy.utils.response import open_in_browser
 class NFLFantasyShemBase(scrapy.Spider):
 
     USERNAME = "vstrophy"
-    HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule"
+    HISTORY_SCHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/{}/schedule?scheduleDetail=1&scheduleType=week"
+    GAME_CENTER_URL= "https://fantasy.nfl.com/league/1268875/team/4/gamecenter"
 
     def __init__(self, complete=False, **kwargs):
         self.complete = complete
@@ -90,11 +91,9 @@ class NFLFantasyShemBase(scrapy.Spider):
                               callback=self.get_current_season)                          
 
     def get_current_season(self, response):
-        current_season= max(response.css(".st-menu > a::text").getall())
-        season = current_season[:4]
-        url = self.HISTORY_SCHEDULE_URL.format(season)
+        season = str(2019)
         response.request.meta['season'] = season
-        yield scrapy.Request(url=url,
+        yield scrapy.Request(url=self.GAME_CENTER_URL,
                                     meta=response.request.meta,
                                     callback=self.get_current_week)
 
@@ -111,11 +110,10 @@ class NFLFantasyShemBase(scrapy.Spider):
         season = response.request.meta['season']
         weekly_callback = response.request.meta['weekly_callback']
         # get the last week
-        lastWeek = int(response.css(
-           ".scheduleWeekNav > .last > a > span.title > span::text").get())
+        lastWeek = int(response.css(".weekNav > li.selected > a > span.title > span::text").get())
         weekItem = WeekItem(season=season, week=lastWeek)
         yield weekItem
-        WEEK_SECHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/"+season+"/schedule?scheduleDetail=" + \
+        WEEK_SECHEDULE_URL = "https://fantasy.nfl.com/league/1268875/history/"+season+"/schedule?&scheduleDetail=" + \
                 str(lastWeek)
         yield scrapy.Request(url=WEEK_SECHEDULE_URL,
                                  meta={'week': weekItem},
