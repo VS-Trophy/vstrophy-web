@@ -16,6 +16,7 @@ import { NewsCardComponent } from './news-card/news-card.component';
 import { CoreModule } from '../core/core.module';
 import { NewsItemDetailViewComponent } from './news-item-detail-view/news-item-detail-view.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatListModule,
     MatDividerModule,
     MatCardModule,
+    MatIconModule,
     //Flex Layout
     FlexLayoutModule,
     //The Editor

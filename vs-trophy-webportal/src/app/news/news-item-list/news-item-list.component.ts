@@ -22,8 +22,14 @@ export class NewsItemListComponent implements OnInit {
   @Output()
   selectEvent: EventEmitter<NewsItem> = new EventEmitter();
 
+
   onSelection(selectionChange: MatSelectionListChange){
     this.selectEvent.emit(selectionChange.option.value)
+  }
+
+  createNew(){
+    let newNewsItem:NewsItem = {author:null,publicationDate:null,content:null,title:"Not Saved Yet",_key:null}
+    this.newsItems.push(newNewsItem);
   }
 
 

@@ -1,8 +1,11 @@
 <mat-card class="news-item-list">
-<mat-selection-list #selectionList role="list" (selectionChange)="onSelection($event)" >
-  <div *ngFor="let newsItem of newsItems">
-    <mat-list-option role="listitem" [value]="newsItem">{{newsItem.title}}</mat-list-option>
-    <mat-divider  [inset]="true"></mat-divider>
-  </div>
-</mat-selection-list>
+  <mat-selection-list #selectionList role="list" (selectionChange)="onSelection($event)">
+    <div *ngFor="let newsItem of newsItems">
+      <mat-list-option role="listitem" [value]="newsItem">{{newsItem.title}}</mat-list-option>
+      <mat-divider [inset]="true"></mat-divider>
+    </div>
+  </mat-selection-list>
+  <mat-card-actions>
+    <button mat-fab (click)="createNew()">+</button>
+  </mat-card-actions>
 </mat-card>

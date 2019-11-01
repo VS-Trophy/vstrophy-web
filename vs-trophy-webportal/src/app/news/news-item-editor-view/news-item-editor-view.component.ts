@@ -31,8 +31,7 @@ export class NewsItemEditorViewComponent implements OnInit {
   }
 
   createNew(){
-    const newNewsItem: NewsItem = {author:null,publicationDate:null,content:null,title:"Not Saved Yet",_key:null};
-    this.items.push(newNewsItem);
+    
   }
 
 }

@@ -13,7 +13,7 @@ export class NewsItemEditorComponent implements OnInit {
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: false,
-    height: '25rem',
+    height: '40rem',
     minHeight: '5rem',
     translate: 'no',
     uploadUrl: 'v1/images', // if needed

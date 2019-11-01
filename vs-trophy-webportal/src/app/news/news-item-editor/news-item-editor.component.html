@@ -1,16 +1,25 @@
-<form *ngIf="newsItem" (ngSubmit)="onSave()" fxLayout="column" >
-  <mat-form-field>
-    <input matInput [(ngModel)]="newsItem.author" placeholder="Autor" name="author" >
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="newsItem.publicationDate" name="date" placeholder="Datum auswählen">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [(ngModel)]="newsItem.title" name="title" placeholder="Title">
-  </mat-form-field>
-  <angular-editor  [(ngModel)]="newsItem.content" name="content" [config]="editorConfig"></angular-editor>
-    <button mat-button type="submit">Speichern</button>
+<form *ngIf="newsItem" (ngSubmit)="onSave()" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-form-field>
+      <input matInput [(ngModel)]="newsItem.author" placeholder="Autor" name="author">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="newsItem.publicationDate" name="date"
+        placeholder="Datum auswählen">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field fxFlex="60">
+      <input matInput [(ngModel)]="newsItem.title" name="title" placeholder="Title">
+    </mat-form-field>
+    <button mat-button type="submit">
+        <mat-icon>save</mat-icon>
+      </button>
+  </div>
+
+
+
+  <angular-editor [(ngModel)]="newsItem.content" name="content" [config]="editorConfig"></angular-editor>
+
 </form>
 <div *ngIf="!newsItem"> None selected</div>
