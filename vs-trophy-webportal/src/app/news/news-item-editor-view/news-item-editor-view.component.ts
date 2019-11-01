@@ -27,7 +27,7 @@ export class NewsItemEditorViewComponent implements OnInit {
   }
 
   onSave(modifiedNewsItem: NewsItem){
-    this.newsItemService.updateNewsItem(modifiedNewsItem).subscribe(n => console.log(n))
+    this.newsItemService.updateNewsItem(modifiedNewsItem).subscribe(savedVersion => modifiedNewsItem._key = savedVersion._key)
   }
 
   createNew(){
