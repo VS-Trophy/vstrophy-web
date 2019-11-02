@@ -30,8 +30,5 @@ export class NewsItemEditorViewComponent implements OnInit {
     this.newsItemService.updateNewsItem(modifiedNewsItem).subscribe(savedVersion => modifiedNewsItem._key = savedVersion._key)
   }
 
-  createNew(){
-    
-  }
 
 }
