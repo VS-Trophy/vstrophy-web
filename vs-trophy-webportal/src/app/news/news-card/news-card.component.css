@@ -8,3 +8,7 @@ div.blink_me{
     50%{    color: transparent; }
     100%{   color: #ff69b4;    }
 }
+
+.news-card{
+    max-width: 80%;
+}

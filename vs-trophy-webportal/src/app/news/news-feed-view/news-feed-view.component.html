@@ -1,1 +1,3 @@
-<vst-news-card *ngFor="let newsItem of newsItems" [newsItem]="newsItem" class="news-feed-item"></vst-news-card>
+<div fxLayout="column" fxLayoutAlign="center center">
+    <vst-news-card *ngFor="let newsItem of newsItems" [newsItem]="newsItem" class="news-feed-item"></vst-news-card>
+</div>
