@@ -11,6 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TruncateHtmlPipe } from './truncate-html.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SanitizeHtmlPipe } from './sanitize-html.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   providers: [
     ExceptionService
   ],
-  declarations: [NavigationComponent, TruncateHtmlPipe],
-  exports: [NavigationComponent,TruncateHtmlPipe]
+  declarations: [NavigationComponent, TruncateHtmlPipe, SanitizeHtmlPipe],
+  exports: [NavigationComponent,TruncateHtmlPipe,SanitizeHtmlPipe]
 })
 export class CoreModule { }

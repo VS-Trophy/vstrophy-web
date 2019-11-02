@@ -1,10 +1,10 @@
-<mat-card>
+<mat-card class="newsCard">
   <mat-card-header>
     <mat-card-title><h1>{{newsItem.title}}</h1></mat-card-title>
     <mat-card-subtitle>{{newsItem.author}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <div [innerHTML]="newsItem.content | truncateHtml : 3000">
+    <div [innerHTML]="newsItem.content | truncateHtml : 3000" >
     </div>
   </mat-card-content>
   <mat-card-actions>
