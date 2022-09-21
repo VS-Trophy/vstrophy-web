@@ -140,7 +140,6 @@
       }
     }
   },
-  "defaultProject": "vs-trophy-webportal",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "vst",
