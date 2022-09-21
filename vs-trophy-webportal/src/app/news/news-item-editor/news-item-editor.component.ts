@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Directive as  } from '@angular/core';
 import { NewsItemService } from '../news-item.service';
 import { NewsItem } from '../news-item';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
+@()
+@Directive()
 @Component({
   selector: 'vst-news-item-editor',
   templateUrl: './news-item-editor.component.html',

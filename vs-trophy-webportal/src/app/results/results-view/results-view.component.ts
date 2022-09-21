@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Directive as  } from '@angular/core';
 import { Match } from '../../matches/match';
 import { MatchesService } from '../../matches/matches.service';
 import { WeekPointer } from '../../season/week-pointer';
 import { VSTrophyTeam } from '../../teams/vstrophyteam';
 
 
+@()
+@Directive()
 @Component({
   selector: 'vst-results-view',
   templateUrl: './results-view.component.html',

@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, Directive as  } from '@angular/core';
 import { VSTrophyTeam } from '../vstrophyteam';
 import { TeamsService } from '../teams.service';
 
+@()
+@Directive()
 @Component({
   selector: 'vst-team-selector',
   templateUrl: './team-selector.component.html',

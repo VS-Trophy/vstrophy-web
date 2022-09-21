@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Directive as  } from '@angular/core';
 import { WinLossRecord } from '../win-loss-record';
 
+@()
+@Directive()
 @Component({
   selector: 'vst-win-loss-record',
   templateUrl: './win-loss-record.component.html',

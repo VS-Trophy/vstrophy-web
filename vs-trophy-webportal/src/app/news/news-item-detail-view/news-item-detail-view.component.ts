@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Directive as  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewsItemService } from '../news-item.service';
 import { NewsItem } from '../news-item';
 
+@()
+@Directive()
 @Component({
   selector: 'vst-news-item-detail-view',
   templateUrl: './news-item-detail-view.component.html',

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Directive as  } from '@angular/core';
 import { MatchesService } from '../matches.service';
 import { ActivatedRoute } from '@angular/router';
 import { Match } from '../match';
@@ -7,6 +7,8 @@ import { PlayerPerformance } from '../../players/player-performance';
 import { RosterPartition } from '../roster-partition';
 import { OffenseRosterTableComponent } from '../offense-roster-table/offense-roster-table.component';
 
+@()
+@Directive()
 @Component({
   selector: 'vst-match-details',
   templateUrl: './match-details.component.html',
