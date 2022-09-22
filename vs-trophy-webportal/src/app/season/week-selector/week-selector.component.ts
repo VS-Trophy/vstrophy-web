@@ -1,9 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Input, Directive as  } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { SeasonsService } from '../seasons.service';
 import { WeekPointer } from '../week-pointer';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-week-selector',
   templateUrl: './week-selector.component.html',

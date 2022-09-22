@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Directive as  } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { TeamsService } from '../../teams/teams.service';
 import { WinLossRecord } from '../../stats/win-loss-record';
 import { StatsService } from '../../stats/stats.service';
@@ -9,8 +9,7 @@ import { Observable, merge } from 'rxjs';
 import { toArray } from 'rxjs/operators';
 import { PointStats } from '../../stats/point-stats';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-team-stats',
   templateUrl: './team-stats.component.html',

@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Directive as  } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Match } from '../match';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-match-list',
   templateUrl: './match-list.component.html',

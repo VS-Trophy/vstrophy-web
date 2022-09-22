@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, Input, Directive as  } from '@angular/core';
+import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PlayerPerformance } from '../../players/player-performance';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-offense-roster-table',
   templateUrl: './offense-roster-table.component.html',

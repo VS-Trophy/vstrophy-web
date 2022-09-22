@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy, Directive as  } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VSTrophyTeam } from '../vstrophyteam';
 import { TeamsService } from '../teams.service';
 import { StatsService } from '../../stats/stats.service';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-team-info',
   templateUrl: './team-info.component.html',

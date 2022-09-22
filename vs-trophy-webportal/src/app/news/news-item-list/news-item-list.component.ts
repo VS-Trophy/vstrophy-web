@@ -1,11 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, Directive as  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import { NewsItem } from '../news-item';
 import {  } from 'events';
 import { MatSelectionList, MatListOption, MatSelectionListChange } from '@angular/material/list';
 import { SelectionModel } from '@angular/cdk/collections';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-news-item-list',
   templateUrl: './news-item-list.component.html',
@@ -26,7 +25,7 @@ export class NewsItemListComponent implements OnInit {
 
 
   onSelection(selectionChange: MatSelectionListChange){
-    this.selectEvent.emit(selectionChange.option.value)
+    this.selectEvent.emit(selectionChange.options.values[0])
   }
 
   createNew(){

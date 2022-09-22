@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, Directive as  } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import { StatsService } from '../stats.service';
 import { PointStats } from '../point-stats';
 import { MatSort } from '@angular/material/sort';
@@ -7,8 +7,7 @@ import { TeamsService } from '../../teams/teams.service';
 import { tap } from 'rxjs/operators';
 import { WeekPointer } from '../../season/week-pointer';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-teams-table',
   templateUrl: './teams-table.component.html',

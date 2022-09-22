@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, Directive as  } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { NewsItem } from '../news-item';
 import { Router } from '@angular/router';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-news-card',
   templateUrl: './news-card.component.html',

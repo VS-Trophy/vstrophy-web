@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Directive as  } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-simple-stat',
   templateUrl: './simple-stat.component.html',

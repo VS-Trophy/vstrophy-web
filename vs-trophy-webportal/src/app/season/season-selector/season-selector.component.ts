@@ -1,8 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, Input, Directive as  } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { SeasonsService } from '../seasons.service';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-season-selector',
   templateUrl: './season-selector.component.html',

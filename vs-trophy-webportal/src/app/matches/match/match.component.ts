@@ -1,11 +1,10 @@
-import { Component, OnInit, Input, Directive as  } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Match } from '../match';
 
 const WINNER: string = "winner";
 const LOSER: string = "loser";
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-match',
   templateUrl: './match.component.html',

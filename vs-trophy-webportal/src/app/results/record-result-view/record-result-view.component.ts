@@ -1,9 +1,8 @@
-import { Component, OnInit, Directive as  } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MatchesService } from '../../matches/matches.service';
 import { Match } from '../../matches/match';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-record-result-view',
   templateUrl: './record-result-view.component.html',

@@ -1,9 +1,8 @@
-import { Component, OnInit, Directive as  } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NewsItem } from '../news-item';
 import { NewsItemService } from '../news-item.service';
 
-@()
-@Directive()
+
 @Component({
   selector: 'vst-news-feed-view',
   templateUrl: './news-feed-view.component.html',
