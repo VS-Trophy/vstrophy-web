@@ -1,4 +1,4 @@
 export const environment = {
-  production : false,
-  apiRoot: "https://arango.vstrophy.ch/_db/vs-trophy/"
+  production: true,
+  apiRoot: "https://vst-arangodb.jcloud.ik-server.com/_db/vs-trophy/"
 };

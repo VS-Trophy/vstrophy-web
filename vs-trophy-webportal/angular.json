@@ -55,43 +55,40 @@
                 }
               ]
             },
-            "azure": {
+            "development": {
               "budgets": [
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.azure.ts"
+                  "with": "src/environments/environment.dev.ts"
                 }
               ]
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "jelastic"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "vs-trophy-webportal:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "vs-trophy-webportal:build:production"
             },
-            "azure": {
-              "browserTarget": "vs-trophy-webportal:build:azure"
+            "development": {
+              "browserTarget": "vs-trophy-webportal:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
